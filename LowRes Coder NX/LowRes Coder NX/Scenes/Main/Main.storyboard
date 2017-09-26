@@ -32,7 +32,7 @@
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="tintColor" red="0.95564913749694824" green="0.95562052726745605" blue="0.95563679933547974" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="18"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" autocorrectionType="no" spellCheckingType="no"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" autocorrectionType="no" spellCheckingType="no" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
                                 <variation key="widthClass=compact">
                                     <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="14"/>
                                 </variation>
@@ -144,7 +144,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dvn-eA-KIe">
-                                <rect key="frame" x="17.5" y="117.5" width="340" height="368"/>
+                                <rect key="frame" x="17.5" y="118" width="340" height="368"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="250" image="icon_about" translatesAutoresizingMaskIntoConstraints="NO" id="iCN-wF-fZ1">
                                         <rect key="frame" x="120" y="20" width="100" height="100"/>
@@ -372,13 +372,13 @@ The upgrade is valid for all your devices and without time limit.</string>
                                             <rect key="frame" x="137.5" y="16" width="100" height="100"/>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LOWRES CODER NX" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZfG-TZ-kA5" customClass="TextLabel">
-                                            <rect key="frame" x="79.5" y="132" width="217" height="28"/>
+                                            <rect key="frame" x="79" y="132" width="217" height="28"/>
                                             <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="24"/>
                                             <color key="textColor" red="0.0" green="0.0014800280332565308" blue="0.10033674538135529" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(Version x.x)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6zC-PQ-jSm" customClass="TextLabel">
-                                            <rect key="frame" x="150" y="168" width="76" height="16"/>
+                                            <rect key="frame" x="149.5" y="168" width="76" height="16"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                             <color key="textColor" red="0.0" green="0.0014800280332565308" blue="0.10033674538135529" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
@@ -817,33 +817,29 @@ Inutilis Software, 2015-2017</string>
                                 <collectionViewLayout key="collectionViewLayout" id="yMs-ac-1j6" customClass="DraggableCollectionViewFlowLayout"/>
                                 <cells>
                                     <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ProgramCell" id="4E0-sW-TxH" customClass="ExplorerProgramCell" customModule="LowRes_Coder_NX" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="140" height="140"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="110" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="140" height="140"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="110" height="100"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="(Program Name)" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="Y0e-d8-avy" customClass="TextLabel">
-                                                    <rect key="frame" x="8" y="102" width="124" height="16.5"/>
+                                                <imageView opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="star" translatesAutoresizingMaskIntoConstraints="NO" id="liv-zd-RbV">
+                                                    <rect key="frame" x="9" y="0.0" width="28" height="28"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" fixedFrame="YES" text="Program Name" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="Y0e-d8-avy" customClass="TextLabel">
+                                                    <rect key="frame" x="0.0" y="64" width="110" height="36"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="14"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KyM-fJ-oxW">
-                                                    <rect key="frame" x="22" y="0.0" width="96" height="96"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                </imageView>
-                                                <imageView opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="star" translatesAutoresizingMaskIntoConstraints="NO" id="liv-zd-RbV">
-                                                    <rect key="frame" x="8" y="0.0" width="28" height="28"/>
+                                                    <rect key="frame" x="15" y="0.0" width="80" height="64"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
                                             </subviews>
                                         </view>
-                                        <constraints>
-                                            <constraint firstAttribute="trailing" secondItem="Y0e-d8-avy" secondAttribute="trailing" constant="8" id="1dL-Gb-n2V"/>
-                                            <constraint firstItem="Y0e-d8-avy" firstAttribute="top" secondItem="4E0-sW-TxH" secondAttribute="top" constant="102" id="L06-z2-G8E"/>
-                                            <constraint firstItem="Y0e-d8-avy" firstAttribute="leading" secondItem="4E0-sW-TxH" secondAttribute="leading" constant="8" id="MX0-w1-pYk"/>
-                                        </constraints>
-                                        <size key="customSize" width="140" height="140"/>
+                                        <size key="customSize" width="110" height="100"/>
                                         <connections>
                                             <outlet property="nameLabel" destination="Y0e-d8-avy" id="Vmk-zp-lqd"/>
                                             <outlet property="previewImageView" destination="KyM-fJ-oxW" id="wFy-vq-YjC"/>
@@ -851,34 +847,30 @@ Inutilis Software, 2015-2017</string>
                                         </connections>
                                     </collectionViewCell>
                                     <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="FolderCell" id="7me-Ui-7ff" customClass="ExplorerProgramCell" customModule="LowRes_Coder_NX" customModuleProvider="target">
-                                        <rect key="frame" x="235" y="0.0" width="140" height="140"/>
+                                        <rect key="frame" x="120" y="0.0" width="125" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="140" height="140"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="125" height="100"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="(Folder Name)" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="TU6-sw-ZCd" customClass="TextLabel">
-                                                    <rect key="frame" x="8" y="102" width="124" height="16.5"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" fixedFrame="YES" text="(Folder Name)" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="TU6-sw-ZCd" customClass="TextLabel">
+                                                    <rect key="frame" x="0.0" y="64" width="125" height="36"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="14"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <view opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UBu-4K-4uE">
-                                                    <rect key="frame" x="22" y="0.0" width="96" height="96"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <color key="backgroundColor" red="0.79607843137254897" green="0.80392156862745101" blue="0.81960784313725488" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                </view>
                                                 <imageView opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="star" translatesAutoresizingMaskIntoConstraints="NO" id="cbG-7Z-OPe">
                                                     <rect key="frame" x="8" y="0.0" width="28" height="28"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
+                                                <view opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UBu-4K-4uE">
+                                                    <rect key="frame" x="22" y="0.0" width="80" height="64"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="backgroundColor" red="0.79607843137254897" green="0.80392156862745101" blue="0.81960784313725488" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </view>
                                             </subviews>
                                         </view>
-                                        <constraints>
-                                            <constraint firstItem="TU6-sw-ZCd" firstAttribute="leading" secondItem="7me-Ui-7ff" secondAttribute="leading" constant="8" id="NLd-lM-off"/>
-                                            <constraint firstAttribute="trailing" secondItem="TU6-sw-ZCd" secondAttribute="trailing" constant="8" id="RMQ-Jy-Cl1"/>
-                                            <constraint firstItem="TU6-sw-ZCd" firstAttribute="top" secondItem="7me-Ui-7ff" secondAttribute="top" constant="102" id="n3f-L5-Nud"/>
-                                        </constraints>
-                                        <size key="customSize" width="140" height="140"/>
+                                        <size key="customSize" width="125" height="100"/>
                                         <connections>
                                             <outlet property="folderView" destination="UBu-4K-4uE" id="wKA-OM-iGm"/>
                                             <outlet property="nameLabel" destination="TU6-sw-ZCd" id="isg-p5-crr"/>
@@ -904,7 +896,7 @@ Inutilis Software, 2015-2017</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JJn-Ol-X1d" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="527" y="1150"/>
+            <point key="canvasLocation" x="525.60000000000002" y="1149.1754122938532"/>
         </scene>
     </scenes>
     <resources>

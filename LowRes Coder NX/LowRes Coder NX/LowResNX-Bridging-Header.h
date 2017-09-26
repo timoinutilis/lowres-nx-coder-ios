@@ -7,9 +7,11 @@
 //
 
 #include "core.h"
+
 #import "AppController.h"
 #import "AppStyle.h"
 #import "CommunityModel.h"
 #import "UICollectionView+Draggable.h"
 #import "DraggableCollectionViewFlowLayout.h"
 
+#import "EditorViewController.h"

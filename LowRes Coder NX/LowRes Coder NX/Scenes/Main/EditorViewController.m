@@ -23,6 +23,7 @@
 #import "IndexSideBar.h"
 #import "ProjectSettingsViewController.h"
 #import <ReplayKit/ReplayKit.h>
+#import "LowRes_Coder_NX-Swift.h"
 
 int const EditorDemoMaxLines = 24;
 NSString *const CoachMarkIDStart = @"CoachMarkIDStart";
@@ -32,8 +33,6 @@ NSString *const CoachMarkIDHelp = @"CoachMarkIDHelp";
 NSString *const InfoIDExample = @"InfoIDExample";
 NSString *const InfoIDLongProgram = @"InfoIDLongProgram";
 NSString *const InfoIDPaste = @"InfoIDPaste";
-
-static int s_editorInstancesCount = 0;
 
 typedef void(^InfoBlock)(void);
 
@@ -69,12 +68,6 @@ typedef void(^InfoBlock)(void);
 {
     [super viewDidLoad];
     
-    s_editorInstancesCount++;
-    if (s_editorInstancesCount > 1)
-    {
-        @throw [NSException exceptionWithName:@"TooManyEditorInstances" reason:@"Too many editor instances" userInfo:nil];
-    }
-    
     UIBarButtonItem *startItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemPlay target:self action:@selector(onRunTapped:)];
     self.projectItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(onProjectTapped:)];
     UIBarButtonItem *searchItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"search"] style:UIBarButtonItemStylePlain target:self action:@selector(onSearchTapped:)];
@@ -88,9 +81,9 @@ typedef void(^InfoBlock)(void);
     self.sourceCodeTextView.tintColor = [AppStyle brightColor];
     self.sourceCodeTextView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
     
-//    self.navigationItem.title = self.project.name;
+    self.navigationItem.title = self.project.name;
     
-//    self.sourceCodeTextView.text = self.project.sourceCode ? self.project.sourceCode : @"";
+    self.sourceCodeTextView.text = self.project.sourceCode ?: @"";
     self.sourceCodeTextView.layoutManager.allowsNonContiguousLayout = NO;
     self.sourceCodeTextView.delegate = self;
     self.sourceCodeTextView.editorDelegate = self;
@@ -122,8 +115,6 @@ typedef void(^InfoBlock)(void);
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
 //    [[NSNotificationCenter defaultCenter] removeObserver:self name:ModelManagerWillSaveDataNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UpgradeNotification object:nil];
-    
-    s_editorInstancesCount--;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -241,18 +232,13 @@ typedef void(^InfoBlock)(void);
 
 - (void)saveProject
 {
-//    [[ModelManager sharedManager] saveContext];
-}
-
-- (void)willSaveData:(NSNotification *)notification
-{
-/*    if (   self.project
+    if (   self.project
         && ![self isExample]
         && ([AppController sharedController].isFullVersion || self.sourceCodeTextView.text.countLines <= EditorDemoMaxLines)
         && ![self.sourceCodeTextView.text isEqualToString:self.project.sourceCode])
-    {
-        self.project.sourceCode = self.sourceCodeTextView.text.uppercaseString;
-    }*/
+     {
+         self.project.sourceCode = self.sourceCodeTextView.text.uppercaseString;
+     }
 }
 
 - (void)didUpgrade:(NSNotification *)notification
@@ -579,8 +565,8 @@ typedef void(^InfoBlock)(void);
         
         if (community)
         {
-            UIViewController *vc = [ShareViewController createShareWithProject:self.project];
-            [self presentViewController:vc animated:YES completion:nil];
+//            UIViewController *vc = [ShareViewController createShareWithProject:self.project];
+//            [self presentViewController:vc animated:YES completion:nil];
         }
         else
         {/*
@@ -870,8 +856,7 @@ typedef void(^InfoBlock)(void);
 */
 - (BOOL)isExample
 {
-//    return self.project.isDefault.boolValue;
-    return NO;
+    return self.project.isDefault;
 }
 
 @end

@@ -56,8 +56,9 @@ NSString *const ImportProjectNotification = @"ImportProjectNotification";
 
 - (BOOL)isFullVersion
 {
-    NSUserDefaults *storage = [NSUserDefaults standardUserDefaults];
-    return [storage boolForKey:FullVersionProductID];
+    return YES;
+//    NSUserDefaults *storage = [NSUserDefaults standardUserDefaults];
+//    return [storage boolForKey:FullVersionProductID];
 }
 
 - (void)upgradeToFullVersion

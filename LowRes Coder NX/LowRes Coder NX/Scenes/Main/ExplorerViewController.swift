@@ -12,52 +12,55 @@ class ExplorerViewController: UIViewController, UICollectionViewDelegate, UIColl
 
     @IBOutlet weak var collectionView: UICollectionView!
     
-    var folder: Program?
-    var programs: [Program]?
+    var folder: Project?
+    var projects: [Project]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         let addProjectItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(onAddProjectTapped))
-        let actionItem = UIBarButtonItem(image: UIImage(named:"folder"), style: .plain, target: self, action: #selector(onActionTapped))
+//        let actionItem = UIBarButtonItem(image: UIImage(named:"folder"), style: .plain, target: self, action: #selector(onActionTapped))
         
-        navigationItem.rightBarButtonItems = [addProjectItem, actionItem]
+//        navigationItem.rightBarButtonItems = [addProjectItem, actionItem]
+        navigationItem.rightBarButtonItem = addProjectItem
         
         collectionView.dataSource = self
         collectionView.delegate = self
-        collectionView.draggable = true
+//        collectionView.draggable = true
         
         let layout = collectionView.collectionViewLayout as! DraggableCollectionViewFlowLayout
-        layout.itemSize = CGSize(width: 140, height: 140)
-        layout.minimumInteritemSpacing = 0
+        layout.itemSize = CGSize(width: 110, height: 100)
+        layout.minimumInteritemSpacing = 10
         layout.minimumLineSpacing = 10
-        layout.sectionInset = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
+        layout.sectionInset = UIEdgeInsets(top: 20, left: 10, bottom: 20, right: 10)
         
         if let folder = folder {
             title = folder.name
         } else {
-            let documentsUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).last!
-            folder = Program(fileUrl: documentsUrl)
+            let documentsUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+            folder = Project(fileUrl: documentsUrl)
         }
         
-        loadPrograms()
+        loadProjects()
     }
     
-    func loadPrograms() {
+    func loadProjects() {
         guard let folder = folder else {
             return
         }
         
         do {
             let urls = try FileManager.default.contentsOfDirectory(at: folder.fileUrl!, includingPropertiesForKeys: nil, options: [])
-            var programs = [Program]()
+            var projects = [Project]()
             for url in urls {
-                programs.append(Program(fileUrl: url))
+                if url.pathExtension == "nx" {
+                    projects.append(Project(fileUrl: url))
+                }
             }
-            self.programs = programs
+            self.projects = projects
         } catch {
             // error
-            programs = nil
+            projects = nil
         }
         collectionView.reloadData()
     }
@@ -157,13 +160,24 @@ class ExplorerViewController: UIViewController, UICollectionViewDelegate, UIColl
     //MARK: - UICollectionViewDataSource
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.programs?.count ?? 0
+        return self.projects?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProgramCell", for: indexPath) as! ExplorerProgramCell
-        cell.program = self.programs?[indexPath.item]
+        cell.program = self.projects?[indexPath.item]
         return cell
     }
     
+    //MARK: - UICollectionViewDelegate
+    
+    public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let program = projects![indexPath.item]
+        
+        AppController.shared().onProgramOpened()
+        
+        let vc = storyboard!.instantiateViewController(withIdentifier: "EditorView") as! EditorViewController
+        vc.project = program
+        navigationController?.pushViewController(vc, animated: true)
+    }
 }

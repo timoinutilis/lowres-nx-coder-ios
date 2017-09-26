@@ -15,7 +15,7 @@ class ExplorerProgramCell: UICollectionViewCell {
     @IBOutlet weak var starImageView: UIImageView!
     @IBOutlet weak var folderView: UIView!
     
-    var program: Program? {
+    var program: Project? {
         didSet {
             if let program = program {
                 nameLabel.text = program.name
@@ -23,6 +23,13 @@ class ExplorerProgramCell: UICollectionViewCell {
                 starImageView.isHidden = !program.isDefault
             }
         }
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        let imageLayer = previewImageView != nil ? previewImageView.layer : folderView.layer
+        imageLayer.cornerRadius = 4
+        imageLayer.masksToBounds = true
     }
     
 }

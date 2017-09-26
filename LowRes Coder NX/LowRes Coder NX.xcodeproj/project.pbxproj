@@ -109,7 +109,7 @@
 		923AFD9A1F77ED71002F6A5B /* CommUsersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 925CC52B1F75876D0059C230 /* CommUsersViewController.m */; };
 		923AFD9B1F77ED71002F6A5B /* NotificationsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 925CC5281F75876D0059C230 /* NotificationsViewController.m */; };
 		923AFD9C1F77ED71002F6A5B /* UIViewController+CommUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 925CC5251F75876D0059C230 /* UIViewController+CommUtils.m */; };
-		923AFD9F1F77F036002F6A5B /* Program.swift in Sources */ = {isa = PBXBuildFile; fileRef = 923AFD9E1F77F036002F6A5B /* Program.swift */; };
+		923AFD9F1F77F036002F6A5B /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 923AFD9E1F77F036002F6A5B /* Project.swift */; };
 		925CC6B81F758A120059C230 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 925CC6B71F758A120059C230 /* StoreKit.framework */; };
 		925CC6BA1F758A360059C230 /* ReplayKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 925CC6B91F758A360059C230 /* ReplayKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		926EB1D31F757EA70048A6CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 926EB1D21F757EA70048A6CF /* LaunchScreen.storyboard */; };
@@ -217,7 +217,7 @@
 		923AFD651F77E955002F6A5B /* UIView+WebCache.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+WebCache.m"; sourceTree = "<group>"; };
 		923AFD661F77E955002F6A5B /* UIView+WebCacheOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+WebCacheOperation.h"; sourceTree = "<group>"; };
 		923AFD671F77E955002F6A5B /* UIView+WebCacheOperation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+WebCacheOperation.m"; sourceTree = "<group>"; };
-		923AFD9E1F77F036002F6A5B /* Program.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Program.swift; sourceTree = "<group>"; };
+		923AFD9E1F77F036002F6A5B /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		925CC5141F75876B0059C230 /* CommLogInViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommLogInViewController.m; sourceTree = "<group>"; };
 		925CC5151F75876B0059C230 /* UIViewController+CommUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIViewController+CommUtils.h"; sourceTree = "<group>"; };
 		925CC5161F75876B0059C230 /* CommUsersViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommUsersViewController.h; sourceTree = "<group>"; };
@@ -553,7 +553,7 @@
 		923AFD9D1F77F012002F6A5B /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				923AFD9E1F77F036002F6A5B /* Program.swift */,
+				923AFD9E1F77F036002F6A5B /* Project.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1094,7 +1094,7 @@
 				920E1B351F78024500664382 /* UITextView+Utils.m in Sources */,
 				9284022C1F7448B500AC1466 /* variables.c in Sources */,
 				920E1B331F78024500664382 /* UIColor+Utils.m in Sources */,
-				923AFD9F1F77F036002F6A5B /* Program.swift in Sources */,
+				923AFD9F1F77F036002F6A5B /* Project.swift in Sources */,
 				920E1B391F78024E00664382 /* GORScrollViewDelegate.m in Sources */,
 				928402201F7448B500AC1466 /* cmd_sprites.c in Sources */,
 				9284021D1F7448B500AC1466 /* cmd_maths.c in Sources */,
@@ -1280,6 +1280,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.inutilis.ios.LowRes-Coder-NX";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "LowRes Coder NX/LowResNX-Bridging-Header.h";
+				SWIFT_PRECOMPILE_BRIDGING_HEADER = YES;
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -1294,6 +1295,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.inutilis.ios.LowRes-Coder-NX";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "LowRes Coder NX/LowResNX-Bridging-Header.h";
+				SWIFT_PRECOMPILE_BRIDGING_HEADER = YES;
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
