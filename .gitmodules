@@ -1,9 +1,0 @@
-[submodule "LowRes Coder NX/LowRes NX Core"]
-	path = LowRes Coder NX/LowRes NX Core
-	url = https://timoinutilis@github.com/timoinutilis/lowres-nx.git
-[submodule "LowRes Coder NX/AFNetworking"]
-	path = LowRes Coder NX/AFNetworking
-	url = https://github.com/AFNetworking/AFNetworking.git
-[submodule "LowRes Coder NX/SDWebImage"]
-	path = LowRes Coder NX/SDWebImage
-	url = https://github.com/rs/SDWebImage.git

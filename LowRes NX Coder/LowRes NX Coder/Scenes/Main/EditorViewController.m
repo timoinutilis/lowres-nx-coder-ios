@@ -23,7 +23,7 @@
 #import "IndexSideBar.h"
 #import "ProjectSettingsViewController.h"
 #import <ReplayKit/ReplayKit.h>
-#import "LowRes_Coder_NX-Swift.h"
+#import "LowRes_NX_Coder-Swift.h"
 
 int const EditorDemoMaxLines = 24;
 NSString *const CoachMarkIDStart = @"CoachMarkIDStart";

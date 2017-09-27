@@ -149,8 +149,8 @@
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="250" image="icon_about" translatesAutoresizingMaskIntoConstraints="NO" id="iCN-wF-fZ1">
                                         <rect key="frame" x="120" y="20" width="100" height="100"/>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Upgrade to full version" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nq7-k6-o2g" customClass="TextLabel">
-                                        <rect key="frame" x="0.0" y="136" width="340" height="20.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Upgrade to Full Version" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nq7-k6-o2g" customClass="TextLabel">
+                                        <rect key="frame" x="0.0" y="136" width="340" height="21"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -371,7 +371,7 @@ The upgrade is valid for all your devices and without time limit.</string>
                                         <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_about" translatesAutoresizingMaskIntoConstraints="NO" id="LfM-vY-AYb">
                                             <rect key="frame" x="137.5" y="16" width="100" height="100"/>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LOWRES CODER NX" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZfG-TZ-kA5" customClass="TextLabel">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LOWRES NX CODER" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZfG-TZ-kA5" customClass="TextLabel">
                                             <rect key="frame" x="79" y="132" width="217" height="28"/>
                                             <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="24"/>
                                             <color key="textColor" red="0.0" green="0.0014800280332565308" blue="0.10033674538135529" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -802,7 +802,7 @@ Inutilis Software, 2015-2017</string>
         <!--My Programs-->
         <scene sceneID="3mJ-o1-cJC">
             <objects>
-                <viewController storyboardIdentifier="ExplorerView" id="Xni-Pq-CRZ" customClass="ExplorerViewController" customModule="LowRes_Coder_NX" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ExplorerView" id="Xni-Pq-CRZ" customClass="ExplorerViewController" customModule="LowRes_NX_Coder" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="63p-SP-37V"/>
                         <viewControllerLayoutGuide type="bottom" id="ijW-NB-o4Z"/>
@@ -816,7 +816,7 @@ Inutilis Software, 2015-2017</string>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <collectionViewLayout key="collectionViewLayout" id="yMs-ac-1j6" customClass="DraggableCollectionViewFlowLayout"/>
                                 <cells>
-                                    <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ProgramCell" id="4E0-sW-TxH" customClass="ExplorerProgramCell" customModule="LowRes_Coder_NX" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ProgramCell" id="4E0-sW-TxH" customClass="ExplorerProgramCell" customModule="LowRes_NX_Coder" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="110" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -846,7 +846,7 @@ Inutilis Software, 2015-2017</string>
                                             <outlet property="starImageView" destination="liv-zd-RbV" id="963-ty-yce"/>
                                         </connections>
                                     </collectionViewCell>
-                                    <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="FolderCell" id="7me-Ui-7ff" customClass="ExplorerProgramCell" customModule="LowRes_Coder_NX" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="FolderCell" id="7me-Ui-7ff" customClass="ExplorerProgramCell" customModule="LowRes_NX_Coder" customModuleProvider="target">
                                         <rect key="frame" x="120" y="0.0" width="125" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
