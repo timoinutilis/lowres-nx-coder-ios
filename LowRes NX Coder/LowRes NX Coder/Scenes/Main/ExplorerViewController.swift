@@ -12,8 +12,8 @@ class ExplorerViewController: UIViewController, UICollectionViewDelegate, UIColl
 
     @IBOutlet weak var collectionView: UICollectionView!
     
-    var folder: Project?
-    var projects: [Project]?
+    var folder: ExplorerItem?
+    var items: [ExplorerItem]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,29 +38,30 @@ class ExplorerViewController: UIViewController, UICollectionViewDelegate, UIColl
             title = folder.name
         } else {
             let documentsUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-            folder = Project(fileUrl: documentsUrl)
+            print("documents:", documentsUrl)
+            folder = ExplorerItem(fileUrl: documentsUrl)
         }
         
-        loadProjects()
+        loadItems()
     }
     
-    func loadProjects() {
+    func loadItems() {
         guard let folder = folder else {
             return
         }
         
         do {
-            let urls = try FileManager.default.contentsOfDirectory(at: folder.fileUrl!, includingPropertiesForKeys: nil, options: [])
-            var projects = [Project]()
+            let urls = try FileManager.default.contentsOfDirectory(at: folder.fileUrl, includingPropertiesForKeys: nil, options: [])
+            var items = [ExplorerItem]()
             for url in urls {
                 if url.pathExtension == "nx" {
-                    projects.append(Project(fileUrl: url))
+                    items.append(ExplorerItem(fileUrl: url))
                 }
             }
-            self.projects = projects
+            self.items = items
         } catch {
             // error
-            projects = nil
+            items = nil
         }
         collectionView.reloadData()
     }
@@ -70,9 +71,13 @@ class ExplorerViewController: UIViewController, UICollectionViewDelegate, UIColl
             //showAlertWithTitle:@"Cannot add programs to example folders" message:nil block:nil];
         } else {
             //[[AppController sharedController] onShowInfoID:CoachMarkIDAdd];
-    
-            //[[ModelManager sharedManager] createNewProjectInFolder:self.folder];
-            //[self showAddedProject];
+            
+            if let folderUrl = folder?.fileUrl {
+                let date = Date()
+                let name = "New Program \(Int(date.timeIntervalSinceReferenceDate)).nx"
+                let url = folderUrl.appendingPathComponent(name)
+                showEditor(fileUrl: url, isNew: true)
+            }
         }
     }
     
@@ -157,27 +162,33 @@ class ExplorerViewController: UIViewController, UICollectionViewDelegate, UIColl
     }*/
     }
     
+    func showEditor(fileUrl: URL, isNew: Bool) {
+        AppController.shared().onProgramOpened()
+        
+        let document = ProjectDocument(fileURL: fileUrl)
+        document.isNew = isNew
+        
+        let vc = storyboard!.instantiateViewController(withIdentifier: "EditorView") as! EditorViewController
+        vc.document = document
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
     //MARK: - UICollectionViewDataSource
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.projects?.count ?? 0
+        return self.items?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProgramCell", for: indexPath) as! ExplorerProgramCell
-        cell.program = self.projects?[indexPath.item]
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProjectCell", for: indexPath) as! ExplorerItemCell
+        cell.item = self.items?[indexPath.item]
         return cell
     }
     
     //MARK: - UICollectionViewDelegate
     
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let program = projects![indexPath.item]
-        
-        AppController.shared().onProgramOpened()
-        
-        let vc = storyboard!.instantiateViewController(withIdentifier: "EditorView") as! EditorViewController
-        vc.project = program
-        navigationController?.pushViewController(vc, animated: true)
+        let item = items![indexPath.item]
+        showEditor(fileUrl: item.fileUrl, isNew: false)
     }
 }

@@ -8,19 +8,19 @@
 
 import UIKit
 
-class ExplorerProgramCell: UICollectionViewCell {
+class ExplorerItemCell: UICollectionViewCell {
     
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var previewImageView: UIImageView!
     @IBOutlet weak var starImageView: UIImageView!
     @IBOutlet weak var folderView: UIView!
     
-    var program: Project? {
+    var item: ExplorerItem? {
         didSet {
-            if let program = program {
-                nameLabel.text = program.name
-                previewImageView.image = program.image
-                starImageView.isHidden = !program.isDefault
+            if let item = item {
+                nameLabel.text = item.name
+                previewImageView.image = item.image
+                starImageView.isHidden = !item.isDefault
             }
         }
     }

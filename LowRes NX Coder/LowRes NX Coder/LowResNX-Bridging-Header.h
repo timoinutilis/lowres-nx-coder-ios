@@ -13,5 +13,9 @@
 #import "CommunityModel.h"
 #import "UICollectionView+Draggable.h"
 #import "DraggableCollectionViewFlowLayout.h"
+#import "NSString+Utils.h"
 
-#import "EditorViewController.h"
+#import "EditorTextView.h"
+#import "SearchToolbar.h"
+#import "IndexSideBar.h"
+

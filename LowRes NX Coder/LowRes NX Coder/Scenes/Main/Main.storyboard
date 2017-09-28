@@ -18,7 +18,7 @@
         <!--(Program Name)-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController storyboardIdentifier="EditorView" automaticallyAdjustsScrollViewInsets="NO" id="BYZ-38-t0r" customClass="EditorViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="EditorView" automaticallyAdjustsScrollViewInsets="NO" id="BYZ-38-t0r" customClass="EditorViewController" customModule="LowRes_NX_Coder" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -123,7 +123,7 @@
                         <outlet property="infoViewConstraint" destination="Hk1-9L-Zq3" id="sRZ-VX-uG6"/>
                         <outlet property="searchToolbar" destination="dQG-Tl-hCV" id="lmg-E2-hIq"/>
                         <outlet property="searchToolbarConstraint" destination="Jlj-xL-vD5" id="q9u-Pb-Kg4"/>
-                        <outlet property="sourceCodeTextView" destination="SjB-QF-tvR" id="adj-Wv-Tev"/>
+                        <outlet property="sourceCodeTextView" destination="SjB-QF-tvR" id="Jsp-Er-EuK"/>
                         <segue destination="gyc-hD-d0L" kind="presentation" identifier="Upgrade" modalPresentationStyle="formSheet" id="HMJ-f5-m8b"/>
                     </connections>
                 </viewController>
@@ -816,7 +816,7 @@ Inutilis Software, 2015-2017</string>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <collectionViewLayout key="collectionViewLayout" id="yMs-ac-1j6" customClass="DraggableCollectionViewFlowLayout"/>
                                 <cells>
-                                    <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ProgramCell" id="4E0-sW-TxH" customClass="ExplorerProgramCell" customModule="LowRes_NX_Coder" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ProjectCell" id="4E0-sW-TxH" customClass="ExplorerItemCell" customModule="LowRes_NX_Coder" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="110" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -827,7 +827,7 @@ Inutilis Software, 2015-2017</string>
                                                     <rect key="frame" x="9" y="0.0" width="28" height="28"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" fixedFrame="YES" text="Program Name" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="Y0e-d8-avy" customClass="TextLabel">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" fixedFrame="YES" text="(Project Name)" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="Y0e-d8-avy" customClass="TextLabel">
                                                     <rect key="frame" x="0.0" y="64" width="110" height="36"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="14"/>
@@ -846,7 +846,7 @@ Inutilis Software, 2015-2017</string>
                                             <outlet property="starImageView" destination="liv-zd-RbV" id="963-ty-yce"/>
                                         </connections>
                                     </collectionViewCell>
-                                    <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="FolderCell" id="7me-Ui-7ff" customClass="ExplorerProgramCell" customModule="LowRes_NX_Coder" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="FolderCell" id="7me-Ui-7ff" customClass="ExplorerItemCell" customModule="LowRes_NX_Coder" customModuleProvider="target">
                                         <rect key="frame" x="120" y="0.0" width="125" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -859,15 +859,15 @@ Inutilis Software, 2015-2017</string>
                                                     <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="14"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="star" translatesAutoresizingMaskIntoConstraints="NO" id="cbG-7Z-OPe">
-                                                    <rect key="frame" x="8" y="0.0" width="28" height="28"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                </imageView>
                                                 <view opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UBu-4K-4uE">
                                                     <rect key="frame" x="22" y="0.0" width="80" height="64"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <color key="backgroundColor" red="0.79607843137254897" green="0.80392156862745101" blue="0.81960784313725488" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </view>
+                                                <imageView opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="star" translatesAutoresizingMaskIntoConstraints="NO" id="cbG-7Z-OPe">
+                                                    <rect key="frame" x="8" y="0.0" width="28" height="28"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
                                             </subviews>
                                         </view>
                                         <size key="customSize" width="125" height="100"/>
