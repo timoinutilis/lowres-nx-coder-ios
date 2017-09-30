@@ -8,12 +8,13 @@
 
 import UIKit
 
-class ExplorerViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+class ExplorerViewController: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
 
     @IBOutlet weak var collectionView: UICollectionView!
     
     var folder: ExplorerItem?
     var items: [ExplorerItem]?
+    var addedItem: ExplorerItem?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,7 +31,7 @@ class ExplorerViewController: UIViewController, UICollectionViewDelegate, UIColl
         
         let layout = collectionView.collectionViewLayout as! DraggableCollectionViewFlowLayout
         layout.itemSize = CGSize(width: 110, height: 100)
-        layout.minimumInteritemSpacing = 10
+        layout.minimumInteritemSpacing = 0
         layout.minimumLineSpacing = 10
         layout.sectionInset = UIEdgeInsets(top: 20, left: 10, bottom: 20, right: 10)
         
@@ -43,6 +44,16 @@ class ExplorerViewController: UIViewController, UICollectionViewDelegate, UIColl
         }
         
         loadItems()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        showAddedItem()
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        collectionView.collectionViewLayout.invalidateLayout()
     }
     
     func loadItems() {
@@ -58,12 +69,25 @@ class ExplorerViewController: UIViewController, UICollectionViewDelegate, UIColl
                     items.append(ExplorerItem(fileUrl: url))
                 }
             }
+            items.sort(by: { (item1, item2) -> Bool in
+                return item1.createdAt < item2.createdAt
+            })
             self.items = items
         } catch {
             // error
             items = nil
         }
         collectionView.reloadData()
+    }
+    
+    func showAddedItem() {
+        if let addedItem = addedItem, items != nil {
+            items!.append(addedItem)
+            let indexPath = IndexPath(item: items!.count - 1, section: 0)
+            collectionView.insertItems(at: [indexPath])
+            collectionView.scrollToItem(at: indexPath, at: .bottom, animated: true)
+            self.addedItem = nil
+        }
     }
 
     func onAddProjectTapped(_ sender: Any) {
@@ -76,7 +100,16 @@ class ExplorerViewController: UIViewController, UICollectionViewDelegate, UIColl
                 let date = Date()
                 let name = "New Program \(Int(date.timeIntervalSinceReferenceDate)).nx"
                 let url = folderUrl.appendingPathComponent(name)
-                showEditor(fileUrl: url, isNew: true)
+                
+                let document = ProjectDocument(fileURL: url)
+                document.save(to: url, for: .forCreating, completionHandler: { (success) in
+                    if success {
+                        self.addedItem = ExplorerItem(fileUrl: url)
+                        self.showAddedItem()
+                    } else {
+                        //error
+                    }
+                })
             }
         }
     }
@@ -162,12 +195,10 @@ class ExplorerViewController: UIViewController, UICollectionViewDelegate, UIColl
     }*/
     }
     
-    func showEditor(fileUrl: URL, isNew: Bool) {
+    func showEditor(fileUrl: URL) {
         AppController.shared().onProgramOpened()
         
         let document = ProjectDocument(fileURL: fileUrl)
-        document.isNew = isNew
-        
         let vc = storyboard!.instantiateViewController(withIdentifier: "EditorView") as! EditorViewController
         vc.document = document
         navigationController?.pushViewController(vc, animated: true)
@@ -185,10 +216,17 @@ class ExplorerViewController: UIViewController, UICollectionViewDelegate, UIColl
         return cell
     }
     
-    //MARK: - UICollectionViewDelegate
+    //MARK: - UICollectionViewDelegateFlowLayout
     
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let item = items![indexPath.item]
-        showEditor(fileUrl: item.fileUrl, isNew: false)
+        showEditor(fileUrl: item.fileUrl)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let layout = collectionViewLayout as! UICollectionViewFlowLayout
+        let width = collectionView.bounds.size.width - layout.sectionInset.left - layout.sectionInset.right
+        let numItemsPerLine = floor(width / 110)
+        return CGSize(width: floor(width / numItemsPerLine), height: 100)
     }
 }

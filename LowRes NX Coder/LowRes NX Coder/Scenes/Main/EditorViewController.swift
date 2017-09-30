@@ -31,10 +31,13 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
     @IBOutlet weak var infoLabel: UILabel!
     @IBOutlet weak var infoViewConstraint: NSLayoutConstraint!
     @IBOutlet weak var indexSideBarConstraint: NSLayoutConstraint!
+    @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
     
     var numLines: UInt = 0
+    var didAppearAlready = false
+    var spacesToInsert: String?
+    
     /*
-     @property BOOL didAppearAlready;
      @property BOOL wasEditedSinceOpened;
      @property BOOL wasEditedSinceLastRun;
      @property NSString *spacesToInsert;
@@ -52,13 +55,11 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
         super.viewDidLoad()
         
         let startItem = UIBarButtonItem(barButtonSystemItem: .play, target: self, action: #selector(onRunTapped))
+        let searchItem = UIBarButtonItem(image: UIImage(named:"search"), style: .plain, target: self, action: #selector(onSearchTapped))
+        let feedbackItem = UIBarButtonItem(image: UIImage(named:"feedback"), style: .plain, target: self, action: #selector(onFeedbackTapped))
+        let projectItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(onProjectTapped))
         
-//        self.projectItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(onProjectTapped:)];
-//        UIBarButtonItem *searchItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"search"] style:UIBarButtonItemStylePlain target:self action:@selector(onSearchTapped:)];
-//        UIBarButtonItem *feedbackItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"feedback"] style:UIBarButtonItemStylePlain target:self action:@selector(onFeedbackTapped:)];
-//
-//        self.navigationItem.rightBarButtonItems = @[startItem, searchItem, feedbackItem, self.projectItem];
-        navigationItem.rightBarButtonItem = startItem
+        navigationItem.rightBarButtonItems = [startItem, searchItem, feedbackItem, projectItem]
         
         view.backgroundColor = AppStyle.editorColor()
         sourceCodeTextView.backgroundColor = AppStyle.editorColor()
@@ -75,7 +76,9 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
         sourceCodeTextView.keyboardAppearance = .dark
         sourceCodeTextView.keyboardToolbar.isTranslucent = true
         sourceCodeTextView.keyboardToolbar.barStyle = .black
-
+        
+        sourceCodeTextView.text = document?.sourceCode ?? ""
+        
         searchToolbar.searchDelegate = self
 
         infoView.backgroundColor = AppStyle.warningColor()
@@ -92,6 +95,8 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
         
         document?.delegate = self
         
+        activityIndicatorView.isHidden = true
+        
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: .UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: .UIKeyboardWillHide, object: nil)
     }
@@ -104,42 +109,39 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
         super.viewWillAppear(animated)
         
         if let document = document {
-            if document.isNew {
-                document.save(to: document.fileURL, for: .forCreating, completionHandler: { (success) in
-                    //TODO
+            if document.documentState == .closed {
+                activityIndicatorView.startAnimating()
+                document.open(completionHandler: { (success) in
+                    self.activityIndicatorView.stopAnimating()
+                    if !success {
+                        //error
+                    }
                 })
-                document.isNew = false
-            } else {
-                if document.documentState == .closed {
-                    document.open(completionHandler: nil)
-                }
             }
         }
         
-        /*
-        if (!self.didAppearAlready)
-        {
-            self.didAppearAlready = YES;
+        if !didAppearAlready {
+            didAppearAlready = true
             
             // hide search bar
-            [self.view layoutIfNeeded];
-            self.searchToolbarConstraint.constant = -self.searchToolbar.bounds.size.height;
-            self.searchToolbar.hidden = YES;
+            view.layoutIfNeeded()
+            searchToolbarConstraint.constant = -searchToolbar.bounds.size.height
+            searchToolbar.isHidden = true
             
             // hide info bar
-            self.infoViewConstraint.constant = -self.infoView.bounds.size.height;
-            self.infoView.hidden = YES;
-            [self.view layoutIfNeeded];
+            infoViewConstraint.constant = -infoView.bounds.size.height
+            infoView.isHidden = true
+            view.layoutIfNeeded()
         }
-        [self updateEditorInsets];*/
+        updateEditorInsets()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-/*        [self.indexSideBar update];
-        [self.sourceCodeTextView flashScrollIndicators];
-        
+        indexSideBar.update()
+        sourceCodeTextView.flashScrollIndicators()
+/*
         AppController *app = [AppController sharedController];
         if (app.replayPreviewViewController)
         {
@@ -239,7 +241,160 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
     
     
     func onRunTapped(_ sender: Any) {
+        updateDocument()
+    }
+    
+    func onSearchTapped(_ sender: Any) {
+        view.layoutIfNeeded()
+        let wasVisible = (searchToolbarConstraint.constant == 0.0)
+        if wasVisible {
+            searchToolbarConstraint.constant = -searchToolbar.bounds.size.height;
+            searchToolbar.endEditing(true)
+        } else {
+            searchToolbar.isHidden = false
+            searchToolbarConstraint.constant = 0.0
+        }
+        UIView.animate(withDuration: 0.3, animations: {
+            self.view.layoutIfNeeded()
+        }) { (finished) in
+            if wasVisible && self.searchToolbarConstraint.constant != 0.0 {
+                self.searchToolbar.isHidden = true
+            }
+        }
+    }
+    
+    func onProjectTapped(_ sender: Any) {
+        /*
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
         
+        __weak EditorViewController *weakSelf = self;
+        
+        UIAlertAction *shareCommAction = [UIAlertAction actionWithTitle:@"Share with Community" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+            [weakSelf onShareTapped:sender community:YES];
+            }];
+        [alert addAction:shareCommAction];
+        
+        UIAlertAction *shareMenuAction = [UIAlertAction actionWithTitle:@"Share Source Code" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+            [weakSelf onShareTapped:sender community:NO];
+            }];
+        [alert addAction:shareMenuAction];
+        
+        UIAlertAction *videoMenuAction = [UIAlertAction actionWithTitle:@"Record Video" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+            [weakSelf onRecordVideoTapped:sender];
+            }];
+        [alert addAction:videoMenuAction];
+        
+        UIAlertAction *settingsAction = [UIAlertAction actionWithTitle:@"Rename / Settings..." style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+            [weakSelf onSettingsTapped];
+            }];
+        [alert addAction:settingsAction];
+        
+        UIAlertAction *duplicateAction = [UIAlertAction actionWithTitle:@"Duplicate" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+            [weakSelf onDuplicateTapped];
+            }];
+        [alert addAction:duplicateAction];
+        
+        UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:@"Delete" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * action) {
+            [weakSelf onDeleteTapped];
+            }];
+        [alert addAction:deleteAction];
+        
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
+        [alert addAction:cancelAction];
+        
+        alert.popoverPresentationController.barButtonItem = sender;
+        [self presentViewController:alert animated:YES completion:nil];*/
+    }
+    
+    func onDeleteTapped() {
+        /*
+     if (self.project.isDefault.boolValue)
+     {
+     UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Example programs cannot be deleted." message:nil preferredStyle:UIAlertControllerStyleAlert];
+     [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil]];
+     [self presentViewController:alert animated:YES completion:nil];
+     }
+     else if (self.sourceCodeTextView.text.length == 0)
+     {
+     [self deleteProject];
+     }
+     else
+     {
+     EditorViewController __weak *weakSelf = self;
+     UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Do you really want to delete this program?" message:nil preferredStyle:UIAlertControllerStyleAlert];
+     
+     [alert addAction:[UIAlertAction actionWithTitle:@"Delete" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * action) {
+     [weakSelf deleteProject];
+     }]];
+     
+     [alert addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:nil]];
+     
+     [self presentViewController:alert animated:YES completion:nil];
+     }*/
+    }
+    
+    func deleteProject() {
+        /*
+     [[ModelManager sharedManager] deleteProject:self.project];
+     self.project = nil;
+    [self.navigationController popViewControllerAnimated:YES];*/
+    }
+    
+    func onDuplicateTapped() {
+        /*
+     EditorViewController __weak *weakSelf = self;
+     UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Do you want to make a copy of this program?" message:nil preferredStyle:UIAlertControllerStyleAlert];
+     
+     [alert addAction:[UIAlertAction actionWithTitle:@"Duplicate" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+     [[ModelManager sharedManager] duplicateProject:weakSelf.project sourceCode:weakSelf.sourceCodeTextView.text];
+     [[ModelManager sharedManager] saveContext];
+     if (weakSelf.project.isDefault.boolValue)
+     {
+     // default projects are duplicated to the root folder
+     [weakSelf.navigationController popToRootViewControllerAnimated:YES];
+     }
+     else
+     {
+     // others just go to the current folder
+     [weakSelf.navigationController popViewControllerAnimated:YES];
+     }
+     }]];
+     
+     [alert addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
+     
+     [self presentViewController:alert animated:YES completion:nil];*/
+    }
+    
+    func onSettingsTapped() {
+    /*
+     if (self.project.isDefault.boolValue)
+     {
+     UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Settings of example programs cannot be changed." message:nil preferredStyle:UIAlertControllerStyleAlert];
+     [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil]];
+     [self presentViewController:alert animated:YES completion:nil];
+     }
+     else
+     {
+     ProjectSettingsViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"ProjectSettingsView"];
+     vc.delegate = self;
+     vc.project = self.project;
+     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+     nav.modalPresentationStyle = vc.modalPresentationStyle;
+     nav.modalTransitionStyle = vc.modalTransitionStyle;
+     [self presentViewController:nav animated:YES completion:nil];
+     }*/
+    }
+    
+    func onFeedbackTapped(_ sender: Any) {
+    /*    if (!self.project.postId)
+     {
+     [self showAlertWithTitle:@"Feedback is available for downloaded or shared programs only" message:nil block:nil];
+     }
+     else
+     {
+     LCCPost *post = [[LCCPost alloc] initWithObjectId:self.project.postId];
+     [self showPost:post];
+     }*/
     }
     
     //MARK: - ProjectDocumentDelegate
@@ -271,11 +426,12 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
     }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-/*        NSString *oldText = [textView.text substringWithRange:range];
-        NSInteger oldTextLineBreaks = [oldText countChar:'\n'];
-        NSInteger newTextLineBreaks = [text countChar:'\n'];
-        NSInteger newNumLines = self.numLines - oldTextLineBreaks + newTextLineBreaks;
         
+        let oldText = (textView.text as NSString).substring(with: range)
+        let oldTextLineBreaks = oldText.countChar(UInt16(10))
+        let newTextLineBreaks = text.countChar(UInt16(10))
+        let newNumLines = numLines - oldTextLineBreaks + newTextLineBreaks
+/*
         if (![AppController sharedController].isFullVersion)
         {
             __weak EditorViewController *weakSelf = self;
@@ -307,14 +463,14 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
                 [self hideInfo];
             }
         }
-        
-        self.numLines = newNumLines;
+        */
+        numLines = newNumLines
+        print(numLines)
         
         // check for indent
-        self.spacesToInsert = nil;
-        if ([text isEqualToString:@"\n"])
-        {
-            NSRange lineRange = [textView.text lineRangeForRange:textView.selectedRange];
+        spacesToInsert = nil
+        if text == "\n" {
+/*            NSRange lineRange = [textView.text lineRangeForRange:textView.selectedRange];
             for (NSInteger i = 0; i < lineRange.length; i++)
             {
                 if ([textView.text characterAtIndex:(lineRange.location + i)] != ' ')
@@ -323,10 +479,11 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
                     self.spacesToInsert = [textView.text substringWithRange:lineRange];
                     break;
                 }
-            }
+            }*/
         }
         
         // check for new or deleted label
+        /*
         if (   [text rangeOfString:@":"].location != NSNotFound
             || (range.length > 0 && [oldText rangeOfString:@":"].location != NSNotFound) )
         {
@@ -475,168 +632,10 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
 
     
      
-    - (void)onSearchTapped:(id)sender
-    {
-    [self.view layoutIfNeeded];
-    BOOL wasVisible = (self.searchToolbarConstraint.constant == 0.0);
-    if (wasVisible)
-    {
-    self.searchToolbarConstraint.constant = -self.searchToolbar.bounds.size.height;
-    [self.searchToolbar endEditing:YES];
-    }
-    else
-    {
-    self.searchToolbar.hidden = NO;
-    self.searchToolbarConstraint.constant = 0.0;
-    }
-    [UIView animateWithDuration:0.3 animations:^{
-    [self.view layoutIfNeeded];
-    } completion:^(BOOL finished) {
-    if (wasVisible && self.searchToolbarConstraint.constant != 0.0)
-    {
-    self.searchToolbar.hidden = YES;
-    }
-    }];
-    }
-    
-    - (void)onProjectTapped:(id)sender
-    {
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-    
-    __weak EditorViewController *weakSelf = self;
-    
-    UIAlertAction *shareCommAction = [UIAlertAction actionWithTitle:@"Share with Community" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-    [weakSelf onShareTapped:sender community:YES];
-    }];
-    [alert addAction:shareCommAction];
-    
-    UIAlertAction *shareMenuAction = [UIAlertAction actionWithTitle:@"Share Source Code" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-    [weakSelf onShareTapped:sender community:NO];
-    }];
-    [alert addAction:shareMenuAction];
-    
-    UIAlertAction *videoMenuAction = [UIAlertAction actionWithTitle:@"Record Video" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-    [weakSelf onRecordVideoTapped:sender];
-    }];
-    [alert addAction:videoMenuAction];
-    
-    UIAlertAction *settingsAction = [UIAlertAction actionWithTitle:@"Rename / Settings..." style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-    [weakSelf onSettingsTapped];
-    }];
-    [alert addAction:settingsAction];
-    
-    UIAlertAction *duplicateAction = [UIAlertAction actionWithTitle:@"Duplicate" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-    [weakSelf onDuplicateTapped];
-    }];
-    [alert addAction:duplicateAction];
-    
-    UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:@"Delete" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * action) {
-    [weakSelf onDeleteTapped];
-    }];
-    [alert addAction:deleteAction];
-    
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
-    [alert addAction:cancelAction];
-    
-    alert.popoverPresentationController.barButtonItem = sender;
-    [self presentViewController:alert animated:YES completion:nil];
-    }
-    
-    - (void)onDeleteTapped
-    {/*
-     if (self.project.isDefault.boolValue)
-     {
-     UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Example programs cannot be deleted." message:nil preferredStyle:UIAlertControllerStyleAlert];
-     [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil]];
-     [self presentViewController:alert animated:YES completion:nil];
-     }
-     else if (self.sourceCodeTextView.text.length == 0)
-     {
-     [self deleteProject];
-     }
-     else
-     {
-     EditorViewController __weak *weakSelf = self;
-     UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Do you really want to delete this program?" message:nil preferredStyle:UIAlertControllerStyleAlert];
-     
-     [alert addAction:[UIAlertAction actionWithTitle:@"Delete" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * action) {
-     [weakSelf deleteProject];
-     }]];
-     
-     [alert addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:nil]];
-     
-     [self presentViewController:alert animated:YES completion:nil];
-     }*/
-    }
-    
-    - (void)deleteProject
-    {/*
-     [[ModelManager sharedManager] deleteProject:self.project];
-     self.project = nil;*/
-    [self.navigationController popViewControllerAnimated:YES];
-    }
-    
-    - (void)onDuplicateTapped
-    {/*
-     EditorViewController __weak *weakSelf = self;
-     UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Do you want to make a copy of this program?" message:nil preferredStyle:UIAlertControllerStyleAlert];
-     
-     [alert addAction:[UIAlertAction actionWithTitle:@"Duplicate" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-     [[ModelManager sharedManager] duplicateProject:weakSelf.project sourceCode:weakSelf.sourceCodeTextView.text];
-     [[ModelManager sharedManager] saveContext];
-     if (weakSelf.project.isDefault.boolValue)
-     {
-     // default projects are duplicated to the root folder
-     [weakSelf.navigationController popToRootViewControllerAnimated:YES];
-     }
-     else
-     {
-     // others just go to the current folder
-     [weakSelf.navigationController popViewControllerAnimated:YES];
-     }
-     }]];
-     
-     [alert addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
-     
-     [self presentViewController:alert animated:YES completion:nil];*/
-    }
-    
-    - (void)onSettingsTapped
-    {/*
-     if (self.project.isDefault.boolValue)
-     {
-     UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Settings of example programs cannot be changed." message:nil preferredStyle:UIAlertControllerStyleAlert];
-     [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil]];
-     [self presentViewController:alert animated:YES completion:nil];
-     }
-     else
-     {
-     ProjectSettingsViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"ProjectSettingsView"];
-     vc.delegate = self;
-     vc.project = self.project;
-     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
-     nav.modalPresentationStyle = vc.modalPresentationStyle;
-     nav.modalTransitionStyle = vc.modalTransitionStyle;
-     [self presentViewController:nav animated:YES completion:nil];
-     }*/
-    }
-    
+
     - (void)projectSettingsDidChange
     {
     //    self.navigationItem.title = self.project.name;
-    }
-    
-    - (void)onFeedbackTapped:(id)sender
-    {
-    /*    if (!self.project.postId)
-     {
-     [self showAlertWithTitle:@"Feedback is available for downloaded or shared programs only" message:nil block:nil];
-     }
-     else
-     {
-     LCCPost *post = [[LCCPost alloc] initWithObjectId:self.project.postId];
-     [self showPost:post];
-     }*/
     }
     
     - (void)showPost:(LCCPost *)post

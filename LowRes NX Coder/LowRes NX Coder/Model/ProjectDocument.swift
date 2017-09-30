@@ -14,7 +14,6 @@ protocol ProjectDocumentDelegate: class {
 
 class ProjectDocument: UIDocument {
     
-    var isNew = false
     var sourceCode: String?
     weak var delegate: ProjectDocumentDelegate?
     

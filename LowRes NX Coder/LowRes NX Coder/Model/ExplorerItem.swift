@@ -29,6 +29,13 @@ class ExplorerItem: NSObject {
         return UIImage(named:"icon_project")!
     }
     
+    var createdAt: Date {
+        if let attrs = try? FileManager.default.attributesOfItem(atPath: fileUrl.path) {
+            return attrs[FileAttributeKey.creationDate] as! Date
+        }
+        return Date.distantFuture
+    }
+    
     init(fileUrl: URL) {
         self.fileUrl = fileUrl
         super.init()

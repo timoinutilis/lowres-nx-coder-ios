@@ -37,6 +37,9 @@
                                     <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="14"/>
                                 </variation>
                             </textView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="5sA-Xf-aho">
+                                <rect key="frame" x="169" y="236" width="37" height="37"/>
+                            </activityIndicatorView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WCW-HT-wOK" userLabel="Info View">
                                 <rect key="frame" x="0.0" y="108" width="375" height="40"/>
                                 <subviews>
@@ -97,6 +100,7 @@
                             <constraint firstItem="68W-Y2-mOw" firstAttribute="bottom" secondItem="SjB-QF-tvR" secondAttribute="bottom" id="516-LG-7zb"/>
                             <constraint firstItem="Li9-mY-tbX" firstAttribute="top" secondItem="SjB-QF-tvR" secondAttribute="top" id="8KR-rX-vfA"/>
                             <constraint firstItem="SjB-QF-tvR" firstAttribute="top" secondItem="WCW-HT-wOK" secondAttribute="bottom" id="CfV-1H-Sta"/>
+                            <constraint firstItem="5sA-Xf-aho" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="DKy-Xr-3dn"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="SjB-QF-tvR" secondAttribute="bottom" id="E73-rc-dsw"/>
                             <constraint firstAttribute="trailing" secondItem="7F6-05-toZ" secondAttribute="trailing" id="F0C-fN-MyG"/>
                             <constraint firstItem="SjB-QF-tvR" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="HdZ-qd-903"/>
@@ -109,6 +113,7 @@
                             <constraint firstItem="dQG-Tl-hCV" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="WP6-2I-z0N"/>
                             <constraint firstItem="Li9-mY-tbX" firstAttribute="bottom" secondItem="SjB-QF-tvR" secondAttribute="bottom" id="YTC-ne-kNv"/>
                             <constraint firstItem="68W-Y2-mOw" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="g20-Nj-yGe"/>
+                            <constraint firstItem="5sA-Xf-aho" firstAttribute="top" secondItem="WCW-HT-wOK" secondAttribute="bottom" constant="88" id="i8e-CL-vt6"/>
                             <constraint firstItem="Li9-mY-tbX" firstAttribute="trailing" secondItem="SjB-QF-tvR" secondAttribute="trailing" id="scr-bY-g6G"/>
                         </constraints>
                     </view>
@@ -116,6 +121,7 @@
                     <navigationItem key="navigationItem" title="(Program Name)" id="pmw-uN-wb5"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
+                        <outlet property="activityIndicatorView" destination="5sA-Xf-aho" id="xPg-oq-cx2"/>
                         <outlet property="indexSideBar" destination="Li9-mY-tbX" id="J3r-KJ-Mxf"/>
                         <outlet property="indexSideBarConstraint" destination="YTC-ne-kNv" id="HIf-3e-jOg"/>
                         <outlet property="infoLabel" destination="c04-Mh-rcv" id="CIj-6o-l8D"/>
@@ -823,22 +829,33 @@ Inutilis Software, 2015-2017</string>
                                             <rect key="frame" x="0.0" y="0.0" width="110" height="100"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="star" translatesAutoresizingMaskIntoConstraints="NO" id="liv-zd-RbV">
-                                                    <rect key="frame" x="9" y="0.0" width="28" height="28"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <imageView opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="star" translatesAutoresizingMaskIntoConstraints="NO" id="liv-zd-RbV">
+                                                    <rect key="frame" x="5" y="0.0" width="28" height="28"/>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" fixedFrame="YES" text="(Project Name)" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="Y0e-d8-avy" customClass="TextLabel">
-                                                    <rect key="frame" x="0.0" y="64" width="110" height="36"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="(Project Name)" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="Y0e-d8-avy" customClass="TextLabel">
+                                                    <rect key="frame" x="5" y="66" width="100" height="33"/>
                                                     <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="14"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KyM-fJ-oxW">
+                                                <imageView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="KyM-fJ-oxW">
                                                     <rect key="frame" x="15" y="0.0" width="80" height="64"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="80" id="UGd-ZM-RS3"/>
+                                                        <constraint firstAttribute="height" constant="64" id="zmi-OK-J6e"/>
+                                                    </constraints>
                                                 </imageView>
                                             </subviews>
                                         </view>
+                                        <constraints>
+                                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Y0e-d8-avy" secondAttribute="bottom" id="8Ot-2a-OG7"/>
+                                            <constraint firstItem="liv-zd-RbV" firstAttribute="top" secondItem="KyM-fJ-oxW" secondAttribute="top" id="PR4-2D-klo"/>
+                                            <constraint firstItem="Y0e-d8-avy" firstAttribute="leading" secondItem="4E0-sW-TxH" secondAttribute="leading" constant="5" id="QGz-au-waU"/>
+                                            <constraint firstItem="liv-zd-RbV" firstAttribute="leading" secondItem="KyM-fJ-oxW" secondAttribute="leading" constant="-10" id="RVn-Ge-dAb"/>
+                                            <constraint firstAttribute="trailing" secondItem="Y0e-d8-avy" secondAttribute="trailing" constant="5" id="T2w-7z-xjB"/>
+                                            <constraint firstItem="KyM-fJ-oxW" firstAttribute="centerX" secondItem="4E0-sW-TxH" secondAttribute="centerX" id="XCL-OG-IiJ"/>
+                                            <constraint firstItem="Y0e-d8-avy" firstAttribute="top" secondItem="KyM-fJ-oxW" secondAttribute="bottom" constant="2" id="gEx-qF-pgt"/>
+                                            <constraint firstItem="KyM-fJ-oxW" firstAttribute="top" secondItem="4E0-sW-TxH" secondAttribute="top" id="mXM-mi-fol"/>
+                                        </constraints>
                                         <size key="customSize" width="110" height="100"/>
                                         <connections>
                                             <outlet property="nameLabel" destination="Y0e-d8-avy" id="Vmk-zp-lqd"/>
@@ -853,23 +870,34 @@ Inutilis Software, 2015-2017</string>
                                             <rect key="frame" x="0.0" y="0.0" width="125" height="100"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" fixedFrame="YES" text="(Folder Name)" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="TU6-sw-ZCd" customClass="TextLabel">
-                                                    <rect key="frame" x="0.0" y="64" width="125" height="36"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="(Folder Name)" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="TU6-sw-ZCd" customClass="TextLabel">
+                                                    <rect key="frame" x="5" y="66" width="115" height="16.5"/>
                                                     <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="14"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <view opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UBu-4K-4uE">
+                                                <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UBu-4K-4uE">
                                                     <rect key="frame" x="22" y="0.0" width="80" height="64"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <color key="backgroundColor" red="0.79607843137254897" green="0.80392156862745101" blue="0.81960784313725488" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="64" id="9z0-hj-rja"/>
+                                                        <constraint firstAttribute="width" constant="80" id="rhJ-KR-bgb"/>
+                                                    </constraints>
                                                 </view>
-                                                <imageView opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="star" translatesAutoresizingMaskIntoConstraints="NO" id="cbG-7Z-OPe">
-                                                    <rect key="frame" x="8" y="0.0" width="28" height="28"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <imageView opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="star" translatesAutoresizingMaskIntoConstraints="NO" id="cbG-7Z-OPe">
+                                                    <rect key="frame" x="12" y="0.0" width="28" height="28"/>
                                                 </imageView>
                                             </subviews>
                                         </view>
+                                        <constraints>
+                                            <constraint firstItem="TU6-sw-ZCd" firstAttribute="top" secondItem="UBu-4K-4uE" secondAttribute="bottom" constant="2" id="4Ob-GU-hL5"/>
+                                            <constraint firstItem="UBu-4K-4uE" firstAttribute="centerX" secondItem="7me-Ui-7ff" secondAttribute="centerX" id="DTO-Bf-6qc"/>
+                                            <constraint firstItem="cbG-7Z-OPe" firstAttribute="top" secondItem="UBu-4K-4uE" secondAttribute="top" id="KLE-kg-GhP"/>
+                                            <constraint firstItem="UBu-4K-4uE" firstAttribute="top" secondItem="7me-Ui-7ff" secondAttribute="top" id="Lv0-AP-AL3"/>
+                                            <constraint firstAttribute="trailing" secondItem="TU6-sw-ZCd" secondAttribute="trailing" constant="5" id="OiI-6n-chu"/>
+                                            <constraint firstItem="TU6-sw-ZCd" firstAttribute="leading" secondItem="7me-Ui-7ff" secondAttribute="leading" constant="5" id="SPI-dJ-oVc"/>
+                                            <constraint firstItem="cbG-7Z-OPe" firstAttribute="leading" secondItem="UBu-4K-4uE" secondAttribute="leading" constant="-10" id="nWf-rC-sR3"/>
+                                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="TU6-sw-ZCd" secondAttribute="bottom" id="umr-pe-vgN"/>
+                                        </constraints>
                                         <size key="customSize" width="125" height="100"/>
                                         <connections>
                                             <outlet property="folderView" destination="UBu-4K-4uE" id="wKA-OM-iGm"/>
