@@ -90,7 +90,7 @@ class ExplorerViewController: UIViewController, UICollectionViewDelegateFlowLayo
         }
     }
 
-    func onAddProjectTapped(_ sender: Any) {
+    @objc func onAddProjectTapped(_ sender: Any) {
         if folder!.isDefault {
             //showAlertWithTitle:@"Cannot add programs to example folders" message:nil block:nil];
         } else {

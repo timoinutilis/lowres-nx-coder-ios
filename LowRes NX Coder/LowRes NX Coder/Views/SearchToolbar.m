@@ -82,6 +82,8 @@
 
 - (void)layoutSubviews
 {
+    //TODO: iOS 11 uses auto layout for bar buttons
+    
     CGFloat availableWidth = self.bounds.size.width - 150.0;
     if (![self dynamicLayout])
     {

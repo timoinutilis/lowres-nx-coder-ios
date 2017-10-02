@@ -980,6 +980,7 @@
 					92EA93B91F744572007BEFB1 = {
 						CreatedOnToolsVersion = 8.3.3;
 						DevelopmentTeam = BZ4VC623NH;
+						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.InAppPurchase = {
@@ -1289,7 +1290,8 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "LowRes NX Coder/LowResNX-Bridging-Header.h";
 				SWIFT_PRECOMPILE_BRIDGING_HEADER = YES;
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -1305,7 +1307,8 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "LowRes NX Coder/LowResNX-Bridging-Header.h";
 				SWIFT_PRECOMPILE_BRIDGING_HEADER = YES;
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};

@@ -40,7 +40,6 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
     /*
      @property BOOL wasEditedSinceOpened;
      @property BOOL wasEditedSinceLastRun;
-     @property NSString *spacesToInsert;
      @property BOOL shouldUpdateSideBar;
      @property (strong) InfoBlock infoBlock;
      @property NSString *infoId;
@@ -150,17 +149,7 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
             app.replayPreviewViewController.modalPresentationStyle = UIModalPresentationFullScreen;
             [self presentViewController:app.replayPreviewViewController animated:YES completion:nil];
         }
-        else if (app.shouldShowTransferAlert)
-        {
-            app.shouldShowTransferAlert = NO;
-            
-            UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"The program wrote data to the transfer memory."
-                message:@"Tap \"Paste from Transfer\" in the text edit menu to paste it into your source code."
-                preferredStyle:UIAlertControllerStyleAlert];
-            [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil]];
-            [self presentViewController:alert animated:YES completion:nil];
-        }
-            /*    else if (self.project.isDefault.boolValue)
+             else if (self.project.isDefault.boolValue)
              {
              if ([app isUnshownInfoID:CoachMarkIDStart])
              {
@@ -179,7 +168,7 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
              [coachMark setTargetNavBar:self.navigationController.navigationBar itemIndex:3];
              [coachMark show];
              }
-             }*/
+             }
         else if ([self.sourceCodeTextView.text isEqualToString:@""])
         {
             if ([app isUnshownInfoID:CoachMarkIDHelp])
@@ -202,12 +191,12 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
         document?.close(completionHandler: nil)
     }
     
-    func keyboardWillShow(_ notification: Notification) {
+    @objc func keyboardWillShow(_ notification: Notification) {
         keyboardRect = (notification.userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
         updateEditorInsets()
     }
     
-    func keyboardWillHide(_ notification: Notification) {
+    @objc func keyboardWillHide(_ notification: Notification) {
         keyboardRect = (notification.userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
         updateEditorInsets()
     }
@@ -240,11 +229,11 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
     }
     
     
-    func onRunTapped(_ sender: Any) {
+    @objc func onRunTapped(_ sender: Any) {
         updateDocument()
     }
     
-    func onSearchTapped(_ sender: Any) {
+    @objc func onSearchTapped(_ sender: Any) {
         view.layoutIfNeeded()
         let wasVisible = (searchToolbarConstraint.constant == 0.0)
         if wasVisible {
@@ -263,7 +252,7 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
         }
     }
     
-    func onProjectTapped(_ sender: Any) {
+    @objc func onProjectTapped(_ sender: Any) {
         /*
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
         
@@ -385,7 +374,7 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
      }*/
     }
     
-    func onFeedbackTapped(_ sender: Any) {
+    @objc func onFeedbackTapped(_ sender: Any) {
     /*    if (!self.project.postId)
      {
      [self showAlertWithTitle:@"Feedback is available for downloaded or shared programs only" message:nil block:nil];
@@ -470,16 +459,14 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
         // check for indent
         spacesToInsert = nil
         if text == "\n" {
-/*            NSRange lineRange = [textView.text lineRangeForRange:textView.selectedRange];
-            for (NSInteger i = 0; i < lineRange.length; i++)
-            {
-                if ([textView.text characterAtIndex:(lineRange.location + i)] != ' ')
-                {
-                    lineRange.length = i;
-                    self.spacesToInsert = [textView.text substringWithRange:lineRange];
+            let nsText = textView.text as NSString
+            let lineRange = nsText.lineRange(for: textView.selectedRange)
+            for i in 0 ..< lineRange.length {
+                if nsText.character(at: lineRange.location + i) != UInt16(32) {
+                    spacesToInsert = nsText.substring(with: NSMakeRange(lineRange.location, i))
                     break;
                 }
-            }*/
+            }
         }
         
         // check for new or deleted label
@@ -494,13 +481,12 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
     
     func textViewDidChange(_ textView: UITextView) {
         // indent
-/*        if (self.spacesToInsert)
-        {
-            NSString *spaces = self.spacesToInsert;
-            self.spacesToInsert = nil;
-            [textView insertText:spaces];
+        if let spaces = spacesToInsert {
+            spacesToInsert = nil
+            textView.insertText(spaces)
         }
-         
+        
+         /*
         // side bar
         if (self.shouldUpdateSideBar)
         {
@@ -561,62 +547,69 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
     
     //MARK: - SearchToolbarDelegate
     
-    func searchToolbar(_ searchToolbar: SearchToolbar!, didSearch findText: String!, backwards: Bool) {
-/*        NSString *sourceText = self.sourceCodeTextView.text;
+    func searchToolbar(_ toolbar: SearchToolbar!, didSearch findText: String!, backwards: Bool) {
+        let sourceText = sourceCodeTextView.text as NSString
         
-        NSRange selectedRange = self.sourceCodeTextView.selectedRange;
-        NSUInteger startIndex;
-        BOOL didRestart = NO;
-        if (backwards)
-        {
-            startIndex = selectedRange.location;
-            if (startIndex == 0)
-            {
-                startIndex = sourceText.length;
-                didRestart = YES;
+        let selectedRange = sourceCodeTextView.selectedRange
+        var startIndex = 0
+        var didRestart = false
+        if backwards {
+            startIndex = selectedRange.location
+            if startIndex == 0 {
+                startIndex = sourceText.length
+                didRestart = true
+            }
+        } else {
+            startIndex = selectedRange.location + selectedRange.length
+            if startIndex == sourceText.length {
+                startIndex = 0
+                didRestart = true
             }
         }
-        else
-        {
-            startIndex = selectedRange.location + selectedRange.length;
-            if (startIndex == sourceText.length)
-            {
-                startIndex = 0;
-                didRestart = YES;
-            }
+        let found = find(findText, backwards: backwards, startIndex: startIndex)
+        if !found && !didRestart {
+            startIndex = backwards ? sourceText.length : 0
+            _ = find(findText, backwards: backwards, startIndex: startIndex)
         }
-        BOOL found = [self find:findText backwards:backwards startIndex:startIndex];
-        if (!found && !didRestart)
-        {
-            startIndex = backwards ? sourceText.length : 0;
-            [self find:findText backwards:backwards startIndex:startIndex];
-        }*/
     }
     
-    func searchToolbar(_ searchToolbar: SearchToolbar!, didReplace findText: String!, with replaceText: String!) {
-/*        NSString *sourceText = self.sourceCodeTextView.text;
+    func searchToolbar(_ toolbar: SearchToolbar!, didReplace findText: String!, with replaceText: String!) {
+        let sourceText = sourceCodeTextView.text as NSString
         
-        NSRange selectedRange = self.sourceCodeTextView.selectedRange;
-        if ([[sourceText substringWithRange:selectedRange] isEqualToString:findText])
-        {
-            if (!self.sourceCodeTextView.isFirstResponder)
-            {
+        let selectedRange = sourceCodeTextView.selectedRange
+        if sourceText.substring(with: selectedRange) == findText {
+            if !sourceCodeTextView.isFirstResponder {
                 // activate editor
-                [self.sourceCodeTextView becomeFirstResponder];
-                [self.sourceCodeTextView scrollSelectedRangeToVisible];
-                return;
+                sourceCodeTextView.becomeFirstResponder()
+                sourceCodeTextView.scrollSelectedRangeToVisible()
+                return
             }
             // replace
-            sourceText = [sourceText stringByReplacingCharactersInRange:selectedRange withString:replaceText];
-            self.sourceCodeTextView.text = sourceText;
-            self.sourceCodeTextView.selectedRange = NSMakeRange(selectedRange.location + replaceText.length, 0);
-            [self.sourceCodeTextView scrollSelectedRangeToVisible];
+            let changedSourceText = sourceText.replacingCharacters(in: selectedRange, with: replaceText)
+            sourceCodeTextView.text = changedSourceText
+            sourceCodeTextView.selectedRange = NSMakeRange(selectedRange.location + replaceText.characters.count, 0)
+            sourceCodeTextView.scrollSelectedRangeToVisible()
         }
         
         // find next
-        [self searchToolbar:searchToolbar didSearch:findText backwards:NO];*/
+        searchToolbar(toolbar, didSearch: findText, backwards: false)
     }
     
+    func find(_ findText: String, backwards: Bool, startIndex: Int) -> Bool {
+        let sourceText = sourceCodeTextView.text as NSString
+        
+        let searchRange = backwards ? NSMakeRange(0, startIndex) : NSMakeRange(startIndex, sourceText.length - startIndex)
+        let resultRange = sourceText.range(of: findText, options: backwards ? [.caseInsensitive, .backwards] : [.caseInsensitive], range: searchRange)
+        
+        if resultRange.location != NSNotFound {
+            sourceCodeTextView.selectedRange = resultRange
+            sourceCodeTextView.becomeFirstResponder()
+            sourceCodeTextView.scrollSelectedRangeToVisible()
+            return true
+        }
+        return false
+    }
+
 /*
     
 
@@ -734,21 +727,6 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
     
 
     
-    - (BOOL)find:(NSString *)findText backwards:(BOOL)backwards startIndex:(NSUInteger)startIndex
-    {
-    NSString *sourceText = self.sourceCodeTextView.text;
-    
-    NSRange searchRange = backwards ? NSMakeRange(0, startIndex) : NSMakeRange(startIndex, sourceText.length - startIndex);
-    NSRange resultRange = [sourceText rangeOfString:findText options:(backwards ? NSCaseInsensitiveSearch | NSBackwardsSearch : NSCaseInsensitiveSearch) range:searchRange];
-    if (resultRange.location != NSNotFound)
-    {
-    self.sourceCodeTextView.selectedRange = resultRange;
-    [self.sourceCodeTextView becomeFirstResponder];
-    [self.sourceCodeTextView scrollSelectedRangeToVisible];
-    return YES;
-    }
-    return NO;
-    }
      
 
     
