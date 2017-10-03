@@ -15,9 +15,6 @@
 @property (readonly) UIToolbar *keyboardToolbar;
 @property (weak) id<EditorTextViewDelegate> editorDelegate;
 
-+ (void)setTransferText:(NSString *)text;
-+ (NSString *)transferText;
-
 @end
 
 @protocol EditorTextViewDelegate <NSObject>

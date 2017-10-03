@@ -36,11 +36,11 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
     var numLines: UInt = 0
     var didAppearAlready = false
     var spacesToInsert: String?
+    var shouldUpdateSideBar = false
     
     /*
      @property BOOL wasEditedSinceOpened;
      @property BOOL wasEditedSinceLastRun;
-     @property BOOL shouldUpdateSideBar;
      @property (strong) InfoBlock infoBlock;
      @property NSString *infoId;
 
@@ -454,7 +454,6 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
         }
         */
         numLines = newNumLines
-        print(numLines)
         
         // check for indent
         spacesToInsert = nil
@@ -470,12 +469,10 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
         }
         
         // check for new or deleted label
-        /*
-        if (   [text rangeOfString:@":"].location != NSNotFound
-            || (range.length > 0 && [oldText rangeOfString:@":"].location != NSNotFound) )
+        if text.range(of: ":") != nil || (range.length > 0 && oldText.range(of: ":") != nil)
         {
-            self.shouldUpdateSideBar = YES;
-        }*/
+            shouldUpdateSideBar = true
+        }
         return true
     }
     
@@ -486,19 +483,15 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
             textView.insertText(spaces)
         }
         
-         /*
         // side bar
-        if (self.shouldUpdateSideBar)
-        {
+        if shouldUpdateSideBar {
             // immediate update
-            self.shouldUpdateSideBar = NO;
-            [self.indexSideBar update];
-        }
-        else
-        {
+            shouldUpdateSideBar = false
+            indexSideBar.update()
+        } else {
             // update later
-            self.indexSideBar.shouldUpdateOnTouch = YES;
-        }*/
+            indexSideBar.shouldUpdateOnTouch = true
+        }
     }
     
     //MARK: - EditorTextViewDelegate
@@ -789,26 +782,11 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
     /*
      - (void)runProgramWithRecordingMode:(RecordingMode)recordingMode
      {
-     NSString *sourceCode = self.sourceCodeTextView.text.uppercaseString;
-     NSString *transferSourceCode = [EditorTextView transferText];
-     
-     NSArray *transferDataNodes;
-     
-     if (transferSourceCode.length > 0)
-     {
-     Runnable *runnable = [Compiler compileSourceCode:transferSourceCode error:nil];
-     if (runnable)
-     {
-     transferDataNodes = runnable.dataNodes;
-     }
-     }
-     
      NSError *error;
      
      Runnable *runnable = [Compiler compileSourceCode:sourceCode error:&error];
      if (runnable)
      {
-     runnable.transferDataNodes = transferDataNodes;
      runnable.recordingMode = recordingMode;
      [self run:runnable];
      }

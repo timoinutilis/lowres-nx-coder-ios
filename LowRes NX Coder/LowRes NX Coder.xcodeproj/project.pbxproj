@@ -821,6 +821,11 @@
 		928401D61F7448B500AC1466 /* interpreter */ = {
 			isa = PBXGroup;
 			children = (
+				928401F31F7448B500AC1466 /* interpreter.c */,
+				928401F41F7448B500AC1466 /* interpreter.h */,
+				928401F51F7448B500AC1466 /* interpreter_config.h */,
+				928401F61F7448B500AC1466 /* interpreter_utils.c */,
+				928401F71F7448B500AC1466 /* interpreter_utils.h */,
 				928401D71F7448B500AC1466 /* cmd_background.c */,
 				928401D81F7448B500AC1466 /* cmd_background.h */,
 				928401D91F7448B500AC1466 /* cmd_control.c */,
@@ -849,11 +854,6 @@
 				928401F01F7448B500AC1466 /* data.h */,
 				928401F11F7448B500AC1466 /* error.c */,
 				928401F21F7448B500AC1466 /* error.h */,
-				928401F31F7448B500AC1466 /* interpreter.c */,
-				928401F41F7448B500AC1466 /* interpreter.h */,
-				928401F51F7448B500AC1466 /* interpreter_config.h */,
-				928401F61F7448B500AC1466 /* interpreter_utils.c */,
-				928401F71F7448B500AC1466 /* interpreter_utils.h */,
 				928401F81F7448B500AC1466 /* labels.c */,
 				928401F91F7448B500AC1466 /* labels.h */,
 				928401FA1F7448B500AC1466 /* rcstring.c */,

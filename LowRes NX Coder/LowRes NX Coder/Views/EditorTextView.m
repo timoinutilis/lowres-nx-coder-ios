@@ -8,24 +8,12 @@
 
 #import "EditorTextView.h"
 
-NSString *EditorTextView_transferText;
-
 @interface EditorTextView ()
 @property UIToolbar *keyboardToolbar;
 @property NSArray *keys;
 @end
 
 @implementation EditorTextView
-
-+ (void)setTransferText:(NSString *)text
-{
-    EditorTextView_transferText = text;
-}
-
-+ (NSString *)transferText
-{
-    return EditorTextView_transferText;
-}
 
 - (void)awakeFromNib
 {
@@ -46,9 +34,7 @@ NSString *EditorTextView_transferText;
     menu.menuItems = @[
                        [[UIMenuItem alloc] initWithTitle:@"Help" action:@selector(help:)],
                        [[UIMenuItem alloc] initWithTitle:@"Indent <" action:@selector(indentLeft:)],
-                       [[UIMenuItem alloc] initWithTitle:@"Indent >" action:@selector(indentRight:)],
-                       [[UIMenuItem alloc] initWithTitle:@"Copy to Transfer" action:@selector(transferCopy:)],
-                       [[UIMenuItem alloc] initWithTitle:@"Paste from Transfer" action:@selector(transferPaste:)]
+                       [[UIMenuItem alloc] initWithTitle:@"Indent >" action:@selector(indentRight:)]
                        ];
 }
 
@@ -102,15 +88,7 @@ NSString *EditorTextView_transferText;
 
 - (BOOL)canPerformAction:(SEL)action withSender:(id)sender
 {
-    if (action == @selector(transferCopy:))
-    {
-        return self.selectedRange.length > 0;
-    }
-    else if (action == @selector(transferPaste:))
-    {
-        return [EditorTextView transferText].length > 0;
-    }
-    else if (action == @selector(help:))
+    if (action == @selector(help:))
     {
         return self.selectedRange.length > 0 && self.selectedRange.length <= 20;
     }
@@ -129,16 +107,6 @@ NSString *EditorTextView_transferText;
         return [super canPerformAction:action withSender:sender];
     }
     return NO;
-}
-
-- (void)transferCopy:(id)sender
-{
-    [EditorTextView setTransferText:[self.text substringWithRange:self.selectedRange]];
-}
-
-- (void)transferPaste:(id)sender
-{
-    [self insertCheckedText:[EditorTextView transferText]];
 }
 
 - (void)help:(id)sender

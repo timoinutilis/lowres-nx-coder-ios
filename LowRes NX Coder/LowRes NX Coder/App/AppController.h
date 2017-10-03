@@ -38,7 +38,6 @@ extern NSString *const ImportProjectNotification;
 @property (readonly) BOOL isFullVersion;
 @property (readonly) SKProduct *fullVersionProduct;
 @property (readonly) NSInteger numProgramsOpened;
-@property BOOL shouldShowTransferAlert;
 @property NSString *shouldShowPostId;
 @property TempProject *shouldImportProject;
 @property RPPreviewViewController *replayPreviewViewController;
