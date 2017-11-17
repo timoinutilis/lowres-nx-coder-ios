@@ -580,7 +580,7 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
             // replace
             let changedSourceText = sourceText.replacingCharacters(in: selectedRange, with: replaceText)
             sourceCodeTextView.text = changedSourceText
-            sourceCodeTextView.selectedRange = NSMakeRange(selectedRange.location + replaceText.characters.count, 0)
+            sourceCodeTextView.selectedRange = NSMakeRange(selectedRange.location + replaceText.count, 0)
             sourceCodeTextView.scrollSelectedRangeToVisible()
         }
         
