@@ -15,12 +15,7 @@ typedef NS_ENUM(NSInteger, TabIndex) {
     TabIndexCommunity
 };
 
-@interface TabBarController : UIViewController
-
-@property (weak, nonatomic) IBOutlet UITabBar *tabBar;
-
-@property (nonatomic) NSInteger selectedIndex;
-@property (nonatomic, readonly) UIViewController *selectedViewController;
+@interface TabBarController : UITabBarController
 
 - (void)showExplorerAnimated:(BOOL)animated root:(BOOL)root;
 - (void)showHelpForChapter:(NSString *)chapter;

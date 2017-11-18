@@ -14,6 +14,7 @@ NSString *const LowResNewsUserIDKey = @"LowResNewsUserID";
 @implementation LCCUser
 
 @dynamic username;
+@dynamic email;
 @dynamic password;
 @dynamic sessionToken;
 @dynamic about;

@@ -15,6 +15,6 @@
 @property int numDownloads;
 @property int numComments;
 @property BOOL featured;
-@property BOOL highlighted;
+@property BOOL essential;
 
 @end

@@ -19,7 +19,9 @@
 
 @property (weak, nonatomic) IBOutlet UITextField *textField;
 
+- (void)setupAsUsernameEmail;
 - (void)setupAsUsername;
+- (void)setupAsEmail;
 - (void)setupAsPasswordVerify:(BOOL)verify;
 
 @end

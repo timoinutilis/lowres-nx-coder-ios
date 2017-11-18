@@ -10,7 +10,7 @@
 
 @protocol SearchToolbarDelegate;
 
-@interface SearchToolbar : UIToolbar
+@interface SearchToolbar : UIView
 
 @property (weak) id<SearchToolbarDelegate> searchDelegate;
 

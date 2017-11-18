@@ -16,10 +16,19 @@
 #import "ActionTableViewCell.h"
 #import "AppStyle.h"
 
+typedef NS_ENUM(NSInteger, Section) {
+    SectionMain,
+    SectionDiscover,
+    SectionAccount,
+    SectionFollowing,
+    Section_count
+};
+
 typedef NS_ENUM(NSInteger, CellTag) {
     CellTagNews,
     CellTagDiscover,
     CellTagForum,
+    CellTagEssentials,
     CellTagAccount,
     CellTagNotifications,
     CellTagLogIn,
@@ -53,7 +62,7 @@ typedef NS_ENUM(NSInteger, CellTag) {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onFollowsChanged:) name:FollowsLoadNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onNotificationsNumChanged:) name:NotificationsNumChangeNotification object:nil];
     
-    self.newsIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+    self.newsIndexPath = [NSIndexPath indexPathForRow:0 inSection:SectionMain];
     self.currentSelection = self.newsIndexPath;
     
     [[CommunityModel sharedInstance] updateCurrentUser];
@@ -110,7 +119,7 @@ typedef NS_ENUM(NSInteger, CellTag) {
 {
     if ([CommunityModel sharedInstance].currentUser)
     {
-        [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:3 inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
+        [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:2 inSection:SectionMain]] withRowAnimation:UITableViewRowAnimationFade];
     }
 }
 
@@ -118,35 +127,44 @@ typedef NS_ENUM(NSInteger, CellTag) {
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return ([CommunityModel sharedInstance].follows.count > 0 ? 3 : 2);
+    return ([CommunityModel sharedInstance].follows.count > 0 ? Section_count : Section_count - 1);
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    if (section == 1)
+    switch (section)
     {
-        return @"Your Account";
-    }
-    else if (section == 2)
-    {
-        return @"Following";
+        case SectionMain:
+            return @"Main";
+            
+        case SectionDiscover:
+            return @"More Programs";
+            
+        case SectionAccount:
+            return @"Your Account";
+            
+        case SectionFollowing:
+            return @"Following";
     }
     return nil;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (section == 0)
+    BOOL loggedIn = [CommunityModel sharedInstance].currentUser != nil;
+    switch (section)
     {
-        return [CommunityModel sharedInstance].currentUser ? 4 : 2;
-    }
-    else if (section == 1)
-    {
-        return [CommunityModel sharedInstance].currentUser ? 2 : 1;
-    }
-    else if (section == 2)
-    {
-        return [CommunityModel sharedInstance].follows.count;
+        case SectionMain:
+            return loggedIn ? 3 : 2;
+            
+        case SectionDiscover:
+            return loggedIn ? 2 : 1;
+            
+        case SectionAccount:
+            return loggedIn ? 2 : 1;
+            
+        case SectionFollowing:
+            return [CommunityModel sharedInstance].follows.count;
     }
     return 0;
 }
@@ -156,73 +174,85 @@ typedef NS_ENUM(NSInteger, CellTag) {
 {
     UITableViewCell *cell;
     
-    if (indexPath.section == 0)
+    switch (indexPath.section)
     {
-        if (indexPath.row == 0)
-        {
-            cell = [tableView dequeueReusableCellWithIdentifier:@"MenuCell" forIndexPath:indexPath];
-            cell.textLabel.text = @"News";
-            cell.tag = CellTagNews;
-        }
-        else if (indexPath.row == 1)
-        {
-            cell = [tableView dequeueReusableCellWithIdentifier:@"MenuCell" forIndexPath:indexPath];
-            cell.textLabel.text = @"Forum";
-            cell.tag = CellTagForum;
-        }
-        else if (indexPath.row == 2)
-        {
-            cell = [tableView dequeueReusableCellWithIdentifier:@"MenuCell" forIndexPath:indexPath];
-            cell.textLabel.text = @"Discover";
-            cell.tag = CellTagDiscover;
-        }
-        else if (indexPath.row == 3)
-        {
-            cell = [tableView dequeueReusableCellWithIdentifier:@"NotificationsCell" forIndexPath:indexPath];
-            NSInteger num = [CommunityModel sharedInstance].numNewNotifications;
-            if (num > 0)
-            {
-                cell.textLabel.text = [NSString stringWithFormat:@"Notifications (%ld)", (long)num];
-            }
-            else
-            {
-                cell.textLabel.text = @"Notifications";
-            }
-            cell.tag = CellTagNotifications;
-        }
-    }
-    else if (indexPath.section == 1)
-    {
-        if (indexPath.row == 0)
-        {
-            LCCUser *user = [CommunityModel sharedInstance].currentUser;
-            if (user)
+        case SectionMain: {
+            if (indexPath.row == 0)
             {
                 cell = [tableView dequeueReusableCellWithIdentifier:@"MenuCell" forIndexPath:indexPath];
-                cell.textLabel.text = user.username;
-                cell.tag = CellTagAccount;
+                cell.textLabel.text = @"News";
+                cell.tag = CellTagNews;
             }
-            else
+            else if (indexPath.row == 1)
+            {
+                cell = [tableView dequeueReusableCellWithIdentifier:@"MenuCell" forIndexPath:indexPath];
+                cell.textLabel.text = @"Forum";
+                cell.tag = CellTagForum;
+            }
+            else if (indexPath.row == 2)
+            {
+                cell = [tableView dequeueReusableCellWithIdentifier:@"NotificationsCell" forIndexPath:indexPath];
+                NSInteger num = [CommunityModel sharedInstance].numNewNotifications;
+                if (num > 0)
+                {
+                    cell.textLabel.text = [NSString stringWithFormat:@"Notifications (%ld)", (long)num];
+                }
+                else
+                {
+                    cell.textLabel.text = @"Notifications";
+                }
+                cell.tag = CellTagNotifications;
+            }
+            break;
+        }
+        case SectionDiscover: {
+            if (indexPath.row == 0)
+            {
+                cell = [tableView dequeueReusableCellWithIdentifier:@"MenuCell" forIndexPath:indexPath];
+                cell.textLabel.text = @"Essentials";
+                cell.tag = CellTagEssentials;
+            }
+            else if (indexPath.row == 1)
+            {
+                cell = [tableView dequeueReusableCellWithIdentifier:@"MenuCell" forIndexPath:indexPath];
+                cell.textLabel.text = @"Discover";
+                cell.tag = CellTagDiscover;
+            }
+            break;
+        }
+        case SectionAccount: {
+            if (indexPath.row == 0)
+            {
+                LCCUser *user = [CommunityModel sharedInstance].currentUser;
+                if (user)
+                {
+                    cell = [tableView dequeueReusableCellWithIdentifier:@"MenuCell" forIndexPath:indexPath];
+                    cell.textLabel.text = user.username;
+                    cell.tag = CellTagAccount;
+                }
+                else
+                {
+                    cell = [tableView dequeueReusableCellWithIdentifier:@"ActionCell" forIndexPath:indexPath];
+                    cell.textLabel.text = @"Log In / Register";
+                    cell.tag = CellTagLogIn;
+                    [((ActionTableViewCell *)cell) setDisabled:NO wheel:NO];
+                }
+            }
+            else if (indexPath.row == 1)
             {
                 cell = [tableView dequeueReusableCellWithIdentifier:@"ActionCell" forIndexPath:indexPath];
-                cell.textLabel.text = @"Log In / Register";
-                cell.tag = CellTagLogIn;
-                [((ActionTableViewCell *)cell) setDisabled:NO wheel:NO];
+                cell.textLabel.text = @"Log Out";
+                cell.tag = CellTagLogOut;
             }
+            break;
         }
-        else if (indexPath.row == 1)
-        {
-            cell = [tableView dequeueReusableCellWithIdentifier:@"ActionCell" forIndexPath:indexPath];
-            cell.textLabel.text = @"Log Out";
-            cell.tag = CellTagLogOut;
+        case SectionFollowing: {
+            LCCUser *followUser = [CommunityModel sharedInstance].follows[indexPath.row];
+            cell = [tableView dequeueReusableCellWithIdentifier:@"MenuCell" forIndexPath:indexPath];
+            cell.textLabel.text = followUser.username;
+            cell.tag = CellTagFollowing;
+            break;
         }
-    }
-    else if (indexPath.section == 2)
-    {
-        LCCUser *followUser = [CommunityModel sharedInstance].follows[indexPath.row];
-        cell = [tableView dequeueReusableCellWithIdentifier:@"MenuCell" forIndexPath:indexPath];
-        cell.textLabel.text = followUser.username;
-        cell.tag = CellTagFollowing;
     }
     
     return cell;
@@ -282,6 +312,11 @@ typedef NS_ENUM(NSInteger, CellTag) {
             case CellTagDiscover: {
                 LCCUser *user = [CommunityModel sharedInstance].currentUser;
                 [vc setUser:user mode:CommListModeDiscover];
+                break;
+            }
+            case CellTagEssentials: {
+                LCCUser *user = [CommunityModel sharedInstance].currentUser;
+                [vc setUser:user mode:CommListModeEssentials];
                 break;
             }
             case CellTagAccount: {

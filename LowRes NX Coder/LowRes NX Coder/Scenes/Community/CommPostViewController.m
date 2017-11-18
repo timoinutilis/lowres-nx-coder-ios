@@ -80,15 +80,6 @@ typedef NS_ENUM(NSInteger, Section) {
 
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     
-    if (!SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"9.0"))
-    {
-        // simple workaround for Split View bug, Table View doesn't adjust for Keyboard on iPhone
-        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone && self.splitViewController)
-        {
-            self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 252, 0);
-        }
-    }
-    
     self.writeCommentCell = [self.tableView dequeueReusableCellWithIdentifier:@"WriteCommentCell"];
     
     [self loadAllForceReload:NO];
@@ -742,6 +733,7 @@ typedef NS_ENUM(NSInteger, Section) {
 
 @interface CommentCell()
 @property (weak, nonatomic) IBOutlet UIButton *nameButton;
+@property (weak, nonatomic) IBOutlet UIImageView *starImageView;
 @property (weak, nonatomic) IBOutlet UITextView *textView;
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (nonatomic) LCCUser *user;
@@ -764,11 +756,13 @@ typedef NS_ENUM(NSInteger, Section) {
     {
         [self.nameButton setTitle:user.username forState:UIControlStateNormal];
         self.nameButton.enabled = YES;
+        self.starImageView.hidden = (user.role == LCCUserRoleUser);
     }
     else
     {
         [self.nameButton setTitle:@"Guest" forState:UIControlStateNormal];
         self.nameButton.enabled = NO;
+        self.starImageView.hidden = YES;
     }
     self.dateLabel.text = [NSDateFormatter localizedStringFromDate:comment.createdAt dateStyle:NSDateFormatterMediumStyle timeStyle:NSDateFormatterShortStyle];
     self.textView.text = comment.text;

@@ -22,6 +22,7 @@
 @property CommLogInInputCell *logInPasswordCell;
 @property ActionTableViewCell *logInButtonCell;
 @property CommLogInInputCell *registerUsernameCell;
+@property CommLogInInputCell *registerEmailCell;
 @property CommLogInInputCell *registerPasswordCell;
 @property CommLogInInputCell *registerPasswordVerifyCell;
 @property ActionTableViewCell *registerButtonCell;
@@ -53,7 +54,7 @@
     self.dynamicRowHeights = NO;
 
     self.logInUsernameCell = [self.tableView dequeueReusableCellWithIdentifier:@"CommLogInInputCell"];
-    [self.logInUsernameCell setupAsUsername];
+    [self.logInUsernameCell setupAsUsernameEmail];
     self.logInPasswordCell = [self.tableView dequeueReusableCellWithIdentifier:@"CommLogInInputCell"];
     [self.logInPasswordCell setupAsPasswordVerify:NO];
     self.logInButtonCell = [self.tableView dequeueReusableCellWithIdentifier:@"CommLogInButtonCell"];
@@ -63,6 +64,8 @@
     
     self.registerUsernameCell = [self.tableView dequeueReusableCellWithIdentifier:@"CommLogInInputCell"];
     [self.registerUsernameCell setupAsUsername];
+    self.registerEmailCell = [self.tableView dequeueReusableCellWithIdentifier:@"CommLogInInputCell"];
+    [self.registerEmailCell setupAsEmail];
     self.registerPasswordCell = [self.tableView dequeueReusableCellWithIdentifier:@"CommLogInInputCell"];
     [self.registerPasswordCell setupAsPasswordVerify:NO];
     self.registerPasswordVerifyCell = [self.tableView dequeueReusableCellWithIdentifier:@"CommLogInInputCell"];
@@ -70,7 +73,7 @@
     self.registerButtonCell = [self.tableView dequeueReusableCellWithIdentifier:@"CommLogInButtonCell"];
     self.registerButtonCell.textLabel.text = @"Register";
 
-    self.signUpCycleManager = [[GORCycleManager alloc] initWithFields:@[self.registerUsernameCell.textField, self.registerPasswordCell.textField, self.registerPasswordVerifyCell.textField] endBlock:^{ [weakSelf onRegisterTapped]; }];
+    self.signUpCycleManager = [[GORCycleManager alloc] initWithFields:@[self.registerUsernameCell.textField, self.registerEmailCell.textField, self.registerPasswordCell.textField, self.registerPasswordVerifyCell.textField] endBlock:^{ [weakSelf onRegisterTapped]; }];
 
     [self setHeaderTitle:@"Log in with existing account" section:0];
     [self addCell:self.logInUsernameCell section:0];
@@ -80,9 +83,11 @@
     
     [self setHeaderTitle:@"Create a new account" section:1];
     [self addCell:self.registerUsernameCell section:1];
+    [self addCell:self.registerEmailCell];
     [self addCell:self.registerPasswordCell];
     [self addCell:self.registerPasswordVerifyCell];
     [self addCell:self.registerButtonCell];
+    [self setFooterTitle:@"The e-mail address is never shown to other users." section:1];
 
     NSUserDefaults *storage = [NSUserDefaults standardUserDefaults];
     NSString *lastUserName = [storage objectForKey:UserDefaultsLogInKey];
@@ -133,6 +138,7 @@
 - (void)onRegisterTapped
 {
     NSString *username = self.registerUsernameCell.textField.text;
+    NSString *email = self.registerEmailCell.textField.text;
     NSString *password = self.registerPasswordCell.textField.text;
     NSString *passwordVerify = self.registerPasswordVerifyCell.textField.text;
     
@@ -169,6 +175,7 @@
     
     LCCUser *user = [[LCCUser alloc] init];
     user.username = username;
+    user.email = email;
     user.password = password;
     
     [self setBusy:YES];
@@ -194,7 +201,7 @@
     
     if (username.length == 0)
     {
-        [self showAlertWithTitle:@"Please enter a username!" message:nil block:^{
+        [self showAlertWithTitle:@"Please enter a username or e-mail address!" message:nil block:^{
             [self.logInUsernameCell.textField becomeFirstResponder];
         }];
         return;
@@ -236,10 +243,23 @@
 
 @implementation CommLogInInputCell
 
+- (void)setupAsUsernameEmail
+{
+    self.textField.autocapitalizationType = UITextAutocapitalizationTypeWords;
+    self.textField.placeholder = @"Username/E-Mail";
+}
+
 - (void)setupAsUsername
 {
     self.textField.autocapitalizationType = UITextAutocapitalizationTypeWords;
     self.textField.placeholder = @"Username";
+}
+
+- (void)setupAsEmail
+{
+    self.textField.autocapitalizationType = UITextAutocapitalizationTypeNone;
+    self.textField.placeholder = @"E-Mail (optional)";
+    self.textField.keyboardType = UIKeyboardTypeEmailAddress;
 }
 
 - (void)setupAsPasswordVerify:(BOOL)verify

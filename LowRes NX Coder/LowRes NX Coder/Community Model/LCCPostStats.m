@@ -15,6 +15,6 @@
 @dynamic numDownloads;
 @dynamic numComments;
 @dynamic featured;
-@dynamic highlighted;
+@dynamic essential;
 
 @end

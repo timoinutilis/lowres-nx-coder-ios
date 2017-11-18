@@ -7,13 +7,14 @@
 //
 
 #import "SearchToolbar.h"
+#import "AppStyle.h"
 
-@interface SearchToolbar() <UIToolbarDelegate, UITextFieldDelegate, UITraitEnvironment>
+@interface SearchToolbar() <UITextFieldDelegate, UITraitEnvironment>
 
-@property UITextField *findTextField;
-@property UITextField *replaceTextField;
-@property UIBarButtonItem *findFieldItem;
-@property UIBarButtonItem *replaceFieldItem;
+@property (weak, nonatomic) IBOutlet UITextField *findTextField;
+@property (weak, nonatomic) IBOutlet UITextField *replaceTextField;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *findConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *replaceConstraint;
 
 @property (weak) UITextField *activeTextField;
 
@@ -21,38 +22,12 @@
 
 @implementation SearchToolbar
 
-- (instancetype)initWithCoder:(NSCoder *)aDecoder
+- (void)awakeFromNib
 {
-    if (self = [super initWithCoder:aDecoder])
-    {
-        _findTextField = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, 60, 30)];
-        _findTextField.placeholder = @"Find Text";
-        _findTextField.borderStyle = UITextBorderStyleRoundedRect;
-        _findTextField.autocapitalizationType = UITextAutocapitalizationTypeAllCharacters;
-        _findTextField.autocorrectionType = UITextAutocorrectionTypeNo;
-        _findTextField.delegate = self;
-        _findTextField.delegate = self;
-        
-        _replaceTextField = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, 60, 30)];
-        _replaceTextField.placeholder = @"Replace With";
-        _replaceTextField.borderStyle = UITextBorderStyleRoundedRect;
-        _replaceTextField.autocapitalizationType = UITextAutocapitalizationTypeAllCharacters;
-        _replaceTextField.autocorrectionType = UITextAutocorrectionTypeNo;
-        _replaceTextField.delegate = self;
-        
-        _findFieldItem = [[UIBarButtonItem alloc] initWithCustomView:_findTextField];
-        UIBarButtonItem *findPrevItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"prev"] style:UIBarButtonItemStylePlain target:self action:@selector(onFindPrevTapped:)];
-        findPrevItem.width = 26.0;
-        UIBarButtonItem *findNextItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"next"] style:UIBarButtonItemStylePlain target:self action:@selector(onFindNextTapped:)];
-        findNextItem.width = 26.0;
-        _replaceFieldItem = [[UIBarButtonItem alloc] initWithCustomView:_replaceTextField];
-        UIBarButtonItem *replaceItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"replace"] style:UIBarButtonItemStylePlain target:self action:@selector(onReplaceTapped:)];
-        replaceItem.width = 26.0;
-        
-        self.items = @[_findFieldItem, findPrevItem, findNextItem, _replaceFieldItem, replaceItem];
-        self.delegate = self;
-    }
-    return self;
+    [super awakeFromNib];
+    self.backgroundColor = [AppStyle barColor];
+    self.findTextField.delegate = self;
+    self.replaceTextField.delegate = self;
 }
 
 - (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection
@@ -70,9 +45,10 @@
     }
 }
 
-- (UIBarPosition)positionForBar:(id<UIBarPositioning>)bar
+- (void)layoutSubviews
 {
-    return UIBarPositionTop;
+    [super layoutSubviews];
+    [self updateDynamicConstraints];
 }
 
 - (BOOL)dynamicLayout
@@ -80,45 +56,18 @@
     return (self.bounds.size.width < 414.0); // < iPhone 6+
 }
 
-- (void)layoutSubviews
+- (void)updateDynamicConstraints
 {
-    //TODO: iOS 11 uses auto layout for bar buttons
-    
-    CGFloat availableWidth = self.bounds.size.width - 150.0;
     if (![self dynamicLayout])
     {
-        self.findFieldItem.width = availableWidth * 0.5;
-        self.replaceFieldItem.width = availableWidth * 0.5;
+        self.findConstraint.priority = 240;
+        self.replaceConstraint.priority = 241;
     }
     else
     {
-        if (self.activeTextField == _findTextField)
-        {
-            self.findFieldItem.width = availableWidth * 0.75;
-        }
-        else if (self.activeTextField)
-        {
-            self.findFieldItem.width = availableWidth * 0.25;
-        }
-        else
-        {
-            self.findFieldItem.width = availableWidth * 0.5;
-        }
-
-        if (self.activeTextField == _replaceTextField)
-        {
-            self.replaceFieldItem.width = availableWidth * 0.75;
-        }
-        else if (self.activeTextField)
-        {
-            self.replaceFieldItem.width = availableWidth * 0.25;
-        }
-        else
-        {
-            self.replaceFieldItem.width = availableWidth * 0.5;
-        }
+        self.findConstraint.priority = (self.activeTextField == _findTextField) ? 999 : 240;
+        self.replaceConstraint.priority = (self.activeTextField == _replaceTextField) ? 999 : 241;
     }
-    [super layoutSubviews];
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField
@@ -126,7 +75,7 @@
     self.activeTextField = textField;
     if ([self dynamicLayout])
     {
-        [self setNeedsLayout];
+        [self updateDynamicConstraints];
         [UIView animateWithDuration:0.3 animations:^{
             [self layoutIfNeeded];
         }];
@@ -139,7 +88,7 @@
     self.activeTextField = nil;
     if ([self dynamicLayout])
     {
-        [self setNeedsLayout];
+        [self updateDynamicConstraints];
         [UIView animateWithDuration:0.3 animations:^{
             [self layoutIfNeeded];
         }];
@@ -152,7 +101,7 @@
     return NO;
 }
 
-- (void)onFindPrevTapped:(id)sender
+- (IBAction)onFindPrevTapped:(id)sender
 {
     if (self.findTextField.text.length > 0)
     {
@@ -161,7 +110,7 @@
     }
 }
 
-- (void)onFindNextTapped:(id)sender
+- (IBAction)onFindNextTapped:(id)sender
 {
     if (self.findTextField.text.length > 0)
     {
@@ -170,7 +119,7 @@
     }
 }
 
-- (void)onReplaceTapped:(id)sender
+- (IBAction)onReplaceTapped:(id)sender
 {
     if (self.findTextField.text.length > 0 && self.replaceTextField.text.length > 0)
     {

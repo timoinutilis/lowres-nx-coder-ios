@@ -27,9 +27,9 @@
     [UINavigationBar appearance].titleTextAttributes = @{NSForegroundColorAttributeName: [AppStyle darkColor]};
     [[UINavigationBar appearance] setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
     [UINavigationBar appearance].shadowImage = [[UIImage alloc] init];
-    [UIToolbar appearanceWhenContainedIn:[UINavigationController class], nil].barTintColor = [AppStyle barColor];
-    [UIToolbar appearanceWhenContainedIn:[UINavigationController class], nil].tintColor = [AppStyle tintColor];
-    [UIToolbar appearanceWhenContainedIn:[UINavigationController class], nil].translucent = NO;
+    [UIToolbar appearanceWhenContainedInInstancesOfClasses:@[[UINavigationController class]]].barTintColor = [AppStyle barColor];
+    [UIToolbar appearanceWhenContainedInInstancesOfClasses:@[[UINavigationController class]]].tintColor = [AppStyle tintColor];
+    [UIToolbar appearanceWhenContainedInInstancesOfClasses:@[[UINavigationController class]]].translucent = NO;
     [UITabBar appearance].barTintColor = [AppStyle barColor];
     [UITabBar appearance].tintColor = [AppStyle tintColor];
     [UITabBar appearance].translucent = NO;
@@ -43,7 +43,7 @@
     [UITableView appearance].backgroundColor = [AppStyle brightColor];
     [UITableViewCell appearance].backgroundColor = [AppStyle brightColor];
     [UICollectionView appearance].backgroundColor = [AppStyle brightColor];
-    [UITextView appearanceWhenContainedIn:[UITableViewCell class], nil].backgroundColor = [AppStyle brightColor];
+    [UITextView appearanceWhenContainedInInstancesOfClasses:@[[UITableViewCell class]]].backgroundColor = [AppStyle brightColor];
     
     // Texts
     [TextLabel appearance].textColor = [AppStyle darkColor];

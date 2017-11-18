@@ -19,6 +19,7 @@ typedef NS_ENUM(int, LCCUserRole) {
 @interface LCCUser : APIObject
 
 @property (retain) NSString *username;
+@property (retain) NSString *email;
 @property (retain) NSString *password;
 @property (retain) NSString *sessionToken;
 @property (retain) NSString *about;

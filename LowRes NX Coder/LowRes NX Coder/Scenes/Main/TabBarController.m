@@ -12,12 +12,7 @@
 #import "AppController.h"
 #import "CommunityModel.h"
 
-@interface TabBarController () <UITabBarDelegate>
-
-@property (weak, nonatomic) IBOutlet UIView *containerView;
-
-@property NSArray *viewControllers;
-@property (nonatomic) UIViewController *selectedViewController;
+@interface TabBarController ()
 
 @end
 
@@ -29,13 +24,6 @@
     
     [AppController sharedController].tabBarController = self;
     
-    for (int i = 0; i < self.tabBar.items.count; i++)
-    {
-        UITabBarItem *item = self.tabBar.items[i];
-        item.image = [item.image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-        item.selectedImage = [item.selectedImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    }
-
     UIViewController *explorerVC = [self.storyboard instantiateViewControllerWithIdentifier:@"ExplorerNav"];
 
     UIStoryboard *helpStoryboard = [UIStoryboard storyboardWithName:@"Help" bundle:nil];
@@ -46,11 +34,12 @@
     UIStoryboard *communityStoryboard = [UIStoryboard storyboardWithName:@"Community" bundle:nil];
     UIViewController *communityVC = (UIViewController *)[communityStoryboard instantiateInitialViewController];
 
+    explorerVC.tabBarItem = [self itemWithTitle:@"My Programs" imageName:@"programs"];
+    helpVC.tabBarItem = [self itemWithTitle:@"Help" imageName:@"help"];
+    aboutVC.tabBarItem = [self itemWithTitle:@"About" imageName:@"about"];
+    communityVC.tabBarItem = [self itemWithTitle:@"Community" imageName:@"community"];
+    
     self.viewControllers = @[explorerVC, helpVC, aboutVC, communityVC];
-    
-    self.tabBar.delegate = self;
-    
-    self.selectedIndex = 0;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationsNumChanged:) name:NotificationsNumChangeNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkShowPost:) name:ShowPostNotification object:nil];
@@ -77,35 +66,9 @@
     [self checkImportProject:nil];
 }
 
-- (void)setSelectedIndex:(NSInteger)selectedIndex
+- (UITabBarItem *)itemWithTitle:(NSString *)title imageName:(NSString *)imageName
 {
-    _selectedIndex = selectedIndex;
-    self.tabBar.selectedItem = self.tabBar.items[selectedIndex];
-    self.selectedViewController = self.viewControllers[selectedIndex];
-}
-
-- (void)setSelectedViewController:(UIViewController *)selectedViewController
-{
-    if (_selectedViewController)
-    {
-        [_selectedViewController willMoveToParentViewController:nil];
-        [_selectedViewController.view removeFromSuperview];
-        [_selectedViewController removeFromParentViewController];
-    }
-    _selectedViewController = selectedViewController;
-    if (_selectedViewController)
-    {
-        _selectedViewController.view.frame = self.containerView.bounds;
-        [self addChildViewController:_selectedViewController];
-        [self.containerView addSubview:_selectedViewController.view];
-        [_selectedViewController didMoveToParentViewController:self];
-    }
-}
-
-- (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item
-{
-    _selectedIndex = [self.tabBar.items indexOfObject:item];
-    self.selectedViewController = self.viewControllers[_selectedIndex];
+    return [[UITabBarItem alloc] initWithTitle:title image:[UIImage imageNamed:imageName] selectedImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@sel", imageName]]];
 }
 
 - (void)notificationsNumChanged:(NSNotification *)notification
@@ -129,7 +92,7 @@
 
 - (void)dismissPresentedViewController:(void (^)(void))completion
 {
-    UIViewController *topVC = _selectedViewController;
+    UIViewController *topVC = self.selectedViewController;
     if ([topVC isKindOfClass:[UINavigationController class]])
     {
         topVC = ((UINavigationController *)topVC).topViewController;
@@ -180,19 +143,18 @@
 }
 
 - (void)importProject:(TempProject *)tempProject
-{
-    /*
+{/*
     Project *project = [[ModelManager sharedManager] createNewProjectInFolder:[ModelManager sharedManager].rootFolder];
     project.name = tempProject.name;
     project.sourceCode = tempProject.sourceCode;
-    */
-    [self showExplorerAnimated:YES root:YES];
+    
+    [self showExplorerAnimated:YES root:YES];*/
 }
 
 - (void)showExplorerAnimated:(BOOL)animated root:(BOOL)root
 {
     self.selectedIndex = TabIndexExplorer;
-    UINavigationController *nav = (UINavigationController *)_selectedViewController;
+    UINavigationController *nav = (UINavigationController *)self.selectedViewController;
     if (root)
     {
         [nav popToRootViewControllerAnimated:animated];
@@ -209,7 +171,7 @@
 - (void)showHelpForChapter:(NSString *)chapter
 {
     self.selectedIndex = TabIndexHelp;
-    HelpSplitViewController *helpVC = (HelpSplitViewController *)_selectedViewController;
+    HelpSplitViewController *helpVC = (HelpSplitViewController *)self.selectedViewController;
     [helpVC showChapter:chapter];
 }
 

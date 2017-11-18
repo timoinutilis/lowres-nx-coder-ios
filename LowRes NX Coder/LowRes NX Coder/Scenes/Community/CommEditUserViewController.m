@@ -17,6 +17,7 @@
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *saveButton;
 
 @property CommEditUserInputCell *usernameCell;
+@property CommEditUserInputCell *emailCell;
 @property CommEditUserInputCell *passwordCell;
 @property CommEditUserInputCell *passwordVerifyCell;
 @property CommEditUserTextViewCell *aboutCell;
@@ -47,8 +48,16 @@
     self.usernameCell.textField.autocapitalizationType = UITextAutocapitalizationTypeWords;
     [self addCell:self.usernameCell];
 
+    self.emailCell = [self.tableView dequeueReusableCellWithIdentifier:@"CommEditUserInputCell"];
+    self.emailCell.textField.placeholder = @"E-Mail (optional)";
+    self.emailCell.textField.autocapitalizationType = UITextAutocapitalizationTypeNone;
+    self.emailCell.textField.keyboardType = UIKeyboardTypeEmailAddress;
+    [self addCell:self.emailCell];
+    [self setFooterTitle:@"The e-mail address is never shown to other users." section:0];
+
+    [self setHeaderTitle:@"Change Password" section:1];
     self.passwordCell = [self.tableView dequeueReusableCellWithIdentifier:@"CommEditUserInputCell"];
-    self.passwordCell.textField.placeholder = @"New password (if you want to change it)";
+    self.passwordCell.textField.placeholder = @"New password";
     self.passwordCell.textField.secureTextEntry = YES;
     [self addCell:self.passwordCell];
 
@@ -57,15 +66,16 @@
     self.passwordVerifyCell.textField.secureTextEntry = YES;
     [self addCell:self.passwordVerifyCell];
     
-    [self setHeaderTitle:@"Write something about you" section:1];
+    [self setHeaderTitle:@"Write something about you" section:2];
     self.aboutCell = [self.tableView dequeueReusableCellWithIdentifier:@"CommEditUserTextViewCell"];
     [self addCell:self.aboutCell];
     
-    self.cycleManager = [[GORCycleManager alloc] initWithFields:@[self.usernameCell.textField, self.passwordCell.textField, self.passwordVerifyCell.textField, self.aboutCell.textView]];
+    self.cycleManager = [[GORCycleManager alloc] initWithFields:@[self.usernameCell.textField, self.emailCell.textField, self.passwordCell.textField, self.passwordVerifyCell.textField, self.aboutCell.textView]];
     
     // set user data
     self.user = [CommunityModel sharedInstance].currentUser;
     self.usernameCell.textField.text = self.user.username;
+    self.emailCell.textField.text = self.user.email;
     self.aboutCell.textView.text = self.user.about;
 }
 
@@ -74,6 +84,7 @@
     [self.view endEditing:YES];
     
     NSString *username = self.usernameCell.textField.text;
+    NSString *email = self.emailCell.textField.text;
     NSString *password = self.passwordCell.textField.text;
     NSString *passwordVerify = self.passwordVerifyCell.textField.text;
     
@@ -113,6 +124,7 @@
     
     // update user data
     self.user.username = username;
+    self.user.email = email;
     self.user.about = self.aboutCell.textView.text;
     if (password.length > 0)
     {
