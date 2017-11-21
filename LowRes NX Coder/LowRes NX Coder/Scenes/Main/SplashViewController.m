@@ -29,7 +29,7 @@
     
     [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(onTimerComplete:) userInfo:nil repeats:NO];
     
-    [UIView animateWithDuration:1 delay:0.3 options:UIViewAnimationOptionCurveLinear animations:^{
+    [UIView animateWithDuration:1 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
         
     } completion:^(BOOL finished) {
         

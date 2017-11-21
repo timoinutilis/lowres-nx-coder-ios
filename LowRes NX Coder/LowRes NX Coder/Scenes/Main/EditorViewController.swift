@@ -231,6 +231,10 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
     
     @objc func onRunTapped(_ sender: Any) {
         updateDocument()
+        let storyboard = UIStoryboard(name: "LowResNX", bundle: nil)
+        let vc = storyboard.instantiateInitialViewController() as! LowResNXViewController
+        vc.document = document
+        present(vc, animated: true, completion: nil)
     }
     
     @objc func onSearchTapped(_ sender: Any) {

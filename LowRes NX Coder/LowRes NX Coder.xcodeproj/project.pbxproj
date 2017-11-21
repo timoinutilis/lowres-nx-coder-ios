@@ -115,6 +115,7 @@
 		926EB1DC1F757FAD0048A6CF /* UIViewController+LowResCoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 926EB1DA1F757FAD0048A6CF /* UIViewController+LowResCoder.m */; };
 		9276994C1F7D649800211D15 /* ExplorerItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9276994B1F7D649800211D15 /* ExplorerItem.swift */; };
 		9276994E1F7D678900211D15 /* ProjectDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9276994D1F7D678900211D15 /* ProjectDocument.swift */; };
+		927F2C6F1FC4C1030041883C /* LowResNX.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 927F2C6E1FC4C1030041883C /* LowResNX.storyboard */; };
 		928402161F7448B500AC1466 /* disk_drive.c in Sources */ = {isa = PBXBuildFile; fileRef = 928401D11F7448B500AC1466 /* disk_drive.c */; };
 		928402171F7448B500AC1466 /* core.c in Sources */ = {isa = PBXBuildFile; fileRef = 928401D31F7448B500AC1466 /* core.c */; };
 		928402181F7448B500AC1466 /* cmd_background.c in Sources */ = {isa = PBXBuildFile; fileRef = 928401D71F7448B500AC1466 /* cmd_background.c */; };
@@ -146,6 +147,8 @@
 		928402321F7448B500AC1466 /* video_chip.c in Sources */ = {isa = PBXBuildFile; fileRef = 9284020F1F7448B500AC1466 /* video_chip.c */; };
 		928402331F7448B500AC1466 /* overlay.c in Sources */ = {isa = PBXBuildFile; fileRef = 928402121F7448B500AC1466 /* overlay.c */; };
 		928402341F7448B500AC1466 /* overlay_data.c in Sources */ = {isa = PBXBuildFile; fileRef = 928402141F7448B500AC1466 /* overlay_data.c */; };
+		9294F2E01FC4B9A600A90487 /* LowResNXViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9294F2DF1FC4B9A600A90487 /* LowResNXViewController.swift */; };
+		9294F2E21FC4BA1100A90487 /* CoreWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9294F2E11FC4BA1100A90487 /* CoreWrapper.swift */; };
 		92D1A7641FBF6FDE0059450E /* data_manager.c in Sources */ = {isa = PBXBuildFile; fileRef = 92D1A7621FBF6FDE0059450E /* data_manager.c */; };
 		92EA93BE1F744572007BEFB1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92EA93BD1F744572007BEFB1 /* AppDelegate.swift */; };
 		92EA93C01F744573007BEFB1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92EA93BF1F744573007BEFB1 /* ViewController.swift */; };
@@ -155,6 +158,7 @@
 		92ED996B1FA4E3480073559B /* string_utils.c in Sources */ = {isa = PBXBuildFile; fileRef = 92ED99661FA4E3480073559B /* string_utils.c */; };
 		92ED996E1FA4E3540073559B /* startup_sequence.c in Sources */ = {isa = PBXBuildFile; fileRef = 92ED996D1FA4E3530073559B /* startup_sequence.c */; };
 		92ED99701FA4E3770073559B /* core_delegate.c in Sources */ = {isa = PBXBuildFile; fileRef = 92ED996F1FA4E3770073559B /* core_delegate.c */; };
+		92FAB24D1FC07D1C002E45FB /* LowResNXView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92FAB24C1FC07D1B002E45FB /* LowResNXView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -368,6 +372,7 @@
 		926EB1FC1F7582A70048A6CF /* Help.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Help.storyboard; sourceTree = "<group>"; };
 		9276994B1F7D649800211D15 /* ExplorerItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplorerItem.swift; sourceTree = "<group>"; };
 		9276994D1F7D678900211D15 /* ProjectDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDocument.swift; sourceTree = "<group>"; };
+		927F2C6E1FC4C1030041883C /* LowResNX.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LowResNX.storyboard; sourceTree = "<group>"; };
 		928401D11F7448B500AC1466 /* disk_drive.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = disk_drive.c; sourceTree = "<group>"; };
 		928401D21F7448B500AC1466 /* disk_drive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = disk_drive.h; sourceTree = "<group>"; };
 		928401D31F7448B500AC1466 /* core.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = core.c; sourceTree = "<group>"; };
@@ -434,6 +439,8 @@
 		928402141F7448B500AC1466 /* overlay_data.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = overlay_data.c; sourceTree = "<group>"; };
 		928402151F7448B500AC1466 /* overlay_data.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = overlay_data.h; sourceTree = "<group>"; };
 		928402351F7448E000AC1466 /* LowResNX-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LowResNX-Bridging-Header.h"; sourceTree = "<group>"; };
+		9294F2DF1FC4B9A600A90487 /* LowResNXViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LowResNXViewController.swift; sourceTree = "<group>"; };
+		9294F2E11FC4BA1100A90487 /* CoreWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreWrapper.swift; sourceTree = "<group>"; };
 		92D1A7621FBF6FDE0059450E /* data_manager.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = data_manager.c; sourceTree = "<group>"; };
 		92D1A7631FBF6FDE0059450E /* data_manager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = data_manager.h; sourceTree = "<group>"; };
 		92EA93BA1F744572007BEFB1 /* LowRes NX Coder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "LowRes NX Coder.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -450,6 +457,7 @@
 		92ED996C1FA4E3530073559B /* startup_sequence.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = startup_sequence.h; sourceTree = "<group>"; };
 		92ED996D1FA4E3530073559B /* startup_sequence.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = startup_sequence.c; sourceTree = "<group>"; };
 		92ED996F1FA4E3770073559B /* core_delegate.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = core_delegate.c; sourceTree = "<group>"; };
+		92FAB24C1FC07D1B002E45FB /* LowResNXView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LowResNXView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -715,6 +723,7 @@
 			isa = PBXGroup;
 			children = (
 				926EB1DD1F757FC90048A6CF /* Main */,
+				9294F2E31FC4BA7300A90487 /* LowResNX */,
 				926EB1F11F7582660048A6CF /* Help */,
 				926EB1FD1F7582C60048A6CF /* Community */,
 				926EB1D21F757EA70048A6CF /* LaunchScreen.storyboard */,
@@ -933,6 +942,17 @@
 			path = overlay;
 			sourceTree = "<group>";
 		};
+		9294F2E31FC4BA7300A90487 /* LowResNX */ = {
+			isa = PBXGroup;
+			children = (
+				927F2C6E1FC4C1030041883C /* LowResNX.storyboard */,
+				9294F2DF1FC4B9A600A90487 /* LowResNXViewController.swift */,
+				92FAB24C1FC07D1B002E45FB /* LowResNXView.swift */,
+				9294F2E11FC4BA1100A90487 /* CoreWrapper.swift */,
+			);
+			path = LowResNX;
+			sourceTree = "<group>";
+		};
 		92D1A7611FBF6FDE0059450E /* datamanager */ = {
 			isa = PBXGroup;
 			children = (
@@ -1057,6 +1077,7 @@
 				92EA93C51F744573007BEFB1 /* Assets.xcassets in Resources */,
 				926EB1D31F757EA70048A6CF /* LaunchScreen.storyboard in Resources */,
 				920E1B721F781AC100664382 /* manual.html in Resources */,
+				927F2C6F1FC4C1030041883C /* LowResNX.storyboard in Resources */,
 				923AFD8F1F77ED71002F6A5B /* Community.storyboard in Resources */,
 				923AFD7C1F77ED52002F6A5B /* Help.storyboard in Resources */,
 				920E1B4B1F7816FA00664382 /* BlockerView.xib in Resources */,
@@ -1094,6 +1115,7 @@
 				928402171F7448B500AC1466 /* core.c in Sources */,
 				923AFD981F77ED71002F6A5B /* CommSplitViewController.m in Sources */,
 				923AFD9C1F77ED71002F6A5B /* UIViewController+CommUtils.m in Sources */,
+				9294F2E01FC4B9A600A90487 /* LowResNXViewController.swift in Sources */,
 				923AFD6B1F77EBAC002F6A5B /* APIURLCache.m in Sources */,
 				920E1B531F7816FA00664382 /* SearchToolbar.m in Sources */,
 				920E1B461F7816FA00664382 /* ActionTableViewCell.m in Sources */,
@@ -1112,6 +1134,7 @@
 				9284021B1F7448B500AC1466 /* cmd_files.c in Sources */,
 				9284022F1F7448B500AC1466 /* text_lib.c in Sources */,
 				928402211F7448B500AC1466 /* cmd_strings.c in Sources */,
+				92FAB24D1FC07D1C002E45FB /* LowResNXView.swift in Sources */,
 				920E1B701F78178D00664382 /* UIView+WebCacheOperation.m in Sources */,
 				920E1B3B1F78024E00664382 /* GORTableViewController.m in Sources */,
 				9284022E1F7448B500AC1466 /* sprites_lib.c in Sources */,
@@ -1202,6 +1225,7 @@
 				928402241F7448B500AC1466 /* data.c in Sources */,
 				920E1B651F78178D00664382 /* SDWebImageDownloader.m in Sources */,
 				923AFD711F77EBBC002F6A5B /* LCCUser.m in Sources */,
+				9294F2E21FC4BA1100A90487 /* CoreWrapper.swift in Sources */,
 				920E1B591F78177600664382 /* AFNetworkReachabilityManager.m in Sources */,
 				920E1B621F78178D00664382 /* SDImageCacheConfig.m in Sources */,
 				920E1B2C1F78022E00664382 /* UICollectionView+Draggable.m in Sources */,
