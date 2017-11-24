@@ -15,6 +15,7 @@
 #import "DraggableCollectionViewFlowLayout.h"
 #import "NSString+Utils.h"
 #import "UITextView+Utils.h"
+#import "UIViewController+LowResCoder.h"
 
 #import "EditorTextView.h"
 #import "SearchToolbar.h"

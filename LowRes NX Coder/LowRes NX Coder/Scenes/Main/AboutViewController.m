@@ -45,11 +45,11 @@
     
     if ([AppController sharedController].isFullVersion)
     {
-        self.menuIndices = @[@1, @3, @4, @2];
+        self.menuIndices = @[/*@1, @3,*/ @4, @2];
     }
     else
     {
-        self.menuIndices = @[@0, @1, @3, @4, @2];
+        self.menuIndices = @[@0, /*@1, @3,*/ @4, @2];
     }
 }
 

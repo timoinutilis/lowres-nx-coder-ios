@@ -17,10 +17,13 @@ class ProjectManager: NSObject {
         return Static.instance
     }
     
+    lazy var documentsUrl: URL = {
+        return FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+    }()
+    
     func copyBundleProgramsIfNeeded() throws {
         let programsUrl = Bundle.main.bundleURL.appendingPathComponent("programs", isDirectory: true)
         let urls = try FileManager.default.contentsOfDirectory(at: programsUrl, includingPropertiesForKeys: nil, options: [])
-        let documentsUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
         for url in urls {
             let targetUrl = documentsUrl.appendingPathComponent(url.lastPathComponent)
             if !FileManager.default.fileExists(atPath: targetUrl.path) {

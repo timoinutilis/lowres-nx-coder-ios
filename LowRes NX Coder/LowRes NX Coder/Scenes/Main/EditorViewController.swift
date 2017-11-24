@@ -55,10 +55,10 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
         
         let startItem = UIBarButtonItem(barButtonSystemItem: .play, target: self, action: #selector(onRunTapped))
         let searchItem = UIBarButtonItem(image: UIImage(named:"search"), style: .plain, target: self, action: #selector(onSearchTapped))
-        let feedbackItem = UIBarButtonItem(image: UIImage(named:"feedback"), style: .plain, target: self, action: #selector(onFeedbackTapped))
+//        let feedbackItem = UIBarButtonItem(image: UIImage(named:"feedback"), style: .plain, target: self, action: #selector(onFeedbackTapped))
         let projectItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(onProjectTapped))
         
-        navigationItem.rightBarButtonItems = [startItem, searchItem, feedbackItem, projectItem]
+        navigationItem.rightBarButtonItems = [startItem, searchItem, /*feedbackItem,*/ projectItem]
         
         view.backgroundColor = AppStyle.editorColor()
         sourceCodeTextView.backgroundColor = AppStyle.editorColor()
@@ -257,11 +257,26 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
     }
     
     @objc func onProjectTapped(_ sender: Any) {
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        
+        alert.addAction(UIAlertAction(title: "Share Source Code", style: .default, handler: { [weak self] (action) in
+            self?.onShareTapped(sender, community: false)
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Character Designer", style: .default, handler: { [weak self] (action) in
+            self?.editUsingTool(programName: "character designer.nx")
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Background Designer", style: .default, handler: { [weak self] (action) in
+            self?.editUsingTool(programName: "background designer.nx")
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        alert.popoverPresentationController?.barButtonItem = sender as? UIBarButtonItem;
+        present(alert, animated: true, completion: nil)
+        
         /*
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-        
-        __weak EditorViewController *weakSelf = self;
-        
         UIAlertAction *shareCommAction = [UIAlertAction actionWithTitle:@"Share with Community" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
             [weakSelf onShareTapped:sender community:YES];
             }];
@@ -290,13 +305,39 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
         UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:@"Delete" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * action) {
             [weakSelf onDeleteTapped];
             }];
-        [alert addAction:deleteAction];
-        
-        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
-        [alert addAction:cancelAction];
-        
-        alert.popoverPresentationController.barButtonItem = sender;
-        [self presentViewController:alert animated:YES completion:nil];*/
+        [alert addAction:deleteAction];*/
+    }
+    
+    func onShareTapped(_ sender: Any, community: Bool) {
+        if sourceCodeTextView.text.isEmpty {
+            showAlert(withTitle: "Cannot Share This Program", message: "This program is empty. Please write something!", block: nil)
+        /*} else if (![AppController sharedController].isFullVersion && self.sourceCodeTextView.text.countLines > EditorDemoMaxLines)
+        {
+            EditorViewController __weak *weakSelf = self;
+ 
+            UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Please upgrade to full version!"
+            message:[NSString stringWithFormat:@"The free version can only share programs with up to %d lines.", EditorDemoMaxLines]
+            preferredStyle:UIAlertControllerStyleAlert];
+ 
+            [alert addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
+            [alert addAction:[UIAlertAction actionWithTitle:@"More Info" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+            [weakSelf performSegueWithIdentifier:@"Upgrade" sender:weakSelf];
+            }]];
+            [self presentViewController:alert animated:YES completion:nil];*/
+        } else {
+            updateDocument()
+            
+            if community {
+            //            UIViewController *vc = [ShareViewController createShareWithProject:self.project];
+            //            [self presentViewController:vc animated:YES completion:nil];
+            } else {
+                if let item = document?.fileURL {
+                    let activityVC = UIActivityViewController(activityItems: [item], applicationActivities: nil)
+                    activityVC.popoverPresentationController?.barButtonItem = sender as? UIBarButtonItem
+                    present(activityVC, animated: true, completion: nil)
+                }
+            }
+        }
     }
     
     func onDeleteTapped() {
@@ -388,6 +429,17 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
      LCCPost *post = [[LCCPost alloc] initWithObjectId:self.project.postId];
      [self showPost:post];
      }*/
+    }
+    
+    func editUsingTool(programName: String) {
+        updateDocument()
+        let toolUrl = ProjectManager.shared.documentsUrl.appendingPathComponent(programName)
+        let toolDocument = ProjectDocument(fileURL: toolUrl)
+        
+        let storyboard = UIStoryboard(name: "LowResNX", bundle: nil)
+        let vc = storyboard.instantiateInitialViewController() as! LowResNXViewController
+        vc.document = toolDocument
+        present(vc, animated: true, completion: nil)
     }
     
     //MARK: - ProjectDocumentDelegate
@@ -638,48 +690,7 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
     [self presentViewController:nav animated:YES completion:nil];
     }
     
-    - (void)onShareTapped:(id)sender community:(BOOL)community
-    {
-    if (self.sourceCodeTextView.text.length == 0)
-    {
-    [self showAlertWithTitle:@"This program is empty" message:@"Please write something!" block:nil];
-    }
-    else if (![AppController sharedController].isFullVersion && self.sourceCodeTextView.text.countLines > EditorDemoMaxLines)
-    {
-    EditorViewController __weak *weakSelf = self;
-    
-    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Please upgrade to full version!"
-    message:[NSString stringWithFormat:@"The free version can only share programs with up to %d lines.", EditorDemoMaxLines]
-    preferredStyle:UIAlertControllerStyleAlert];
-    
-    [alert addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
-    [alert addAction:[UIAlertAction actionWithTitle:@"More Info" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-    [weakSelf performSegueWithIdentifier:@"Upgrade" sender:weakSelf];
-    }]];
-    [self presentViewController:alert animated:YES completion:nil];
-    }
-    else
-    {
-    [self saveProject];
-    
-    if (community)
-    {
-    //            UIViewController *vc = [ShareViewController createShareWithProject:self.project];
-    //            [self presentViewController:vc animated:YES completion:nil];
-    }
-    else
-    {/*
-     ActivityItemSource *item = [[ActivityItemSource alloc] init];
-     item.project = self.project;
-     
-     UIActivityViewController *activityVC = [[UIActivityViewController alloc] initWithActivityItems:@[item] applicationActivities:nil];
-     
-     activityVC.popoverPresentationController.barButtonItem = sender;
-     [self presentViewController:activityVC animated:YES completion:nil];*/
-    }
-    }
-    }
-    
+
     - (void)onRecordVideoTapped:(id)sender
     {
     if (![RPScreenRecorder class])

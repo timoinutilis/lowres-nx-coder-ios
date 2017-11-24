@@ -24,6 +24,7 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
     private var coreWrapper = CoreWrapper()
     private var displayLink: CADisplayLink?
     private var compilerError: Error?
+    private var hasAppeared: Bool = false
     
     private var pixelExactScaling: Bool = true {
         didSet {
@@ -36,18 +37,34 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let sourceCode = document?.sourceCode {
-            let cString = sourceCode.cString(using: .ascii)
-            let error = itp_compileProgram(&coreWrapper.core, cString)
-            if error.code != ErrorNone {
-                compilerError = LowResNXError(error: error, sourceCode: sourceCode)
+        if let document = document {
+            if document.documentState == .closed {
+                document.open(completionHandler: { [weak self] (success) in
+                    guard let strongSelf = self else {
+                        return
+                    }
+                    if success, let sourceCode = document.sourceCode {
+                        if let error = strongSelf.startProgram(sourceCode: sourceCode) {
+                            if strongSelf.hasAppeared {
+                                strongSelf.showAlert(withTitle: "Cannot Run Program", message: error.localizedDescription, block: nil)
+                            } else {
+                                strongSelf.compilerError = error
+                            }
+                        }
+                    } else {
+                        strongSelf.showAlert(withTitle: "Cannot Run Program", message: "Failed to open file. Please try again!", block: nil)
+                    }
+                })
+            } else if document.documentState == .normal {
+                if let sourceCode = document.sourceCode {
+                    compilerError = startProgram(sourceCode: sourceCode)
+                }
             }
         }
         
         nxView.coreWrapper = coreWrapper
         
         coreWrapper.delegate = self
-        core_willRunProgram(&coreWrapper.core, 0)
         configureGameControllers()
         
         inputAssistantItem.leadingBarButtonGroups = []
@@ -71,17 +88,17 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        hasAppeared = true
         displayLink!.add(to: .current, forMode: .defaultRunLoopMode)
         if let error = compilerError {
-            let alert = UIAlertController(title: "Cannot Run Program", message: error.localizedDescription, preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-            present(alert, animated: true, completion: nil)
+            showAlert(withTitle: "Cannot Run Program", message: error.localizedDescription, block: nil)
         }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         view.endEditing(true)
+        displayLink!.remove(from: .current, forMode: .defaultRunLoopMode)
     }
     
     override var prefersStatusBarHidden: Bool {
@@ -114,6 +131,17 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
             maxHeightFactor = screenHeight / CGFloat(SCREEN_HEIGHT)
         }
         widthConstraint.constant = (maxWidthFactor < maxHeightFactor) ? maxWidthFactor * CGFloat(SCREEN_WIDTH) : maxHeightFactor * CGFloat(SCREEN_WIDTH)
+    }
+    
+    func startProgram(sourceCode: String) -> LowResNXError? {
+        let cString = sourceCode.cString(using: .ascii)
+        let error = itp_compileProgram(&coreWrapper.core, cString)
+        if error.code != ErrorNone {
+            return LowResNXError(error: error, sourceCode: sourceCode)
+        } else {
+            core_willRunProgram(&coreWrapper.core, Int(AppController.shared().bootTime))
+        }
+        return nil
     }
     
     @objc func update(displaylink: CADisplayLink) {
