@@ -72,6 +72,9 @@
 		920E1B721F781AC100664382 /* manual.html in Resources */ = {isa = PBXBuildFile; fileRef = 926EB1D61F757F6A0048A6CF /* manual.html */; };
 		920E1B731F781AC100664382 /* guidelines.html in Resources */ = {isa = PBXBuildFile; fileRef = 926EB1D51F757F5D0048A6CF /* guidelines.html */; };
 		921614301F7D70E2006AB2DE /* EditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9216142F1F7D70E2006AB2DE /* EditorViewController.swift */; };
+		9227DC1A1FC8B99000BC89FD /* programs in Resources */ = {isa = PBXBuildFile; fileRef = 9227DC191FC8B98F00BC89FD /* programs */; };
+		9227DC1E1FC8BB0700BC89FD /* ProjectManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9227DC1D1FC8BB0700BC89FD /* ProjectManager.swift */; };
+		9227DC221FC8C17A00BC89FD /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9227DC211FC8C17A00BC89FD /* SplashViewController.swift */; };
 		923AFD681F77EB23002F6A5B /* AppController.m in Sources */ = {isa = PBXBuildFile; fileRef = 925CC6B21F7589B90059C230 /* AppController.m */; };
 		923AFD691F77EB27002F6A5B /* AppStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 925CC6B41F7589BA0059C230 /* AppStyle.m */; };
 		923AFD6A1F77EBA9002F6A5B /* APIObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 925CC67E1F7589420059C230 /* APIObject.m */; };
@@ -86,7 +89,6 @@
 		923AFD731F77ED46002F6A5B /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 926EB1E01F75823A0048A6CF /* AboutViewController.m */; };
 		923AFD761F77ED46002F6A5B /* ProjectSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 926EB1E61F75823E0048A6CF /* ProjectSettingsViewController.m */; };
 		923AFD781F77ED46002F6A5B /* ShareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 926EB1E51F75823E0048A6CF /* ShareViewController.m */; };
-		923AFD791F77ED46002F6A5B /* SplashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 926EB1ED1F75824F0048A6CF /* SplashViewController.m */; };
 		923AFD7A1F77ED46002F6A5B /* TabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 926EB1F01F7582510048A6CF /* TabBarController.m */; };
 		923AFD7B1F77ED46002F6A5B /* UpgradeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 926EB1E81F7582400048A6CF /* UpgradeViewController.m */; };
 		923AFD7C1F77ED52002F6A5B /* Help.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 926EB1FC1F7582A70048A6CF /* Help.storyboard */; };
@@ -177,6 +179,9 @@
 		920E1B2A1F78021D00664382 /* UICollectionViewDataSource_Draggable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UICollectionViewDataSource_Draggable.h; sourceTree = "<group>"; };
 		920E1B2B1F78021D00664382 /* UICollectionViewLayout_Warpable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UICollectionViewLayout_Warpable.h; sourceTree = "<group>"; };
 		9216142F1F7D70E2006AB2DE /* EditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorViewController.swift; sourceTree = "<group>"; };
+		9227DC191FC8B98F00BC89FD /* programs */ = {isa = PBXFileReference; lastKnownFileType = folder; name = programs; path = "../../lowres-nx/programs"; sourceTree = "<group>"; };
+		9227DC1D1FC8BB0700BC89FD /* ProjectManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManager.swift; sourceTree = "<group>"; };
+		9227DC211FC8C17A00BC89FD /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		923AFD301F77E945002F6A5B /* AFHTTPSessionManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AFHTTPSessionManager.h; sourceTree = "<group>"; };
 		923AFD311F77E945002F6A5B /* AFHTTPSessionManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AFHTTPSessionManager.m; sourceTree = "<group>"; };
 		923AFD321F77E945002F6A5B /* AFNetworking.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AFNetworking.h; sourceTree = "<group>"; };
@@ -354,8 +359,6 @@
 		926EB1E81F7582400048A6CF /* UpgradeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UpgradeViewController.m; sourceTree = "<group>"; };
 		926EB1E91F7582410048A6CF /* ShareViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShareViewController.h; sourceTree = "<group>"; };
 		926EB1EA1F7582420048A6CF /* AboutViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
-		926EB1EC1F75824E0048A6CF /* SplashViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SplashViewController.h; sourceTree = "<group>"; };
-		926EB1ED1F75824F0048A6CF /* SplashViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SplashViewController.m; sourceTree = "<group>"; };
 		926EB1EE1F7582500048A6CF /* UpgradeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UpgradeViewController.h; sourceTree = "<group>"; };
 		926EB1EF1F7582500048A6CF /* OldExplorerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OldExplorerViewController.h; sourceTree = "<group>"; };
 		926EB1F01F7582510048A6CF /* TabBarController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TabBarController.m; sourceTree = "<group>"; };
@@ -580,6 +583,7 @@
 		923AFD9D1F77F012002F6A5B /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				9227DC1D1FC8BB0700BC89FD /* ProjectManager.swift */,
 				9276994B1F7D649800211D15 /* ExplorerItem.swift */,
 				9276994D1F7D678900211D15 /* ProjectDocument.swift */,
 			);
@@ -746,8 +750,7 @@
 			isa = PBXGroup;
 			children = (
 				926EB1D11F757DDD0048A6CF /* Main.storyboard */,
-				926EB1EC1F75824E0048A6CF /* SplashViewController.h */,
-				926EB1ED1F75824F0048A6CF /* SplashViewController.m */,
+				9227DC211FC8C17A00BC89FD /* SplashViewController.swift */,
 				926EB1E21F75823C0048A6CF /* TabBarController.h */,
 				926EB1F01F7582510048A6CF /* TabBarController.m */,
 				920E1B191F77FF7A00664382 /* ExplorerViewController.swift */,
@@ -965,6 +968,7 @@
 		92EA93B11F744572007BEFB1 = {
 			isa = PBXGroup;
 			children = (
+				9227DC191FC8B98F00BC89FD /* programs */,
 				928401CF1F7448B500AC1466 /* core */,
 				923AFD2F1F77E945002F6A5B /* AFNetworking */,
 				923AFD3D1F77E955002F6A5B /* SDWebImage */,
@@ -1072,6 +1076,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				920E1B731F781AC100664382 /* guidelines.html in Resources */,
+				9227DC1A1FC8B99000BC89FD /* programs in Resources */,
 				923AFD721F77ED34002F6A5B /* Main.storyboard in Resources */,
 				920E1B481F7816FA00664382 /* ActivityView.xib in Resources */,
 				92EA93C51F744573007BEFB1 /* Assets.xcassets in Resources */,
@@ -1109,7 +1114,6 @@
 				920E1B301F78024500664382 /* NSDate+Utils.m in Sources */,
 				923AFD7B1F77ED46002F6A5B /* UpgradeViewController.m in Sources */,
 				920E1B661F78178D00664382 /* SDWebImageDownloaderOperation.m in Sources */,
-				923AFD791F77ED46002F6A5B /* SplashViewController.m in Sources */,
 				920E1B551F7816FA00664382 /* TextFieldTableViewCell.m in Sources */,
 				920E1B381F78024E00664382 /* GORMenuTableViewController.m in Sources */,
 				928402171F7448B500AC1466 /* core.c in Sources */,
@@ -1188,6 +1192,7 @@
 				923AFD6A1F77EBA9002F6A5B /* APIObject.m in Sources */,
 				928402321F7448B500AC1466 /* video_chip.c in Sources */,
 				920E1B361F78024E00664382 /* GORCycleManager.m in Sources */,
+				9227DC1E1FC8BB0700BC89FD /* ProjectManager.swift in Sources */,
 				9276994E1F7D678900211D15 /* ProjectDocument.swift in Sources */,
 				928402261F7448B500AC1466 /* interpreter.c in Sources */,
 				923AFD9B1F77ED71002F6A5B /* NotificationsViewController.m in Sources */,
@@ -1219,6 +1224,7 @@
 				9284021A1F7448B500AC1466 /* cmd_data.c in Sources */,
 				923AFD6E1F77EBB4002F6A5B /* LCCNotification.m in Sources */,
 				920E1B3C1F78024E00664382 /* GORTextView.m in Sources */,
+				9227DC221FC8C17A00BC89FD /* SplashViewController.swift in Sources */,
 				923AFD991F77ED71002F6A5B /* CommStatusUpdateViewController.m in Sources */,
 				920E1B311F78024500664382 /* NSMutableDictionary+Utils.m in Sources */,
 				923AFD7A1F77ED46002F6A5B /* TabBarController.m in Sources */,

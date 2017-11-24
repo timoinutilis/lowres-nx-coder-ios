@@ -366,7 +366,7 @@ The upgrade is valid for all your devices and without time limit.</string>
         <!--Splash View Controller-->
         <scene sceneID="1Ds-bG-bIC">
             <objects>
-                <viewController id="oli-IW-NHE" customClass="SplashViewController" sceneMemberID="viewController">
+                <viewController id="oli-IW-NHE" customClass="SplashViewController" customModule="LowRes_NX_Coder" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8pd-8W-KfW">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
