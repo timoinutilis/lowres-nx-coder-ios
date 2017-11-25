@@ -26,8 +26,8 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
     
     weak var delegate: LowResNXViewControllerDelegate?
     var document: ProjectDocument?
+    var coreWrapper: CoreWrapper?
     
-    private var coreWrapper = CoreWrapper()
     private var displayLink: CADisplayLink?
     private var compilerError: Error?
     private var hasAppeared: Bool = false
@@ -43,29 +43,44 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let document = document {
+        guard let document = document else {
+            return
+        }
+        
+        if let coreWrapper = coreWrapper {
+            // program already compiled
+            core_willRunProgram(&coreWrapper.core, Int(AppController.shared().bootTime))
+            
+        } else {
+            // program not yet compiled, open document and compile...
+            coreWrapper = CoreWrapper()
+            
             if document.documentState == .closed {
                 document.open(completionHandler: { [weak self] (success) in
                     guard let strongSelf = self else {
                         return
                     }
                     if success, let sourceCode = document.sourceCode {
-                        if let error = strongSelf.startProgram(sourceCode: sourceCode) {
+                        if let error = strongSelf.compileAndStartProgram(sourceCode: sourceCode) {
                             if strongSelf.hasAppeared {
-                                strongSelf.showAlert(withTitle: "Cannot Run Program", message: error.localizedDescription, block: nil)
+                                strongSelf.showAlert(withTitle: error.localizedDescription, message: nil, block: nil)
                             } else {
                                 strongSelf.compilerError = error
                             }
                         }
                     } else {
-                        strongSelf.showAlert(withTitle: "Cannot Run Program", message: "Failed to open file. Please try again!", block: nil)
+                        strongSelf.showAlert(withTitle: "Failed to Open File", message: nil, block: nil)
                     }
                 })
             } else if document.documentState == .normal {
                 if let sourceCode = document.sourceCode {
-                    compilerError = startProgram(sourceCode: sourceCode)
+                    compilerError = compileAndStartProgram(sourceCode: sourceCode)
                 }
             }
+        }
+        
+        guard let coreWrapper = coreWrapper else {
+            return
         }
         
         nxView.coreWrapper = coreWrapper
@@ -95,16 +110,18 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         hasAppeared = true
-        displayLink!.add(to: .current, forMode: .defaultRunLoopMode)
+        
+        displayLink?.add(to: .current, forMode: .defaultRunLoopMode)
+        
         if let error = compilerError {
-            showAlert(withTitle: "Cannot Run Program", message: error.localizedDescription, block: nil)
+            showAlert(withTitle: error.localizedDescription, message: nil, block: nil)
         }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         view.endEditing(true)
-        displayLink!.remove(from: .current, forMode: .defaultRunLoopMode)
+        displayLink?.remove(from: .current, forMode: .defaultRunLoopMode)
     }
     
     override var prefersStatusBarHidden: Bool {
@@ -139,7 +156,11 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
         widthConstraint.constant = (maxWidthFactor < maxHeightFactor) ? maxWidthFactor * CGFloat(SCREEN_WIDTH) : maxHeightFactor * CGFloat(SCREEN_WIDTH)
     }
     
-    func startProgram(sourceCode: String) -> LowResNXError? {
+    func compileAndStartProgram(sourceCode: String) -> LowResNXError? {
+        guard let coreWrapper = coreWrapper else {
+            return nil
+        }
+        
         let cString = sourceCode.cString(using: .ascii)
         let error = itp_compileProgram(&coreWrapper.core, cString)
         if error.code != ErrorNone {
@@ -151,12 +172,20 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
     }
     
     @objc func update(displaylink: CADisplayLink) {
+        guard let coreWrapper = coreWrapper else {
+            return
+        }
+        
         updateGameControllers()
         core_update(&coreWrapper.core)
         nxView.render()
     }
     
     func configureGameControllers() {
+        guard let coreWrapper = coreWrapper else {
+            return
+        }
+        
         let gameControllers = GCController.controllers()
         
         core_setNumPhysicalGamepads(&coreWrapper.core, Int32(gameControllers.count))
@@ -174,6 +203,10 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
     }
     
     func updateGameControllers() {
+        guard let coreWrapper = coreWrapper else {
+            return
+        }
+        
         for gameController in GCController.controllers() {
             if let gamepad = gameController.gamepad, gameController.playerIndex != .indexUnset {
                 var up = gamepad.dpad.up.isPressed
@@ -194,6 +227,10 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
     }
     
     @objc func handleTap(sender: UITapGestureRecognizer) {
+        guard let coreWrapper = coreWrapper else {
+            return
+        }
+        
         if sender.state == .ended {
             if core_getKeyboardEnabled(&coreWrapper.core) {
                 becomeFirstResponder()
@@ -202,6 +239,10 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
     }
     
     override var canBecomeFirstResponder: Bool {
+        guard let coreWrapper = coreWrapper else {
+            return false
+        }
+        
         return core_getKeyboardEnabled(&coreWrapper.core)
     }
     
@@ -293,6 +334,10 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
     }
     
     func insertText(_ text: String) {
+        guard let coreWrapper = coreWrapper else {
+            return
+        }
+        
         if text == "\n" {
             core_returnPressed(&coreWrapper.core)
         } else if let key = text.uppercased().unicodeScalars.first?.value {
@@ -303,6 +348,10 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
     }
     
     func deleteBackward() {
+        guard let coreWrapper = coreWrapper else {
+            return
+        }
+        
         core_backspacePressed(&coreWrapper.core)
     }
     

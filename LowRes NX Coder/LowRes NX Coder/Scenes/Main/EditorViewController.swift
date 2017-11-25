@@ -224,11 +224,7 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
     
     
     @objc func onRunTapped(_ sender: Any) {
-        updateDocument()
-        let storyboard = UIStoryboard(name: "LowResNX", bundle: nil)
-        let vc = storyboard.instantiateInitialViewController() as! LowResNXViewController
-        vc.document = document
-        present(vc, animated: true, completion: nil)
+        runProject()
     }
     
     @objc func onSearchTapped(_ sender: Any) {
@@ -436,6 +432,41 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
         vc.document = toolDocument
         vc.delegate = self
         present(vc, animated: true, completion: nil)
+    }
+    
+    func runProject() {
+        updateDocument()
+        
+        guard let sourceCode = document?.sourceCode else {
+            return
+        }
+        
+        let coreWrapper = CoreWrapper()
+        
+        let cString = sourceCode.cString(using: .ascii)
+        let error = itp_compileProgram(&coreWrapper.core, cString)
+        
+        if error.code != ErrorNone {
+            // show error
+            let nxError = LowResNXError(error: error, sourceCode: sourceCode)
+            
+            let alert = UIAlertController(title: nxError.localizedDescription, message: nil, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+            alert.addAction(UIAlertAction(title: "Go to Error", style: .default, handler: { [weak self] (action) in
+                let range = NSMakeRange(Int(error.sourcePosition), 0)
+                self?.sourceCodeTextView.selectedRange = range
+                self?.sourceCodeTextView.becomeFirstResponder()
+            }))
+            present(alert, animated: true, completion: nil)
+            
+        } else {
+            // start
+            let storyboard = UIStoryboard(name: "LowResNX", bundle: nil)
+            let vc = storyboard.instantiateInitialViewController() as! LowResNXViewController
+            vc.document = document
+            vc.coreWrapper = coreWrapper
+            present(vc, animated: true, completion: nil)
+        }
     }
     
     //MARK: - ProjectDocumentDelegate
