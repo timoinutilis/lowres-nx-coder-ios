@@ -21,7 +21,7 @@ import UIKit
  typedef void(^InfoBlock)(void);
 */
 
-class EditorViewController: UIViewController, UITextViewDelegate, EditorTextViewDelegate, SearchToolbarDelegate, ProjectDocumentDelegate {
+class EditorViewController: UIViewController, UITextViewDelegate, EditorTextViewDelegate, SearchToolbarDelegate, ProjectDocumentDelegate, LowResNXViewControllerDelegate {
     
     @IBOutlet weak var sourceCodeTextView: EditorTextView!
     @IBOutlet weak var searchToolbar: SearchToolbar!
@@ -96,17 +96,6 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
         
         activityIndicatorView.isHidden = true
         
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: .UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: .UIKeyboardWillHide, object: nil)
-    }
-    
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
         if let document = document {
             if document.documentState == .closed {
                 activityIndicatorView.startAnimating()
@@ -118,6 +107,19 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
                 })
             }
         }
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: .UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: .UIKeyboardWillHide, object: nil)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+        updateDocument()
+        document?.close(completionHandler: nil)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
         if !didAppearAlready {
             didAppearAlready = true
@@ -179,16 +181,6 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
                 [coachMark show];
             }
         }*/
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        updateDocument()
-        document?.close(completionHandler: nil)
     }
     
     @objc func keyboardWillShow(_ notification: Notification) {
@@ -433,12 +425,14 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
     
     func editUsingTool(programName: String) {
         updateDocument()
+        
         let toolUrl = ProjectManager.shared.documentsUrl.appendingPathComponent(programName)
         let toolDocument = ProjectDocument(fileURL: toolUrl)
         
         let storyboard = UIStoryboard(name: "LowResNX", bundle: nil)
         let vc = storyboard.instantiateInitialViewController() as! LowResNXViewController
         vc.document = toolDocument
+        vc.delegate = self
         present(vc, animated: true, completion: nil)
     }
     
@@ -657,6 +651,22 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
             return true
         }
         return false
+    }
+    
+    //MARK: - LowResNXViewControllerDelegate
+    
+    func nxSourceCodeForVirtualDisk() -> String {
+        return document?.sourceCode ?? ""
+    }
+    
+    func nxDidSaveVirtualDisk(sourceCode: String) {
+        if let document = document {
+            if sourceCode != document.sourceCode {
+                document.sourceCode = sourceCode
+                document.updateChangeCount(.done)
+                projectDocumentContentDidUpdate(document)
+            }
+        }
     }
 
 /*

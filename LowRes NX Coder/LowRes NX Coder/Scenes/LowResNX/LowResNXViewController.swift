@@ -9,6 +9,11 @@
 import UIKit
 import GameController
 
+protocol LowResNXViewControllerDelegate: class {
+    func nxSourceCodeForVirtualDisk() -> String
+    func nxDidSaveVirtualDisk(sourceCode: String)
+}
+
 class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate {
     
     @IBOutlet private weak var exitButton: UIButton!
@@ -19,6 +24,7 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
     @IBOutlet private weak var widthConstraint: NSLayoutConstraint!
     @IBOutlet private weak var keyboardConstraint: NSLayoutConstraint!
     
+    weak var delegate: LowResNXViewControllerDelegate?
     var document: ProjectDocument?
     
     private var coreWrapper = CoreWrapper()
@@ -248,10 +254,22 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
     }
     
     func coreDiskDriveWillAccess(diskDataManager: UnsafeMutablePointer<DataManager>?) -> Bool {
+        if let delegate = delegate {
+            let diskSourceCode = delegate.nxSourceCodeForVirtualDisk()
+            let cDiskSourceCode = diskSourceCode.cString(using: .ascii)
+            data_import(diskDataManager, cDiskSourceCode, true)
+        }
         return true
     }
     
     func coreDiskDriveDidSave(diskDataManager: UnsafeMutablePointer<DataManager>?) {
+        if let delegate = delegate {
+            let output = data_export(diskDataManager)
+            if let output = output, let diskSourceCode = String(cString: output, encoding: .ascii) {
+                delegate.nxDidSaveVirtualDisk(sourceCode: diskSourceCode)
+                free(output);
+            }
+        }
     }
     
     func coreControlsDidChange(controlsInfo: ControlsInfo) {
