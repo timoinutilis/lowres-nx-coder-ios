@@ -73,8 +73,10 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
         sourceCodeTextView.editorDelegate = self
 
         sourceCodeTextView.keyboardAppearance = .dark
-        sourceCodeTextView.keyboardToolbar.isTranslucent = true
-        sourceCodeTextView.keyboardToolbar.barStyle = .black
+        if let keyboardToolbar = sourceCodeTextView.keyboardToolbar {
+            keyboardToolbar.isTranslucent = true
+            keyboardToolbar.barStyle = .black
+        }
         
         sourceCodeTextView.text = document?.sourceCode ?? ""
         
@@ -546,7 +548,7 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
     
     //MARK: - EditorTextViewDelegate
     
-    func editorTextView(_ editorTextView: EditorTextView!, didSelectHelpWith range: NSRange) {
+    func editorTextView(_ editorTextView: EditorTextView, didSelectHelpWith range: NSRange) {
 /*        NSInteger nextIndex = range.location + range.length;
         if (nextIndex < editorTextView.text.length && [editorTextView.text characterAtIndex:nextIndex] == '$')
         {

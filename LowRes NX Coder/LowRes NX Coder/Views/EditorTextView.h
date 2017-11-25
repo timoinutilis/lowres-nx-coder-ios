@@ -10,10 +10,11 @@
 
 @protocol EditorTextViewDelegate;
 
+NS_ASSUME_NONNULL_BEGIN
 @interface EditorTextView : UITextView
 
-@property (readonly) UIToolbar *keyboardToolbar;
-@property (weak) id<EditorTextViewDelegate> editorDelegate;
+@property (readonly, nullable) UIToolbar *keyboardToolbar;
+@property (weak, nullable) id<EditorTextViewDelegate> editorDelegate;
 
 @end
 
@@ -22,3 +23,4 @@
 - (void)editorTextView:(EditorTextView *)editorTextView didSelectHelpWithRange:(NSRange)range;
 
 @end
+NS_ASSUME_NONNULL_END
