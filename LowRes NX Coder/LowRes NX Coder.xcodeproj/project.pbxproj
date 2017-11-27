@@ -69,12 +69,12 @@
 		920E1B6E1F78178D00664382 /* UIImageView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 923AFD631F77E955002F6A5B /* UIImageView+WebCache.m */; };
 		920E1B6F1F78178D00664382 /* UIView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 923AFD651F77E955002F6A5B /* UIView+WebCache.m */; };
 		920E1B701F78178D00664382 /* UIView+WebCacheOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 923AFD671F77E955002F6A5B /* UIView+WebCacheOperation.m */; };
-		920E1B721F781AC100664382 /* manual.html in Resources */ = {isa = PBXBuildFile; fileRef = 926EB1D61F757F6A0048A6CF /* manual.html */; };
 		920E1B731F781AC100664382 /* guidelines.html in Resources */ = {isa = PBXBuildFile; fileRef = 926EB1D51F757F5D0048A6CF /* guidelines.html */; };
 		921614301F7D70E2006AB2DE /* EditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9216142F1F7D70E2006AB2DE /* EditorViewController.swift */; };
-		9227DC1A1FC8B99000BC89FD /* programs in Resources */ = {isa = PBXBuildFile; fileRef = 9227DC191FC8B98F00BC89FD /* programs */; };
 		9227DC1E1FC8BB0700BC89FD /* ProjectManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9227DC1D1FC8BB0700BC89FD /* ProjectManager.swift */; };
 		9227DC221FC8C17A00BC89FD /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9227DC211FC8C17A00BC89FD /* SplashViewController.swift */; };
+		922F0A2A1FCCC172004EF2D2 /* programs in Resources */ = {isa = PBXBuildFile; fileRef = 922F0A291FCCC172004EF2D2 /* programs */; };
+		922F0A2C1FCCC1FF004EF2D2 /* docs in Resources */ = {isa = PBXBuildFile; fileRef = 922F0A2B1FCCC1FF004EF2D2 /* docs */; };
 		923AFD681F77EB23002F6A5B /* AppController.m in Sources */ = {isa = PBXBuildFile; fileRef = 925CC6B21F7589B90059C230 /* AppController.m */; };
 		923AFD691F77EB27002F6A5B /* AppStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 925CC6B41F7589BA0059C230 /* AppStyle.m */; };
 		923AFD6A1F77EBA9002F6A5B /* APIObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 925CC67E1F7589420059C230 /* APIObject.m */; };
@@ -179,9 +179,10 @@
 		920E1B2A1F78021D00664382 /* UICollectionViewDataSource_Draggable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UICollectionViewDataSource_Draggable.h; sourceTree = "<group>"; };
 		920E1B2B1F78021D00664382 /* UICollectionViewLayout_Warpable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UICollectionViewLayout_Warpable.h; sourceTree = "<group>"; };
 		9216142F1F7D70E2006AB2DE /* EditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorViewController.swift; sourceTree = "<group>"; };
-		9227DC191FC8B98F00BC89FD /* programs */ = {isa = PBXFileReference; lastKnownFileType = folder; name = programs; path = "../../lowres-nx/programs"; sourceTree = "<group>"; };
 		9227DC1D1FC8BB0700BC89FD /* ProjectManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManager.swift; sourceTree = "<group>"; };
 		9227DC211FC8C17A00BC89FD /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
+		922F0A291FCCC172004EF2D2 /* programs */ = {isa = PBXFileReference; lastKnownFileType = folder; name = programs; path = "LowRes NX Core/programs"; sourceTree = "<group>"; };
+		922F0A2B1FCCC1FF004EF2D2 /* docs */ = {isa = PBXFileReference; lastKnownFileType = folder; name = docs; path = "LowRes NX Core/docs"; sourceTree = "<group>"; };
 		923AFD301F77E945002F6A5B /* AFHTTPSessionManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AFHTTPSessionManager.h; sourceTree = "<group>"; };
 		923AFD311F77E945002F6A5B /* AFHTTPSessionManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AFHTTPSessionManager.m; sourceTree = "<group>"; };
 		923AFD321F77E945002F6A5B /* AFNetworking.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AFNetworking.h; sourceTree = "<group>"; };
@@ -345,7 +346,6 @@
 		926EB1D11F757DDD0048A6CF /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		926EB1D21F757EA70048A6CF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		926EB1D51F757F5D0048A6CF /* guidelines.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = guidelines.html; sourceTree = "<group>"; };
-		926EB1D61F757F6A0048A6CF /* manual.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = manual.html; sourceTree = "<group>"; };
 		926EB1D71F757FAD0048A6CF /* UITableView+Parse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UITableView+Parse.h"; sourceTree = "<group>"; };
 		926EB1D81F757FAD0048A6CF /* UIViewController+LowResCoder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIViewController+LowResCoder.h"; sourceTree = "<group>"; };
 		926EB1D91F757FAD0048A6CF /* UITableView+Parse.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UITableView+Parse.m"; sourceTree = "<group>"; };
@@ -740,7 +740,6 @@
 		926EB1D41F757EF30048A6CF /* HTML */ = {
 			isa = PBXGroup;
 			children = (
-				926EB1D61F757F6A0048A6CF /* manual.html */,
 				926EB1D51F757F5D0048A6CF /* guidelines.html */,
 			);
 			path = HTML;
@@ -968,7 +967,8 @@
 		92EA93B11F744572007BEFB1 = {
 			isa = PBXGroup;
 			children = (
-				9227DC191FC8B98F00BC89FD /* programs */,
+				922F0A291FCCC172004EF2D2 /* programs */,
+				922F0A2B1FCCC1FF004EF2D2 /* docs */,
 				928401CF1F7448B500AC1466 /* core */,
 				923AFD2F1F77E945002F6A5B /* AFNetworking */,
 				923AFD3D1F77E955002F6A5B /* SDWebImage */,
@@ -1076,16 +1076,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				920E1B731F781AC100664382 /* guidelines.html in Resources */,
-				9227DC1A1FC8B99000BC89FD /* programs in Resources */,
 				923AFD721F77ED34002F6A5B /* Main.storyboard in Resources */,
+				922F0A2C1FCCC1FF004EF2D2 /* docs in Resources */,
 				920E1B481F7816FA00664382 /* ActivityView.xib in Resources */,
 				92EA93C51F744573007BEFB1 /* Assets.xcassets in Resources */,
 				926EB1D31F757EA70048A6CF /* LaunchScreen.storyboard in Resources */,
-				920E1B721F781AC100664382 /* manual.html in Resources */,
 				927F2C6F1FC4C1030041883C /* LowResNX.storyboard in Resources */,
 				923AFD8F1F77ED71002F6A5B /* Community.storyboard in Resources */,
 				923AFD7C1F77ED52002F6A5B /* Help.storyboard in Resources */,
 				920E1B4B1F7816FA00664382 /* BlockerView.xib in Resources */,
+				922F0A2A1FCCC172004EF2D2 /* programs in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

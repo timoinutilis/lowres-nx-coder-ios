@@ -82,6 +82,11 @@
     }
 }
 
+- (void)parser:(NSXMLParser *)parser parseErrorOccurred:(NSError *)parseError
+{
+    NSLog(@"Help parse error: %@", parseError.localizedDescription);
+}
+
 @end
 
 @implementation HelpChapter

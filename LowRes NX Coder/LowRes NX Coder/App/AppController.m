@@ -46,7 +46,7 @@ NSString *const ImportProjectNotification = @"ImportProjectNotification";
     {
         _purchaseState = PurchaseStateUninitialized;
         
-        NSURL *url = [[NSBundle mainBundle] URLForResource:@"manual" withExtension:@"html"];
+        NSURL *url = [[NSBundle mainBundle] URLForResource:@"manual" withExtension:@"html" subdirectory:@"docs"];
         _helpContent = [[HelpContent alloc] initWithURL:url];
         
         _bootTime = CFAbsoluteTimeGetCurrent();
