@@ -25,6 +25,8 @@
     [super viewDidLoad];
     
     self.webView.delegate = self;
+    self.webView.scalesPageToFit = NO;
+    self.webView.dataDetectorTypes = UIDataDetectorTypeNone;
     
     self.navigationItem.leftBarButtonItem = self.splitViewController.displayModeButtonItem;
     self.navigationItem.leftItemsSupplementBackButton = YES;
