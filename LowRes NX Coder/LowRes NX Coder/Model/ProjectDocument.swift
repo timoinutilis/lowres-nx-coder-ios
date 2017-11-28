@@ -29,4 +29,14 @@ class ProjectDocument: UIDocument {
         delegate?.projectDocumentContentDidUpdate(self)
     }
     
+    func saveIfChanged(completion: @escaping ((Bool) -> Void)) {
+        if hasUnsavedChanges {
+            save(to: fileURL, for: .forOverwriting) { (success) in
+                completion(success)
+            }
+        } else {
+            completion(true)
+        }
+    }
+    
 }

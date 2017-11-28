@@ -247,6 +247,8 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
     }
     
     @objc func onProjectTapped(_ sender: Any) {
+        view.endEditing(true)
+        
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
         alert.addAction(UIAlertAction(title: "Share Source Code", style: .default, handler: { [weak self] (action) in
@@ -299,6 +301,10 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
     }
     
     func onShareTapped(_ sender: Any, community: Bool) {
+        guard let document = document else {
+            return
+        }
+        
         if sourceCodeTextView.text.isEmpty {
             showAlert(withTitle: "Cannot Share This Program", message: "This program is empty. Please write something!", block: nil)
         /*} else if (![AppController sharedController].isFullVersion && self.sourceCodeTextView.text.countLines > EditorDemoMaxLines)
@@ -315,18 +321,19 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
             }]];
             [self presentViewController:alert animated:YES completion:nil];*/
         } else {
+            BlockerView.show()
             updateDocument()
-            
-            if community {
-            //            UIViewController *vc = [ShareViewController createShareWithProject:self.project];
-            //            [self presentViewController:vc animated:YES completion:nil];
-            } else {
-                if let item = document?.fileURL {
-                    let activityVC = UIActivityViewController(activityItems: [item], applicationActivities: nil)
+            document.saveIfChanged(completion: { (success) in
+                BlockerView.dismiss()
+                if community {
+                    //            UIViewController *vc = [ShareViewController createShareWithProject:self.project];
+                    //            [self presentViewController:vc animated:YES completion:nil];
+                } else {
+                    let activityVC = UIActivityViewController(activityItems: [document.fileURL], applicationActivities: nil)
                     activityVC.popoverPresentationController?.barButtonItem = sender as? UIBarButtonItem
-                    present(activityVC, animated: true, completion: nil)
+                    self.present(activityVC, animated: true, completion: nil)
                 }
-            }
+            })
         }
     }
     

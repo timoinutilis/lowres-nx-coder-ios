@@ -20,4 +20,4 @@
 #import "EditorTextView.h"
 #import "SearchToolbar.h"
 #import "IndexSideBar.h"
-
+#import "BlockerView.h"
