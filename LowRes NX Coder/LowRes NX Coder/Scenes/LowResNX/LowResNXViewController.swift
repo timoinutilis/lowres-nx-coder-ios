@@ -123,7 +123,7 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         view.endEditing(true)
-        displayLink?.remove(from: .current, forMode: .defaultRunLoopMode)
+        displayLink?.invalidate()
     }
     
     override var prefersStatusBarHidden: Bool {
