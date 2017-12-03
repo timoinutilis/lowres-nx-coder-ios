@@ -43,35 +43,20 @@ class CoreWrapper: NSObject {
 class LowResNXError: NSError {
     
     let coreError: CoreError
+    let message: String
+    let line: String
     
     init(error: CoreError, sourceCode: String) {
         coreError = error
         let index = sourceCode.index(sourceCode.startIndex, offsetBy: String.IndexDistance(error.sourcePosition))
         let lineRange = sourceCode.lineRange(for: index ..< index)
-        let lineString = sourceCode[lineRange].trimmingCharacters(in: CharacterSet.whitespaces)
-        let lineNumber = sourceCode.countLines(index: index)
-        
-        let errorString = String(cString:err_getString(error.code))
-        let errorText = "Error in line \(lineNumber): \(errorString)\n\(lineString)"
-        super.init(domain: "LowResNX", code: Int(error.code.rawValue), userInfo: [NSLocalizedDescriptionKey: errorText])
+        line = sourceCode[lineRange].trimmingCharacters(in: CharacterSet.whitespaces)
+        message = String(cString:err_getString(error.code))
+        super.init(domain: "LowResNX", code: Int(coreError.code.rawValue), userInfo: [NSLocalizedDescriptionKey: "\(message): \(line)"])
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-}
-
-extension String {
-
-    func countLines(index: String.Index) -> Int {
-        var count = 1
-        var searchRange = startIndex ..< endIndex
-        while let foundRange = rangeOfCharacter(from: CharacterSet.newlines, options: .literal, range: searchRange), index >= foundRange.upperBound {
-            searchRange = characters.index(after: foundRange.lowerBound) ..< endIndex
-            count += 1
-        }
-        return count;
     }
     
 }

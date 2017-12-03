@@ -29,7 +29,7 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
     var coreWrapper: CoreWrapper?
     
     private var displayLink: CADisplayLink?
-    private var compilerError: Error?
+    private var compilerError: NSError?
     private var hasAppeared: Bool = false
     
     private var pixelExactScaling: Bool = true {
@@ -60,16 +60,18 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
                     guard let strongSelf = self else {
                         return
                     }
+                    var error: NSError?
                     if success, let sourceCode = document.sourceCode {
-                        if let error = strongSelf.compileAndStartProgram(sourceCode: sourceCode) {
-                            if strongSelf.hasAppeared {
-                                strongSelf.showAlert(withTitle: error.localizedDescription, message: nil, block: nil)
-                            } else {
-                                strongSelf.compilerError = error
-                            }
-                        }
+                        error = strongSelf.compileAndStartProgram(sourceCode: sourceCode)
                     } else {
-                        strongSelf.showAlert(withTitle: "Failed to Open File", message: nil, block: nil)
+                        error = NSError(domain: "LowResNXCoder", code: 0, userInfo: [NSLocalizedDescriptionKey: "Could Not Open File"])
+                    }
+                    if let error = error {
+                        if strongSelf.hasAppeared {
+                            strongSelf.showError(error)
+                        } else {
+                            strongSelf.compilerError = error
+                        }
                     }
                 })
             } else if document.documentState == .normal {
@@ -114,7 +116,7 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
         displayLink?.add(to: .current, forMode: .defaultRunLoopMode)
         
         if let error = compilerError {
-            showAlert(withTitle: error.localizedDescription, message: nil, block: nil)
+            showError(error)
         }
     }
     
@@ -246,6 +248,20 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
         return core_getKeyboardEnabled(&coreWrapper.core)
     }
     
+    private func showError(_ error: NSError) {
+        var title: String?
+        var message: String?
+        if let nxError = error as? LowResNXError {
+            title = nxError.message
+            message = nxError.line
+        } else {
+            title = error.localizedDescription
+        }
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
+    
     @objc func keyboardWillShow(_ notification: NSNotification) {
         if let frameValue = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue {
             let frame = frameValue.cgRectValue
@@ -289,9 +305,7 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
     
     func coreInterpreterDidFail(coreError: CoreError) {
         let interpreterError = LowResNXError(error: coreError, sourceCode: document!.sourceCode!)
-        let alert = UIAlertController(title: "Runtime Error", message: interpreterError.localizedDescription, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        present(alert, animated: true, completion: nil)
+        showError(interpreterError)
     }
     
     func coreDiskDriveWillAccess(diskDataManager: UnsafeMutablePointer<DataManager>?) -> Bool {

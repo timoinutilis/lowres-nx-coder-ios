@@ -8,6 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
+@class HelpChapter;
+
 @interface HelpContent : NSObject <NSXMLParserDelegate>
 
 @property (readonly) NSURL *url;
@@ -16,7 +20,7 @@
 
 
 - (instancetype)initWithURL:(NSURL *)url;
-- (NSArray *)chaptersForSearchText:(NSString *)text;
+- (NSArray<HelpChapter *> *)chaptersForSearchText:(NSString *)text;
 
 @end
 
@@ -26,3 +30,5 @@
 @property NSArray *keywords;
 @property int level;
 @end
+
+NS_ASSUME_NONNULL_END

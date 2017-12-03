@@ -587,45 +587,52 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
     //MARK: - EditorTextViewDelegate
     
     func editorTextView(_ editorTextView: EditorTextView, didSelectHelpWith range: NSRange) {
-/*        NSInteger nextIndex = range.location + range.length;
-        if (nextIndex < editorTextView.text.length && [editorTextView.text characterAtIndex:nextIndex] == '$')
-        {
-            // include "$"
-            range.length++;
-        }
-        NSString *text = [editorTextView.text substringWithRange:range];
-        HelpContent *helpContent = [AppController sharedController].helpContent;
-        NSArray *results = [helpContent chaptersForSearchText:text];
-        if (results.count == 1)
-        {
-            HelpChapter *chapter = results.firstObject;
-            [[AppController sharedController].tabBarController showHelpForChapter:chapter.htmlChapter];
-        }
-        else if (results.count > 1)
-        {
-            UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-            for (HelpChapter *chapter in results)
-            {
-                [alert addAction:[UIAlertAction actionWithTitle:chapter.title style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                    [[AppController sharedController].tabBarController showHelpForChapter:chapter.htmlChapter];
-                    }]];
+        let text = editorTextView.text!
+        let selectedRange = Range(range, in: text)!
+        var selectedText = String(text[selectedRange])
+        
+        var index = selectedRange.upperBound
+        if index < text.endIndex {
+            if text[index] == "$" {
+                // include "$" (e.g. for LEFT$)
+                selectedText.append("$")
+                index = text.index(after: index)
+            } else if text[index] == "." {
+                // include "." and following letters (e.g. for SPRITE.X)
+                let charSet = CharacterSet(charactersIn: ".ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz")
+                while index < text.endIndex, charSet.contains(text[index].unicodeScalars.first!) {
+                    selectedText.append(text[index])
+                    index = text.index(after: index)
+                }
             }
-            [alert addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
+        }
+        
+        let helpContent = AppController.shared().helpContent!
+        let results = helpContent.chapters(forSearchText: selectedText)
+
+        if results.count == 1 {
+            let chapter = results.first!
+            AppController.shared().tabBarController.showHelp(forChapter: chapter.htmlChapter)
+        
+        } else if results.count > 1 {
+            let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+            for chapter in results {
+                alert.addAction(UIAlertAction(title: chapter.title, style: .default, handler: { (action) in
+                    AppController.shared().tabBarController.showHelp(forChapter: chapter.htmlChapter)
+                }))
+            }
+            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
             
-            UIPopoverPresentationController *ppc = alert.popoverPresentationController;
-            if (ppc)
-            {
-                ppc.sourceView = self.sourceCodeTextView;
-                ppc.sourceRect = [self.sourceCodeTextView.layoutManager boundingRectForGlyphRange:range inTextContainer:self.sourceCodeTextView.textContainer];
-                ppc.permittedArrowDirections = UIPopoverArrowDirectionUp | UIPopoverArrowDirectionDown;
+            if let ppc = alert.popoverPresentationController {
+                ppc.sourceView = sourceCodeTextView;
+                ppc.sourceRect = sourceCodeTextView.layoutManager.boundingRect(forGlyphRange: range, in: sourceCodeTextView.textContainer)
+                ppc.permittedArrowDirections = [.up, .down]
             }
-            [self presentViewController:alert animated:YES completion:nil];
+            present(alert, animated: true, completion: nil)
+            
+        } else {
+            showAlert(withTitle: "\(selectedText) is not a keyword", message: nil, block: nil)
         }
-        else
-        {
-            NSString *title = [NSString stringWithFormat:@"%@ is not a keyword", text];
-            [self showAlertWithTitle:title message:nil block:nil];
-        }*/
     }
     
     //MARK: - SearchToolbarDelegate

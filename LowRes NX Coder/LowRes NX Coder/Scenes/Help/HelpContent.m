@@ -33,7 +33,7 @@
     return self;
 }
 
-- (NSArray *)chaptersForSearchText:(NSString *)text
+- (NSArray<HelpChapter *> *)chaptersForSearchText:(NSString *)text
 {
     text = [[text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] uppercaseString];
     NSMutableArray *results = [NSMutableArray array];
