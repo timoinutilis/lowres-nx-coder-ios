@@ -130,7 +130,7 @@
         UIDevice *device = [UIDevice currentDevice];
         
         [mailViewController setToRecipients:@[@"support@inutilis.com"]];
-        [mailViewController setSubject:@"LowRes Coder"];
+        [mailViewController setSubject:@"LowRes NX Coder"];
         [mailViewController setMessageBody:[NSString stringWithFormat:@"\n\n\n\n%@\n%@ %@\nApp %@", device.model, device.systemName, device.systemVersion, self.appVersion] isHTML:NO];
         
         [self presentViewController:mailViewController animated:YES completion:nil];
