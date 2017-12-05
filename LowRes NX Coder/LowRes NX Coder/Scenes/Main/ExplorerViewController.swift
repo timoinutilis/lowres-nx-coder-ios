@@ -44,6 +44,10 @@ class ExplorerViewController: UIViewController, UICollectionViewDelegateFlowLayo
         }
         
         loadItems()
+        
+        NotificationCenter.default.addObserver(forName: NSNotification.Name.ProjectFilesDidChange, object: nil, queue: nil) { (notifications) in
+            self.loadItems()
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
