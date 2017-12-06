@@ -17,10 +17,10 @@ class SplashViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        try? ProjectManager.shared.copyBundleProgramsIfNeeded()
-        
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1.0) {
-            self.showApp()
+        ProjectManager.shared.setup {
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1.0) {
+                self.showApp()
+            }
         }
     }
     

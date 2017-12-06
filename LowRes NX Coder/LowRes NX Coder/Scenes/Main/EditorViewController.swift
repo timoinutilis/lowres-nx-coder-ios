@@ -431,7 +431,7 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
     func editUsingTool(programName: String) {
         updateDocument()
         
-        let toolUrl = ProjectManager.shared.documentsUrl.appendingPathComponent(programName)
+        let toolUrl = ProjectManager.shared.currentDocumentsUrl.appendingPathComponent(programName)
         let toolDocument = ProjectDocument(fileURL: toolUrl)
         
         let storyboard = UIStoryboard(name: "LowResNX", bundle: nil)

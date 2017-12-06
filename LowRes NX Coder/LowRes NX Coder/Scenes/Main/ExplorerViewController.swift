@@ -12,9 +12,10 @@ class ExplorerViewController: UIViewController, UICollectionViewDelegateFlowLayo
 
     @IBOutlet weak var collectionView: UICollectionView!
     
-    var folder: ExplorerItem?
     var items: [ExplorerItem]?
     var addedItem: ExplorerItem?
+    
+    private var metadataQuery: NSMetadataQuery?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,15 +36,11 @@ class ExplorerViewController: UIViewController, UICollectionViewDelegateFlowLayo
         layout.minimumLineSpacing = 10
         layout.sectionInset = UIEdgeInsets(top: 20, left: 10, bottom: 20, right: 10)
         
-        if let folder = folder {
-            title = folder.name
+        if ProjectManager.shared.isCloudEnabled {
+            setupCloud()
         } else {
-            let documentsUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-            print("documents:", documentsUrl)
-            folder = ExplorerItem(fileUrl: documentsUrl)
+            loadLocalItems()
         }
-        
-        loadItems()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -56,13 +53,9 @@ class ExplorerViewController: UIViewController, UICollectionViewDelegateFlowLayo
         collectionView.collectionViewLayout.invalidateLayout()
     }
     
-    func loadItems() {
-        guard let folder = folder else {
-            return
-        }
-        
+    func loadLocalItems() {
         do {
-            let urls = try FileManager.default.contentsOfDirectory(at: folder.fileUrl, includingPropertiesForKeys: nil, options: [])
+            let urls = try FileManager.default.contentsOfDirectory(at: ProjectManager.shared.localDocumentsUrl, includingPropertiesForKeys: nil, options: [])
             var items = [ExplorerItem]()
             for url in urls {
                 if url.pathExtension == "nx" {
@@ -80,6 +73,38 @@ class ExplorerViewController: UIViewController, UICollectionViewDelegateFlowLayo
         collectionView.reloadData()
     }
     
+    private func setupCloud() {
+        let query = NSMetadataQuery()
+        metadataQuery = query
+        query.searchScopes = [NSMetadataQueryUbiquitousDocumentsScope]
+        query.predicate = NSPredicate(format: "%K LIKE '*.nx'", NSMetadataItemFSNameKey)
+        
+        NotificationCenter.default.addObserver(forName: NSNotification.Name.NSMetadataQueryDidFinishGathering, object: nil, queue: nil, using: { (notification) in
+            self.cloudFileListReceived()
+        })
+        NotificationCenter.default.addObserver(forName: NSNotification.Name.NSMetadataQueryDidUpdate, object: nil, queue: nil, using: { (notification) in
+            self.cloudFileListReceived()
+        })
+        query.start()
+    }
+    
+    private func cloudFileListReceived() {
+        guard let query = metadataQuery else {
+            return
+        }
+        
+        var items = [ExplorerItem]()
+        for result in query.results as! [NSMetadataItem] {
+            let url = result.value(forAttribute: NSMetadataItemURLKey) as! URL
+            items.append(ExplorerItem(fileUrl: url))
+        }
+        items.sort(by: { (item1, item2) -> Bool in
+            return item1.createdAt < item2.createdAt
+        })
+        self.items = items
+        collectionView.reloadData()
+    }
+        
     func showAddedItem() {
         if let addedItem = addedItem, items != nil {
             items!.append(addedItem)
@@ -91,60 +116,44 @@ class ExplorerViewController: UIViewController, UICollectionViewDelegateFlowLayo
     }
 
     @objc func onAddProjectTapped(_ sender: Any) {
-        if folder!.isDefault {
-            //showAlertWithTitle:@"Cannot add programs to example folders" message:nil block:nil];
-        } else {
-            //[[AppController sharedController] onShowInfoID:CoachMarkIDAdd];
-            
-            if let folderUrl = folder?.fileUrl {
-                let date = Date()
-                let name = "New Program \(Int(date.timeIntervalSinceReferenceDate)).nx"
-                let url = folderUrl.appendingPathComponent(name)
-                
-                let document = ProjectDocument(fileURL: url)
-                document.save(to: url, for: .forCreating, completionHandler: { (success) in
-                    if success {
-                        self.addedItem = ExplorerItem(fileUrl: url)
-                        self.showAddedItem()
-                    } else {
-                        //error
-                    }
-                })
+        //[[AppController sharedController] onShowInfoID:CoachMarkIDAdd];
+        ProjectManager.shared.addNewProject { (item, error) in
+            if item != nil {
+                self.addedItem = item
+                self.showAddedItem()
+            } else {
+                self.showAlert(withTitle: "Could Not Add New Project", message: error?.localizedDescription, block: nil)
             }
         }
     }
     
     func onActionTapped(_ sender: UIBarButtonItem) {
-        if folder!.isDefault {
-            //[self showAlertWithTitle:@"Example folders cannot be changed" message:nil block:nil];
-        } else {
-            let alert = UIAlertController(title:nil, message:nil, preferredStyle: .actionSheet)
-    
-            let isNormalFolder = true //(self.folder.folderType.integerValue == FolderTypeNormal);
-    
-            let addAction = UIAlertAction(title: "Add Folder", style: .default, handler: { [weak self] (action) in
-                self?.onAddFolderTapped()
-            })
-            alert.addAction(addAction)
-    
-            let renameAction = UIAlertAction(title:"Rename this Folder", style: .default, handler: { [weak self] (action) in
-                self?.onRenameFolderTapped()
-            })
-            renameAction.isEnabled = isNormalFolder
-            alert.addAction(renameAction)
-    
-            let deleteAction = UIAlertAction(title:"Delete this Folder", style: .destructive, handler: { [weak self] (action) in
-                self?.onDeleteFolderTapped()
-            })
-            deleteAction.isEnabled = isNormalFolder
-            alert.addAction(deleteAction)
-            
-            let cancelAction = UIAlertAction(title:"Cancel", style: .cancel, handler: nil)
-            alert.addAction(cancelAction)
-    
-            alert.popoverPresentationController?.barButtonItem = sender
-            present(alert, animated: true, completion: nil)
-        }
+        let alert = UIAlertController(title:nil, message:nil, preferredStyle: .actionSheet)
+
+        let isNormalFolder = true //(self.folder.folderType.integerValue == FolderTypeNormal);
+
+        let addAction = UIAlertAction(title: "Add Folder", style: .default, handler: { [weak self] (action) in
+            self?.onAddFolderTapped()
+        })
+        alert.addAction(addAction)
+
+        let renameAction = UIAlertAction(title:"Rename this Folder", style: .default, handler: { [weak self] (action) in
+            self?.onRenameFolderTapped()
+        })
+        renameAction.isEnabled = isNormalFolder
+        alert.addAction(renameAction)
+
+        let deleteAction = UIAlertAction(title:"Delete this Folder", style: .destructive, handler: { [weak self] (action) in
+            self?.onDeleteFolderTapped()
+        })
+        deleteAction.isEnabled = isNormalFolder
+        alert.addAction(deleteAction)
+        
+        let cancelAction = UIAlertAction(title:"Cancel", style: .cancel, handler: nil)
+        alert.addAction(cancelAction)
+
+        alert.popoverPresentationController?.barButtonItem = sender
+        present(alert, animated: true, completion: nil)
     }
     
     func onAddFolderTapped() {
