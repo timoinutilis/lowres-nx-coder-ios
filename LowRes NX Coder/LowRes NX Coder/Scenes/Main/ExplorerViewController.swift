@@ -86,6 +86,11 @@ class ExplorerViewController: UIViewController, UICollectionViewDelegateFlowLayo
             self.cloudFileListReceived()
         })
         query.start()
+        ProjectManager.shared.copyLocalProjectsToCloud { (error) in
+            if let error = error {
+                print("copyLocalProjectsToCloud:", error.localizedDescription)
+            }
+        }
     }
     
     private func cloudFileListReceived() {
