@@ -457,7 +457,7 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
             // show error
             let nxError = LowResNXError(error: error, sourceCode: sourceCode)
             
-            let alert = UIAlertController(title: nxError.localizedDescription, message: nil, preferredStyle: .alert)
+            let alert = UIAlertController(title: nxError.message, message: nxError.line, preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
             alert.addAction(UIAlertAction(title: "Go to Error", style: .default, handler: { [weak self] (action) in
                 let range = NSMakeRange(Int(error.sourcePosition), 0)

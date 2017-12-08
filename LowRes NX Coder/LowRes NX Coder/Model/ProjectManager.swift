@@ -8,6 +8,10 @@
 
 import UIKit
 
+extension Notification.Name {
+    static let ProjectFilesDidChange = Notification.Name("ProjectFilesDidChange")
+}
+
 class ProjectManager: NSObject {
 
     class var shared: ProjectManager {
