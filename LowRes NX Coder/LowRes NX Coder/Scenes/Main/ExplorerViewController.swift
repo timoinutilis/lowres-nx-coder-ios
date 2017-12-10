@@ -41,15 +41,21 @@ class ExplorerViewController: UIViewController, UICollectionViewDelegateFlowLayo
         } else {
             loadLocalItems()
         }
-        
-        NotificationCenter.default.addObserver(forName: NSNotification.Name.ProjectFilesDidChange, object: nil, queue: nil) { (notifications) in
-            //TODO: update file list
-        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         showAddedItem()
+        
+        NotificationCenter.default.addObserver(forName: NSNotification.Name.ProjectManagerDidAddProgram, object: nil, queue: nil) { (notification) in
+            self.addedItem = notification.userInfo!["item"] as! ExplorerItem!
+            self.showAddedItem()
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.ProjectManagerDidAddProgram, object: nil)
     }
     
     override func viewWillLayoutSubviews() {
@@ -90,6 +96,7 @@ class ExplorerViewController: UIViewController, UICollectionViewDelegateFlowLayo
             self.cloudFileListReceived()
         })
         query.start()
+        
         ProjectManager.shared.copyLocalProjectsToCloud { (error) in
             if let error = error {
                 print("copyLocalProjectsToCloud:", error.localizedDescription)
@@ -126,12 +133,9 @@ class ExplorerViewController: UIViewController, UICollectionViewDelegateFlowLayo
 
     @objc func onAddProjectTapped(_ sender: Any) {
         //[[AppController sharedController] onShowInfoID:CoachMarkIDAdd];
-        ProjectManager.shared.addNewProject { (item, error) in
-            if item != nil {
-                self.addedItem = item
-                self.showAddedItem()
-            } else {
-                self.showAlert(withTitle: "Could Not Add New Project", message: error?.localizedDescription, block: nil)
+        ProjectManager.shared.addNewProject { (error) in
+            if let error = error {
+                self.showAlert(withTitle: "Could Not Add New Project", message: error.localizedDescription, block: nil)
             }
         }
     }

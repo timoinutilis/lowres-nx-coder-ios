@@ -9,7 +9,7 @@
 import UIKit
 
 extension Notification.Name {
-    static let ProjectFilesDidChange = Notification.Name("ProjectFilesDidChange")
+    static let ProjectManagerDidAddProgram = Notification.Name("ProjectManagerDidAddProgram")
 }
 
 class ProjectManager: NSObject {
@@ -81,7 +81,41 @@ class ProjectManager: NSObject {
         }
     }
     
-    func addNewProject(completion: @escaping ((ExplorerItem?, Error?) -> Void)) {
+    func importProgram(from url: URL, completion: @escaping ((Error?) -> Void)) {
+        let destUrl = ProjectManager.shared.localDocumentsUrl.appendingPathComponent(url.lastPathComponent)
+        
+        DispatchQueue.global().async {
+            let fileCoordinator = NSFileCoordinator()
+            var resultItem: ExplorerItem?
+            var resultError: Error?
+            fileCoordinator.coordinate(writingItemAt: url, options: .forReplacing, error: nil) { (url) in
+                do {
+                    try FileManager.default.moveItem(at: url, to: destUrl)
+                    let item = ExplorerItem(fileUrl: destUrl)
+                    if self.isCloudEnabled {
+                        do {
+                            try self.moveItemToCloud(item)
+                            resultItem = item
+                        } catch {
+                            resultError = error
+                        }
+                    } else {
+                        resultItem = item
+                    }
+                } catch {
+                    resultError = error
+                }
+            }
+            DispatchQueue.main.async {
+                completion(resultError)
+                if let item = resultItem {
+                    self.postNotification(for: item)
+                }
+            }
+        }
+    }
+    
+    func addNewProject(completion: @escaping ((Error?) -> Void)) {
         let date = Date()
         let name = "New Program \(Int(date.timeIntervalSinceReferenceDate)).nx"
         let url = localDocumentsUrl.appendingPathComponent(name)
@@ -106,9 +140,16 @@ class ProjectManager: NSObject {
                 }
             }
             DispatchQueue.main.async {
-                completion(resultItem, resultError)
+                completion(resultError)
+                if let item = resultItem {
+                    self.postNotification(for: item)
+                }
             }
         }
+    }
+    
+    private func postNotification(for item: ExplorerItem) {
+        NotificationCenter.default.post(name: NSNotification.Name.ProjectManagerDidAddProgram, object: self, userInfo: ["item": item])
     }
     
     private func copyBundleProgramsIfNeeded() throws {
@@ -118,18 +159,22 @@ class ProjectManager: NSObject {
             let filename = url.lastPathComponent
             if shouldCopyBundleProgram(filename: filename) {
                 let targetUrl = localDocumentsUrl.appendingPathComponent(filename)
-                let fileCoordinator = NSFileCoordinator()
-                var copyError: Error?
-                fileCoordinator.coordinate(writingItemAt: targetUrl, options: .forReplacing, error: nil) { (targetUrl) in
-                    do {
-                        try FileManager.default.copyItem(at: url, to: targetUrl)
-                        didCopyBundleProgram(filename: filename)
-                    } catch {
-                        copyError = error
+                if FileManager.default.fileExists(atPath: targetUrl.path) {
+                    didCopyBundleProgram(filename: filename)
+                } else {
+                    let fileCoordinator = NSFileCoordinator()
+                    var copyError: Error?
+                    fileCoordinator.coordinate(writingItemAt: targetUrl, options: .forReplacing, error: nil) { (targetUrl) in
+                        do {
+                            try FileManager.default.copyItem(at: url, to: targetUrl)
+                            didCopyBundleProgram(filename: filename)
+                        } catch {
+                            copyError = error
+                        }
                     }
-                }
-                if let copyError = copyError {
-                    throw copyError
+                    if let copyError = copyError {
+                        throw copyError
+                    }
                 }
             }
         }
@@ -153,7 +198,13 @@ class ProjectManager: NSObject {
         let sourceUrl = item.fileUrl
         let fileName = sourceUrl.lastPathComponent
         let destinationUrl = documentsUrl.appendingPathComponent(fileName)
-        try FileManager.default.setUbiquitous(true, itemAt: sourceUrl, destinationURL: destinationUrl)
+        if FileManager.default.isUbiquitousItem(at: destinationUrl) {
+            // already in iCloud, delete source item
+            try FileManager.default.removeItem(at: sourceUrl)
+        } else {
+            // move to iCloud
+            try FileManager.default.setUbiquitous(true, itemAt: sourceUrl, destinationURL: destinationUrl)
+        }
         item.fileUrl = destinationUrl
     }
     

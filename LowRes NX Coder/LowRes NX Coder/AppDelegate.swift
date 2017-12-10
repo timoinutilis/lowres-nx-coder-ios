@@ -45,16 +45,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
     
-    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey: Any] = [:]) -> Bool {
         if url.isFileURL {
-            do {
-                let destUrl = ProjectManager.shared.localDocumentsUrl.appendingPathComponent(url.lastPathComponent)
-                try FileManager.default.moveItem(at: url, to: destUrl)
-                NotificationCenter.default.post(name: NSNotification.Name.ProjectFilesDidChange, object: self)
-                return true
-            } catch {
-                print("open file:", error.localizedDescription)
-            }
+            ProjectManager.shared.importProgram(from: url, completion: { (error) in
+                if let error = error {
+                    print("importProgram:", error.localizedDescription)
+                }
+            })
         }
         return false
     }
