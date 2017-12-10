@@ -16,6 +16,9 @@ class ExplorerViewController: UIViewController, UICollectionViewDelegateFlowLayo
     var addedItem: ExplorerItem?
     
     private var metadataQuery: NSMetadataQuery?
+    private var didAddProgramObserver: Any?
+    private var queryDidFinishGatheringObserver: Any?
+    private var queryDidUpdateObserver: Any?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,18 +39,18 @@ class ExplorerViewController: UIViewController, UICollectionViewDelegateFlowLayo
         layout.minimumLineSpacing = 10
         layout.sectionInset = UIEdgeInsets(top: 20, left: 10, bottom: 20, right: 10)
         
-        if ProjectManager.shared.isCloudEnabled {
-            setupCloud()
-        } else {
-            loadLocalItems()
-        }
+        loadItems()
+    }
+    
+    deinit {
+        removeCloudObservers()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         showAddedItem()
         
-        NotificationCenter.default.addObserver(forName: NSNotification.Name.ProjectManagerDidAddProgram, object: nil, queue: nil) { (notification) in
+        didAddProgramObserver = NotificationCenter.default.addObserver(forName: NSNotification.Name.ProjectManagerDidAddProgram, object: nil, queue: nil) { (notification) in
             self.addedItem = notification.userInfo!["item"] as! ExplorerItem!
             self.showAddedItem()
         }
@@ -55,12 +58,25 @@ class ExplorerViewController: UIViewController, UICollectionViewDelegateFlowLayo
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.ProjectManagerDidAddProgram, object: nil)
+        
+        if didAddProgramObserver != nil {
+            NotificationCenter.default.removeObserver(didAddProgramObserver!)
+            didAddProgramObserver = nil
+        }
     }
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         collectionView.collectionViewLayout.invalidateLayout()
+    }
+    
+    func loadItems() {
+        removeCloudObservers()
+        if ProjectManager.shared.isCloudEnabled {
+            setupCloud()
+        } else {
+            loadLocalItems()
+        }
     }
     
     func loadLocalItems() {
@@ -84,23 +100,31 @@ class ExplorerViewController: UIViewController, UICollectionViewDelegateFlowLayo
     }
     
     private func setupCloud() {
+        self.items = nil
+        collectionView.reloadData()
+        
         let query = NSMetadataQuery()
         metadataQuery = query
         query.searchScopes = [NSMetadataQueryUbiquitousDocumentsScope]
         query.predicate = NSPredicate(format: "%K LIKE '*.nx'", NSMetadataItemFSNameKey)
         
-        NotificationCenter.default.addObserver(forName: NSNotification.Name.NSMetadataQueryDidFinishGathering, object: nil, queue: nil, using: { (notification) in
-            self.cloudFileListReceived()
+        queryDidFinishGatheringObserver = NotificationCenter.default.addObserver(forName: NSNotification.Name.NSMetadataQueryDidFinishGathering, object: nil, queue: nil, using: { [weak self] (notification) in
+            self?.cloudFileListReceived()
         })
-        NotificationCenter.default.addObserver(forName: NSNotification.Name.NSMetadataQueryDidUpdate, object: nil, queue: nil, using: { (notification) in
-            self.cloudFileListReceived()
+        queryDidUpdateObserver = NotificationCenter.default.addObserver(forName: NSNotification.Name.NSMetadataQueryDidUpdate, object: nil, queue: nil, using: { [weak self] (notification) in
+            self?.cloudFileListReceived()
         })
         query.start()
-        
-        ProjectManager.shared.copyLocalProjectsToCloud { (error) in
-            if let error = error {
-                print("copyLocalProjectsToCloud:", error.localizedDescription)
-            }
+    }
+    
+    private func removeCloudObservers() {
+        if queryDidFinishGatheringObserver != nil {
+            NotificationCenter.default.removeObserver(queryDidFinishGatheringObserver!)
+            queryDidFinishGatheringObserver = nil
+        }
+        if queryDidUpdateObserver != nil {
+            NotificationCenter.default.removeObserver(queryDidUpdateObserver!)
+            queryDidUpdateObserver = nil
         }
     }
     
@@ -251,4 +275,19 @@ class ExplorerViewController: UIViewController, UICollectionViewDelegateFlowLayo
         let numItemsPerLine = floor(width / 110)
         return CGSize(width: floor(width / numItemsPerLine), height: 100)
     }
+    
+    /*
+    func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
+        return true
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
+        
+    }
+     */
+    
 }

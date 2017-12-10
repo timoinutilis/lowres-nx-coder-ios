@@ -25,8 +25,6 @@ class ProjectManager: NSObject {
         return FileManager.default.ubiquityIdentityToken != nil
     }
     
-    private(set) var items: [ExplorerItem]?
-    
     private(set) lazy var localDocumentsUrl: URL = {
         return FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
     }()
@@ -55,28 +53,15 @@ class ProjectManager: NSObject {
             
             if FileManager.default.ubiquityIdentityToken != nil {
                 self.ubiquitousContainerUrl = FileManager.default.url(forUbiquityContainerIdentifier: nil)
+                do {
+                    try self.copyLocalProjectsToCloud()
+                } catch {
+                    print("copyLocalProjectsToCloud:", error.localizedDescription)
+                }
             }
+            
             DispatchQueue.main.async {
                 completion()
-            }
-        }
-    }
-    
-    func copyLocalProjectsToCloud(completion: @escaping ((Error?) -> Void)) {
-        DispatchQueue.global().async {
-            do {
-                let urls = try FileManager.default.contentsOfDirectory(at: self.localDocumentsUrl, includingPropertiesForKeys: nil, options: [])
-                for url in urls {
-                    let item = ExplorerItem(fileUrl: url)
-                    try self.moveItemToCloud(item)
-                }
-                DispatchQueue.main.async {
-                    completion(nil)
-                }
-            } catch {
-                DispatchQueue.main.async {
-                    completion(error)
-                }
             }
         }
     }
@@ -180,15 +165,33 @@ class ProjectManager: NSObject {
         }
     }
     
+    private var copiedBundleProgramsKey: String {
+        var key = "CopiedBundlePrograms"
+        if let token = FileManager.default.ubiquityIdentityToken  {
+            key += token.description
+        }
+        return key
+    }
+    
     private func shouldCopyBundleProgram(filename: String) -> Bool {
-        let copiedPrograms: [String] = UserDefaults.standard.array(forKey: "CopiedBundlePrograms") as? [String] ?? []
+        let copiedPrograms: [String] = UserDefaults.standard.array(forKey: copiedBundleProgramsKey) as? [String] ?? []
         return !copiedPrograms.contains(filename)
     }
     
     private func didCopyBundleProgram(filename: String) {
-        var copiedPrograms: [String] = UserDefaults.standard.array(forKey: "CopiedBundlePrograms") as? [String] ?? []
+        var copiedPrograms: [String] = UserDefaults.standard.array(forKey: copiedBundleProgramsKey) as? [String] ?? []
         copiedPrograms.append(filename)
-        UserDefaults.standard.set(copiedPrograms, forKey: "CopiedBundlePrograms")
+        UserDefaults.standard.set(copiedPrograms, forKey: copiedBundleProgramsKey)
+    }
+    
+    private func copyLocalProjectsToCloud() throws {
+        let urls = try FileManager.default.contentsOfDirectory(at: self.localDocumentsUrl, includingPropertiesForKeys: nil, options: [.skipsHiddenFiles])
+        for url in urls {
+            if !url.hasDirectoryPath {
+                let item = ExplorerItem(fileUrl: url)
+                try self.moveItemToCloud(item)
+            }
+        }
     }
     
     private func moveItemToCloud(_ item: ExplorerItem) throws {
@@ -198,11 +201,7 @@ class ProjectManager: NSObject {
         let sourceUrl = item.fileUrl
         let fileName = sourceUrl.lastPathComponent
         let destinationUrl = documentsUrl.appendingPathComponent(fileName)
-        if FileManager.default.isUbiquitousItem(at: destinationUrl) {
-            // already in iCloud, delete source item
-            try FileManager.default.removeItem(at: sourceUrl)
-        } else {
-            // move to iCloud
+        if !FileManager.default.isUbiquitousItem(at: destinationUrl) {
             try FileManager.default.setUbiquitous(true, itemAt: sourceUrl, destinationURL: destinationUrl)
         }
         item.fileUrl = destinationUrl
