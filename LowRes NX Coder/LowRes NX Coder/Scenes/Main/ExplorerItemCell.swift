@@ -8,12 +8,19 @@
 
 import UIKit
 
+protocol ExplorerItemCellDelegate: class {
+    func explorerItemCell(_ cell: ExplorerItemCell, didSelectRename item: ExplorerItem)
+    func explorerItemCell(_ cell: ExplorerItemCell, didSelectDelete item: ExplorerItem)
+}
+
 class ExplorerItemCell: UICollectionViewCell {
     
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var previewImageView: UIImageView!
     @IBOutlet weak var starImageView: UIImageView!
     @IBOutlet weak var folderView: UIView!
+    
+    weak var delegate: ExplorerItemCellDelegate?
     
     var item: ExplorerItem? {
         didSet {
@@ -32,4 +39,16 @@ class ExplorerItemCell: UICollectionViewCell {
         imageLayer.masksToBounds = true
     }
     
+    @objc func renameItem(_ sender: Any?) {
+        if let delegate = delegate {
+            delegate.explorerItemCell(self, didSelectRename: item!)
+        }
+    }
+    
+    @objc func deleteItem(_ sender: Any?) {
+        if let delegate = delegate {
+            delegate.explorerItemCell(self, didSelectDelete: item!)
+        }
+    }
+
 }

@@ -8,8 +8,8 @@
 
 import UIKit
 
-class ExplorerViewController: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
-
+class ExplorerViewController: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, ExplorerItemCellDelegate {
+    
     @IBOutlet weak var collectionView: UICollectionView!
     
     var items: [ExplorerItem]?
@@ -39,7 +39,11 @@ class ExplorerViewController: UIViewController, UICollectionViewDelegateFlowLayo
         layout.minimumLineSpacing = 10
         layout.sectionInset = UIEdgeInsets(top: 20, left: 10, bottom: 20, right: 10)
         
-        loadItems()
+        if ProjectManager.shared.isCloudEnabled {
+            setupCloud()
+        } else {
+            loadLocalItems()
+        }
     }
     
     deinit {
@@ -49,6 +53,7 @@ class ExplorerViewController: UIViewController, UICollectionViewDelegateFlowLayo
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         showAddedItem()
+        metadataQuery?.enableUpdates()
         
         didAddProgramObserver = NotificationCenter.default.addObserver(forName: NSNotification.Name.ProjectManagerDidAddProgram, object: nil, queue: nil) { (notification) in
             self.addedItem = notification.userInfo!["item"] as! ExplorerItem!
@@ -58,6 +63,7 @@ class ExplorerViewController: UIViewController, UICollectionViewDelegateFlowLayo
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        metadataQuery?.disableUpdates()
         
         if didAddProgramObserver != nil {
             NotificationCenter.default.removeObserver(didAddProgramObserver!)
@@ -68,15 +74,6 @@ class ExplorerViewController: UIViewController, UICollectionViewDelegateFlowLayo
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         collectionView.collectionViewLayout.invalidateLayout()
-    }
-    
-    func loadItems() {
-        removeCloudObservers()
-        if ProjectManager.shared.isCloudEnabled {
-            setupCloud()
-        } else {
-            loadLocalItems()
-        }
     }
     
     func loadLocalItems() {
@@ -118,6 +115,7 @@ class ExplorerViewController: UIViewController, UICollectionViewDelegateFlowLayo
     }
     
     private func removeCloudObservers() {
+        metadataQuery?.stop()
         if queryDidFinishGatheringObserver != nil {
             NotificationCenter.default.removeObserver(queryDidFinishGatheringObserver!)
             queryDidFinishGatheringObserver = nil
@@ -133,6 +131,8 @@ class ExplorerViewController: UIViewController, UICollectionViewDelegateFlowLayo
             return
         }
         
+        query.disableUpdates()
+        
         var items = [ExplorerItem]()
         for result in query.results as! [NSMetadataItem] {
             let url = result.value(forAttribute: NSMetadataItemURLKey) as! URL
@@ -143,6 +143,8 @@ class ExplorerViewController: UIViewController, UICollectionViewDelegateFlowLayo
         })
         self.items = items
         collectionView.reloadData()
+        
+        query.enableUpdates()
     }
         
     func showAddedItem() {
@@ -154,7 +156,7 @@ class ExplorerViewController: UIViewController, UICollectionViewDelegateFlowLayo
             self.addedItem = nil
         }
     }
-
+        
     @objc func onAddProjectTapped(_ sender: Any) {
         //[[AppController sharedController] onShowInfoID:CoachMarkIDAdd];
         ProjectManager.shared.addNewProject { (error) in
@@ -250,6 +252,21 @@ class ExplorerViewController: UIViewController, UICollectionViewDelegateFlowLayo
         navigationController?.pushViewController(vc, animated: true)
     }
     
+    func deleteItem(_ item: ExplorerItem, cell: ExplorerItemCell) {
+        ProjectManager.shared.deleteProject(item: item) { (error) in
+            if let error = error {
+                self.showAlert(withTitle: "Could Not Delete Program", message: error.localizedDescription, block: nil)
+            } else {
+                if let index = self.items?.index(of: item) {
+                    self.items?.remove(at: index)
+                }
+                if let indexPath = self.collectionView.indexPath(for: cell) {
+                    self.collectionView.deleteItems(at: [indexPath])
+                }
+            }
+        }
+    }
+    
     //MARK: - UICollectionViewDataSource
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -259,6 +276,7 @@ class ExplorerViewController: UIViewController, UICollectionViewDelegateFlowLayo
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProjectCell", for: indexPath) as! ExplorerItemCell
         cell.item = self.items?[indexPath.item]
+        cell.delegate = self
         return cell
     }
     
@@ -276,18 +294,41 @@ class ExplorerViewController: UIViewController, UICollectionViewDelegateFlowLayo
         return CGSize(width: floor(width / numItemsPerLine), height: 100)
     }
     
-    /*
     func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
+        UIMenuController.shared.menuItems = [
+            UIMenuItem(title: "Rename...", action: #selector(ExplorerItemCell.renameItem)),
+            UIMenuItem(title: "Delete...", action: #selector(ExplorerItemCell.deleteItem))
+        ]
         return true
     }
     
     func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
-        return true
+        if action == #selector(ExplorerItemCell.renameItem) || action == #selector(ExplorerItemCell.deleteItem) {
+            return true
+        }
+        return false
     }
     
     func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
-        
     }
-     */
+    
+    //MARK: - ExplorerItemCellDelegate
+    
+    func explorerItemCell(_ cell: ExplorerItemCell, didSelectRename item: ExplorerItem) {
+        print("rename i")
+    }
+    
+    func explorerItemCell(_ cell: ExplorerItemCell, didSelectDelete item: ExplorerItem) {
+        var message: String?
+        if ProjectManager.shared.isCloudEnabled {
+            message = "This file will be deleted from iCloud Drive and all your iCloud devices."
+        }
+        let alert = UIAlertController(title: "Do you really want to delete “\(item.name)”?", message: message, preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { [unowned self] (action) in
+            self.deleteItem(item, cell: cell)
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
     
 }

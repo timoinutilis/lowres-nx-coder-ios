@@ -109,7 +109,8 @@ class ProjectManager: NSObject {
             let fileCoordinator = NSFileCoordinator()
             var resultItem: ExplorerItem?
             var resultError: Error?
-            fileCoordinator.coordinate(writingItemAt: url, options: .forReplacing, error: nil) { (url) in
+            var coordError: NSError?
+            fileCoordinator.coordinate(writingItemAt: url, options: .forReplacing, error: &coordError) { (url) in
                 if FileManager.default.createFile(atPath: url.path, contents: nil, attributes: nil) {
                     let item = ExplorerItem(fileUrl: url)
                     if self.isCloudEnabled {
@@ -124,11 +125,37 @@ class ProjectManager: NSObject {
                     }
                 }
             }
+            if resultItem == nil && coordError != nil {
+                resultError = coordError
+            }
             DispatchQueue.main.async {
                 completion(resultError)
                 if let item = resultItem {
                     self.postNotification(for: item)
                 }
+            }
+        }
+    }
+    
+    func deleteProject(item: ExplorerItem, completion: @escaping (Error?) -> Void) {
+        DispatchQueue.global().async {
+            let fileCoordinator = NSFileCoordinator()
+            var success = false
+            var resultError: Error?
+            var coordError: NSError?
+            fileCoordinator.coordinate(writingItemAt: item.fileUrl, options: .forDeleting, error: &coordError, byAccessor: { (url) in
+                do {
+                    try FileManager.default.removeItem(at: url)
+                    success = true
+                } catch {
+                    resultError = error
+                }
+            })
+            if !success && coordError != nil {
+                resultError = coordError
+            }
+            DispatchQueue.main.async {
+                completion(resultError)
             }
         }
     }
