@@ -267,6 +267,18 @@ class ExplorerViewController: UIViewController, UICollectionViewDelegateFlowLayo
         }
     }
     
+    func renameItem(_ item: ExplorerItem, newName: String, cell: ExplorerItemCell) {
+        ProjectManager.shared.renameProject(item: item, newName: newName) { (error) in
+            if let error = error {
+                self.showAlert(withTitle: "Could Not Rename Program", message: error.localizedDescription, block: nil)
+            } else {
+                if let indexPath = self.collectionView.indexPath(for: cell) {
+                    self.collectionView.reloadItems(at: [indexPath])
+                }
+            }
+        }
+    }
+    
     //MARK: - UICollectionViewDataSource
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -315,7 +327,22 @@ class ExplorerViewController: UIViewController, UICollectionViewDelegateFlowLayo
     //MARK: - ExplorerItemCellDelegate
     
     func explorerItemCell(_ cell: ExplorerItemCell, didSelectRename item: ExplorerItem) {
-        print("rename i")
+        let alert = UIAlertController(title: "Rename “\(item.name)”", message: nil, preferredStyle: .alert)
+        alert.addTextField { (textField) in
+            textField.clearButtonMode = .always
+            textField.autocapitalizationType = .words
+            textField.autocorrectionType = .no
+            textField.spellCheckingType = .no
+            textField.text = item.name
+        }
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "Accept", style: .default, handler: { (action) in
+            let textField = alert.textFields!.first!
+            if let name = textField.text?.trimmingCharacters(in: .whitespaces) {
+                self.renameItem(item, newName: name, cell: cell)
+            }
+        }))
+        present(alert, animated: true, completion: nil)
     }
     
     func explorerItemCell(_ cell: ExplorerItemCell, didSelectDelete item: ExplorerItem) {

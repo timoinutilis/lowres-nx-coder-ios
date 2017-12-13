@@ -160,6 +160,31 @@ class ProjectManager: NSObject {
         }
     }
     
+    func renameProject(item: ExplorerItem, newName: String, completion: @escaping (Error?) -> Void) {
+        let destUrl = item.fileUrl.deletingLastPathComponent().appendingPathComponent(newName).appendingPathExtension("nx")
+        DispatchQueue.global().async {
+            let fileCoordinator = NSFileCoordinator()
+            var success = false
+            var resultError: Error?
+            var coordError: NSError?
+            fileCoordinator.coordinate(writingItemAt: item.fileUrl, options: .forMoving, writingItemAt: destUrl, options: .forReplacing, error: &coordError, byAccessor: { (sourceUrl, destUrl) in
+                do {
+                    try FileManager.default.moveItem(at: sourceUrl, to: destUrl)
+                    item.fileUrl = destUrl
+                    success = true
+                } catch {
+                    resultError = error
+                }
+            })
+            if !success && coordError != nil {
+                resultError = coordError
+            }
+            DispatchQueue.main.async {
+                completion(resultError)
+            }
+        }
+    }
+    
     private func postNotification(for item: ExplorerItem) {
         NotificationCenter.default.post(name: NSNotification.Name.ProjectManagerDidAddProgram, object: self, userInfo: ["item": item])
     }
