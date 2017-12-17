@@ -12,6 +12,7 @@ class ExplorerItem: NSObject {
     
     var fileUrl: URL
     var isDefault = false
+    var metadataItem: NSMetadataItem?
     
     var name: String {
         return fileUrl.deletingPathExtension().lastPathComponent
@@ -39,6 +40,10 @@ class ExplorerItem: NSObject {
     init(fileUrl: URL) {
         self.fileUrl = fileUrl
         super.init()
+    }
+    
+    func updateFromMetadata() {
+        fileUrl = metadataItem!.value(forAttribute: NSMetadataItemURLKey) as! URL
     }
     
 }
