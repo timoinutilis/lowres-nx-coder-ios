@@ -156,6 +156,8 @@ class ExplorerViewController: UIViewController, UICollectionViewDelegateFlowLayo
     }
     
     private func updateFileList(addedItems: [ExplorerItem], changedItems: [ExplorerItem], removedItems: [ExplorerItem]) {
+        metadataQuery?.disableUpdates()
+        
         var resultItems = items!
         
         var indexPathsToDelete = [IndexPath]()
@@ -188,7 +190,11 @@ class ExplorerViewController: UIViewController, UICollectionViewDelegateFlowLayo
                 collectionView.deleteItems(at: indexPathsToDelete)
                 collectionView.reloadItems(at: indexPathsToReload)
                 collectionView.insertItems(at: indexPathsToInsert)
-            }, completion: nil)
+            }, completion: { (finished) in
+                self.metadataQuery?.enableUpdates()
+            })
+        } else {
+            metadataQuery?.enableUpdates()
         }
     }
         

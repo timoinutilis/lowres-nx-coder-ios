@@ -44,6 +44,7 @@ class ProjectManager: NSObject {
     }
     
     func setup(completion: @escaping (() -> Void)) {
+        print("localDocumentsUrl:", localDocumentsUrl)
         DispatchQueue.global().async {
             do {
                 try self.copyBundleProgramsIfNeeded()

@@ -38,6 +38,8 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
     var spacesToInsert: String?
     var shouldUpdateSideBar = false
     
+    private var documentStateChangedObserver: Any?
+    
     /*
      @property BOOL wasEditedSinceOpened;
      @property BOOL wasEditedSinceLastRun;
@@ -97,27 +99,42 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
         document?.delegate = self
         
         activityIndicatorView.isHidden = true
+        sourceCodeTextView.isEditable = false
         
-        if let document = document {
-            if document.documentState == .closed {
-                activityIndicatorView.startAnimating()
-                document.open(completionHandler: { (success) in
-                    self.activityIndicatorView.stopAnimating()
-                    if !success {
-                        //error
-                    }
-                })
-            }
+        guard let document = document else {
+            fatalError("requires document")
+        }
+        
+        documentStateChangedObserver = NotificationCenter.default.addObserver(forName: .UIDocumentStateChanged, object: document, queue: nil) { [weak self] (notification) in
+            self?.documentStateChanged()
+        }
+        
+        if document.documentState.contains(.closed) {
+            activityIndicatorView.startAnimating()
+            document.open(completionHandler: { (success) in
+                self.activityIndicatorView.stopAnimating()
+            })
+        } else {
+            fatalError("unexpected document state")
         }
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: .UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: .UIKeyboardWillHide, object: nil)
+        
     }
     
     deinit {
+        removeDocumentStateChangedObserver()
         NotificationCenter.default.removeObserver(self)
         updateDocument()
         document?.close(completionHandler: nil)
+    }
+    
+    func removeDocumentStateChangedObserver() {
+        if let observer = documentStateChangedObserver {
+            NotificationCenter.default.removeObserver(observer)
+            documentStateChangedObserver = nil
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -215,13 +232,38 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
              && ![self isExample]
              && ([AppController sharedController].isFullVersion || self.sourceCodeTextView.text.countLines <= EditorDemoMaxLines)
              */
-            if sourceCodeTextView.text != document.sourceCode {
+            if document.documentState == .normal && sourceCodeTextView.text != document.sourceCode {
                 document.sourceCode = sourceCodeTextView.text.uppercased()
                 document.updateChangeCount(.done)
             }
         }
     }
     
+    func documentStateChanged() {
+        guard let document = document else {
+            return
+        }
+        
+        let state = document.documentState
+        
+        if state == .normal {
+            sourceCodeTextView.isEditable = true
+        } else {
+            sourceCodeTextView.isEditable = false
+        }
+        
+        if state.contains(.inConflict) {
+            removeDocumentStateChangedObserver()
+            showAlert(withTitle: "iCloud Conflict", message: "Solution not yet implemented.", block: {
+                self.navigationController?.popViewController(animated: true)
+            })
+        } else if state.contains(.savingError) {
+            removeDocumentStateChangedObserver()
+            showAlert(withTitle: "Saving Error", message: "Solution not yet implemented.", block: {
+                self.navigationController?.popViewController(animated: true)
+            })
+        }
+    }
     
     @objc func onRunTapped(_ sender: Any) {
         runProject()
@@ -323,9 +365,11 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
         } else {
             BlockerView.show()
             updateDocument()
-            document.saveIfChanged(completion: { (success) in
+            document.autosave(completionHandler: { (success) in
                 BlockerView.dismiss()
-                if community {
+                if !success {
+                    self.showAlert(withTitle: "Could Not Save Program", message: nil, block: nil)
+                } else if community {
                     //            UIViewController *vc = [ShareViewController createShareWithProject:self.project];
                     //            [self presentViewController:vc animated:YES completion:nil];
                 } else {

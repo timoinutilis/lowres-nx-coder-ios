@@ -31,6 +31,11 @@ class ExplorerItem: NSObject {
     }
     
     var createdAt: Date {
+        if let metadataItem = metadataItem {
+            if let date = metadataItem.value(forAttribute: NSMetadataItemFSCreationDateKey) as! Date? {
+                return date
+            }
+        }
         if let attrs = try? FileManager.default.attributesOfItem(atPath: fileUrl.path) {
             return attrs[FileAttributeKey.creationDate] as! Date
         }
