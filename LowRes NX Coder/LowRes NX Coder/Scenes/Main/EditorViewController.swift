@@ -55,6 +55,10 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        guard let document = document else {
+            fatalError("requires document")
+        }
+        
         let startItem = UIBarButtonItem(barButtonSystemItem: .play, target: self, action: #selector(onRunTapped))
         let searchItem = UIBarButtonItem(image: UIImage(named:"search"), style: .plain, target: self, action: #selector(onSearchTapped))
 //        let feedbackItem = UIBarButtonItem(image: UIImage(named:"feedback"), style: .plain, target: self, action: #selector(onFeedbackTapped))
@@ -62,13 +66,13 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
         
         navigationItem.rightBarButtonItems = [startItem, searchItem, /*feedbackItem,*/ projectItem]
         
+        navigationItem.title = document.localizedName
+        
         view.backgroundColor = AppStyle.editorColor()
         sourceCodeTextView.backgroundColor = AppStyle.editorColor()
         sourceCodeTextView.textColor = AppStyle.tintColor()
         sourceCodeTextView.tintColor = AppStyle.brightColor()
         sourceCodeTextView.indicatorStyle = .white
-
-        navigationItem.title = document?.localizedName
         
         sourceCodeTextView.layoutManager.allowsNonContiguousLayout = false
         sourceCodeTextView.delegate = self
@@ -80,7 +84,7 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
             keyboardToolbar.barStyle = .black
         }
         
-        sourceCodeTextView.text = document?.sourceCode ?? ""
+        sourceCodeTextView.text = document.sourceCode ?? ""
         
         searchToolbar.searchDelegate = self
 
@@ -91,19 +95,12 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
 
         keyboardRect = CGRect()
 
-//
-//
-//        //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(willSaveData:) name:ModelManagerWillSaveDataNotification object:nil];
 //        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didUpgrade:) name:UpgradeNotification object:nil];
-        
-        document?.delegate = self
         
         activityIndicatorView.isHidden = true
         sourceCodeTextView.isEditable = false
         
-        guard let document = document else {
-            fatalError("requires document")
-        }
+        document.delegate = self
         
         documentStateChangedObserver = NotificationCenter.default.addObserver(forName: .UIDocumentStateChanged, object: document, queue: nil) { [weak self] (notification) in
             self?.documentStateChanged()
@@ -227,15 +224,19 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
     }
     
     func updateDocument() {
-        if let document = document {
-            /*
-             && ![self isExample]
-             && ([AppController sharedController].isFullVersion || self.sourceCodeTextView.text.countLines <= EditorDemoMaxLines)
-             */
-            if document.documentState == .normal && sourceCodeTextView.text != document.sourceCode {
-                document.sourceCode = sourceCodeTextView.text.uppercased()
-                document.updateChangeCount(.done)
-            }
+        guard let document = document else {
+            return
+        }
+        
+        /*
+         && ![self isExample]
+         && ([AppController sharedController].isFullVersion || self.sourceCodeTextView.text.countLines <= EditorDemoMaxLines)
+         */
+        
+        let state = document.documentState
+        if !state.contains(.closed) && sourceCodeTextView.text != document.sourceCode {
+            document.sourceCode = sourceCodeTextView.text.uppercased()
+            document.updateChangeCount(.done)
         }
     }
     
@@ -246,10 +247,11 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
         
         let state = document.documentState
         
-        if state == .normal {
-            sourceCodeTextView.isEditable = true
-        } else {
+        if state.contains(.editingDisabled) || state.contains(.closed) {
+            sourceCodeTextView.resignFirstResponder()
             sourceCodeTextView.isEditable = false
+        } else {
+            sourceCodeTextView.isEditable = true
         }
         
         if state.contains(.inConflict) {
@@ -258,10 +260,7 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
                 self.navigationController?.popViewController(animated: true)
             })
         } else if state.contains(.savingError) {
-            removeDocumentStateChangedObserver()
-            showAlert(withTitle: "Saving Error", message: "Solution not yet implemented.", block: {
-                self.navigationController?.popViewController(animated: true)
-            })
+            showAlert(withTitle: "Saving Error", message: "Solution not yet implemented.", block: nil)
         }
     }
     

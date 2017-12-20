@@ -17,6 +17,10 @@ class ProjectDocument: UIDocument {
     var sourceCode: String?
     weak var delegate: ProjectDocumentDelegate?
     
+    override var localizedName: String {
+        return fileURL.deletingPathExtension().lastPathComponent
+    }
+    
     override func contents(forType typeName: String) throws -> Any {
         if sourceCode == nil {
             sourceCode = ""
