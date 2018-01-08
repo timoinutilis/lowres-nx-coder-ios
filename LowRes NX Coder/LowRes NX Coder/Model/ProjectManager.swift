@@ -186,6 +186,29 @@ class ProjectManager: NSObject {
         }
     }
     
+    func getDiskDocument(completion: @escaping (ProjectDocument?, Error?) -> Void) {
+        let fileUrl = currentDocumentsUrl.appendingPathComponent("Disk.nx")
+        let document = ProjectDocument(fileURL: fileUrl)
+        document.open { (success) in
+            if success {
+                if document.documentState == .normal {
+                    completion(document, nil)
+                } else {
+                    completion(nil, NSError(domain: "LowResNXCoder", code: 0, userInfo: [NSLocalizedDescriptionKey: "“Disk.nx” is currently not editable."]))
+                }
+            } else {
+                document.save(to: document.fileURL, for: .forCreating, completionHandler: { (success) in
+                    if success {
+                        self.postNotification(for: ExplorerItem(fileUrl: document.fileURL))
+                        completion(document, nil)
+                    } else {
+                        completion(nil, NSError(domain: "LowResNXCoder", code: 0, userInfo: [NSLocalizedDescriptionKey: "“Disk.nx” could not be created."]))
+                    }
+                })
+            }
+        }
+    }
+    
     private func postNotification(for item: ExplorerItem) {
         NotificationCenter.default.post(name: NSNotification.Name.ProjectManagerDidAddProgram, object: self, userInfo: ["item": item])
     }

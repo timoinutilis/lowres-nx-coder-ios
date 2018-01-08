@@ -26,6 +26,7 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
     
     weak var delegate: LowResNXViewControllerDelegate?
     var document: ProjectDocument?
+    var diskDocument: ProjectDocument?
     var coreWrapper: CoreWrapper?
     
     private var displayLink: CADisplayLink?
@@ -124,6 +125,9 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
         super.viewWillDisappear(animated)
         view.endEditing(true)
         displayLink?.invalidate()
+        
+        diskDocument?.close(completionHandler: nil)
+        diskDocument = nil
     }
     
     override var prefersStatusBarHidden: Bool {
@@ -258,7 +262,9 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
             title = error.localizedDescription
         }
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action) in
+            self.presentingViewController?.dismiss(animated: true, completion: nil)
+        }))
         present(alert, animated: true, completion: nil)
     }
     
@@ -310,21 +316,53 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
     
     func coreDiskDriveWillAccess(diskDataManager: UnsafeMutablePointer<DataManager>?) -> Bool {
         if let delegate = delegate {
+            // tool editing current program
             let diskSourceCode = delegate.nxSourceCodeForVirtualDisk()
             let cDiskSourceCode = diskSourceCode.cString(using: .ascii)
             data_import(diskDataManager, cDiskSourceCode, true)
+        } else {
+            // tool editing shared disk file
+            if let diskDocument = diskDocument {
+                let cDiskSourceCode = (diskDocument.sourceCode ?? "").cString(using: .ascii)
+                data_import(diskDataManager, cDiskSourceCode, true)
+            } else {
+                ProjectManager.shared.getDiskDocument(completion: { (document, error) in
+                    if let document = document {
+                        self.diskDocument = document
+                        let cDiskSourceCode = (document.sourceCode ?? "").cString(using: .ascii)
+                        data_import(diskDataManager, cDiskSourceCode, true)
+                        self.showAlert(withTitle: "Using “Disk.nx” as Virtual Disk", message: nil, block: {
+                            core_diskLoaded(&self.coreWrapper!.core)
+                        })
+                    } else {
+                        self.showAlert(withTitle: "Could Not Access Virtual Disk", message: error?.localizedDescription, block: {
+                            self.presentingViewController?.dismiss(animated: true, completion: nil)
+                        })
+                    }
+                })
+                return false
+            }
         }
         return true
     }
     
     func coreDiskDriveDidSave(diskDataManager: UnsafeMutablePointer<DataManager>?) {
-        if let delegate = delegate {
-            let output = data_export(diskDataManager)
-            if let output = output, let diskSourceCode = String(cString: output, encoding: .ascii) {
+        let output = data_export(diskDataManager)
+        if let output = output, let diskSourceCode = String(cString: output, encoding: .ascii) {
+            if let delegate = delegate {
+                // tool editing current program
                 delegate.nxDidSaveVirtualDisk(sourceCode: diskSourceCode)
-                free(output);
+            } else {
+                // tool editing shared disk file
+                if let diskDocument = diskDocument {
+                    diskDocument.sourceCode = diskSourceCode
+                    diskDocument.updateChangeCount(.done)
+                } else {
+                    print("No virtual disk available.")
+                }
             }
         }
+        free(output)
     }
     
     func coreControlsDidChange(controlsInfo: ControlsInfo) {
