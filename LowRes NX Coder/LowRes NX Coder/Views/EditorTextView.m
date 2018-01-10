@@ -19,6 +19,8 @@
 {
     [super awakeFromNib];
     
+    self.textContainerInset = UIEdgeInsetsMake(8, 12, 8, 12);
+    
     self.keys = @[@"=", @"<", @">", @"+", @"-", @"*", @"/", @"(", @")", @"\"", @"$", @":"];
     
     if ([UITextInputAssistantItem class] && [UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad)
@@ -138,13 +140,13 @@
     {
         if (right)
         {
-            [subtext insertString:@"  " atIndex:pos];
+            [subtext insertString:@" " atIndex:pos];
             finalRange.length += 2;
         }
         else
         {
             NSInteger num = 0;
-            for (NSInteger ci = pos; ci < pos + 2 && ci < subtext.length; ci++)
+            for (NSInteger ci = pos; ci < pos + 1 && ci < subtext.length; ci++)
             {
                 unichar character = [subtext characterAtIndex:ci];
                 if ([spacesSet characterIsMember:character])
