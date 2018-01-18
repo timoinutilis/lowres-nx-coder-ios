@@ -32,6 +32,7 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
     private var displayLink: CADisplayLink?
     private var compilerError: NSError?
     private var hasAppeared: Bool = false
+    private var recognizer: UITapGestureRecognizer?
     
     private var pixelExactScaling: Bool = true {
         didSet {
@@ -95,7 +96,9 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
         inputAssistantItem.trailingBarButtonGroups = []
         
         let recognizer = UITapGestureRecognizer(target: self, action: #selector(handleTap))
+        recognizer.isEnabled = false
         view.addGestureRecognizer(recognizer)
+        self.recognizer = recognizer
         
         let displayLink = CADisplayLink(target: self, selector: #selector(update))
         self.displayLink = displayLink
@@ -233,14 +236,8 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
     }
     
     @objc func handleTap(sender: UITapGestureRecognizer) {
-        guard let coreWrapper = coreWrapper else {
-            return
-        }
-        
         if sender.state == .ended {
-            if core_getKeyboardEnabled(&coreWrapper.core) {
-                becomeFirstResponder()
-            }
+            becomeFirstResponder()
         }
     }
     
@@ -368,8 +365,10 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
     func coreControlsDidChange(controlsInfo: ControlsInfo) {
         DispatchQueue.main.async {
             if controlsInfo.isKeyboardEnabled {
+                self.recognizer?.isEnabled = true
                 self.becomeFirstResponder()
             } else {
+                self.recognizer?.isEnabled = false
                 self.resignFirstResponder()
             }
         }

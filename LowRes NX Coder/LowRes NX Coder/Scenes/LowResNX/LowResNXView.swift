@@ -13,6 +13,7 @@ class LowResNXView: UIView {
 
     private var data: UnsafeMutablePointer<UInt8>?
     private var dataProvider: CGDataProvider?
+    private var touchesToRelease = [UITouch]()
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -35,6 +36,13 @@ class LowResNXView: UIView {
             
             layer.contents = image
             layer.magnificationFilter = kCAFilterNearest
+            
+            // release collected touches
+            let touches = touchesToRelease
+            touchesToRelease.removeAll()
+            for touch in touches {
+                core_touchReleased(&coreWrapper.core, Unmanaged.passUnretained(touch).toOpaque())
+            }
         }
     }
     
@@ -57,19 +65,11 @@ class LowResNXView: UIView {
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if let coreWrapper = coreWrapper {
-            for touch in touches {
-                core_touchReleased(&coreWrapper.core, Unmanaged.passUnretained(touch).toOpaque())
-            }
-        }
+        touchesToRelease += touches
     }
     
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if let coreWrapper = coreWrapper {
-            for touch in touches {
-                core_touchReleased(&coreWrapper.core, Unmanaged.passUnretained(touch).toOpaque())
-            }
-        }
+        touchesToRelease += touches
     }
     
     private func screenPoint(touch: UITouch) -> CGPoint {
