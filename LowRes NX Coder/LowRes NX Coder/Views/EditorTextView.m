@@ -19,7 +19,7 @@
 {
     [super awakeFromNib];
     
-    self.textContainerInset = UIEdgeInsetsMake(8, 12, 8, 12);
+    self.textContainerInset = UIEdgeInsetsMake(8, 8, 8, 8);
     
     self.keys = @[@"=", @"<", @">", @"+", @"-", @"*", @"/", @"(", @")", @"\"", @"$", @":"];
     

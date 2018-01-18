@@ -297,11 +297,11 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
         }))
         
         alert.addAction(UIAlertAction(title: "Character Designer", style: .default, handler: { [weak self] (action) in
-            self?.editUsingTool(programName: "Character Designer 0.3.nx")
+            self?.editUsingTool(programName: "Character Designer 0.4.nx")
         }))
         
         alert.addAction(UIAlertAction(title: "Background Designer", style: .default, handler: { [weak self] (action) in
-            self?.editUsingTool(programName: "Background Designer 0.3.nx")
+            self?.editUsingTool(programName: "Background Designer 0.4.nx")
         }))
         
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
