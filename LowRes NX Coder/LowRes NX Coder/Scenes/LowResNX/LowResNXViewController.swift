@@ -51,7 +51,7 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
         
         if let coreWrapper = coreWrapper {
             // program already compiled
-            core_willRunProgram(&coreWrapper.core, Int(AppController.shared().bootTime))
+            core_willRunProgram(&coreWrapper.core, Int(CFAbsoluteTimeGetCurrent() - AppController.shared().bootTime))
             
         } else {
             // program not yet compiled, open document and compile...
@@ -175,7 +175,7 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
         if error.code != ErrorNone {
             return LowResNXError(error: error, sourceCode: sourceCode)
         } else {
-            core_willRunProgram(&coreWrapper.core, Int(AppController.shared().bootTime))
+            core_willRunProgram(&coreWrapper.core, Int(CFAbsoluteTimeGetCurrent() - AppController.shared().bootTime))
         }
         return nil
     }
