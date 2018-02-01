@@ -452,7 +452,7 @@ The upgrade is valid for all your devices and without time limit.</string>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g01-MB-aiJ">
                                             <rect key="frame" x="8" y="8" width="359" height="29"/>
                                             <string key="text">Developed by Timo Kloss
-Inutilis Software, 2017</string>
+Inutilis Software, 2017-2018</string>
                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                             <nil key="highlightedColor"/>
                                         </label>

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9208A7D1202120AF00D1EFF7 /* cmd_subs.c in Sources */ = {isa = PBXBuildFile; fileRef = 9208A7CF202120AE00D1EFF7 /* cmd_subs.c */; };
 		920E1B1A1F77FF7A00664382 /* ExplorerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 920E1B191F77FF7A00664382 /* ExplorerViewController.swift */; };
 		920E1B1C1F78000800664382 /* ExplorerItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 920E1B1B1F78000800664382 /* ExplorerItemCell.swift */; };
 		920E1B2C1F78022E00664382 /* UICollectionView+Draggable.m in Sources */ = {isa = PBXBuildFile; fileRef = 920E1B291F78021D00664382 /* UICollectionView+Draggable.m */; };
@@ -164,6 +165,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9208A7CF202120AE00D1EFF7 /* cmd_subs.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cmd_subs.c; sourceTree = "<group>"; };
+		9208A7D0202120AF00D1EFF7 /* cmd_subs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cmd_subs.h; sourceTree = "<group>"; };
 		920E1B191F77FF7A00664382 /* ExplorerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplorerViewController.swift; sourceTree = "<group>"; };
 		920E1B1B1F78000800664382 /* ExplorerItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplorerItemCell.swift; sourceTree = "<group>"; };
 		920E1B1F1F78021D00664382 /* LSCollectionViewHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LSCollectionViewHelper.h; sourceTree = "<group>"; };
@@ -866,6 +869,8 @@
 				928401D81F7448B500AC1466 /* cmd_background.h */,
 				928401D91F7448B500AC1466 /* cmd_control.c */,
 				928401DA1F7448B500AC1466 /* cmd_control.h */,
+				9208A7CF202120AE00D1EFF7 /* cmd_subs.c */,
+				9208A7D0202120AF00D1EFF7 /* cmd_subs.h */,
 				928401DB1F7448B500AC1466 /* cmd_data.c */,
 				928401DC1F7448B500AC1466 /* cmd_data.h */,
 				928401DD1F7448B500AC1466 /* cmd_files.c */,
@@ -1171,6 +1176,7 @@
 				920E1B391F78024E00664382 /* GORScrollViewDelegate.m in Sources */,
 				928402201F7448B500AC1466 /* cmd_sprites.c in Sources */,
 				9284021D1F7448B500AC1466 /* cmd_maths.c in Sources */,
+				9208A7D1202120AF00D1EFF7 /* cmd_subs.c in Sources */,
 				920E1B2F1F78023900664382 /* LSCollectionViewLayoutHelper.m in Sources */,
 				920E1B321F78024500664382 /* NSString+Utils.m in Sources */,
 				923AFD731F77ED46002F6A5B /* AboutViewController.m in Sources */,
