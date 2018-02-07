@@ -37,6 +37,7 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
     var didAppearAlready = false
     var spacesToInsert: String?
     var shouldUpdateSideBar = false
+    var isDebugEnabled = false
     
     private var documentStateChangedObserver: Any?
     
@@ -304,6 +305,16 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
             self?.editUsingTool(programName: "Background Designer 0.5.nx")
         }))
         
+        if isDebugEnabled {
+            alert.addAction(UIAlertAction(title: "Disable Debug Mode", style: .default, handler: { [weak self] (action) in
+                self?.isDebugEnabled = false
+            }))
+        } else {
+            alert.addAction(UIAlertAction(title: "Enable Debug Mode", style: .default, handler: { [weak self] (action) in
+                self?.isDebugEnabled = true
+            }))
+        }
+        
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         
         alert.popoverPresentationController?.barButtonItem = sender as? UIBarButtonItem;
@@ -515,6 +526,7 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
             let vc = storyboard.instantiateInitialViewController() as! LowResNXViewController
             vc.document = document
             vc.coreWrapper = coreWrapper
+            vc.isDebugEnabled = isDebugEnabled
             present(vc, animated: true, completion: nil)
         }
     }

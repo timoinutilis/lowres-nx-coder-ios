@@ -28,6 +28,7 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
     var document: ProjectDocument?
     var diskDocument: ProjectDocument?
     var coreWrapper: CoreWrapper?
+    var isDebugEnabled = false
     
     private var displayLink: CADisplayLink?
     private var compilerError: NSError?
@@ -52,6 +53,7 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
         if let coreWrapper = coreWrapper {
             // program already compiled
             core_willRunProgram(&coreWrapper.core, Int(CFAbsoluteTimeGetCurrent() - AppController.shared().bootTime))
+            core_setDebug(&coreWrapper.core, isDebugEnabled)
             
         } else {
             // program not yet compiled, open document and compile...
@@ -176,6 +178,7 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
             return LowResNXError(error: error, sourceCode: sourceCode)
         } else {
             core_willRunProgram(&coreWrapper.core, Int(CFAbsoluteTimeGetCurrent() - AppController.shared().bootTime))
+            core_setDebug(&coreWrapper.core, isDebugEnabled)
         }
         return nil
     }
