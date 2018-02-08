@@ -24,6 +24,9 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
     @IBOutlet private weak var widthConstraint: NSLayoutConstraint!
     @IBOutlet private weak var keyboardConstraint: NSLayoutConstraint!
     
+    @IBOutlet var portraitConstraints: [NSLayoutConstraint]!
+    @IBOutlet var landscapeConstraints: [NSLayoutConstraint]!
+
     weak var delegate: LowResNXViewControllerDelegate?
     var document: ProjectDocument?
     var diskDocument: ProjectDocument?
@@ -115,6 +118,31 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
         NotificationCenter.default.removeObserver(self)
     }
     
+    override var traitCollection: UITraitCollection {
+        let size = view.bounds.size
+        var traits: [UITraitCollection]
+        if size.width > size.height {
+            traits = [UITraitCollection(horizontalSizeClass: .regular), UITraitCollection(verticalSizeClass: .compact)]
+        } else {
+            traits =  [UITraitCollection(horizontalSizeClass: .compact), UITraitCollection(verticalSizeClass: .regular)]
+        }
+        return UITraitCollection(traitsFrom: traits)
+    }
+    
+    /*
+     - (UITraitCollection *)traitCollection
+     {
+     UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
+     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad && UIInterfaceOrientationIsPortrait(orientation))
+     {
+     NSArray *traits = @[[UITraitCollection traitCollectionWithHorizontalSizeClass:UIUserInterfaceSizeClassCompact],
+     [UITraitCollection traitCollectionWithVerticalSizeClass:UIUserInterfaceSizeClassRegular]];
+     return [UITraitCollection traitCollectionWithTraitsFromCollections:traits];
+     }
+     return super.traitCollection;
+     }
+
+    */
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         hasAppeared = true
@@ -152,6 +180,17 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        
+        let size = view.bounds.size
+        if size.width > size.height {
+            NSLayoutConstraint.activate(landscapeConstraints)
+            NSLayoutConstraint.deactivate(portraitConstraints)
+        } else {
+            NSLayoutConstraint.activate(portraitConstraints)
+            NSLayoutConstraint.deactivate(landscapeConstraints)
+        }
+        view.layoutIfNeeded()
+        
         let screenWidth = containerView.bounds.size.width
         let screenHeight = containerView.bounds.size.height
         var maxWidthFactor: CGFloat
