@@ -84,68 +84,44 @@
                                     <action selector="onSoundTapped:" destination="eHk-P2-FSa" eventType="touchUpInside" id="My3-iB-myo"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="img-mL-JD2">
+                            <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="img-mL-JD2" customClass="Gamepad" customModule="LowRes_NX_Coder" customModuleProvider="target">
                                 <rect key="frame" x="16" y="163" width="88" height="88"/>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="88" id="Lfv-Zg-PPV"/>
-                                    <constraint firstAttribute="height" constant="88" id="Wbr-AJ-spD"/>
+                                    <constraint firstAttribute="width" constant="88" placeholder="YES" id="Lfv-Zg-PPV"/>
+                                    <constraint firstAttribute="height" constant="88" placeholder="YES" id="Wbr-AJ-spD"/>
                                 </constraints>
-                                <state key="normal" image="gamepad_dpad"/>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n4U-S9-92L">
+                            </view>
+                            <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="n4U-S9-92L" customClass="Gamepad" customModule="LowRes_NX_Coder" customModuleProvider="target">
                                 <rect key="frame" x="632" y="163" width="88" height="88"/>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="88" id="InA-Fw-Gdp"/>
-                                    <constraint firstAttribute="height" constant="88" id="cda-cK-plC"/>
+                                    <constraint firstAttribute="width" constant="88" placeholder="YES" id="InA-Fw-Gdp"/>
+                                    <constraint firstAttribute="height" constant="88" placeholder="YES" id="cda-cK-plC"/>
                                 </constraints>
-                                <state key="normal" image="gamepad_dpad"/>
-                            </button>
+                            </view>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3mq-qZ-9Xa">
                                 <rect key="frame" x="676" y="163" width="44" height="44"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="44" id="bHt-gN-A9R"/>
-                                    <constraint firstAttribute="height" constant="44" id="lhP-Dr-8q3"/>
-                                </constraints>
                                 <state key="normal" image="gamepad_b"/>
                             </button>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yqc-bc-XaK">
                                 <rect key="frame" x="632" y="215" width="44" height="44"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="6If-Cz-zDU"/>
-                                    <constraint firstAttribute="width" constant="44" id="QYL-lN-85w"/>
-                                </constraints>
                                 <state key="normal" image="gamepad_a"/>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eq9-AG-3gF">
                                 <rect key="frame" x="38" y="354" width="44" height="44"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="TZQ-F0-zj7"/>
-                                    <constraint firstAttribute="width" constant="44" id="sLx-Wn-lUP"/>
-                                </constraints>
                                 <state key="normal" image="gamepad_a"/>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DUd-TB-hQv">
                                 <rect key="frame" x="654" y="302" width="44" height="44"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="Tas-4w-wrg"/>
-                                    <constraint firstAttribute="width" constant="44" id="jKr-KE-Epc"/>
-                                </constraints>
                                 <state key="normal" image="gamepad_b"/>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zwk-06-vFL">
                                 <rect key="frame" x="654" y="354" width="44" height="44"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="44" id="EXd-9a-dSG"/>
-                                    <constraint firstAttribute="height" constant="44" id="zDp-Gh-ju0"/>
-                                </constraints>
                                 <state key="normal" image="gamepad_a"/>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="26j-N0-zUR">
                                 <rect key="frame" x="38" y="302" width="44" height="44"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="44" id="2J4-eV-apv"/>
-                                    <constraint firstAttribute="height" constant="44" id="kdo-4c-RMG"/>
-                                </constraints>
                                 <state key="normal" image="gamepad_b"/>
                             </button>
                         </subviews>
@@ -153,7 +129,7 @@
                         <constraints>
                             <constraint firstItem="yqc-bc-XaK" firstAttribute="leading" secondItem="n4U-S9-92L" secondAttribute="leading" id="2Vb-ar-XfJ"/>
                             <constraint firstItem="wrQ-sh-Squ" firstAttribute="trailing" secondItem="mzY-9l-SlD" secondAttribute="trailing" id="57c-Q7-gqt"/>
-                            <constraint firstItem="img-mL-JD2" firstAttribute="centerY" secondItem="g0A-yH-wBi" secondAttribute="centerY" priority="999" id="57q-iy-mpd"/>
+                            <constraint firstItem="img-mL-JD2" firstAttribute="centerY" secondItem="g0A-yH-wBi" secondAttribute="centerY" priority="749" id="57q-iy-mpd"/>
                             <constraint firstItem="wrQ-sh-Squ" firstAttribute="bottom" secondItem="zwk-06-vFL" secondAttribute="bottom" constant="16" id="8H0-Lr-Ulh"/>
                             <constraint firstItem="zwk-06-vFL" firstAttribute="top" secondItem="DUd-TB-hQv" secondAttribute="bottom" constant="8" id="8cN-3K-eR7"/>
                             <constraint firstItem="img-mL-JD2" firstAttribute="top" secondItem="hDT-ts-Kz3" secondAttribute="bottom" constant="16" id="Att-yF-SkF"/>
@@ -231,7 +207,6 @@
         <image name="exit" width="36" height="36"/>
         <image name="gamepad_a" width="44" height="44"/>
         <image name="gamepad_b" width="44" height="44"/>
-        <image name="gamepad_dpad" width="88" height="88"/>
         <image name="sound_off" width="36" height="36"/>
         <image name="zoom_off" width="36" height="36"/>
     </resources>
