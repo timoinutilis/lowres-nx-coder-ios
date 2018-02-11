@@ -153,7 +153,7 @@
 		9294F2E01FC4B9A600A90487 /* LowResNXViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9294F2DF1FC4B9A600A90487 /* LowResNXViewController.swift */; };
 		9294F2E21FC4BA1100A90487 /* CoreWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9294F2E11FC4BA1100A90487 /* CoreWrapper.swift */; };
 		92D1A7641FBF6FDE0059450E /* data_manager.c in Sources */ = {isa = PBXBuildFile; fileRef = 92D1A7621FBF6FDE0059450E /* data_manager.c */; };
-		92DA4C99202CECE000129302 /* Gamepad.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DA4C98202CECE000129302 /* Gamepad.swift */; };
+		92DA4C99202CECE000129302 /* Dpad.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DA4C98202CECE000129302 /* Dpad.swift */; };
 		92EA93BE1F744572007BEFB1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92EA93BD1F744572007BEFB1 /* AppDelegate.swift */; };
 		92EA93C01F744573007BEFB1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92EA93BF1F744573007BEFB1 /* ViewController.swift */; };
 		92EA93C51F744573007BEFB1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 92EA93C41F744573007BEFB1 /* Assets.xcassets */; };
@@ -450,7 +450,7 @@
 		9294F2E11FC4BA1100A90487 /* CoreWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreWrapper.swift; sourceTree = "<group>"; };
 		92D1A7621FBF6FDE0059450E /* data_manager.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = data_manager.c; sourceTree = "<group>"; };
 		92D1A7631FBF6FDE0059450E /* data_manager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = data_manager.h; sourceTree = "<group>"; };
-		92DA4C98202CECE000129302 /* Gamepad.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gamepad.swift; sourceTree = "<group>"; };
+		92DA4C98202CECE000129302 /* Dpad.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dpad.swift; sourceTree = "<group>"; };
 		92EA93BA1F744572007BEFB1 /* LowRes NX Coder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "LowRes NX Coder.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		92EA93BD1F744572007BEFB1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		92EA93BF1F744573007BEFB1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -632,7 +632,7 @@
 				925CC54B1F75889F0059C230 /* TextLabel.m */,
 				925CC53F1F75889A0059C230 /* TextViewTableViewCell.h */,
 				925CC5411F75889B0059C230 /* TextViewTableViewCell.m */,
-				92DA4C98202CECE000129302 /* Gamepad.swift */,
+				92DA4C98202CECE000129302 /* Dpad.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1194,7 +1194,7 @@
 				923AFD6C1F77EBAE002F6A5B /* CommunityModel.m in Sources */,
 				920E1B5E1F78178D00664382 /* MKAnnotationView+WebCache.m in Sources */,
 				92ED996B1FA4E3480073559B /* string_utils.c in Sources */,
-				92DA4C99202CECE000129302 /* Gamepad.swift in Sources */,
+				92DA4C99202CECE000129302 /* Dpad.swift in Sources */,
 				920E1B6F1F78178D00664382 /* UIView+WebCache.m in Sources */,
 				920E1B2E1F78023900664382 /* LSCollectionViewHelper.m in Sources */,
 				928402191F7448B500AC1466 /* cmd_control.c in Sources */,

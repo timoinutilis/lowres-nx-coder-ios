@@ -58,33 +58,7 @@
                                     <action selector="onExitTapped:" destination="eHk-P2-FSa" eventType="touchUpInside" id="7Te-qH-bwp"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mzY-9l-SlD" userLabel="Zoom Button">
-                                <rect key="frame" x="681" y="0.0" width="55" height="55"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="55" id="24I-ld-Yfe"/>
-                                    <constraint firstAttribute="width" constant="55" id="k1f-25-FBa"/>
-                                </constraints>
-                                <state key="normal" image="zoom_off">
-                                    <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="onZoomTapped:" destination="eHk-P2-FSa" eventType="touchUpInside" id="PpJ-jm-MZI"/>
-                                </connections>
-                            </button>
-                            <button hidden="YES" opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="63Q-63-sDs" userLabel="Sound Button">
-                                <rect key="frame" x="626" y="0.0" width="55" height="55"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="55" id="TRz-Y9-wXX"/>
-                                    <constraint firstAttribute="width" constant="55" id="d6u-s8-BW4"/>
-                                </constraints>
-                                <state key="normal" image="sound_off">
-                                    <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="onSoundTapped:" destination="eHk-P2-FSa" eventType="touchUpInside" id="My3-iB-myo"/>
-                                </connections>
-                            </button>
-                            <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="img-mL-JD2" customClass="Gamepad" customModule="LowRes_NX_Coder" customModuleProvider="target">
+                            <view opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="img-mL-JD2" customClass="Dpad" customModule="LowRes_NX_Coder" customModuleProvider="target">
                                 <rect key="frame" x="16" y="163" width="88" height="88"/>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -92,7 +66,7 @@
                                     <constraint firstAttribute="height" constant="88" placeholder="YES" id="Wbr-AJ-spD"/>
                                 </constraints>
                             </view>
-                            <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="n4U-S9-92L" customClass="Gamepad" customModule="LowRes_NX_Coder" customModuleProvider="target">
+                            <view opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="n4U-S9-92L" customClass="Dpad" customModule="LowRes_NX_Coder" customModuleProvider="target">
                                 <rect key="frame" x="632" y="163" width="88" height="88"/>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -128,30 +102,28 @@
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="yqc-bc-XaK" firstAttribute="leading" secondItem="n4U-S9-92L" secondAttribute="leading" id="2Vb-ar-XfJ"/>
-                            <constraint firstItem="wrQ-sh-Squ" firstAttribute="trailing" secondItem="mzY-9l-SlD" secondAttribute="trailing" id="57c-Q7-gqt"/>
                             <constraint firstItem="img-mL-JD2" firstAttribute="centerY" secondItem="g0A-yH-wBi" secondAttribute="centerY" priority="749" id="57q-iy-mpd"/>
                             <constraint firstItem="wrQ-sh-Squ" firstAttribute="bottom" secondItem="zwk-06-vFL" secondAttribute="bottom" constant="16" id="8H0-Lr-Ulh"/>
                             <constraint firstItem="zwk-06-vFL" firstAttribute="top" secondItem="DUd-TB-hQv" secondAttribute="bottom" constant="8" id="8cN-3K-eR7"/>
+                            <constraint firstItem="hDT-ts-Kz3" firstAttribute="leading" secondItem="wrQ-sh-Squ" secondAttribute="leading" priority="750" id="9uc-l0-bK2"/>
                             <constraint firstItem="img-mL-JD2" firstAttribute="top" secondItem="hDT-ts-Kz3" secondAttribute="bottom" constant="16" id="Att-yF-SkF"/>
-                            <constraint firstItem="n4U-S9-92L" firstAttribute="leading" secondItem="hDT-ts-Kz3" secondAttribute="trailing" constant="16" id="GFv-ca-Wa4"/>
+                            <constraint firstItem="n4U-S9-92L" firstAttribute="leading" secondItem="hDT-ts-Kz3" secondAttribute="trailing" priority="999" constant="16" id="GFv-ca-Wa4"/>
                             <constraint firstItem="eq9-AG-3gF" firstAttribute="centerX" secondItem="img-mL-JD2" secondAttribute="centerX" id="HbH-vh-5iB"/>
                             <constraint firstItem="UGT-qu-6MS" firstAttribute="top" secondItem="wrQ-sh-Squ" secondAttribute="top" id="N5u-ij-d2o"/>
-                            <constraint firstItem="hDT-ts-Kz3" firstAttribute="leading" secondItem="img-mL-JD2" secondAttribute="trailing" constant="16" id="R5E-2l-oIk"/>
+                            <constraint firstItem="hDT-ts-Kz3" firstAttribute="leading" secondItem="img-mL-JD2" secondAttribute="trailing" priority="999" constant="16" id="R5E-2l-oIk"/>
                             <constraint firstItem="wrQ-sh-Squ" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="hDT-ts-Kz3" secondAttribute="bottom" id="SnL-1b-KG9"/>
-                            <constraint firstItem="26j-N0-zUR" firstAttribute="top" relation="greaterThanOrEqual" secondItem="img-mL-JD2" secondAttribute="bottom" constant="16" id="Yxl-eA-0g4"/>
+                            <constraint firstItem="26j-N0-zUR" firstAttribute="top" relation="greaterThanOrEqual" secondItem="img-mL-JD2" secondAttribute="bottom" constant="20" id="Yxl-eA-0g4"/>
                             <constraint firstItem="3mq-qZ-9Xa" firstAttribute="trailing" secondItem="n4U-S9-92L" secondAttribute="trailing" id="Zbz-p3-gHJ"/>
                             <constraint firstItem="wrQ-sh-Squ" firstAttribute="trailing" secondItem="n4U-S9-92L" secondAttribute="trailing" constant="16" id="aCz-s0-dWS"/>
                             <constraint firstItem="yqc-bc-XaK" firstAttribute="top" secondItem="3mq-qZ-9Xa" secondAttribute="bottom" constant="8" id="dcP-s6-Uwv"/>
                             <constraint firstItem="n4U-S9-92L" firstAttribute="top" secondItem="img-mL-JD2" secondAttribute="top" id="e3q-ut-KpQ"/>
-                            <constraint firstItem="mzY-9l-SlD" firstAttribute="leading" secondItem="63Q-63-sDs" secondAttribute="trailing" id="eBz-XY-Y2b"/>
                             <constraint firstItem="UGT-qu-6MS" firstAttribute="leading" secondItem="wrQ-sh-Squ" secondAttribute="leading" id="enn-ts-XAx"/>
                             <constraint firstItem="wrQ-sh-Squ" firstAttribute="bottom" secondItem="eq9-AG-3gF" secondAttribute="bottom" constant="16" id="foV-D6-eh5"/>
                             <constraint firstItem="zwk-06-vFL" firstAttribute="centerX" secondItem="n4U-S9-92L" secondAttribute="centerX" id="haq-wY-YXV"/>
                             <constraint firstItem="3mq-qZ-9Xa" firstAttribute="top" secondItem="n4U-S9-92L" secondAttribute="top" id="i7C-dV-exu"/>
                             <constraint firstItem="eq9-AG-3gF" firstAttribute="top" secondItem="26j-N0-zUR" secondAttribute="bottom" constant="8" id="if0-j9-pcs"/>
                             <constraint firstItem="hDT-ts-Kz3" firstAttribute="bottom" secondItem="wrQ-sh-Squ" secondAttribute="bottom" priority="999" id="kWx-62-mJE"/>
-                            <constraint firstItem="63Q-63-sDs" firstAttribute="top" secondItem="wrQ-sh-Squ" secondAttribute="top" id="oc9-73-gPc"/>
-                            <constraint firstItem="mzY-9l-SlD" firstAttribute="top" secondItem="wrQ-sh-Squ" secondAttribute="top" id="oxO-f2-KTn"/>
+                            <constraint firstItem="wrQ-sh-Squ" firstAttribute="trailing" secondItem="hDT-ts-Kz3" secondAttribute="trailing" priority="750" id="mKn-eX-PZA"/>
                             <constraint firstItem="DUd-TB-hQv" firstAttribute="centerX" secondItem="n4U-S9-92L" secondAttribute="centerX" id="p2C-EL-Lxn"/>
                             <constraint firstItem="hDT-ts-Kz3" firstAttribute="leading" secondItem="wrQ-sh-Squ" secondAttribute="leading" id="q6Y-H2-y8j"/>
                             <constraint firstItem="26j-N0-zUR" firstAttribute="centerX" secondItem="img-mL-JD2" secondAttribute="centerX" id="qaq-k4-cLL"/>
@@ -163,6 +135,8 @@
                         <viewLayoutGuide key="safeArea" id="wrQ-sh-Squ"/>
                         <variation key="default">
                             <mask key="constraints">
+                                <exclude reference="mKn-eX-PZA"/>
+                                <exclude reference="9uc-l0-bK2"/>
                                 <exclude reference="R5E-2l-oIk"/>
                                 <exclude reference="kWx-62-mJE"/>
                                 <exclude reference="v8y-jA-T0v"/>
@@ -172,7 +146,9 @@
                         </variation>
                         <variation key="widthClass=regular">
                             <mask key="constraints">
+                                <include reference="mKn-eX-PZA"/>
                                 <exclude reference="sdD-qb-mo1"/>
+                                <include reference="9uc-l0-bK2"/>
                                 <include reference="R5E-2l-oIk"/>
                                 <include reference="kWx-62-mJE"/>
                                 <exclude reference="q6Y-H2-y8j"/>
@@ -190,12 +166,18 @@
                         <outlet property="exitButton" destination="UGT-qu-6MS" id="1Fs-QI-Poo"/>
                         <outlet property="keyboardConstraint" destination="SnL-1b-KG9" id="Agd-pK-Wqb"/>
                         <outlet property="nxView" destination="Daq-lQ-abv" id="2Us-a8-YRb"/>
-                        <outlet property="soundButton" destination="63Q-63-sDs" id="Wi6-fv-RD9"/>
+                        <outlet property="p1ButtonA" destination="yqc-bc-XaK" id="GQw-oO-Ise"/>
+                        <outlet property="p1ButtonA2" destination="26j-N0-zUR" id="X98-Dz-0k3"/>
+                        <outlet property="p1ButtonB" destination="3mq-qZ-9Xa" id="aOg-wy-uOr"/>
+                        <outlet property="p1ButtonB2" destination="eq9-AG-3gF" id="w6T-D2-tV0"/>
+                        <outlet property="p1Dpad" destination="img-mL-JD2" id="sKd-mE-bZd"/>
+                        <outlet property="p2ButtonA" destination="zwk-06-vFL" id="Xfh-nF-l0C"/>
+                        <outlet property="p2ButtonB" destination="DUd-TB-hQv" id="SS0-K8-vBU"/>
+                        <outlet property="p2Dpad" destination="n4U-S9-92L" id="99r-z1-V3W"/>
                         <outlet property="widthConstraint" destination="T6I-6f-Er4" id="qRY-rx-fHy"/>
-                        <outlet property="zoomButton" destination="mzY-9l-SlD" id="AtC-WL-2Ht"/>
-                        <outletCollection property="portraitConstraints" destination="xSV-SH-UM0" collectionClass="NSMutableArray" id="4v9-F8-9tE"/>
-                        <outletCollection property="portraitConstraints" destination="q6Y-H2-y8j" collectionClass="NSMutableArray" id="2fF-8G-ZNF"/>
-                        <outletCollection property="landscapeConstraints" destination="SnL-1b-KG9" collectionClass="NSMutableArray" id="PDM-95-NHT"/>
+                        <outletCollection property="gamepadConstraints" destination="GFv-ca-Wa4" collectionClass="NSMutableArray" id="l0e-V8-C8g"/>
+                        <outletCollection property="gamepadConstraints" destination="R5E-2l-oIk" collectionClass="NSMutableArray" id="nsw-z5-BKb"/>
+                        <outletCollection property="gamepadConstraints" destination="Att-yF-SkF" collectionClass="NSMutableArray" id="yXC-EW-mTt"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZR-fL-aKI" sceneMemberID="firstResponder"/>
@@ -207,7 +189,5 @@
         <image name="exit" width="36" height="36"/>
         <image name="gamepad_a" width="44" height="44"/>
         <image name="gamepad_b" width="44" height="44"/>
-        <image name="sound_off" width="36" height="36"/>
-        <image name="zoom_off" width="36" height="36"/>
     </resources>
 </document>

@@ -13,7 +13,7 @@ class LowResNXView: UIView {
 
     private var data: UnsafeMutablePointer<UInt8>?
     private var dataProvider: CGDataProvider?
-    private var touchesToRelease = [UITouch]()
+    private var wasTouchReleased = false
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -26,7 +26,6 @@ class LowResNXView: UIView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        isMultipleTouchEnabled = true
     }
     
     func render() {
@@ -38,38 +37,36 @@ class LowResNXView: UIView {
             layer.magnificationFilter = kCAFilterNearest
             
             // release collected touches
-            let touches = touchesToRelease
-            touchesToRelease.removeAll()
-            for touch in touches {
-                core_touchReleased(&coreWrapper.core, Unmanaged.passUnretained(touch).toOpaque())
+            if wasTouchReleased {
+                coreWrapper.input.touch = false
+                wasTouchReleased = false
             }
         }
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if let coreWrapper = coreWrapper {
-            for touch in touches {
-                let point = screenPoint(touch: touch)
-                core_touchPressed(&coreWrapper.core, Int32(point.x), Int32(point.y), Unmanaged.passUnretained(touch).toOpaque())
-            }
+        if let coreWrapper = coreWrapper, let touch = touches.first {
+            let point = screenPoint(touch: touch)
+            coreWrapper.input.touchX = CInt(point.x)
+            coreWrapper.input.touchY = CInt(point.y)
+            coreWrapper.input.touch = true
         }
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if let coreWrapper = coreWrapper {
-            for touch in touches {
-                let point = screenPoint(touch: touch)
-                core_touchDragged(&coreWrapper.core, Int32(point.x), Int32(point.y), Unmanaged.passUnretained(touch).toOpaque())
-            }
+        if let coreWrapper = coreWrapper, let touch = touches.first {
+            let point = screenPoint(touch: touch)
+            coreWrapper.input.touchX = CInt(point.x)
+            coreWrapper.input.touchY = CInt(point.y)
         }
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        touchesToRelease += touches
+        wasTouchReleased = true
     }
     
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-        touchesToRelease += touches
+        wasTouchReleased = true
     }
     
     private func screenPoint(touch: UITouch) -> CGPoint {

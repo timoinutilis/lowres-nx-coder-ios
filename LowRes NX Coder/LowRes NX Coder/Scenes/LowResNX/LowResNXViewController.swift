@@ -17,16 +17,21 @@ protocol LowResNXViewControllerDelegate: class {
 class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate {
     
     @IBOutlet private weak var exitButton: UIButton!
-    @IBOutlet private weak var zoomButton: UIButton!
-    @IBOutlet private weak var soundButton: UIButton!
     @IBOutlet private weak var nxView: LowResNXView!
     @IBOutlet private weak var containerView: UIView!
     @IBOutlet private weak var widthConstraint: NSLayoutConstraint!
     @IBOutlet private weak var keyboardConstraint: NSLayoutConstraint!
+    @IBOutlet var gamepadConstraints: [NSLayoutConstraint]!
     
-    @IBOutlet var portraitConstraints: [NSLayoutConstraint]!
-    @IBOutlet var landscapeConstraints: [NSLayoutConstraint]!
-
+    @IBOutlet weak var p1Dpad: Dpad!
+    @IBOutlet weak var p1ButtonA: UIButton!
+    @IBOutlet weak var p1ButtonB: UIButton!
+    @IBOutlet weak var p1ButtonA2: UIButton!
+    @IBOutlet weak var p1ButtonB2: UIButton!
+    @IBOutlet weak var p2Dpad: Dpad!
+    @IBOutlet weak var p2ButtonA: UIButton!
+    @IBOutlet weak var p2ButtonB: UIButton!
+    
     weak var delegate: LowResNXViewControllerDelegate?
     var document: ProjectDocument?
     var diskDocument: ProjectDocument?
@@ -37,14 +42,6 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
     private var compilerError: NSError?
     private var hasAppeared: Bool = false
     private var recognizer: UITapGestureRecognizer?
-    
-    private var pixelExactScaling: Bool = true {
-        didSet {
-            view.setNeedsLayout()
-            let image = UIImage(named:pixelExactScaling ? "zoom_off" : "zoom_on")
-            zoomButton.setImage(image, for: .normal)
-        }
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -129,20 +126,6 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
         return UITraitCollection(traitsFrom: traits)
     }
     
-    /*
-     - (UITraitCollection *)traitCollection
-     {
-     UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
-     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad && UIInterfaceOrientationIsPortrait(orientation))
-     {
-     NSArray *traits = @[[UITraitCollection traitCollectionWithHorizontalSizeClass:UIUserInterfaceSizeClassCompact],
-     [UITraitCollection traitCollectionWithVerticalSizeClass:UIUserInterfaceSizeClassRegular]];
-     return [UITraitCollection traitCollectionWithTraitsFromCollections:traits];
-     }
-     return super.traitCollection;
-     }
-
-    */
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         hasAppeared = true
@@ -181,28 +164,16 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        let size = view.bounds.size
-        if size.width > size.height {
-            NSLayoutConstraint.activate(landscapeConstraints)
-            NSLayoutConstraint.deactivate(portraitConstraints)
-        } else {
-            NSLayoutConstraint.activate(portraitConstraints)
-            NSLayoutConstraint.deactivate(landscapeConstraints)
-        }
-        view.layoutIfNeeded()
-        
         let screenWidth = containerView.bounds.size.width
         let screenHeight = containerView.bounds.size.height
         var maxWidthFactor: CGFloat
         var maxHeightFactor: CGFloat
-        if pixelExactScaling {
-            let scale: CGFloat = view.window?.screen.scale ?? 1.0
-            maxWidthFactor = floor(screenWidth * scale / CGFloat(SCREEN_WIDTH)) / scale
-            maxHeightFactor = floor(screenHeight * scale / CGFloat(SCREEN_HEIGHT)) / scale
-        } else {
-            maxWidthFactor = screenWidth / CGFloat(SCREEN_WIDTH)
-            maxHeightFactor = screenHeight / CGFloat(SCREEN_HEIGHT)
-        }
+        
+        // pixel exact scaling
+        let scale: CGFloat = view.window?.screen.scale ?? 1.0
+        maxWidthFactor = floor(screenWidth * scale / CGFloat(SCREEN_WIDTH)) / scale
+        maxHeightFactor = floor(screenHeight * scale / CGFloat(SCREEN_HEIGHT)) / scale
+        
         widthConstraint.constant = (maxWidthFactor < maxHeightFactor) ? maxWidthFactor * CGFloat(SCREEN_WIDTH) : maxHeightFactor * CGFloat(SCREEN_WIDTH)
     }
     
@@ -228,7 +199,15 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
         }
         
         updateGameControllers()
-        core_update(&coreWrapper.core)
+        updateOnscreenGamepads()
+        
+        let oldNumPlayers = core_getNumGamepads(&coreWrapper.core)
+        core_update(&coreWrapper.core, &coreWrapper.input)
+        let newNumPlayers = core_getNumGamepads(&coreWrapper.core)
+        
+        if newNumPlayers != oldNumPlayers {
+            configureGameControllers()
+        }
         nxView.render()
     }
     
@@ -237,19 +216,33 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
             return
         }
         
+        let numPlayers = Int(core_getNumGamepads(&coreWrapper.core))
         let gameControllers = GCController.controllers()
-        
-        core_setNumPhysicalGamepads(&coreWrapper.core, Int32(gameControllers.count))
         
         var count = 0
         for gameController in gameControllers {
             gameController.playerIndex = GCControllerPlayerIndex(rawValue: count)!
             gameController.controllerPausedHandler = { [weak self] (controller) in
                 if let coreWrapper = self?.coreWrapper {
-                    core_pausePressed(&coreWrapper.core)
+                    coreWrapper.input.pause = true
                 }
             }
             count += 1
+        }
+        
+        let numOnscreenGamepads = numPlayers - count
+        
+        p1Dpad.isHidden = numOnscreenGamepads < 1
+        p1ButtonA.isHidden = numOnscreenGamepads != 1
+        p1ButtonB.isHidden = numOnscreenGamepads != 1
+        p1ButtonA2.isHidden = numOnscreenGamepads < 2
+        p1ButtonB2.isHidden = numOnscreenGamepads < 2
+        p2Dpad.isHidden = numOnscreenGamepads < 2
+        p2ButtonA.isHidden = numOnscreenGamepads < 2
+        p2ButtonB.isHidden = numOnscreenGamepads < 2
+        
+        for constraint in gamepadConstraints {
+            constraint.priority = UILayoutPriority(rawValue: numOnscreenGamepads > 0 ? 999 : 1)
         }
     }
     
@@ -272,8 +265,34 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
                 }
                 let buttonA = gamepad.buttonA.isPressed || gamepad.buttonX.isPressed
                 let buttonB = gamepad.buttonB.isPressed || gamepad.buttonY.isPressed
-                core_setGamepad(&coreWrapper.core, Int32(gameController.playerIndex.rawValue), up, down, left, right, buttonA, buttonB)
+                
+                let player = gameController.playerIndex.rawValue
+                core_setInputGamepad(&coreWrapper.input, CInt(player), up, down, left, right, buttonA, buttonB)
             }
+        }
+    }
+    
+    func updateOnscreenGamepads() {
+        guard let coreWrapper = coreWrapper else {
+            return
+        }
+        
+        let numGameControllers = GCController.controllers().count
+        let numPlayers = Int(core_getNumGamepads(&coreWrapper.core))
+        let numOnscreenGamepads = numPlayers - numGameControllers
+        
+        if numOnscreenGamepads >= 1 {
+            core_setInputGamepad(&coreWrapper.input, CInt(numGameControllers),
+                                 p1Dpad.isDirUp, p1Dpad.isDirDown, p1Dpad.isDirLeft, p1Dpad.isDirRight,
+                                 p1ButtonA.isHighlighted || p1ButtonA2.isHighlighted,
+                                 p1ButtonB.isHighlighted || p1ButtonB2.isHighlighted)
+        }
+        
+        if numOnscreenGamepads >= 2 {
+            core_setInputGamepad(&coreWrapper.input, CInt(numGameControllers + 1),
+                                 p2Dpad.isDirUp, p2Dpad.isDirDown, p2Dpad.isDirLeft, p2Dpad.isDirRight,
+                                 p2ButtonA.isHighlighted,
+                                 p2ButtonB.isHighlighted)
         }
     }
     
@@ -334,16 +353,6 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
     
     @IBAction func onExitTapped(_ sender: Any) {
         presentingViewController?.dismiss(animated: true, completion: nil)
-    }
-    
-    @IBAction func onZoomTapped(_ sender: Any) {
-        pixelExactScaling = !pixelExactScaling
-        UIView.animate(withDuration: 0.3) {
-            self.view.layoutIfNeeded()
-        }
-    }
-    
-    @IBAction func onSoundTapped(_ sender: Any) {
     }
     
     // MARK: - Core Wrapper Delegate
@@ -432,10 +441,10 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
         }
         
         if text == "\n" {
-            core_returnPressed(&coreWrapper.core)
+            coreWrapper.input.key = 10
         } else if let key = text.uppercased().unicodeScalars.first?.value {
             if key < 127 {
-                core_keyPressed(&coreWrapper.core, Int8(key))
+                coreWrapper.input.key = Int8(key)
             }
         }
     }
@@ -445,7 +454,7 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
             return
         }
         
-        core_backspacePressed(&coreWrapper.core)
+        coreWrapper.input.key = 8
     }
     
     // this is from UITextInput, needed because of crash on iPhone 6 keyboard (left/right arrows)
