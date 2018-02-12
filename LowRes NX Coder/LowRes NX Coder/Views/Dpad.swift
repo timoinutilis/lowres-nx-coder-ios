@@ -89,10 +89,11 @@ class Dpad: UIControl {
         var point = touch.location(in: self)
         point.x -= bounds.size.width * 0.5;
         point.y -= bounds.size.height * 0.5;
-        isDirUp = (point.y < -20.0) && abs(point.x / point.y) < 2.0;
-        isDirDown = (point.y > 20.0) && abs(point.x / point.y) < 2.0;
-        isDirLeft = (point.x < -20.0) && abs(point.y / point.x) < 2.0;
-        isDirRight = (point.x > 20.0) && abs(point.y / point.x) < 2.0;
+        let centerSize: CGFloat = 10.0
+        isDirUp = (point.y < -centerSize) && abs(point.x / point.y) < 2.0;
+        isDirDown = (point.y > centerSize) && abs(point.x / point.y) < 2.0;
+        isDirLeft = (point.x < -centerSize) && abs(point.y / point.x) < 2.0;
+        isDirRight = (point.x > centerSize) && abs(point.y / point.x) < 2.0;
         updateImage()
     }
     

@@ -31,6 +31,7 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
     @IBOutlet weak var p2Dpad: Dpad!
     @IBOutlet weak var p2ButtonA: UIButton!
     @IBOutlet weak var p2ButtonB: UIButton!
+    @IBOutlet weak var pauseButton: UIButton!
     
     weak var delegate: LowResNXViewControllerDelegate?
     var document: ProjectDocument?
@@ -240,6 +241,7 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
         p2Dpad.isHidden = numOnscreenGamepads < 2
         p2ButtonA.isHidden = numOnscreenGamepads < 2
         p2ButtonB.isHidden = numOnscreenGamepads < 2
+        pauseButton.isHidden = numOnscreenGamepads == 0
         
         for constraint in gamepadConstraints {
             constraint.priority = UILayoutPriority(rawValue: numOnscreenGamepads > 0 ? 999 : 1)
@@ -300,6 +302,14 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
         if sender.state == .ended {
             becomeFirstResponder()
         }
+    }
+    
+    @IBAction func pauseTapped(_ sender: Any) {
+        guard let coreWrapper = coreWrapper else {
+            return
+        }
+        
+        coreWrapper.input.pause = true
     }
     
     override var canBecomeFirstResponder: Bool {
