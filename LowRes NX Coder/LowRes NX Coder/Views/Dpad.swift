@@ -52,7 +52,7 @@ class Dpad: UIControl {
     
     override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
         if !isHidden && isUserInteractionEnabled {
-            let errorMargin: CGFloat = 20;
+            let errorMargin: CGFloat = 16;
             let largerFrame = CGRect(x: -errorMargin, y: -errorMargin, width: frame.size.width + 2 * errorMargin, height: frame.size.height + 2 * errorMargin)
             return largerFrame.contains(point) ? self : nil
         }

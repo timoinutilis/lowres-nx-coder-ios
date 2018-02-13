@@ -231,7 +231,7 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
             count += 1
         }
         
-        let numOnscreenGamepads = numPlayers - count
+        let numOnscreenGamepads = max(0, numPlayers - count)
         
         p1Dpad.isHidden = numOnscreenGamepads < 1
         p1ButtonA.isHidden = numOnscreenGamepads != 1

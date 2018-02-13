@@ -20,10 +20,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hDT-ts-Kz3">
-                                <rect key="frame" x="120" y="0.0" width="496" height="414"/>
+                                <rect key="frame" x="112" y="0.0" width="512" height="414"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Daq-lQ-abv" customClass="LowResNXView" customModule="LowRes_NX_Coder" customModuleProvider="target">
-                                        <rect key="frame" x="168" y="143.33333333333334" width="160" height="128.00000000000003"/>
+                                        <rect key="frame" x="176" y="143.33333333333334" width="160" height="128.00000000000003"/>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="Daq-lQ-abv" secondAttribute="height" multiplier="5:4" id="BA0-m7-xnE"/>
@@ -74,28 +74,28 @@
                                     <constraint firstAttribute="height" constant="88" placeholder="YES" id="cda-cK-plC"/>
                                 </constraints>
                             </view>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3mq-qZ-9Xa">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3mq-qZ-9Xa" customClass="RoundHitBoxButton" customModule="LowRes_NX_Coder" customModuleProvider="target">
                                 <rect key="frame" x="676" y="163" width="44" height="44"/>
                                 <state key="normal" image="gamepad_b"/>
                             </button>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yqc-bc-XaK">
-                                <rect key="frame" x="632" y="215" width="44" height="44"/>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yqc-bc-XaK" customClass="RoundHitBoxButton" customModule="LowRes_NX_Coder" customModuleProvider="target">
+                                <rect key="frame" x="632" y="207" width="44" height="44"/>
                                 <state key="normal" image="gamepad_a"/>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eq9-AG-3gF">
-                                <rect key="frame" x="38" y="354" width="44" height="44"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eq9-AG-3gF" customClass="RoundHitBoxButton" customModule="LowRes_NX_Coder" customModuleProvider="target">
+                                <rect key="frame" x="60" y="338" width="44" height="44"/>
                                 <state key="normal" image="gamepad_a"/>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DUd-TB-hQv">
-                                <rect key="frame" x="654" y="302" width="44" height="44"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DUd-TB-hQv" customClass="RoundHitBoxButton" customModule="LowRes_NX_Coder" customModuleProvider="target">
+                                <rect key="frame" x="676" y="294" width="44" height="44"/>
                                 <state key="normal" image="gamepad_b"/>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zwk-06-vFL">
-                                <rect key="frame" x="654" y="354" width="44" height="44"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zwk-06-vFL" customClass="RoundHitBoxButton" customModule="LowRes_NX_Coder" customModuleProvider="target">
+                                <rect key="frame" x="632" y="338" width="44" height="44"/>
                                 <state key="normal" image="gamepad_a"/>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="26j-N0-zUR">
-                                <rect key="frame" x="38" y="302" width="44" height="44"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="26j-N0-zUR" customClass="RoundHitBoxButton" customModule="LowRes_NX_Coder" customModuleProvider="target">
+                                <rect key="frame" x="16" y="294" width="44" height="44"/>
                                 <state key="normal" image="gamepad_b"/>
                             </button>
                             <button opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3eC-Mx-ChC">
@@ -111,34 +111,34 @@
                         <constraints>
                             <constraint firstItem="yqc-bc-XaK" firstAttribute="leading" secondItem="n4U-S9-92L" secondAttribute="leading" id="2Vb-ar-XfJ"/>
                             <constraint firstItem="img-mL-JD2" firstAttribute="centerY" secondItem="g0A-yH-wBi" secondAttribute="centerY" priority="749" id="57q-iy-mpd"/>
-                            <constraint firstItem="wrQ-sh-Squ" firstAttribute="bottom" secondItem="zwk-06-vFL" secondAttribute="bottom" constant="16" id="8H0-Lr-Ulh"/>
-                            <constraint firstItem="zwk-06-vFL" firstAttribute="top" secondItem="DUd-TB-hQv" secondAttribute="bottom" constant="8" id="8cN-3K-eR7"/>
+                            <constraint firstItem="wrQ-sh-Squ" firstAttribute="bottom" secondItem="zwk-06-vFL" secondAttribute="bottom" constant="32" id="8H0-Lr-Ulh"/>
+                            <constraint firstItem="zwk-06-vFL" firstAttribute="top" secondItem="DUd-TB-hQv" secondAttribute="bottom" id="8cN-3K-eR7"/>
                             <constraint firstItem="hDT-ts-Kz3" firstAttribute="leading" secondItem="wrQ-sh-Squ" secondAttribute="leading" priority="750" id="9uc-l0-bK2"/>
                             <constraint firstItem="img-mL-JD2" firstAttribute="top" secondItem="hDT-ts-Kz3" secondAttribute="bottom" constant="16" id="Att-yF-SkF"/>
-                            <constraint firstItem="n4U-S9-92L" firstAttribute="leading" secondItem="hDT-ts-Kz3" secondAttribute="trailing" priority="999" constant="16" id="GFv-ca-Wa4"/>
-                            <constraint firstItem="eq9-AG-3gF" firstAttribute="centerX" secondItem="img-mL-JD2" secondAttribute="centerX" id="HbH-vh-5iB"/>
+                            <constraint firstItem="eq9-AG-3gF" firstAttribute="trailing" secondItem="img-mL-JD2" secondAttribute="trailing" id="Fbw-eg-unc"/>
+                            <constraint firstItem="n4U-S9-92L" firstAttribute="leading" secondItem="hDT-ts-Kz3" secondAttribute="trailing" priority="999" constant="8" id="GFv-ca-Wa4"/>
                             <constraint firstItem="UGT-qu-6MS" firstAttribute="top" secondItem="wrQ-sh-Squ" secondAttribute="top" id="N5u-ij-d2o"/>
-                            <constraint firstItem="hDT-ts-Kz3" firstAttribute="leading" secondItem="img-mL-JD2" secondAttribute="trailing" priority="999" constant="16" id="R5E-2l-oIk"/>
+                            <constraint firstItem="DUd-TB-hQv" firstAttribute="trailing" secondItem="n4U-S9-92L" secondAttribute="trailing" id="ND6-Ae-6o1"/>
+                            <constraint firstItem="hDT-ts-Kz3" firstAttribute="leading" secondItem="img-mL-JD2" secondAttribute="trailing" priority="999" constant="8" id="R5E-2l-oIk"/>
                             <constraint firstItem="wrQ-sh-Squ" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="hDT-ts-Kz3" secondAttribute="bottom" id="SnL-1b-KG9"/>
                             <constraint firstItem="26j-N0-zUR" firstAttribute="top" relation="greaterThanOrEqual" secondItem="img-mL-JD2" secondAttribute="bottom" constant="20" id="Yxl-eA-0g4"/>
                             <constraint firstItem="3mq-qZ-9Xa" firstAttribute="trailing" secondItem="n4U-S9-92L" secondAttribute="trailing" id="Zbz-p3-gHJ"/>
                             <constraint firstItem="wrQ-sh-Squ" firstAttribute="trailing" secondItem="n4U-S9-92L" secondAttribute="trailing" constant="16" id="aCz-s0-dWS"/>
-                            <constraint firstItem="yqc-bc-XaK" firstAttribute="top" secondItem="3mq-qZ-9Xa" secondAttribute="bottom" constant="8" id="dcP-s6-Uwv"/>
+                            <constraint firstItem="26j-N0-zUR" firstAttribute="leading" secondItem="img-mL-JD2" secondAttribute="leading" id="aTD-Y2-IAr"/>
+                            <constraint firstItem="yqc-bc-XaK" firstAttribute="top" secondItem="3mq-qZ-9Xa" secondAttribute="bottom" id="dcP-s6-Uwv"/>
                             <constraint firstItem="n4U-S9-92L" firstAttribute="top" secondItem="img-mL-JD2" secondAttribute="top" id="e3q-ut-KpQ"/>
                             <constraint firstItem="UGT-qu-6MS" firstAttribute="leading" secondItem="wrQ-sh-Squ" secondAttribute="leading" id="enn-ts-XAx"/>
-                            <constraint firstItem="wrQ-sh-Squ" firstAttribute="bottom" secondItem="eq9-AG-3gF" secondAttribute="bottom" constant="16" id="foV-D6-eh5"/>
-                            <constraint firstItem="zwk-06-vFL" firstAttribute="centerX" secondItem="n4U-S9-92L" secondAttribute="centerX" id="haq-wY-YXV"/>
+                            <constraint firstItem="wrQ-sh-Squ" firstAttribute="bottom" secondItem="eq9-AG-3gF" secondAttribute="bottom" constant="32" id="foV-D6-eh5"/>
                             <constraint firstItem="3mq-qZ-9Xa" firstAttribute="top" secondItem="n4U-S9-92L" secondAttribute="top" id="i7C-dV-exu"/>
                             <constraint firstItem="wrQ-sh-Squ" firstAttribute="bottom" secondItem="3eC-Mx-ChC" secondAttribute="bottom" constant="5" id="iHY-EY-NCB"/>
-                            <constraint firstItem="eq9-AG-3gF" firstAttribute="top" secondItem="26j-N0-zUR" secondAttribute="bottom" constant="8" id="if0-j9-pcs"/>
+                            <constraint firstItem="eq9-AG-3gF" firstAttribute="top" secondItem="26j-N0-zUR" secondAttribute="bottom" id="if0-j9-pcs"/>
                             <constraint firstItem="3eC-Mx-ChC" firstAttribute="centerX" secondItem="g0A-yH-wBi" secondAttribute="centerX" id="jfZ-jb-YJY"/>
                             <constraint firstItem="hDT-ts-Kz3" firstAttribute="bottom" secondItem="wrQ-sh-Squ" secondAttribute="bottom" priority="999" id="kWx-62-mJE"/>
                             <constraint firstItem="wrQ-sh-Squ" firstAttribute="trailing" secondItem="hDT-ts-Kz3" secondAttribute="trailing" priority="750" id="mKn-eX-PZA"/>
-                            <constraint firstItem="DUd-TB-hQv" firstAttribute="centerX" secondItem="n4U-S9-92L" secondAttribute="centerX" id="p2C-EL-Lxn"/>
                             <constraint firstItem="hDT-ts-Kz3" firstAttribute="leading" secondItem="wrQ-sh-Squ" secondAttribute="leading" id="q6Y-H2-y8j"/>
-                            <constraint firstItem="26j-N0-zUR" firstAttribute="centerX" secondItem="img-mL-JD2" secondAttribute="centerX" id="qaq-k4-cLL"/>
                             <constraint firstItem="wrQ-sh-Squ" firstAttribute="trailing" secondItem="hDT-ts-Kz3" secondAttribute="trailing" id="sdD-qb-mo1"/>
                             <constraint firstItem="hDT-ts-Kz3" firstAttribute="top" secondItem="wrQ-sh-Squ" secondAttribute="top" id="v8y-jA-T0v"/>
+                            <constraint firstItem="zwk-06-vFL" firstAttribute="leading" secondItem="n4U-S9-92L" secondAttribute="leading" id="wdD-xM-7Me"/>
                             <constraint firstItem="hDT-ts-Kz3" firstAttribute="top" secondItem="UGT-qu-6MS" secondAttribute="bottom" id="xSV-SH-UM0"/>
                             <constraint firstItem="img-mL-JD2" firstAttribute="leading" secondItem="wrQ-sh-Squ" secondAttribute="leading" constant="16" id="zf6-gq-o9a"/>
                         </constraints>

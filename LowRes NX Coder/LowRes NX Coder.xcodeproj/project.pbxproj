@@ -150,6 +150,7 @@
 		928402321F7448B500AC1466 /* video_chip.c in Sources */ = {isa = PBXBuildFile; fileRef = 9284020F1F7448B500AC1466 /* video_chip.c */; };
 		928402331F7448B500AC1466 /* overlay.c in Sources */ = {isa = PBXBuildFile; fileRef = 928402121F7448B500AC1466 /* overlay.c */; };
 		928402341F7448B500AC1466 /* overlay_data.c in Sources */ = {isa = PBXBuildFile; fileRef = 928402141F7448B500AC1466 /* overlay_data.c */; };
+		92930E4C203377DF00DE18B9 /* RoundHitBoxButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92930E4B203377DF00DE18B9 /* RoundHitBoxButton.swift */; };
 		9294F2E01FC4B9A600A90487 /* LowResNXViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9294F2DF1FC4B9A600A90487 /* LowResNXViewController.swift */; };
 		9294F2E21FC4BA1100A90487 /* CoreWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9294F2E11FC4BA1100A90487 /* CoreWrapper.swift */; };
 		92D1A7641FBF6FDE0059450E /* data_manager.c in Sources */ = {isa = PBXBuildFile; fileRef = 92D1A7621FBF6FDE0059450E /* data_manager.c */; };
@@ -446,6 +447,7 @@
 		928402141F7448B500AC1466 /* overlay_data.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = overlay_data.c; sourceTree = "<group>"; };
 		928402151F7448B500AC1466 /* overlay_data.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = overlay_data.h; sourceTree = "<group>"; };
 		928402351F7448E000AC1466 /* LowResNX-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LowResNX-Bridging-Header.h"; sourceTree = "<group>"; };
+		92930E4B203377DF00DE18B9 /* RoundHitBoxButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundHitBoxButton.swift; sourceTree = "<group>"; };
 		9294F2DF1FC4B9A600A90487 /* LowResNXViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LowResNXViewController.swift; sourceTree = "<group>"; };
 		9294F2E11FC4BA1100A90487 /* CoreWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreWrapper.swift; sourceTree = "<group>"; };
 		92D1A7621FBF6FDE0059450E /* data_manager.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = data_manager.c; sourceTree = "<group>"; };
@@ -633,6 +635,7 @@
 				925CC53F1F75889A0059C230 /* TextViewTableViewCell.h */,
 				925CC5411F75889B0059C230 /* TextViewTableViewCell.m */,
 				92DA4C98202CECE000129302 /* Dpad.swift */,
+				92930E4B203377DF00DE18B9 /* RoundHitBoxButton.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1204,6 +1207,7 @@
 				920E1B361F78024E00664382 /* GORCycleManager.m in Sources */,
 				9227DC1E1FC8BB0700BC89FD /* ProjectManager.swift in Sources */,
 				9276994E1F7D678900211D15 /* ProjectDocument.swift in Sources */,
+				92930E4C203377DF00DE18B9 /* RoundHitBoxButton.swift in Sources */,
 				928402261F7448B500AC1466 /* interpreter.c in Sources */,
 				923AFD9B1F77ED71002F6A5B /* NotificationsViewController.m in Sources */,
 				928402181F7448B500AC1466 /* cmd_background.c in Sources */,

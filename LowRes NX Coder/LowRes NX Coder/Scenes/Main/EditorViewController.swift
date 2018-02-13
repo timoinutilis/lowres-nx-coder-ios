@@ -488,6 +488,7 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
         let toolUrl = ProjectManager.shared.currentDocumentsUrl.appendingPathComponent(programName)
         let toolDocument = ProjectDocument(fileURL: toolUrl)
         
+        view.endEditing(true)
         let storyboard = UIStoryboard(name: "LowResNX", bundle: nil)
         let vc = storyboard.instantiateInitialViewController() as! LowResNXViewController
         vc.document = toolDocument
@@ -522,6 +523,7 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
             
         } else {
             // start
+            view.endEditing(true)
             let storyboard = UIStoryboard(name: "LowResNX", bundle: nil)
             let vc = storyboard.instantiateInitialViewController() as! LowResNXViewController
             vc.document = document
