@@ -451,7 +451,7 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
         }
         
         if text == "\n" {
-            coreWrapper.input.key = 10
+            coreWrapper.input.key = CoreInputKeyReturn
         } else if let key = text.uppercased().unicodeScalars.first?.value {
             if key < 127 {
                 coreWrapper.input.key = Int8(key)
@@ -464,7 +464,7 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
             return
         }
         
-        coreWrapper.input.key = 8
+        coreWrapper.input.key = CoreInputKeyBackspace
     }
     
     // this is from UITextInput, needed because of crash on iPhone 6 keyboard (left/right arrows)
