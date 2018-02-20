@@ -9,6 +9,9 @@
 import UIKit
 import GameController
 
+// set to false for testing on Simulator
+let SUPPORTS_GAME_CONTROLLERS = true
+
 protocol LowResNXViewControllerDelegate: class {
     func nxSourceCodeForVirtualDisk() -> String
     func nxDidSaveVirtualDisk(sourceCode: String)
@@ -22,6 +25,7 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
     @IBOutlet private weak var widthConstraint: NSLayoutConstraint!
     @IBOutlet private weak var keyboardConstraint: NSLayoutConstraint!
     @IBOutlet var gamepadConstraints: [NSLayoutConstraint]!
+    @IBOutlet weak var multiPlayerConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var p1Dpad: Dpad!
     @IBOutlet weak var p1ButtonA: UIButton!
@@ -162,6 +166,10 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
         return .lightContent
     }
     
+    override func preferredScreenEdgesDeferringSystemGestures() -> UIRectEdge {
+        return .all
+    }
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
@@ -218,20 +226,23 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
         }
         
         let numPlayers = Int(core_getNumGamepads(&coreWrapper.core))
-        let gameControllers = GCController.controllers()
         
-        var count = 0
-        for gameController in gameControllers {
-            gameController.playerIndex = GCControllerPlayerIndex(rawValue: count)!
-            gameController.controllerPausedHandler = { [weak self] (controller) in
-                if let coreWrapper = self?.coreWrapper {
-                    coreWrapper.input.pause = true
+        var numGameControllers = 0
+        
+        if SUPPORTS_GAME_CONTROLLERS {
+            let gameControllers = GCController.controllers()
+            for gameController in gameControllers {
+                gameController.playerIndex = GCControllerPlayerIndex(rawValue: numGameControllers)!
+                gameController.controllerPausedHandler = { [weak self] (controller) in
+                    if let coreWrapper = self?.coreWrapper {
+                        coreWrapper.input.pause = true
+                    }
                 }
+                numGameControllers += 1
             }
-            count += 1
         }
         
-        let numOnscreenGamepads = max(0, numPlayers - count)
+        let numOnscreenGamepads = max(0, numPlayers - numGameControllers)
         
         p1Dpad.isHidden = numOnscreenGamepads < 1
         p1ButtonA.isHidden = numOnscreenGamepads != 1
@@ -246,10 +257,11 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
         for constraint in gamepadConstraints {
             constraint.priority = UILayoutPriority(rawValue: numOnscreenGamepads > 0 ? 999 : 1)
         }
+        multiPlayerConstraint.priority = UILayoutPriority(rawValue: numOnscreenGamepads > 1 ? 999 : 1)
     }
     
     func updateGameControllers() {
-        guard let coreWrapper = coreWrapper else {
+        guard let coreWrapper = coreWrapper, !SUPPORTS_GAME_CONTROLLERS else {
             return
         }
         
@@ -269,7 +281,7 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
                 let buttonB = gamepad.buttonB.isPressed || gamepad.buttonY.isPressed
                 
                 let player = gameController.playerIndex.rawValue
-                core_setInputGamepad(&coreWrapper.input, CInt(player), up, down, left, right, buttonA, buttonB)
+                core_setInputGamepad(&coreWrapper.input, Int32(player), up, down, left, right, buttonA, buttonB)
             }
         }
     }
@@ -279,19 +291,19 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
             return
         }
         
-        let numGameControllers = GCController.controllers().count
+        let numGameControllers = SUPPORTS_GAME_CONTROLLERS ? GCController.controllers().count : 0
         let numPlayers = Int(core_getNumGamepads(&coreWrapper.core))
         let numOnscreenGamepads = numPlayers - numGameControllers
         
         if numOnscreenGamepads >= 1 {
-            core_setInputGamepad(&coreWrapper.input, CInt(numGameControllers),
+            core_setInputGamepad(&coreWrapper.input, Int32(numGameControllers),
                                  p1Dpad.isDirUp, p1Dpad.isDirDown, p1Dpad.isDirLeft, p1Dpad.isDirRight,
                                  p1ButtonA.isHighlighted || p1ButtonA2.isHighlighted,
                                  p1ButtonB.isHighlighted || p1ButtonB2.isHighlighted)
         }
         
         if numOnscreenGamepads >= 2 {
-            core_setInputGamepad(&coreWrapper.input, CInt(numGameControllers + 1),
+            core_setInputGamepad(&coreWrapper.input, Int32(numGameControllers + 1),
                                  p2Dpad.isDirUp, p2Dpad.isDirDown, p2Dpad.isDirLeft, p2Dpad.isDirRight,
                                  p2ButtonA.isHighlighted,
                                  p2ButtonB.isHighlighted)

@@ -7,6 +7,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -59,7 +60,7 @@
                                 </connections>
                             </button>
                             <view opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="img-mL-JD2" customClass="Dpad" customModule="LowRes_NX_Coder" customModuleProvider="target">
-                                <rect key="frame" x="16" y="163" width="88" height="88"/>
+                                <rect key="frame" x="16" y="178" width="88" height="88"/>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="88" placeholder="YES" id="Lfv-Zg-PPV"/>
@@ -67,7 +68,7 @@
                                 </constraints>
                             </view>
                             <view opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="n4U-S9-92L" customClass="Dpad" customModule="LowRes_NX_Coder" customModuleProvider="target">
-                                <rect key="frame" x="632" y="163" width="88" height="88"/>
+                                <rect key="frame" x="632" y="178" width="88" height="88"/>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="88" placeholder="YES" id="InA-Fw-Gdp"/>
@@ -75,32 +76,32 @@
                                 </constraints>
                             </view>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3mq-qZ-9Xa" customClass="RoundHitBoxButton" customModule="LowRes_NX_Coder" customModuleProvider="target">
-                                <rect key="frame" x="676" y="163" width="44" height="44"/>
+                                <rect key="frame" x="676" y="178" width="44" height="44"/>
                                 <state key="normal" image="gamepad_b"/>
                             </button>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yqc-bc-XaK" customClass="RoundHitBoxButton" customModule="LowRes_NX_Coder" customModuleProvider="target">
-                                <rect key="frame" x="632" y="207" width="44" height="44"/>
+                                <rect key="frame" x="632" y="222" width="44" height="44"/>
                                 <state key="normal" image="gamepad_a"/>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eq9-AG-3gF" customClass="RoundHitBoxButton" customModule="LowRes_NX_Coder" customModuleProvider="target">
-                                <rect key="frame" x="60" y="338" width="44" height="44"/>
+                            <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eq9-AG-3gF" customClass="RoundHitBoxButton" customModule="LowRes_NX_Coder" customModuleProvider="target">
+                                <rect key="frame" x="60" y="354" width="44" height="44"/>
                                 <state key="normal" image="gamepad_a"/>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DUd-TB-hQv" customClass="RoundHitBoxButton" customModule="LowRes_NX_Coder" customModuleProvider="target">
-                                <rect key="frame" x="676" y="294" width="44" height="44"/>
+                                <rect key="frame" x="676" y="310" width="44" height="44"/>
                                 <state key="normal" image="gamepad_b"/>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zwk-06-vFL" customClass="RoundHitBoxButton" customModule="LowRes_NX_Coder" customModuleProvider="target">
-                                <rect key="frame" x="632" y="338" width="44" height="44"/>
+                                <rect key="frame" x="632" y="354" width="44" height="44"/>
                                 <state key="normal" image="gamepad_a"/>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="26j-N0-zUR" customClass="RoundHitBoxButton" customModule="LowRes_NX_Coder" customModuleProvider="target">
-                                <rect key="frame" x="16" y="294" width="44" height="44"/>
+                            <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="26j-N0-zUR" customClass="RoundHitBoxButton" customModule="LowRes_NX_Coder" customModuleProvider="target">
+                                <rect key="frame" x="16" y="310" width="44" height="44"/>
                                 <state key="normal" image="gamepad_b"/>
                             </button>
                             <button opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3eC-Mx-ChC">
-                                <rect key="frame" x="346" y="365" width="44" height="44"/>
-                                <inset key="contentEdgeInsets" minX="2" minY="22" maxX="2" maxY="0.0"/>
+                                <rect key="frame" x="346" y="370" width="44" height="44"/>
+                                <inset key="contentEdgeInsets" minX="2" minY="16" maxX="2" maxY="6"/>
                                 <state key="normal" image="gamepad_pause"/>
                                 <connections>
                                     <action selector="pauseTapped:" destination="eHk-P2-FSa" eventType="touchDown" id="NmH-8N-xc4"/>
@@ -110,8 +111,7 @@
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="yqc-bc-XaK" firstAttribute="leading" secondItem="n4U-S9-92L" secondAttribute="leading" id="2Vb-ar-XfJ"/>
-                            <constraint firstItem="img-mL-JD2" firstAttribute="centerY" secondItem="g0A-yH-wBi" secondAttribute="centerY" priority="749" id="57q-iy-mpd"/>
-                            <constraint firstItem="wrQ-sh-Squ" firstAttribute="bottom" secondItem="zwk-06-vFL" secondAttribute="bottom" constant="32" id="8H0-Lr-Ulh"/>
+                            <constraint firstItem="wrQ-sh-Squ" firstAttribute="bottom" secondItem="zwk-06-vFL" secondAttribute="bottom" constant="16" id="8H0-Lr-Ulh"/>
                             <constraint firstItem="zwk-06-vFL" firstAttribute="top" secondItem="DUd-TB-hQv" secondAttribute="bottom" id="8cN-3K-eR7"/>
                             <constraint firstItem="hDT-ts-Kz3" firstAttribute="leading" secondItem="wrQ-sh-Squ" secondAttribute="leading" priority="750" id="9uc-l0-bK2"/>
                             <constraint firstItem="img-mL-JD2" firstAttribute="top" secondItem="hDT-ts-Kz3" secondAttribute="bottom" constant="16" id="Att-yF-SkF"/>
@@ -119,18 +119,20 @@
                             <constraint firstItem="n4U-S9-92L" firstAttribute="leading" secondItem="hDT-ts-Kz3" secondAttribute="trailing" priority="999" constant="8" id="GFv-ca-Wa4"/>
                             <constraint firstItem="UGT-qu-6MS" firstAttribute="top" secondItem="wrQ-sh-Squ" secondAttribute="top" id="N5u-ij-d2o"/>
                             <constraint firstItem="DUd-TB-hQv" firstAttribute="trailing" secondItem="n4U-S9-92L" secondAttribute="trailing" id="ND6-Ae-6o1"/>
+                            <constraint firstItem="img-mL-JD2" firstAttribute="centerY" secondItem="g0A-yH-wBi" secondAttribute="centerY" multiplier="1.4" priority="750" id="O8y-tE-JE4"/>
                             <constraint firstItem="hDT-ts-Kz3" firstAttribute="leading" secondItem="img-mL-JD2" secondAttribute="trailing" priority="999" constant="8" id="R5E-2l-oIk"/>
                             <constraint firstItem="wrQ-sh-Squ" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="hDT-ts-Kz3" secondAttribute="bottom" id="SnL-1b-KG9"/>
-                            <constraint firstItem="26j-N0-zUR" firstAttribute="top" relation="greaterThanOrEqual" secondItem="img-mL-JD2" secondAttribute="bottom" constant="20" id="Yxl-eA-0g4"/>
+                            <constraint firstItem="26j-N0-zUR" firstAttribute="top" relation="greaterThanOrEqual" secondItem="img-mL-JD2" secondAttribute="bottom" constant="32" id="URu-5A-swa"/>
+                            <constraint firstItem="26j-N0-zUR" firstAttribute="top" relation="greaterThanOrEqual" secondItem="img-mL-JD2" secondAttribute="bottom" priority="999" constant="44" id="Yxl-eA-0g4"/>
                             <constraint firstItem="3mq-qZ-9Xa" firstAttribute="trailing" secondItem="n4U-S9-92L" secondAttribute="trailing" id="Zbz-p3-gHJ"/>
                             <constraint firstItem="wrQ-sh-Squ" firstAttribute="trailing" secondItem="n4U-S9-92L" secondAttribute="trailing" constant="16" id="aCz-s0-dWS"/>
                             <constraint firstItem="26j-N0-zUR" firstAttribute="leading" secondItem="img-mL-JD2" secondAttribute="leading" id="aTD-Y2-IAr"/>
                             <constraint firstItem="yqc-bc-XaK" firstAttribute="top" secondItem="3mq-qZ-9Xa" secondAttribute="bottom" id="dcP-s6-Uwv"/>
                             <constraint firstItem="n4U-S9-92L" firstAttribute="top" secondItem="img-mL-JD2" secondAttribute="top" id="e3q-ut-KpQ"/>
                             <constraint firstItem="UGT-qu-6MS" firstAttribute="leading" secondItem="wrQ-sh-Squ" secondAttribute="leading" id="enn-ts-XAx"/>
-                            <constraint firstItem="wrQ-sh-Squ" firstAttribute="bottom" secondItem="eq9-AG-3gF" secondAttribute="bottom" constant="32" id="foV-D6-eh5"/>
+                            <constraint firstItem="wrQ-sh-Squ" firstAttribute="bottom" secondItem="eq9-AG-3gF" secondAttribute="bottom" constant="16" id="foV-D6-eh5"/>
                             <constraint firstItem="3mq-qZ-9Xa" firstAttribute="top" secondItem="n4U-S9-92L" secondAttribute="top" id="i7C-dV-exu"/>
-                            <constraint firstItem="wrQ-sh-Squ" firstAttribute="bottom" secondItem="3eC-Mx-ChC" secondAttribute="bottom" constant="5" id="iHY-EY-NCB"/>
+                            <constraint firstItem="wrQ-sh-Squ" firstAttribute="bottom" secondItem="3eC-Mx-ChC" secondAttribute="bottom" id="iHY-EY-NCB"/>
                             <constraint firstItem="eq9-AG-3gF" firstAttribute="top" secondItem="26j-N0-zUR" secondAttribute="bottom" id="if0-j9-pcs"/>
                             <constraint firstItem="3eC-Mx-ChC" firstAttribute="centerX" secondItem="g0A-yH-wBi" secondAttribute="centerX" id="jfZ-jb-YJY"/>
                             <constraint firstItem="hDT-ts-Kz3" firstAttribute="bottom" secondItem="wrQ-sh-Squ" secondAttribute="bottom" priority="999" id="kWx-62-mJE"/>
@@ -150,8 +152,15 @@
                                 <exclude reference="R5E-2l-oIk"/>
                                 <exclude reference="kWx-62-mJE"/>
                                 <exclude reference="v8y-jA-T0v"/>
-                                <exclude reference="57q-iy-mpd"/>
+                                <exclude reference="O8y-tE-JE4"/>
+                                <exclude reference="URu-5A-swa"/>
+                                <exclude reference="Yxl-eA-0g4"/>
                                 <exclude reference="GFv-ca-Wa4"/>
+                            </mask>
+                        </variation>
+                        <variation key="widthClass=compact">
+                            <mask key="constraints">
+                                <include reference="URu-5A-swa"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=regular">
@@ -164,8 +173,9 @@
                                 <exclude reference="q6Y-H2-y8j"/>
                                 <include reference="v8y-jA-T0v"/>
                                 <exclude reference="xSV-SH-UM0"/>
-                                <include reference="57q-iy-mpd"/>
                                 <exclude reference="Att-yF-SkF"/>
+                                <include reference="O8y-tE-JE4"/>
+                                <include reference="Yxl-eA-0g4"/>
                                 <include reference="GFv-ca-Wa4"/>
                             </mask>
                         </variation>
@@ -175,11 +185,12 @@
                         <outlet property="containerView" destination="hDT-ts-Kz3" id="yZX-kn-Id7"/>
                         <outlet property="exitButton" destination="UGT-qu-6MS" id="1Fs-QI-Poo"/>
                         <outlet property="keyboardConstraint" destination="SnL-1b-KG9" id="Agd-pK-Wqb"/>
+                        <outlet property="multiPlayerConstraint" destination="Yxl-eA-0g4" id="MFZ-3E-oE4"/>
                         <outlet property="nxView" destination="Daq-lQ-abv" id="2Us-a8-YRb"/>
                         <outlet property="p1ButtonA" destination="yqc-bc-XaK" id="GQw-oO-Ise"/>
-                        <outlet property="p1ButtonA2" destination="26j-N0-zUR" id="X98-Dz-0k3"/>
+                        <outlet property="p1ButtonA2" destination="eq9-AG-3gF" id="qmm-Ef-DnH"/>
                         <outlet property="p1ButtonB" destination="3mq-qZ-9Xa" id="aOg-wy-uOr"/>
-                        <outlet property="p1ButtonB2" destination="eq9-AG-3gF" id="w6T-D2-tV0"/>
+                        <outlet property="p1ButtonB2" destination="26j-N0-zUR" id="jED-eu-8nq"/>
                         <outlet property="p1Dpad" destination="img-mL-JD2" id="sKd-mE-bZd"/>
                         <outlet property="p2ButtonA" destination="zwk-06-vFL" id="Xfh-nF-l0C"/>
                         <outlet property="p2ButtonB" destination="DUd-TB-hQv" id="SS0-K8-vBU"/>

@@ -47,8 +47,8 @@ class LowResNXView: UIView {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let coreWrapper = coreWrapper, let touch = touches.first {
             let point = screenPoint(touch: touch)
-            coreWrapper.input.touchX = CInt(point.x)
-            coreWrapper.input.touchY = CInt(point.y)
+            coreWrapper.input.touchX = Int32(point.x)
+            coreWrapper.input.touchY = Int32(point.y)
             coreWrapper.input.touch = true
         }
     }
@@ -56,8 +56,8 @@ class LowResNXView: UIView {
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let coreWrapper = coreWrapper, let touch = touches.first {
             let point = screenPoint(touch: touch)
-            coreWrapper.input.touchX = CInt(point.x)
-            coreWrapper.input.touchY = CInt(point.y)
+            coreWrapper.input.touchX = Int32(point.x)
+            coreWrapper.input.touchY = Int32(point.y)
         }
     }
     
