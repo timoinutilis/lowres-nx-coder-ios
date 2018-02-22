@@ -298,11 +298,11 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
         }))
         
         alert.addAction(UIAlertAction(title: "Character Designer", style: .default, handler: { [weak self] (action) in
-            self?.editUsingTool(programName: "Character Designer 0.5.nx")
+            self?.editUsingTool(programName: "Character Designer 0.6.nx")
         }))
         
         alert.addAction(UIAlertAction(title: "Background Designer", style: .default, handler: { [weak self] (action) in
-            self?.editUsingTool(programName: "Background Designer 0.5.nx")
+            self?.editUsingTool(programName: "Background Designer 0.6.nx")
         }))
         
         if isDebugEnabled {
