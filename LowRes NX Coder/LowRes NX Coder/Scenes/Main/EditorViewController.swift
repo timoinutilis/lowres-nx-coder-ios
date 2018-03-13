@@ -49,23 +49,19 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
 
  */
     
-    var document: ProjectDocument?
+    var document: ProjectDocument!
     
     var keyboardRect = CGRect()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        guard let document = document else {
-            fatalError("requires document")
-        }
-        
         let startItem = UIBarButtonItem(barButtonSystemItem: .play, target: self, action: #selector(onRunTapped))
         let searchItem = UIBarButtonItem(image: UIImage(named:"search"), style: .plain, target: self, action: #selector(onSearchTapped))
-//        let feedbackItem = UIBarButtonItem(image: UIImage(named:"feedback"), style: .plain, target: self, action: #selector(onFeedbackTapped))
+        let toolsItem = UIBarButtonItem(image: UIImage(named:"tools"), style: .plain, target: self, action: #selector(onToolsTapped))
         let projectItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(onProjectTapped))
         
-        navigationItem.rightBarButtonItems = [startItem, searchItem, /*feedbackItem,*/ projectItem]
+        navigationItem.rightBarButtonItems = [startItem, searchItem, toolsItem, projectItem]
         
         navigationItem.title = document.localizedName
         
@@ -125,7 +121,7 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
         removeDocumentStateChangedObserver()
         NotificationCenter.default.removeObserver(self)
         updateDocument()
-        document?.close(completionHandler: nil)
+        document.close(completionHandler: nil)
     }
     
     func removeDocumentStateChangedObserver() {
@@ -225,10 +221,6 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
     }
     
     func updateDocument() {
-        guard let document = document else {
-            return
-        }
-        
         /*
          && ![self isExample]
          && ([AppController sharedController].isFullVersion || self.sourceCodeTextView.text.countLines <= EditorDemoMaxLines)
@@ -242,10 +234,6 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
     }
     
     func documentStateChanged() {
-        guard let document = document else {
-            return
-        }
-        
         let state = document.documentState
         
         if state.contains(.editingDisabled) || state.contains(.closed) {
@@ -288,23 +276,34 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
         }
     }
     
-    @objc func onProjectTapped(_ sender: Any) {
+    @objc func onToolsTapped(_ sender: Any) {
         view.endEditing(true)
         
-        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let config = ToolsMenuConfiguration()
         
-        alert.addAction(UIAlertAction(title: "Share Source Code", style: .default, handler: { [weak self] (action) in
-            self?.onShareTapped(sender, community: false)
-        }))
+        let alert = UIAlertController(title: "Edit ROM Entries With ...", message: nil, preferredStyle: .actionSheet)
         
-        alert.addAction(UIAlertAction(title: "Character Designer", style: .default, handler: { [weak self] (action) in
-            self?.editUsingTool(programName: "Character Designer 0.6.nx")
-        }))
+        for programUrl in config.programUrls {
+            let title = programUrl.deletingPathExtension().lastPathComponent
+            alert.addAction(UIAlertAction(title: title, style: .default, handler: { [unowned self] (action) in
+                self.editUsingTool(url: programUrl)
+            }))
+        }
         
-        alert.addAction(UIAlertAction(title: "Background Designer", style: .default, handler: { [weak self] (action) in
-            self?.editUsingTool(programName: "Background Designer 0.6.nx")
-        }))
+        if !config.programUrls.contains(self.document.fileURL) {
+            let addTitle = "Add \"\(document.localizedName)\" to Menu"
+            alert.addAction(UIAlertAction(title: addTitle, style: .default, handler: { [unowned self] (action) in
+                config.addProgram(url: self.document.fileURL)
+            }))
+        }
         
+        if config.canReset {
+            alert.addAction(UIAlertAction(title: "Reset Menu", style: .destructive, handler: { (action) in
+                config.reset()
+            }))
+        }
+        
+        /*
         if isDebugEnabled {
             alert.addAction(UIAlertAction(title: "Disable Debug Mode", style: .default, handler: { [weak self] (action) in
                 self?.isDebugEnabled = false
@@ -314,76 +313,30 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
                 self?.isDebugEnabled = true
             }))
         }
+         */
         
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         
         alert.popoverPresentationController?.barButtonItem = sender as? UIBarButtonItem;
         present(alert, animated: true, completion: nil)
-        
-        /*
-        UIAlertAction *shareCommAction = [UIAlertAction actionWithTitle:@"Share with Community" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-            [weakSelf onShareTapped:sender community:YES];
-            }];
-        [alert addAction:shareCommAction];
-        
-        UIAlertAction *shareMenuAction = [UIAlertAction actionWithTitle:@"Share Source Code" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-            [weakSelf onShareTapped:sender community:NO];
-            }];
-        [alert addAction:shareMenuAction];
-        
-        UIAlertAction *videoMenuAction = [UIAlertAction actionWithTitle:@"Record Video" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-            [weakSelf onRecordVideoTapped:sender];
-            }];
-        [alert addAction:videoMenuAction];
-        
-        UIAlertAction *settingsAction = [UIAlertAction actionWithTitle:@"Rename / Settings..." style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-            [weakSelf onSettingsTapped];
-            }];
-        [alert addAction:settingsAction];
-        
-        UIAlertAction *duplicateAction = [UIAlertAction actionWithTitle:@"Duplicate" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-            [weakSelf onDuplicateTapped];
-            }];
-        [alert addAction:duplicateAction];
-        
-        UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:@"Delete" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * action) {
-            [weakSelf onDeleteTapped];
-            }];
-        [alert addAction:deleteAction];*/
     }
     
-    func onShareTapped(_ sender: Any, community: Bool) {
-        guard let document = document else {
-            return
-        }
+    @objc func onProjectTapped(_ sender: Any) {
+        view.endEditing(true)
         
         if sourceCodeTextView.text.isEmpty {
             showAlert(withTitle: "Cannot Share This Program", message: "This program is empty. Please write something!", block: nil)
-        /*} else if (![AppController sharedController].isFullVersion && self.sourceCodeTextView.text.countLines > EditorDemoMaxLines)
-        {
-            EditorViewController __weak *weakSelf = self;
- 
-            UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Please upgrade to full version!"
-            message:[NSString stringWithFormat:@"The free version can only share programs with up to %d lines.", EditorDemoMaxLines]
-            preferredStyle:UIAlertControllerStyleAlert];
- 
-            [alert addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
-            [alert addAction:[UIAlertAction actionWithTitle:@"More Info" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-            [weakSelf performSegueWithIdentifier:@"Upgrade" sender:weakSelf];
-            }]];
-            [self presentViewController:alert animated:YES completion:nil];*/
         } else {
-            BlockerView.show()
             updateDocument()
+            if document.hasUnsavedChanges {
+                BlockerView.show()
+            }
             document.autosave(completionHandler: { (success) in
                 BlockerView.dismiss()
                 if !success {
                     self.showAlert(withTitle: "Could Not Save Program", message: nil, block: nil)
-                } else if community {
-                    //            UIViewController *vc = [ShareViewController createShareWithProject:self.project];
-                    //            [self presentViewController:vc animated:YES completion:nil];
                 } else {
-                    let activityVC = UIActivityViewController(activityItems: [document.fileURL], applicationActivities: nil)
+                    let activityVC = UIActivityViewController(activityItems: [self.document.fileURL], applicationActivities: nil)
                     activityVC.popoverPresentationController?.barButtonItem = sender as? UIBarButtonItem
                     self.present(activityVC, animated: true, completion: nil)
                 }
@@ -391,107 +344,13 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
         }
     }
     
-    func onDeleteTapped() {
-        /*
-     if (self.project.isDefault.boolValue)
-     {
-     UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Example programs cannot be deleted." message:nil preferredStyle:UIAlertControllerStyleAlert];
-     [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil]];
-     [self presentViewController:alert animated:YES completion:nil];
-     }
-     else if (self.sourceCodeTextView.text.length == 0)
-     {
-     [self deleteProject];
-     }
-     else
-     {
-     EditorViewController __weak *weakSelf = self;
-     UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Do you really want to delete this program?" message:nil preferredStyle:UIAlertControllerStyleAlert];
-     
-     [alert addAction:[UIAlertAction actionWithTitle:@"Delete" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * action) {
-     [weakSelf deleteProject];
-     }]];
-     
-     [alert addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:nil]];
-     
-     [self presentViewController:alert animated:YES completion:nil];
-     }*/
-    }
-    
-    func deleteProject() {
-        /*
-     [[ModelManager sharedManager] deleteProject:self.project];
-     self.project = nil;
-    [self.navigationController popViewControllerAnimated:YES];*/
-    }
-    
-    func onDuplicateTapped() {
-        /*
-     EditorViewController __weak *weakSelf = self;
-     UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Do you want to make a copy of this program?" message:nil preferredStyle:UIAlertControllerStyleAlert];
-     
-     [alert addAction:[UIAlertAction actionWithTitle:@"Duplicate" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-     [[ModelManager sharedManager] duplicateProject:weakSelf.project sourceCode:weakSelf.sourceCodeTextView.text];
-     [[ModelManager sharedManager] saveContext];
-     if (weakSelf.project.isDefault.boolValue)
-     {
-     // default projects are duplicated to the root folder
-     [weakSelf.navigationController popToRootViewControllerAnimated:YES];
-     }
-     else
-     {
-     // others just go to the current folder
-     [weakSelf.navigationController popViewControllerAnimated:YES];
-     }
-     }]];
-     
-     [alert addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
-     
-     [self presentViewController:alert animated:YES completion:nil];*/
-    }
-    
-    func onSettingsTapped() {
-    /*
-     if (self.project.isDefault.boolValue)
-     {
-     UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Settings of example programs cannot be changed." message:nil preferredStyle:UIAlertControllerStyleAlert];
-     [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil]];
-     [self presentViewController:alert animated:YES completion:nil];
-     }
-     else
-     {
-     ProjectSettingsViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"ProjectSettingsView"];
-     vc.delegate = self;
-     vc.project = self.project;
-     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
-     nav.modalPresentationStyle = vc.modalPresentationStyle;
-     nav.modalTransitionStyle = vc.modalTransitionStyle;
-     [self presentViewController:nav animated:YES completion:nil];
-     }*/
-    }
-    
-    @objc func onFeedbackTapped(_ sender: Any) {
-    /*    if (!self.project.postId)
-     {
-     [self showAlertWithTitle:@"Feedback is available for downloaded or shared programs only" message:nil block:nil];
-     }
-     else
-     {
-     LCCPost *post = [[LCCPost alloc] initWithObjectId:self.project.postId];
-     [self showPost:post];
-     }*/
-    }
-    
-    func editUsingTool(programName: String) {
+    func editUsingTool(url: URL) {
+        view.endEditing(true)
         updateDocument()
         
-        let toolUrl = ProjectManager.shared.currentDocumentsUrl.appendingPathComponent(programName)
-        let toolDocument = ProjectDocument(fileURL: toolUrl)
-        
-        view.endEditing(true)
         let storyboard = UIStoryboard(name: "LowResNX", bundle: nil)
         let vc = storyboard.instantiateInitialViewController() as! LowResNXViewController
-        vc.document = toolDocument
+        vc.document = ProjectDocument(fileURL: url)
         vc.delegate = self
         present(vc, animated: true, completion: nil)
     }
@@ -499,7 +358,7 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
     func runProject() {
         updateDocument()
         
-        guard let sourceCode = document?.sourceCode else {
+        guard let sourceCode = document.sourceCode else {
             return
         }
         
@@ -562,7 +421,6 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
     }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        
         let oldText = (textView.text as NSString).substring(with: range)
         let oldTextLineBreaks = oldText.countChar(UInt16(10))
         let newTextLineBreaks = text.countChar(UInt16(10))
@@ -760,16 +618,14 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
     //MARK: - LowResNXViewControllerDelegate
     
     func nxSourceCodeForVirtualDisk() -> String {
-        return document?.sourceCode ?? ""
+        return document.sourceCode ?? ""
     }
     
     func nxDidSaveVirtualDisk(sourceCode: String) {
-        if let document = document {
-            if sourceCode != document.sourceCode {
-                document.sourceCode = sourceCode
-                document.updateChangeCount(.done)
-                projectDocumentContentDidUpdate(document)
-            }
+        if sourceCode != document.sourceCode {
+            document.sourceCode = sourceCode
+            document.updateChangeCount(.done)
+            projectDocumentContentDidUpdate(document)
         }
     }
 
