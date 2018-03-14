@@ -95,7 +95,7 @@ class ProjectManager: NSObject {
             DispatchQueue.main.async {
                 completion(resultError)
                 if let item = resultItem {
-                    self.postNotification(for: item)
+                    self.postNotification(name: .ProjectManagerDidAddProgram, for: item)
                 }
             }
         }
@@ -132,7 +132,7 @@ class ProjectManager: NSObject {
             DispatchQueue.main.async {
                 completion(resultError)
                 if let item = resultItem {
-                    self.postNotification(for: item)
+                    self.postNotification(name: .ProjectManagerDidAddProgram, for: item)
                 }
             }
         }
@@ -186,6 +186,28 @@ class ProjectManager: NSObject {
         }
     }
     
+    func saveProjectIcon(programUrl: URL, image: UIImage) {
+        let iconUrl = programUrl.deletingPathExtension().appendingPathExtension("png")
+        DispatchQueue.global().async {
+            if let pngData = UIImagePNGRepresentation(image) {
+                let fileCoordinator = NSFileCoordinator()
+                var coordError: NSError?
+                fileCoordinator.coordinate(writingItemAt: iconUrl, options: .forReplacing, error: &coordError) { (url) in
+                    do {
+                        try pngData.write(to: url)
+                    } catch {
+                        print("saveProjectIcon:", error.localizedDescription)
+                    }
+                }
+                if let error = coordError {
+                    print("saveProjectIcon:", error.localizedDescription)
+                }
+            } else {
+                print("saveProjectIcon: failed to create PNG data")
+            }
+        }
+    }
+    
     func getDiskDocument(completion: @escaping (ProjectDocument?, Error?) -> Void) {
         let fileUrl = currentDocumentsUrl.appendingPathComponent("Disk.nx")
         let document = ProjectDocument(fileURL: fileUrl)
@@ -199,7 +221,7 @@ class ProjectManager: NSObject {
             } else {
                 document.save(to: document.fileURL, for: .forCreating, completionHandler: { (success) in
                     if success {
-                        self.postNotification(for: ExplorerItem(fileUrl: document.fileURL))
+                        self.postNotification(name: .ProjectManagerDidAddProgram, for: ExplorerItem(fileUrl: document.fileURL))
                         completion(document, nil)
                     } else {
                         completion(nil, NSError(domain: "LowResNXCoder", code: 0, userInfo: [NSLocalizedDescriptionKey: "“Disk.nx” could not be created."]))
@@ -209,8 +231,8 @@ class ProjectManager: NSObject {
         }
     }
     
-    private func postNotification(for item: ExplorerItem) {
-        NotificationCenter.default.post(name: NSNotification.Name.ProjectManagerDidAddProgram, object: self, userInfo: ["item": item])
+    private func postNotification(name: NSNotification.Name, for item: ExplorerItem) {
+        NotificationCenter.default.post(name: name, object: self, userInfo: ["item": item])
     }
     
     private func copyBundleProgramsIfNeeded() throws {

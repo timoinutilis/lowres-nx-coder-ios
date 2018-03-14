@@ -46,7 +46,7 @@
                                     </mask>
                                 </variation>
                             </view>
-                            <button opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UGT-qu-6MS" userLabel="Exit Button">
+                            <button opaque="NO" alpha="0.25" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UGT-qu-6MS" userLabel="Exit Button">
                                 <rect key="frame" x="0.0" y="0.0" width="55" height="55"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="55" id="Dli-RP-K8z"/>
@@ -107,10 +107,22 @@
                                     <action selector="pauseTapped:" destination="eHk-P2-FSa" eventType="touchDown" id="NmH-8N-xc4"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" alpha="0.25" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xvW-7I-abI">
+                                <rect key="frame" x="681" y="0.0" width="55" height="55"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="55" id="bhS-Rf-zr2"/>
+                                    <constraint firstAttribute="width" constant="55" id="hgk-LK-paW"/>
+                                </constraints>
+                                <state key="normal" image="settings"/>
+                                <connections>
+                                    <action selector="settingsTapped:" destination="eHk-P2-FSa" eventType="touchUpInside" id="mrF-YT-Ibg"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="yqc-bc-XaK" firstAttribute="leading" secondItem="n4U-S9-92L" secondAttribute="leading" id="2Vb-ar-XfJ"/>
+                            <constraint firstItem="xvW-7I-abI" firstAttribute="top" secondItem="wrQ-sh-Squ" secondAttribute="top" id="7e8-7Q-nJP"/>
                             <constraint firstItem="wrQ-sh-Squ" firstAttribute="bottom" secondItem="zwk-06-vFL" secondAttribute="bottom" constant="16" id="8H0-Lr-Ulh"/>
                             <constraint firstItem="zwk-06-vFL" firstAttribute="top" secondItem="DUd-TB-hQv" secondAttribute="bottom" id="8cN-3K-eR7"/>
                             <constraint firstItem="hDT-ts-Kz3" firstAttribute="leading" secondItem="wrQ-sh-Squ" secondAttribute="leading" priority="750" id="9uc-l0-bK2"/>
@@ -122,6 +134,7 @@
                             <constraint firstItem="img-mL-JD2" firstAttribute="centerY" secondItem="g0A-yH-wBi" secondAttribute="centerY" multiplier="1.4" priority="750" id="O8y-tE-JE4"/>
                             <constraint firstItem="hDT-ts-Kz3" firstAttribute="leading" secondItem="img-mL-JD2" secondAttribute="trailing" priority="999" constant="8" id="R5E-2l-oIk"/>
                             <constraint firstItem="wrQ-sh-Squ" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="hDT-ts-Kz3" secondAttribute="bottom" id="SnL-1b-KG9"/>
+                            <constraint firstItem="wrQ-sh-Squ" firstAttribute="trailing" secondItem="xvW-7I-abI" secondAttribute="trailing" id="Tng-fI-yxJ"/>
                             <constraint firstItem="26j-N0-zUR" firstAttribute="top" relation="greaterThanOrEqual" secondItem="img-mL-JD2" secondAttribute="bottom" constant="32" id="URu-5A-swa"/>
                             <constraint firstItem="26j-N0-zUR" firstAttribute="top" relation="greaterThanOrEqual" secondItem="img-mL-JD2" secondAttribute="bottom" priority="999" constant="44" id="Yxl-eA-0g4"/>
                             <constraint firstItem="3mq-qZ-9Xa" firstAttribute="trailing" secondItem="n4U-S9-92L" secondAttribute="trailing" id="Zbz-p3-gHJ"/>
@@ -212,5 +225,6 @@
         <image name="gamepad_a" width="44" height="44"/>
         <image name="gamepad_b" width="44" height="44"/>
         <image name="gamepad_pause" width="40" height="18"/>
+        <image name="settings" width="25" height="25"/>
     </resources>
 </document>

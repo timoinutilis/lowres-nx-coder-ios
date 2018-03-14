@@ -38,10 +38,17 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
     @IBOutlet weak var pauseButton: UIButton!
     
     weak var delegate: LowResNXViewControllerDelegate?
-    var document: ProjectDocument?
+    var document: ProjectDocument!
     var diskDocument: ProjectDocument?
     var coreWrapper: CoreWrapper?
-    var isDebugEnabled = false
+    
+    var isDebugEnabled = false {
+        didSet {
+            if let coreWrapper = coreWrapper {
+                core_setDebug(&coreWrapper.core, isDebugEnabled)
+            }
+        }
+    }
     
     private var displayLink: CADisplayLink?
     private var compilerError: NSError?
@@ -50,10 +57,6 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        guard let document = document else {
-            return
-        }
         
         if let coreWrapper = coreWrapper {
             // program already compiled
@@ -70,7 +73,7 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
                         return
                     }
                     var error: NSError?
-                    if success, let sourceCode = document.sourceCode {
+                    if success, let sourceCode = strongSelf.document.sourceCode {
                         error = strongSelf.compileAndStartProgram(sourceCode: sourceCode)
                     } else {
                         error = NSError(domain: "LowResNXCoder", code: 0, userInfo: [NSLocalizedDescriptionKey: "Could Not Open File"])
@@ -200,6 +203,13 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
             core_setDebug(&coreWrapper.core, isDebugEnabled)
         }
         return nil
+    }
+    
+    func captureProgramIcon() {
+        if let cgImage = nxView.layer.contents as! CGImage? {
+            let uiImage = UIImage(cgImage: cgImage)
+            ProjectManager.shared.saveProjectIcon(programUrl: document.fileURL, image: uiImage)
+        }
     }
     
     @objc func update(displaylink: CADisplayLink) {
@@ -377,10 +387,32 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
         presentingViewController?.dismiss(animated: true, completion: nil)
     }
     
+    @IBAction func settingsTapped(_ sender: Any) {
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        
+        alert.addAction(UIAlertAction(title: "Capture Program Icon", style: .default, handler: { [unowned self] (action) in
+            self.captureProgramIcon()
+        }))
+        
+        if isDebugEnabled {
+            alert.addAction(UIAlertAction(title: "Disable Debug Mode", style: .default, handler: { [unowned self] (action) in
+                self.isDebugEnabled = false
+            }))
+        } else {
+            alert.addAction(UIAlertAction(title: "Enable Debug Mode", style: .default, handler: { [unowned self] (action) in
+                self.isDebugEnabled = true
+            }))
+        }
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        present(alert, animated: true, completion: nil)
+    }
+    
     // MARK: - Core Wrapper Delegate
     
     func coreInterpreterDidFail(coreError: CoreError) {
-        let interpreterError = LowResNXError(error: coreError, sourceCode: document!.sourceCode!)
+        let interpreterError = LowResNXError(error: coreError, sourceCode: document.sourceCode!)
         showError(interpreterError)
     }
     
