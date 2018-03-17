@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
+NS_ASSUME_NONNULL_BEGIN
 @interface AppStyle : NSObject
 
 + (void)setAppearance;
@@ -24,3 +25,4 @@
 + (UIColor *)sideBarColor;
 
 @end
+NS_ASSUME_NONNULL_END

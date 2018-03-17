@@ -36,7 +36,6 @@
 		920E1B4C1F7816FA00664382 /* BorderedButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 925CC5421F75889B0059C230 /* BorderedButton.m */; };
 		920E1B4D1F7816FA00664382 /* CoachMarkView.m in Sources */ = {isa = PBXBuildFile; fileRef = 925CC5321F7588960059C230 /* CoachMarkView.m */; };
 		920E1B4E1F7816FA00664382 /* EditorTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 925CC5491F75889F0059C230 /* EditorTextView.m */; };
-		920E1B4F1F7816FA00664382 /* IndexSideBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 925CC54C1F7588A00059C230 /* IndexSideBar.m */; };
 		920E1B501F7816FA00664382 /* LimitedTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 925CC5431F75889B0059C230 /* LimitedTextView.m */; };
 		920E1B511F7816FA00664382 /* NotificationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 925CC5371F7588970059C230 /* NotificationView.m */; };
 		920E1B521F7816FA00664382 /* RadialGradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = 925CC53B1F7588990059C230 /* RadialGradientView.m */; };
@@ -113,6 +112,7 @@
 		923AFD9B1F77ED71002F6A5B /* NotificationsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 925CC5281F75876D0059C230 /* NotificationsViewController.m */; };
 		923AFD9C1F77ED71002F6A5B /* UIViewController+CommUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 925CC5251F75876D0059C230 /* UIViewController+CommUtils.m */; };
 		923C311020587965003C89AC /* ToolsMenuConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 923C310F20587965003C89AC /* ToolsMenuConfiguration.swift */; };
+		924AB3F2205D986C00BCF977 /* IndexSideBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 924AB3F1205D986B00BCF977 /* IndexSideBar.swift */; };
 		925CC6B81F758A120059C230 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 925CC6B71F758A120059C230 /* StoreKit.framework */; };
 		925CC6BA1F758A360059C230 /* ReplayKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 925CC6B91F758A360059C230 /* ReplayKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		926EB1D31F757EA70048A6CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 926EB1D21F757EA70048A6CF /* LaunchScreen.storyboard */; };
@@ -243,6 +243,7 @@
 		923AFD671F77E955002F6A5B /* UIView+WebCacheOperation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+WebCacheOperation.m"; sourceTree = "<group>"; };
 		923C310F20587965003C89AC /* ToolsMenuConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolsMenuConfiguration.swift; sourceTree = "<group>"; };
 		92483F7C1F7C2A4300E6D476 /* LowRes NX Coder.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "LowRes NX Coder.entitlements"; sourceTree = "<group>"; };
+		924AB3F1205D986B00BCF977 /* IndexSideBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndexSideBar.swift; sourceTree = "<group>"; };
 		925CC5141F75876B0059C230 /* CommLogInViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommLogInViewController.m; sourceTree = "<group>"; };
 		925CC5151F75876B0059C230 /* UIViewController+CommUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIViewController+CommUtils.h"; sourceTree = "<group>"; };
 		925CC5161F75876B0059C230 /* CommUsersViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommUsersViewController.h; sourceTree = "<group>"; };
@@ -274,7 +275,6 @@
 		925CC5311F7588960059C230 /* CoachMarkView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoachMarkView.h; sourceTree = "<group>"; };
 		925CC5321F7588960059C230 /* CoachMarkView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CoachMarkView.m; sourceTree = "<group>"; };
 		925CC5331F7588960059C230 /* EditorTextView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditorTextView.h; sourceTree = "<group>"; };
-		925CC5341F7588960059C230 /* IndexSideBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IndexSideBar.h; sourceTree = "<group>"; };
 		925CC5351F7588970059C230 /* NotificationView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotificationView.h; sourceTree = "<group>"; };
 		925CC5361F7588970059C230 /* StandardTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StandardTableViewCell.h; sourceTree = "<group>"; };
 		925CC5371F7588970059C230 /* NotificationView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotificationView.m; sourceTree = "<group>"; };
@@ -298,7 +298,6 @@
 		925CC5491F75889F0059C230 /* EditorTextView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditorTextView.m; sourceTree = "<group>"; };
 		925CC54A1F75889F0059C230 /* RadialGradientView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RadialGradientView.h; sourceTree = "<group>"; };
 		925CC54B1F75889F0059C230 /* TextLabel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TextLabel.m; sourceTree = "<group>"; };
-		925CC54C1F7588A00059C230 /* IndexSideBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IndexSideBar.m; sourceTree = "<group>"; };
 		925CC54D1F7588A00059C230 /* SearchToolbar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchToolbar.h; sourceTree = "<group>"; };
 		925CC54E1F7588A10059C230 /* TextFieldTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TextFieldTableViewCell.m; sourceTree = "<group>"; };
 		925CC54F1F7588A10059C230 /* BorderedButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BorderedButton.h; sourceTree = "<group>"; };
@@ -618,8 +617,7 @@
 				925CC5321F7588960059C230 /* CoachMarkView.m */,
 				925CC5331F7588960059C230 /* EditorTextView.h */,
 				925CC5491F75889F0059C230 /* EditorTextView.m */,
-				925CC5341F7588960059C230 /* IndexSideBar.h */,
-				925CC54C1F7588A00059C230 /* IndexSideBar.m */,
+				924AB3F1205D986B00BCF977 /* IndexSideBar.swift */,
 				925CC52F1F7588950059C230 /* LimitedTextView.h */,
 				925CC5431F75889B0059C230 /* LimitedTextView.m */,
 				925CC5351F7588970059C230 /* NotificationView.h */,
@@ -1164,7 +1162,6 @@
 				928402291F7448B500AC1466 /* rcstring.c in Sources */,
 				921614301F7D70E2006AB2DE /* EditorViewController.swift in Sources */,
 				928402161F7448B500AC1466 /* disk_drive.c in Sources */,
-				920E1B4F1F7816FA00664382 /* IndexSideBar.m in Sources */,
 				920E1B5D1F78177600664382 /* AFURLSessionManager.m in Sources */,
 				92EA93BE1F744572007BEFB1 /* AppDelegate.swift in Sources */,
 				920E1B491F7816FA00664382 /* BackgroundView.m in Sources */,
@@ -1241,6 +1238,7 @@
 				928402311F7448B500AC1466 /* machine.c in Sources */,
 				9284021A1F7448B500AC1466 /* cmd_data.c in Sources */,
 				923AFD6E1F77EBB4002F6A5B /* LCCNotification.m in Sources */,
+				924AB3F2205D986C00BCF977 /* IndexSideBar.swift in Sources */,
 				920E1B3C1F78024E00664382 /* GORTextView.m in Sources */,
 				9227DC221FC8C17A00BC89FD /* SplashViewController.swift in Sources */,
 				923AFD991F77ED71002F6A5B /* CommStatusUpdateViewController.m in Sources */,
