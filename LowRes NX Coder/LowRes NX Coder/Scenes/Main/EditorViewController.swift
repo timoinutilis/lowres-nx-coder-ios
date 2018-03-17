@@ -280,7 +280,7 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
         
         let config = ToolsMenuConfiguration()
         
-        let alert = UIAlertController(title: "Edit ROM Entries With ...", message: nil, preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: "Edit ROM entries with tool...", message: nil, preferredStyle: .actionSheet)
         
         for programUrl in config.programUrls {
             let title = programUrl.deletingPathExtension().lastPathComponent
@@ -289,18 +289,29 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
             }))
         }
         
-        if !config.programUrls.contains(self.document.fileURL) {
-            let addTitle = "Add \"\(document.localizedName)\" to Menu"
-            alert.addAction(UIAlertAction(title: addTitle, style: .default, handler: { [unowned self] (action) in
-                config.addProgram(url: self.document.fileURL)
-            }))
-        }
+        alert.addAction(UIAlertAction(title: "More...", style: .default, handler: { [unowned self] (action) in
+            self.onToolsMoreTapped(sender, config: config)
+        }))
         
-        if config.canReset {
-            alert.addAction(UIAlertAction(title: "Reset Menu", style: .destructive, handler: { (action) in
-                config.reset()
-            }))
-        }
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        alert.popoverPresentationController?.barButtonItem = sender as? UIBarButtonItem;
+        present(alert, animated: true, completion: nil)
+    }
+    
+    func onToolsMoreTapped(_ sender: Any, config: ToolsMenuConfiguration) {
+        let alert = UIAlertController(title: "Tools Menu Configuration",
+                                      message: "When you run a program from the tools menu, it uses the current program as a virtual disk and can edit its ROM entries.",
+                                      preferredStyle: .actionSheet)
+        
+        let addTitle = "Add \"\(document.localizedName)\""
+        alert.addAction(UIAlertAction(title: addTitle, style: .default, handler: { [unowned self] (action) in
+            config.addProgram(url: self.document.fileURL)
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Reset Menu", style: .destructive, handler: { (action) in
+            config.reset()
+        }))
         
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         
