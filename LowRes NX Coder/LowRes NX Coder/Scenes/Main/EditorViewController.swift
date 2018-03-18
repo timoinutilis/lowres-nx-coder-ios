@@ -208,10 +208,12 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
     func updateEditorInsets() {
         var insets = UIEdgeInsets()
         if keyboardRect.size.height > 0.0 {
-            let rect = navigationController!.view.convert(sourceCodeTextView.frame, from: view)
-            let textBottomY = rect.origin.y + rect.size.height
-            if self.keyboardRect.origin.y < textBottomY {
-                insets.bottom = textBottomY - keyboardRect.origin.y;
+            if let nav = navigationController {
+                let rect = nav.view.convert(sourceCodeTextView.frame, from: view)
+                let textBottomY = rect.origin.y + rect.size.height
+                if self.keyboardRect.origin.y < textBottomY {
+                    insets.bottom = textBottomY - keyboardRect.origin.y;
+                }
             }
         }
         sourceCodeTextView.contentInset = insets
