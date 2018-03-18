@@ -79,49 +79,27 @@ class IndexSideBar: UIControl {
     }
     
     func update() {
-    /*
-        NSString *text = self.textView.text;
-        NSUInteger stringLength = text.length;
-        NSMutableArray *markers = [NSMutableArray array];
-        Scanner *scanner = [[Scanner alloc] init];
+        guard let text = textView.text else {
+            return
+        }
         
-        NSUInteger numberOfLines, index;
-        for (index = 0, numberOfLines = 0; index < stringLength; numberOfLines++)
-        {
-            NSRange lineRange = [text lineRangeForRange:NSMakeRange(index, 0)];
-         
-            // check for labels
-            NSRange findRange = [text rangeOfString:@":" options:0 range:lineRange];
-            if (findRange.location != NSNotFound)
-            {
-                NSString *textLine = [text substringWithRange:lineRange];
-                NSArray *tokens = [scanner tokenizeText:textLine];
-                if (tokens && tokens.count >= 2)
-                {
-                    Token *token1 = tokens[0];
-                    Token *token2 = tokens[1];
-                    if (token1.type == TTypeIdentifier && token2.type == TTypeSymColon)
-                    {
-                        IndexMarker *marker = [[IndexMarker alloc] init];
-                        marker.label = [[text substringWithRange:lineRange] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-                        marker.line = numberOfLines;
-                        marker.range = lineRange;
-                        [markers addObject:marker];
-                    }
+        let regex = try! NSRegularExpression(pattern: "\\A\\s*(\\S+?:\\s*|#\\d+?:.*?|SUB\\s.+?)\\Z", options: .caseInsensitive)
+        
+        var markers = [IndexMarker]()
+        var numLines = 0
+        
+        text.enumerateSubstrings(in: text.startIndex..<text.endIndex, options: .byLines) { (string, substringRange, enclosingRange, stop) in
+            if let string = string {
+                let numMatches = regex.numberOfMatches(in: string, options: [], range: NSRange(location: 0, length: string.utf16.count))
+                if numMatches > 0 {
+                    let range = NSRange(enclosingRange, in: text)
+                    markers.append(IndexMarker(label: string, line: numLines, range: range))
                 }
             }
-         
-            // next line
-            index = NSMaxRange(lineRange);
+            numLines += 1
         }
-     */
-        var markers = [IndexMarker]()
         
-        markers.append(IndexMarker(label: "TEST 1", line: 3, range: NSRange(location: 0, length: 1)))
-        markers.append(IndexMarker(label: "TEST 2", line: 4, range: NSRange(location: 0, length: 1)))
-        markers.append(IndexMarker(label: "TEST 3", line: 7, range: NSRange(location: 0, length: 1)))
-        
-        self.numLines = 20
+        self.numLines = numLines
         self.markers = markers
         self.shouldUpdateOnTouch = false
         updateBarPositions()
