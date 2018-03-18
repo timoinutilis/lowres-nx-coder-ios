@@ -221,7 +221,10 @@ class ExplorerViewController: UIViewController, UICollectionViewDelegateFlowLayo
         
     @objc func onAddProjectTapped(_ sender: Any) {
         //[[AppController sharedController] onShowInfoID:CoachMarkIDAdd];
-        ProjectManager.shared.addNewProject { (error) in
+        guard let items = items else {
+            return
+        }
+        ProjectManager.shared.addNewProject(existingItems: items) { (error) in
             if let error = error {
                 self.showAlert(withTitle: "Could Not Add New Project", message: error.localizedDescription, block: nil)
             }

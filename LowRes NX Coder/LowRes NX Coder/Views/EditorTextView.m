@@ -21,7 +21,7 @@
     
     self.textContainerInset = UIEdgeInsetsMake(8, 8, 8, 8);
     
-    self.keys = @[@"=", @"<", @">", @"+", @"-", @"*", @"/", @"(", @")", @"\"", @"$", @":"];
+    self.keys = @[@"=", @"<", @">", @"+", @"-", @"*", @"/", @"(", @")", @"\""];
     
     if ([UITextInputAssistantItem class] && [UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad)
     {

@@ -101,9 +101,8 @@ class ProjectManager: NSObject {
         }
     }
     
-    func addNewProject(completion: @escaping ((Error?) -> Void)) {
-        let date = Date()
-        let name = "New Program \(Int(date.timeIntervalSinceReferenceDate)).nx"
+    func addNewProject(existingItems: [ExplorerItem], completion: @escaping ((Error?) -> Void)) {
+        let name = newProgramName(existingItems: existingItems)
         let url = localDocumentsUrl.appendingPathComponent(name)
         
         DispatchQueue.global().async {
@@ -136,6 +135,24 @@ class ProjectManager: NSObject {
                 }
             }
         }
+    }
+    
+    private func newProgramName(existingItems: [ExplorerItem]) -> String {
+        var name = "Unnamed Program.nx"
+        var ok = false
+        var count = 1
+        repeat {
+            ok = true
+            for item in existingItems {
+                if item.fileUrl.lastPathComponent.lowercased() == name.lowercased() {
+                    ok = false
+                    count += 1
+                    name = "Unnamed Program \(count).nx"
+                    break
+                }
+            }
+        } while !ok
+        return name
     }
     
     func deleteProject(item: ExplorerItem, completion: @escaping (Error?) -> Void) {

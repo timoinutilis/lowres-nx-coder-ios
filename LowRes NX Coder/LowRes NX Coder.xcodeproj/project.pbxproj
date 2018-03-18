@@ -588,16 +588,6 @@
 			path = SDWebImage/SDWebImage;
 			sourceTree = "<group>";
 		};
-		923AFD9D1F77F012002F6A5B /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				9227DC1D1FC8BB0700BC89FD /* ProjectManager.swift */,
-				9276994B1F7D649800211D15 /* ExplorerItem.swift */,
-				9276994D1F7D678900211D15 /* ProjectDocument.swift */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
 		925CC52D1F7587C40059C230 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -720,6 +710,9 @@
 				925CC6B11F7589B90059C230 /* AppStyle.h */,
 				925CC6B41F7589BA0059C230 /* AppStyle.m */,
 				923C310F20587965003C89AC /* ToolsMenuConfiguration.swift */,
+				9227DC1D1FC8BB0700BC89FD /* ProjectManager.swift */,
+				9276994B1F7D649800211D15 /* ExplorerItem.swift */,
+				9276994D1F7D678900211D15 /* ProjectDocument.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -1007,7 +1000,6 @@
 				925CC6921F75896F0059C230 /* Gor Lib */,
 				920E1B1D1F78021D00664382 /* DraggableCollectionView */,
 				925CC6AF1F75899E0059C230 /* App */,
-				923AFD9D1F77F012002F6A5B /* Model */,
 				925CC6721F7589230059C230 /* Community Model */,
 				925CC52D1F7587C40059C230 /* Views */,
 				926EB1D01F757D5B0048A6CF /* Scenes */,
