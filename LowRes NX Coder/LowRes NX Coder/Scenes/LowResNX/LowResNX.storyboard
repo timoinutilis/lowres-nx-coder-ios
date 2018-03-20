@@ -59,7 +59,7 @@
                                     <action selector="onExitTapped:" destination="eHk-P2-FSa" eventType="touchUpInside" id="7Te-qH-bwp"/>
                                 </connections>
                             </button>
-                            <view opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="img-mL-JD2" customClass="Dpad" customModule="LowRes_NX_Coder" customModuleProvider="target">
+                            <view opaque="NO" alpha="0.5" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="img-mL-JD2" customClass="Dpad" customModule="LowRes_NX_Coder" customModuleProvider="target">
                                 <rect key="frame" x="16" y="178" width="88" height="88"/>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -67,7 +67,7 @@
                                     <constraint firstAttribute="height" constant="88" placeholder="YES" id="Wbr-AJ-spD"/>
                                 </constraints>
                             </view>
-                            <view opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="n4U-S9-92L" customClass="Dpad" customModule="LowRes_NX_Coder" customModuleProvider="target">
+                            <view opaque="NO" alpha="0.5" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="n4U-S9-92L" customClass="Dpad" customModule="LowRes_NX_Coder" customModuleProvider="target">
                                 <rect key="frame" x="632" y="178" width="88" height="88"/>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -75,34 +75,41 @@
                                     <constraint firstAttribute="height" constant="88" placeholder="YES" id="cda-cK-plC"/>
                                 </constraints>
                             </view>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3mq-qZ-9Xa" customClass="RoundHitBoxButton" customModule="LowRes_NX_Coder" customModuleProvider="target">
+                            <button hidden="YES" opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3mq-qZ-9Xa" customClass="RoundHitBoxButton" customModule="LowRes_NX_Coder" customModuleProvider="target">
                                 <rect key="frame" x="676" y="178" width="44" height="44"/>
                                 <state key="normal" image="gamepad_b"/>
+                                <state key="highlighted" image="gamepad_b_sel"/>
                             </button>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yqc-bc-XaK" customClass="RoundHitBoxButton" customModule="LowRes_NX_Coder" customModuleProvider="target">
+                            <button hidden="YES" opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yqc-bc-XaK" customClass="RoundHitBoxButton" customModule="LowRes_NX_Coder" customModuleProvider="target">
                                 <rect key="frame" x="632" y="222" width="44" height="44"/>
                                 <state key="normal" image="gamepad_a"/>
+                                <state key="highlighted" image="gamepad_a_sel"/>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eq9-AG-3gF" customClass="RoundHitBoxButton" customModule="LowRes_NX_Coder" customModuleProvider="target">
+                            <button opaque="NO" alpha="0.5" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eq9-AG-3gF" customClass="RoundHitBoxButton" customModule="LowRes_NX_Coder" customModuleProvider="target">
                                 <rect key="frame" x="60" y="354" width="44" height="44"/>
                                 <state key="normal" image="gamepad_a"/>
+                                <state key="highlighted" image="gamepad_a_sel"/>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DUd-TB-hQv" customClass="RoundHitBoxButton" customModule="LowRes_NX_Coder" customModuleProvider="target">
+                            <button opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DUd-TB-hQv" customClass="RoundHitBoxButton" customModule="LowRes_NX_Coder" customModuleProvider="target">
                                 <rect key="frame" x="676" y="310" width="44" height="44"/>
                                 <state key="normal" image="gamepad_b"/>
+                                <state key="highlighted" image="gamepad_b_sel"/>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zwk-06-vFL" customClass="RoundHitBoxButton" customModule="LowRes_NX_Coder" customModuleProvider="target">
+                            <button opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zwk-06-vFL" customClass="RoundHitBoxButton" customModule="LowRes_NX_Coder" customModuleProvider="target">
                                 <rect key="frame" x="632" y="354" width="44" height="44"/>
                                 <state key="normal" image="gamepad_a"/>
+                                <state key="highlighted" image="gamepad_a_sel"/>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="26j-N0-zUR" customClass="RoundHitBoxButton" customModule="LowRes_NX_Coder" customModuleProvider="target">
+                            <button opaque="NO" alpha="0.5" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="26j-N0-zUR" customClass="RoundHitBoxButton" customModule="LowRes_NX_Coder" customModuleProvider="target">
                                 <rect key="frame" x="16" y="310" width="44" height="44"/>
                                 <state key="normal" image="gamepad_b"/>
+                                <state key="highlighted" image="gamepad_b_sel"/>
                             </button>
                             <button opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3eC-Mx-ChC">
                                 <rect key="frame" x="346" y="370" width="44" height="44"/>
                                 <inset key="contentEdgeInsets" minX="2" minY="16" maxX="2" maxY="6"/>
                                 <state key="normal" image="gamepad_pause"/>
+                                <state key="highlighted" image="gamepad_pause_sel"/>
                                 <connections>
                                     <action selector="pauseTapped:" destination="eHk-P2-FSa" eventType="touchDown" id="NmH-8N-xc4"/>
                                 </connections>
@@ -223,8 +230,11 @@
     <resources>
         <image name="exit" width="36" height="36"/>
         <image name="gamepad_a" width="44" height="44"/>
+        <image name="gamepad_a_sel" width="44" height="44"/>
         <image name="gamepad_b" width="44" height="44"/>
+        <image name="gamepad_b_sel" width="44" height="44"/>
         <image name="gamepad_pause" width="40" height="18"/>
+        <image name="gamepad_pause_sel" width="40" height="18"/>
         <image name="settings" width="25" height="25"/>
     </resources>
 </document>
