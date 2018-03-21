@@ -30,14 +30,14 @@ class Dpad: UIControl {
     private var imageView: UIImageView
     
     private var images: [UIImage] = [UIImage(named:"gamepad_dpad")!,
-                                     UIImage(named:"gamepad_dpad")!,
-                                     UIImage(named:"gamepad_dpad")!,
-                                     UIImage(named:"gamepad_dpad")!,
-                                     UIImage(named:"gamepad_dpad")!,
-                                     UIImage(named:"gamepad_dpad")!,
-                                     UIImage(named:"gamepad_dpad")!,
-                                     UIImage(named:"gamepad_dpad")!,
-                                     UIImage(named:"gamepad_dpad")!]
+                                     UIImage(named:"gamepad_dpad_up")!,
+                                     UIImage(named:"gamepad_dpad_up_right")!,
+                                     UIImage(named:"gamepad_dpad_right")!,
+                                     UIImage(named:"gamepad_dpad_down_right")!,
+                                     UIImage(named:"gamepad_dpad_down")!,
+                                     UIImage(named:"gamepad_dpad_down_left")!,
+                                     UIImage(named:"gamepad_dpad_left")!,
+                                     UIImage(named:"gamepad_dpad_up_left")!]
     
     required init?(coder aDecoder: NSCoder) {
         imageView = UIImageView(image: images[0])
