@@ -47,10 +47,10 @@
                                 </variation>
                             </view>
                             <button opaque="NO" alpha="0.25" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UGT-qu-6MS" userLabel="Exit Button">
-                                <rect key="frame" x="0.0" y="0.0" width="55" height="55"/>
+                                <rect key="frame" x="0.0" y="0.0" width="44" height="44"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="55" id="Dli-RP-K8z"/>
-                                    <constraint firstAttribute="height" constant="55" id="I3q-op-ii6"/>
+                                    <constraint firstAttribute="width" constant="44" id="Dli-RP-K8z"/>
+                                    <constraint firstAttribute="height" constant="44" id="I3q-op-ii6"/>
                                 </constraints>
                                 <state key="normal" image="exit">
                                     <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -115,12 +115,12 @@
                                 </connections>
                             </button>
                             <button opaque="NO" alpha="0.25" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xvW-7I-abI">
-                                <rect key="frame" x="681" y="0.0" width="55" height="55"/>
+                                <rect key="frame" x="692" y="0.0" width="44" height="44"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="55" id="bhS-Rf-zr2"/>
-                                    <constraint firstAttribute="width" constant="55" id="hgk-LK-paW"/>
+                                    <constraint firstAttribute="height" constant="44" id="bhS-Rf-zr2"/>
+                                    <constraint firstAttribute="width" constant="44" id="hgk-LK-paW"/>
                                 </constraints>
-                                <state key="normal" image="settings"/>
+                                <state key="normal" image="more"/>
                                 <connections>
                                     <action selector="settingsTapped:" destination="eHk-P2-FSa" eventType="touchUpInside" id="mrF-YT-Ibg"/>
                                 </connections>
@@ -228,13 +228,13 @@
         </scene>
     </scenes>
     <resources>
-        <image name="exit" width="36" height="36"/>
+        <image name="exit" width="33" height="33"/>
         <image name="gamepad_a" width="44" height="44"/>
         <image name="gamepad_a_sel" width="44" height="44"/>
         <image name="gamepad_b" width="44" height="44"/>
         <image name="gamepad_b_sel" width="44" height="44"/>
         <image name="gamepad_pause" width="40" height="18"/>
         <image name="gamepad_pause_sel" width="40" height="18"/>
-        <image name="settings" width="25" height="25"/>
+        <image name="more" width="33" height="33"/>
     </resources>
 </document>
