@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "GORTextView.h"
 #import "LCCPost.h"
 
 @class LCCUser, LCCPostStats;

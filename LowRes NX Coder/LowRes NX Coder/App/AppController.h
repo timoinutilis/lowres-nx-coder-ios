@@ -37,7 +37,6 @@ extern NSString *const ImportProjectNotification;
 @property (readonly) PurchaseState purchaseState;
 @property (readonly) BOOL isFullVersion;
 @property (readonly) SKProduct *fullVersionProduct;
-@property (readonly) NSInteger numProgramsOpened;
 @property NSString *shouldShowPostId;
 @property TempProject *shouldImportProject;
 @property RPPreviewViewController *replayPreviewViewController;
@@ -50,11 +49,6 @@ extern NSString *const ImportProjectNotification;
 - (void)requestProducts;
 - (void)purchaseProduct:(SKProduct *)product;
 - (void)restorePurchases;
-
-- (BOOL)isUnshownInfoID:(NSString *)infoId;
-- (void)onShowInfoID:(NSString *)infoId;
-
-- (void)onProgramOpened;
 
 - (BOOL)handleOpenURL:(NSURL *)url;
 

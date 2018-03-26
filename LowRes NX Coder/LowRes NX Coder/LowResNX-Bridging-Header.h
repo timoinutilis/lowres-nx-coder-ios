@@ -13,8 +13,6 @@
 #import "HelpContent.h"
 #import "AppStyle.h"
 #import "CommunityModel.h"
-#import "UICollectionView+Draggable.h"
-#import "DraggableCollectionViewFlowLayout.h"
 #import "NSString+Utils.h"
 #import "UITextView+Utils.h"
 #import "UIViewController+LowResCoder.h"

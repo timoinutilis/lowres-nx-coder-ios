@@ -37,7 +37,7 @@ class ExplorerViewController: UIViewController, UICollectionViewDelegateFlowLayo
         collectionView.delegate = self
 //        collectionView.draggable = true
         
-        let layout = collectionView.collectionViewLayout as! DraggableCollectionViewFlowLayout
+        let layout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
         layout.itemSize = CGSize(width: 110, height: 100)
         layout.minimumInteritemSpacing = 0
         layout.minimumLineSpacing = 10
@@ -309,8 +309,6 @@ class ExplorerViewController: UIViewController, UICollectionViewDelegateFlowLayo
     }
     
     func showEditor(fileUrl: URL) {
-        AppController.shared().onProgramOpened()
-        
         let document = ProjectDocument(fileURL: fileUrl)
         let vc = storyboard!.instantiateViewController(withIdentifier: "EditorView") as! EditorViewController
         vc.document = document

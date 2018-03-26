@@ -420,16 +420,16 @@ The upgrade is valid for all your devices and without time limit.</string>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_about" translatesAutoresizingMaskIntoConstraints="NO" id="LfM-vY-AYb">
-                                            <rect key="frame" x="260" y="16" width="80" height="80"/>
+                                            <rect key="frame" x="147.66666666666666" y="16" width="80" height="80"/>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LOWRES NX CODER" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZfG-TZ-kA5" customClass="TextLabel">
-                                            <rect key="frame" x="191.66666666666663" y="112" width="217" height="28"/>
+                                            <rect key="frame" x="79" y="112" width="217" height="28"/>
                                             <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="24"/>
                                             <color key="textColor" red="0.0" green="0.0014800280332565308" blue="0.10033674538135529" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(Version x.x)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6zC-PQ-jSm" customClass="TextLabel">
-                                            <rect key="frame" x="262" y="148" width="76" height="16"/>
+                                            <rect key="frame" x="149.66666666666666" y="148" width="76" height="16"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                             <color key="textColor" red="0.0" green="0.0014800280332565308" blue="0.10033674538135529" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
@@ -450,7 +450,7 @@ The upgrade is valid for all your devices and without time limit.</string>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g01-MB-aiJ">
-                                            <rect key="frame" x="8" y="8" width="584" height="29"/>
+                                            <rect key="frame" x="8" y="8" width="359" height="29"/>
                                             <string key="text">Developed by Timo Kloss
 Inutilis Software, 2017-2018</string>
                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
@@ -465,7 +465,7 @@ Inutilis Software, 2017-2018</string>
                                     </constraints>
                                 </view>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" misplaced="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Cell" textLabel="Icg-Ii-iMl" style="IBUITableViewCellStyleDefault" id="7qv-2D-mwQ" customClass="StandardTableViewCell">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Cell" textLabel="Icg-Ii-iMl" style="IBUITableViewCellStyleDefault" id="7qv-2D-mwQ" customClass="StandardTableViewCell">
                                         <rect key="frame" x="0.0" y="255.33333333333334" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="7qv-2D-mwQ" id="dK2-OG-iIF">
@@ -723,141 +723,6 @@ Inutilis Software, 2017-2018</string>
             </objects>
             <point key="canvasLocation" x="1564" y="1953"/>
         </scene>
-        <!--Program Settings-->
-        <scene sceneID="I1b-in-EQf">
-            <objects>
-                <tableViewController storyboardIdentifier="ProjectSettingsView" modalPresentationStyle="formSheet" id="f40-WL-P0y" customClass="ProjectSettingsViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="Erb-zO-vpf">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="TextField" rowHeight="88" id="1b5-M9-yjr" customClass="TextFieldTableViewCell">
-                                <rect key="frame" x="0.0" y="55.333333333333336" width="375" height="88"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" tableViewCell="1b5-M9-yjr" id="ge8-WD-79p">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="87.666666666666671"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Program Name" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Nn0-lf-EaH">
-                                            <rect key="frame" x="88" y="0.0" width="271" height="87.666666666666671"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                            <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no"/>
-                                            <connections>
-                                                <action selector="onNameChanged:" destination="f40-WL-P0y" eventType="editingChanged" id="jQ1-rN-oIs"/>
-                                            </connections>
-                                        </textField>
-                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cfG-uI-Cu2">
-                                            <rect key="frame" x="16" y="12" width="64" height="64"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="64" id="6TB-Sb-rCL"/>
-                                                <constraint firstAttribute="width" constant="64" id="rbe-Cf-WS4"/>
-                                            </constraints>
-                                        </imageView>
-                                    </subviews>
-                                    <constraints>
-                                        <constraint firstItem="cfG-uI-Cu2" firstAttribute="centerY" secondItem="ge8-WD-79p" secondAttribute="centerY" id="0aI-Jn-4iv"/>
-                                        <constraint firstAttribute="bottom" secondItem="Nn0-lf-EaH" secondAttribute="bottom" id="Ba5-Ab-pRp"/>
-                                        <constraint firstItem="Nn0-lf-EaH" firstAttribute="leading" secondItem="cfG-uI-Cu2" secondAttribute="trailing" constant="8" id="M3d-xK-7bx"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="Nn0-lf-EaH" secondAttribute="trailing" id="QaG-Cp-uCy"/>
-                                        <constraint firstItem="Nn0-lf-EaH" firstAttribute="top" secondItem="ge8-WD-79p" secondAttribute="top" id="ZLA-8A-0iv"/>
-                                        <constraint firstItem="cfG-uI-Cu2" firstAttribute="leading" secondItem="ge8-WD-79p" secondAttribute="leadingMargin" id="e6w-MX-CP1"/>
-                                    </constraints>
-                                </tableViewCellContentView>
-                                <connections>
-                                    <outlet property="iconImageView" destination="cfG-uI-Cu2" id="D8L-Jz-IYD"/>
-                                    <outlet property="textField" destination="Nn0-lf-EaH" id="Z09-8Z-EZf"/>
-                                </connections>
-                            </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Basic" textLabel="SoV-b2-41H" style="IBUITableViewCellStyleDefault" id="Y1R-Sd-pl4">
-                                <rect key="frame" x="0.0" y="143.33333333333334" width="375" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" tableViewCell="Y1R-Sd-pl4" id="hkN-KM-Wl8">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.666666666666664"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="SoV-b2-41H">
-                                            <rect key="frame" x="16" y="0.0" width="343" height="43.666666666666664"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="IconSelector" rowHeight="88" id="dyd-w8-nol" customClass="IconSelectorTableViewCell">
-                                <rect key="frame" x="0.0" y="187.33333333333334" width="375" height="88"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" tableViewCell="dyd-w8-nol" id="LJm-aQ-0LZ">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="87.666666666666671"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceHorizontal="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="C12-gq-73o">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="87.666666666666671"/>
-                                            <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Rc6-Zf-ysf">
-                                                <size key="itemSize" width="64" height="64"/>
-                                                <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                                <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                                <inset key="sectionInset" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
-                                            </collectionViewFlowLayout>
-                                            <cells>
-                                                <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Image" id="lWH-Kk-qYz" customClass="IconSelectorImageCollectionViewCell">
-                                                    <rect key="frame" x="15" y="12" width="64" height="64"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                                        <rect key="frame" x="0.0" y="0.0" width="64" height="64"/>
-                                                        <autoresizingMask key="autoresizingMask"/>
-                                                        <subviews>
-                                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qeH-xS-ent">
-                                                                <rect key="frame" x="0.0" y="0.0" width="64" height="64"/>
-                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                            </imageView>
-                                                        </subviews>
-                                                    </view>
-                                                    <connections>
-                                                        <outlet property="imageView" destination="qeH-xS-ent" id="Aoi-Bt-L62"/>
-                                                    </connections>
-                                                </collectionViewCell>
-                                            </cells>
-                                        </collectionView>
-                                    </subviews>
-                                    <constraints>
-                                        <constraint firstItem="C12-gq-73o" firstAttribute="leading" secondItem="LJm-aQ-0LZ" secondAttribute="leading" id="OLX-pf-iEy"/>
-                                        <constraint firstItem="C12-gq-73o" firstAttribute="top" secondItem="LJm-aQ-0LZ" secondAttribute="top" id="bac-Aw-2Rd"/>
-                                        <constraint firstAttribute="bottom" secondItem="C12-gq-73o" secondAttribute="bottom" id="kpN-M7-Oor"/>
-                                        <constraint firstItem="C12-gq-73o" firstAttribute="trailing" secondItem="LJm-aQ-0LZ" secondAttribute="trailing" id="xtk-1S-bdL"/>
-                                    </constraints>
-                                </tableViewCellContentView>
-                                <connections>
-                                    <outlet property="collectionView" destination="C12-gq-73o" id="s2C-Tu-gUU"/>
-                                </connections>
-                            </tableViewCell>
-                        </prototypes>
-                        <sections/>
-                        <connections>
-                            <outlet property="dataSource" destination="f40-WL-P0y" id="mEv-F6-cGj"/>
-                            <outlet property="delegate" destination="f40-WL-P0y" id="Jbs-Pr-JPJ"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" title="Program Settings" id="hKX-MG-zEC">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="pOd-Za-jfv">
-                            <connections>
-                                <action selector="onCancelTapped:" destination="f40-WL-P0y" id="zvi-lu-lTr"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="save" id="mRm-CF-2Yp">
-                            <connections>
-                                <action selector="onDoneTapped:" destination="f40-WL-P0y" id="P00-RA-W5E"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="w5z-n0-BKk" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2426" y="1952"/>
-        </scene>
         <!--My Programs-->
         <scene sceneID="3mJ-o1-cJC">
             <objects>
@@ -873,7 +738,12 @@ Inutilis Software, 2017-2018</string>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" delaysContentTouches="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="mgK-pS-p2l">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="724"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <collectionViewLayout key="collectionViewLayout" id="yMs-ac-1j6" customClass="DraggableCollectionViewFlowLayout"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="jvY-sX-kDp">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ProjectCell" id="4E0-sW-TxH" customClass="ExplorerItemCell" customModule="LowRes_NX_Coder" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="110" height="100"/>

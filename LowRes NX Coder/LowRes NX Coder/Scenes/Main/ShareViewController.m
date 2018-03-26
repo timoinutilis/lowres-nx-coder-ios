@@ -242,6 +242,7 @@
 - (void)send
 {
     [self isBusy:YES];
+    /*
 
     NSString *title = self.titleCell.textField.text;
     NSString *description = self.descriptionCell.textView.text;
@@ -251,7 +252,6 @@
     {
         fileTitle = [fileTitle substringToIndex:30];
     }
-    /*
     // icon file
     [[CommunityModel sharedInstance] uploadFileWithName:[NSString stringWithFormat:@"%@.png", fileTitle] data:self.project.iconData completion:^(NSURL *url, NSError *error) {
         

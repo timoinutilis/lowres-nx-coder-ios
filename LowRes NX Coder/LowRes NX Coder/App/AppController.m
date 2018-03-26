@@ -8,15 +8,11 @@
 
 #import "AppController.h"
 #import "UIViewController+LowResCoder.h"
-#import "NotificationView.h"
-#import "NSMutableDictionary+Utils.h"
 #import "HelpContent.h"
 #import "TabBarController.h"
 #import "CommunityModel.h"
 
 NSString *const FullVersionProductID = @"fullversion";
-
-NSString *const NumProgramsOpenedKey = @"NumProgramsOpened";
 
 NSString *const PurchaseStateNotification = @"PurchaseStateNotification";
 NSString *const ShowPostNotification = @"ShowPostNotification";
@@ -188,32 +184,9 @@ NSString *const ImportProjectNotification = @"ImportProjectNotification";
     [[NSNotificationCenter defaultCenter] postNotificationName:PurchaseStateNotification object:self];
 }
 
-- (BOOL)isUnshownInfoID:(NSString *)infoId
-{
-    NSUserDefaults *storage = [NSUserDefaults standardUserDefaults];
-    return ![storage boolForKey:infoId];
-}
-
-- (void)onShowInfoID:(NSString *)infoId
-{
-    NSUserDefaults *storage = [NSUserDefaults standardUserDefaults];
-    [storage setBool:YES forKey:infoId];
-}
-
-- (NSInteger)numProgramsOpened
-{
-    NSUserDefaults *storage = [NSUserDefaults standardUserDefaults];
-    return [storage integerForKey:NumProgramsOpenedKey];
-}
-
-- (void)onProgramOpened
-{
-    NSUserDefaults *storage = [NSUserDefaults standardUserDefaults];
-    [storage setInteger:([storage integerForKey:NumProgramsOpenedKey] + 1) forKey:NumProgramsOpenedKey];
-}
-
 - (BOOL)handleOpenURL:(NSURL *)url
 {
+    /*
     if ([[url scheme] isEqualToString:@"lowrescoder"])
     {
         NSMutableDictionary *params = [NSMutableDictionary dictionaryWithParamsFromURL:url];
@@ -225,7 +198,9 @@ NSString *const ImportProjectNotification = @"ImportProjectNotification";
         }
         return YES;
     }
-    else if (url.isFileURL)
+    else
+    */
+    if (url.isFileURL)
     {
         // load text file for new project
         NSError *error = nil;
