@@ -73,7 +73,6 @@
 		923AFD701F77EBBA002F6A5B /* LCCPostStats.m in Sources */ = {isa = PBXBuildFile; fileRef = 925CC67D1F7589420059C230 /* LCCPostStats.m */; };
 		923AFD711F77EBBC002F6A5B /* LCCUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 925CC6751F75893F0059C230 /* LCCUser.m */; };
 		923AFD721F77ED34002F6A5B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 926EB1D11F757DDD0048A6CF /* Main.storyboard */; };
-		923AFD731F77ED46002F6A5B /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 926EB1E01F75823A0048A6CF /* AboutViewController.m */; };
 		923AFD781F77ED46002F6A5B /* ShareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 926EB1E51F75823E0048A6CF /* ShareViewController.m */; };
 		923AFD7A1F77ED46002F6A5B /* TabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 926EB1F01F7582510048A6CF /* TabBarController.m */; };
 		923AFD7B1F77ED46002F6A5B /* UpgradeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 926EB1E81F7582400048A6CF /* UpgradeViewController.m */; };
@@ -140,6 +139,7 @@
 		92930E4C203377DF00DE18B9 /* RoundHitBoxButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92930E4B203377DF00DE18B9 /* RoundHitBoxButton.swift */; };
 		9294F2E01FC4B9A600A90487 /* LowResNXViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9294F2DF1FC4B9A600A90487 /* LowResNXViewController.swift */; };
 		9294F2E21FC4BA1100A90487 /* CoreWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9294F2E11FC4BA1100A90487 /* CoreWrapper.swift */; };
+		92A5248920697EDE00EDE7AF /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A5248820697EDD00EDE7AF /* AboutViewController.swift */; };
 		92D1A7641FBF6FDE0059450E /* data_manager.c in Sources */ = {isa = PBXBuildFile; fileRef = 92D1A7621FBF6FDE0059450E /* data_manager.c */; };
 		92DA4C99202CECE000129302 /* Dpad.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DA4C98202CECE000129302 /* Dpad.swift */; };
 		92EA93BE1F744572007BEFB1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92EA93BD1F744572007BEFB1 /* AppDelegate.swift */; };
@@ -311,12 +311,10 @@
 		926EB1D81F757FAD0048A6CF /* UIViewController+LowResCoder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIViewController+LowResCoder.h"; sourceTree = "<group>"; };
 		926EB1D91F757FAD0048A6CF /* UITableView+Parse.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UITableView+Parse.m"; sourceTree = "<group>"; };
 		926EB1DA1F757FAD0048A6CF /* UIViewController+LowResCoder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+LowResCoder.m"; sourceTree = "<group>"; };
-		926EB1E01F75823A0048A6CF /* AboutViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
 		926EB1E21F75823C0048A6CF /* TabBarController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TabBarController.h; sourceTree = "<group>"; };
 		926EB1E51F75823E0048A6CF /* ShareViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShareViewController.m; sourceTree = "<group>"; };
 		926EB1E81F7582400048A6CF /* UpgradeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UpgradeViewController.m; sourceTree = "<group>"; };
 		926EB1E91F7582410048A6CF /* ShareViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShareViewController.h; sourceTree = "<group>"; };
-		926EB1EA1F7582420048A6CF /* AboutViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
 		926EB1EE1F7582500048A6CF /* UpgradeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UpgradeViewController.h; sourceTree = "<group>"; };
 		926EB1F01F7582510048A6CF /* TabBarController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TabBarController.m; sourceTree = "<group>"; };
 		926EB1F21F7582A30048A6CF /* HelpMasterNavController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HelpMasterNavController.h; sourceTree = "<group>"; };
@@ -402,6 +400,7 @@
 		92930E4B203377DF00DE18B9 /* RoundHitBoxButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundHitBoxButton.swift; sourceTree = "<group>"; };
 		9294F2DF1FC4B9A600A90487 /* LowResNXViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LowResNXViewController.swift; sourceTree = "<group>"; };
 		9294F2E11FC4BA1100A90487 /* CoreWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreWrapper.swift; sourceTree = "<group>"; };
+		92A5248820697EDD00EDE7AF /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		92D1A7621FBF6FDE0059450E /* data_manager.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = data_manager.c; sourceTree = "<group>"; };
 		92D1A7631FBF6FDE0059450E /* data_manager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = data_manager.h; sourceTree = "<group>"; };
 		92DA4C98202CECE000129302 /* Dpad.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dpad.swift; sourceTree = "<group>"; };
@@ -507,8 +506,6 @@
 			children = (
 				925CC6A31F75896F0059C230 /* GORLabel.h */,
 				925CC6A41F75896F0059C230 /* GORLabel.m */,
-				925CC53C1F7588990059C230 /* ActionTableViewCell.h */,
-				925CC5471F75889D0059C230 /* ActionTableViewCell.m */,
 				925CC5451F75889C0059C230 /* ActivityView.h */,
 				925CC53E1F75889A0059C230 /* ActivityView.m */,
 				925CC5301F7588960059C230 /* ActivityView.xib */,
@@ -526,14 +523,8 @@
 				925CC5431F75889B0059C230 /* LimitedTextView.m */,
 				925CC54D1F7588A00059C230 /* SearchToolbar.h */,
 				925CC53D1F7588990059C230 /* SearchToolbar.m */,
-				925CC5361F7588970059C230 /* StandardTableViewCell.h */,
-				925CC5381F7588980059C230 /* StandardTableViewCell.m */,
-				925CC5441F75889C0059C230 /* TextFieldTableViewCell.h */,
-				925CC54E1F7588A10059C230 /* TextFieldTableViewCell.m */,
 				925CC5401F75889A0059C230 /* TextLabel.h */,
 				925CC54B1F75889F0059C230 /* TextLabel.m */,
-				925CC53F1F75889A0059C230 /* TextViewTableViewCell.h */,
-				925CC5411F75889B0059C230 /* TextViewTableViewCell.m */,
 				92DA4C98202CECE000129302 /* Dpad.swift */,
 				92930E4B203377DF00DE18B9 /* RoundHitBoxButton.swift */,
 			);
@@ -655,8 +646,7 @@
 				9216142F1F7D70E2006AB2DE /* EditorViewController.swift */,
 				926EB1E91F7582410048A6CF /* ShareViewController.h */,
 				926EB1E51F75823E0048A6CF /* ShareViewController.m */,
-				926EB1EA1F7582420048A6CF /* AboutViewController.h */,
-				926EB1E01F75823A0048A6CF /* AboutViewController.m */,
+				92A5248820697EDD00EDE7AF /* AboutViewController.swift */,
 				926EB1EE1F7582500048A6CF /* UpgradeViewController.h */,
 				926EB1E81F7582400048A6CF /* UpgradeViewController.m */,
 			);
@@ -851,6 +841,21 @@
 			path = LowResNX;
 			sourceTree = "<group>";
 		};
+		92A524862069771100EDE7AF /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				925CC53C1F7588990059C230 /* ActionTableViewCell.h */,
+				925CC5471F75889D0059C230 /* ActionTableViewCell.m */,
+				925CC5361F7588970059C230 /* StandardTableViewCell.h */,
+				925CC5381F7588980059C230 /* StandardTableViewCell.m */,
+				925CC5441F75889C0059C230 /* TextFieldTableViewCell.h */,
+				925CC54E1F7588A10059C230 /* TextFieldTableViewCell.m */,
+				925CC53F1F75889A0059C230 /* TextViewTableViewCell.h */,
+				925CC5411F75889B0059C230 /* TextViewTableViewCell.m */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
 		92D1A7611FBF6FDE0059450E /* datamanager */ = {
 			isa = PBXGroup;
 			children = (
@@ -892,6 +897,7 @@
 				925CC6931F75896F0059C230 /* Extensions */,
 				925CC6AF1F75899E0059C230 /* App */,
 				925CC6721F7589230059C230 /* Community Model */,
+				92A524862069771100EDE7AF /* Cells */,
 				925CC52D1F7587C40059C230 /* Views */,
 				926EB1D01F757D5B0048A6CF /* Scenes */,
 				928402351F7448E000AC1466 /* LowResNX-Bridging-Header.h */,
@@ -1055,12 +1061,12 @@
 				920E1B351F78024500664382 /* UITextView+Utils.m in Sources */,
 				9284022C1F7448B500AC1466 /* variables.c in Sources */,
 				920E1B331F78024500664382 /* UIColor+Utils.m in Sources */,
+				92A5248920697EDE00EDE7AF /* AboutViewController.swift in Sources */,
 				9276994C1F7D649800211D15 /* ExplorerItem.swift in Sources */,
 				928402201F7448B500AC1466 /* cmd_sprites.c in Sources */,
 				9284021D1F7448B500AC1466 /* cmd_maths.c in Sources */,
 				9208A7D1202120AF00D1EFF7 /* cmd_subs.c in Sources */,
 				920E1B321F78024500664382 /* NSString+Utils.m in Sources */,
-				923AFD731F77ED46002F6A5B /* AboutViewController.m in Sources */,
 				926EB1DC1F757FAD0048A6CF /* UIViewController+LowResCoder.m in Sources */,
 				923AFD6F1F77EBB7002F6A5B /* LCCPost.m in Sources */,
 				920E1B471F7816FA00664382 /* ActivityView.m in Sources */,
