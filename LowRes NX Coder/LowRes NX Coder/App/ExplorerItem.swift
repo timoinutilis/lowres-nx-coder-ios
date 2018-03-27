@@ -18,11 +18,14 @@ class ExplorerItem: NSObject {
         return fileUrl.deletingPathExtension().lastPathComponent
     }
     
+    var imageUrl: URL {
+        return fileUrl.deletingPathExtension().appendingPathExtension("png")
+    }
+    
     var image: UIImage {
         do {
-            let iconUrl = fileUrl.deletingPathExtension().appendingPathExtension("png")
-            let iconData = try Data(contentsOf: iconUrl)
-            if let image = UIImage(data: iconData) {
+            let imageData = try Data(contentsOf: imageUrl)
+            if let image = UIImage(data: imageData) {
                 return image
             }
         } catch {

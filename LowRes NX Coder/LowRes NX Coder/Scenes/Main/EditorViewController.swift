@@ -104,8 +104,10 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
         
         if document.documentState.contains(.closed) {
             activityIndicatorView.startAnimating()
+            setBarButtonsEnabled(false)
             document.open(completionHandler: { (success) in
                 self.activityIndicatorView.stopAnimating()
+                self.setBarButtonsEnabled(true)
             })
         } else {
             fatalError("unexpected document state")
@@ -193,6 +195,12 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
                 [coachMark show];
             }
         }*/
+    }
+    
+    private func setBarButtonsEnabled(_ enabled: Bool) {
+        for item in navigationItem.rightBarButtonItems! {
+            item.isEnabled = enabled
+        }
     }
     
     @objc func keyboardWillShow(_ notification: Notification) {

@@ -79,6 +79,9 @@ class ExplorerViewController: UIViewController, UICollectionViewDelegateFlowLayo
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         isVisible = true
+        if metadataQuery == nil, let indexPaths = collectionView.indexPathsForSelectedItems, !indexPaths.isEmpty {
+            collectionView.reloadItems(at: indexPaths)
+        }
         showAddedItem()
         metadataQuery?.enableUpdates()
     }

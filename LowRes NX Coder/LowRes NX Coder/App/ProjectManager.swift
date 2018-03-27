@@ -52,7 +52,7 @@ class ProjectManager: NSObject {
                 print("copyBundleProgramsIfNeeded:", error.localizedDescription)
             }
             
-            if FileManager.default.ubiquityIdentityToken != nil {
+            if self.isCloudEnabled {
                 self.ubiquitousContainerUrl = FileManager.default.url(forUbiquityContainerIdentifier: nil)
                 do {
                     try self.copyLocalProjectsToCloud()
@@ -161,6 +161,8 @@ class ProjectManager: NSObject {
             var success = false
             var resultError: Error?
             var coordError: NSError?
+            
+            // program file
             fileCoordinator.coordinate(writingItemAt: item.fileUrl, options: .forDeleting, error: &coordError, byAccessor: { (url) in
                 do {
                     try FileManager.default.removeItem(at: url)
@@ -169,6 +171,21 @@ class ProjectManager: NSObject {
                     resultError = error
                 }
             })
+            
+            // image file
+            if success {
+                let imageUrl = item.imageUrl
+                if FileManager.default.fileExists(atPath: imageUrl.path) {
+                    fileCoordinator.coordinate(writingItemAt: imageUrl, options: .forDeleting, error: nil, byAccessor: { (url) in
+                        do {
+                            try FileManager.default.removeItem(at: url)
+                        } catch {
+                            print("delete image:", error)
+                        }
+                    })
+                }
+            }
+            
             if !success && coordError != nil {
                 resultError = coordError
             }
@@ -180,11 +197,15 @@ class ProjectManager: NSObject {
     
     func renameProject(item: ExplorerItem, newName: String, completion: @escaping (Error?) -> Void) {
         let destUrl = item.fileUrl.deletingLastPathComponent().appendingPathComponent(newName).appendingPathExtension("nx")
+        let srcImageUrl = item.imageUrl
+        
         DispatchQueue.global().async {
             let fileCoordinator = NSFileCoordinator()
             var success = false
             var resultError: Error?
             var coordError: NSError?
+            
+            // program file
             fileCoordinator.coordinate(writingItemAt: item.fileUrl, options: .forMoving, writingItemAt: destUrl, options: .forReplacing, error: &coordError, byAccessor: { (sourceUrl, destUrl) in
                 do {
                     try FileManager.default.moveItem(at: sourceUrl, to: destUrl)
@@ -194,6 +215,21 @@ class ProjectManager: NSObject {
                     resultError = error
                 }
             })
+            
+            // image file
+            if success {
+                if FileManager.default.fileExists(atPath: srcImageUrl.path) {
+                    let destImageUrl = item.imageUrl
+                    fileCoordinator.coordinate(writingItemAt: srcImageUrl, options: .forMoving, writingItemAt: destImageUrl, options: .forReplacing, error: nil, byAccessor: { (sourceUrl, destUrl) in
+                        do {
+                            try FileManager.default.moveItem(at: sourceUrl, to: destUrl)
+                        } catch {
+                            print("rename image:", error)
+                        }
+                    })
+                }
+            }
+            
             if !success && coordError != nil {
                 resultError = coordError
             }
