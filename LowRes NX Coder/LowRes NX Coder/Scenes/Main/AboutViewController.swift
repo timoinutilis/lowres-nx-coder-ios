@@ -14,8 +14,7 @@ class AboutViewController: UITableViewController, MFMailComposeViewControllerDel
     enum Action {
         case none
         case upgrade
-        case appStore
-        case inutilis
+        case web(URL)
         case contact
     }
     
@@ -40,8 +39,9 @@ class AboutViewController: UITableViewController, MFMailComposeViewControllerDel
         if !AppController.shared().isFullVersion {
             menuEntries.append(MenuEntry(title: "Full Version", action: .upgrade))
         }
-        menuEntries.append(MenuEntry(title: "Rate in App Store", action: .appStore))
-        menuEntries.append(MenuEntry(title: "More from Inutilis", action: .inutilis))
+        menuEntries.append(MenuEntry(title: "Rate in App Store", action: .web(URL(string: "itms-apps://itunes.apple.com/app/id962117496")!)))
+        menuEntries.append(MenuEntry(title: "Twitter", action: .web(URL(string: "https://twitter.com/timo_inutilis")!)))
+        menuEntries.append(MenuEntry(title: "inutilis.com", action: .web(URL(string: "http://www.inutilis.com")!)))
         menuEntries.append(MenuEntry(title: "Contact", action: .contact))
     }
     
@@ -85,11 +85,14 @@ class AboutViewController: UITableViewController, MFMailComposeViewControllerDel
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let entry = menuEntries[indexPath.row]
-        if entry.action == .none {
+        
+        switch entry.action {
+        case .none:
             let cell = tableView.dequeueReusableCell(withIdentifier: "Info", for: indexPath)
             cell.textLabel!.text = entry.title
             return cell
-        } else {
+            
+        default:
             let cell = tableView.dequeueReusableCell(withIdentifier: "Disclosure", for: indexPath)
             cell.textLabel!.text = entry.title
             return cell
@@ -100,17 +103,12 @@ class AboutViewController: UITableViewController, MFMailComposeViewControllerDel
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let entry = menuEntries[indexPath.row]
+        
         switch entry.action {
         case .upgrade:
             performSegue(withIdentifier: "Upgrade", sender: self)
             
-        case .appStore:
-            let url = URL(string: "itms-apps://itunes.apple.com/app/id962117496")!
-            UIApplication.shared.openURL(url)
-            tableView.deselectRow(at: indexPath, animated: true)
-            
-        case .inutilis:
-            let url = URL(string: "http://www.inutilis.com")!
+        case .web(let url):
             UIApplication.shared.openURL(url)
             tableView.deselectRow(at: indexPath, animated: true)
             
