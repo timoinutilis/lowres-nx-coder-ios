@@ -16,12 +16,9 @@ class ExplorerViewController: UIViewController, UICollectionViewDelegateFlowLayo
     var addedItem: ExplorerItem?
     
     private var metadataQuery: NSMetadataQuery?
-    private var iconsMetadataQuery: NSMetadataQuery?
     private var didAddProgramObserver: Any?
     private var queryDidFinishGatheringObserver: Any?
     private var queryDidUpdateObserver: Any?
-    private var iconsQueryDidFinishGatheringObserver: Any?
-    private var iconsQueryDidUpdateObserver: Any?
     private var isVisible: Bool = false
     private var unassignedItems = [URL: ExplorerItem]()
     
@@ -143,34 +140,6 @@ class ExplorerViewController: UIViewController, UICollectionViewDelegateFlowLayo
         })
         query.start()
         
-        setupCloudIcons()
-    }
-    
-    private func setupCloudIcons() {
-        let query = NSMetadataQuery()
-        iconsMetadataQuery = query
-        query.searchScopes = [NSMetadataQueryUbiquitousDocumentsScope]
-        query.predicate = NSPredicate(format: "%K LIKE '*.png'", NSMetadataItemFSNameKey)
-        
-        iconsQueryDidFinishGatheringObserver = NotificationCenter.default.addObserver(
-            forName: NSNotification.Name.NSMetadataQueryDidFinishGathering,
-            object: query,
-            queue: nil,
-            using: { [weak self] (notification) in
-                self?.cloudIconListReceived(query: notification.object as! NSMetadataQuery)
-            }
-        )
-        
-        iconsQueryDidUpdateObserver = NotificationCenter.default.addObserver(
-            forName: NSNotification.Name.NSMetadataQueryDidUpdate,
-            object: query,
-            queue: nil,
-            using: { [weak self] (notification) in
-                self?.cloudIconListReceived(query: notification.object as! NSMetadataQuery)
-            }
-        )
-        
-        query.start()
     }
     
     private func removeCloudObservers() {
@@ -182,16 +151,6 @@ class ExplorerViewController: UIViewController, UICollectionViewDelegateFlowLayo
         if queryDidUpdateObserver != nil {
             NotificationCenter.default.removeObserver(queryDidUpdateObserver!)
             queryDidUpdateObserver = nil
-        }
-
-        iconsMetadataQuery?.stop()
-        if iconsQueryDidFinishGatheringObserver != nil {
-            NotificationCenter.default.removeObserver(iconsQueryDidFinishGatheringObserver!)
-            iconsQueryDidFinishGatheringObserver = nil
-        }
-        if iconsQueryDidUpdateObserver != nil {
-            NotificationCenter.default.removeObserver(iconsQueryDidUpdateObserver!)
-            iconsQueryDidUpdateObserver = nil
         }
     }
     
@@ -255,24 +214,6 @@ class ExplorerViewController: UIViewController, UICollectionViewDelegateFlowLayo
         }
     }
     
-    private func cloudIconListReceived(query: NSMetadataQuery) {
-        query.disableUpdates()
-        for result in query.results as! [NSMetadataItem] {
-            let status = result.value(forAttribute: NSMetadataUbiquitousItemDownloadingStatusKey) as! String
-            let isDownloading = result.value(forAttribute: NSMetadataUbiquitousItemIsDownloadingKey) as! Bool
-            if status == NSMetadataUbiquitousItemDownloadingStatusNotDownloaded && !isDownloading {
-                let url = result.value(forAttribute: NSMetadataItemURLKey) as! URL
-                do {
-                    print("startDownloadingUbiquitousItem:", url)
-                    try FileManager.default.startDownloadingUbiquitousItem(at: url)
-                } catch {
-                    print("startDownloadingUbiquitousItem:", error.localizedDescription)
-                }
-            }
-        }
-        query.enableUpdates()
-    }
-        
     func showAddedItem() {
         if let addedItem = addedItem, items != nil {
             items!.append(addedItem)

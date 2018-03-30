@@ -10,7 +10,7 @@ import UIKit
 import GameController
 
 // set to false for testing on Simulator
-let SUPPORTS_GAME_CONTROLLERS = false
+let SUPPORTS_GAME_CONTROLLERS = true
 
 protocol LowResNXViewControllerDelegate: class {
     func nxSourceCodeForVirtualDisk() -> String

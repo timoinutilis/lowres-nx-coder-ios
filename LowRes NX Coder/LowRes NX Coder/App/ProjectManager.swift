@@ -62,10 +62,13 @@ class ProjectManager: NSObject {
             }
             
             DispatchQueue.main.async {
+                self.setupCloudIcons()
                 completion()
             }
         }
     }
+    
+    //MARK: - Programs
     
     func importProgram(from url: URL, completion: @escaping ((Error?) -> Void)) {
         let destUrl = ProjectManager.shared.localDocumentsUrl.appendingPathComponent(url.lastPathComponent)
@@ -288,6 +291,8 @@ class ProjectManager: NSObject {
         NotificationCenter.default.post(name: name, object: self, userInfo: ["item": item])
     }
     
+    //MARK: - Bundle Programs
+    
     private func copyBundleProgramsIfNeeded() throws {
         let programsUrl = Bundle.main.bundleURL.appendingPathComponent("programs", isDirectory: true)
         let urls = try FileManager.default.contentsOfDirectory(at: programsUrl, includingPropertiesForKeys: nil, options: [])
@@ -335,6 +340,8 @@ class ProjectManager: NSObject {
         UserDefaults.standard.set(copiedPrograms, forKey: copiedBundleProgramsKey)
     }
     
+    //MARK: - Cloud
+    
     private func copyLocalProjectsToCloud() throws {
         let urls = try FileManager.default.contentsOfDirectory(at: self.localDocumentsUrl, includingPropertiesForKeys: nil, options: [.skipsHiddenFiles])
         for url in urls {
@@ -356,6 +363,69 @@ class ProjectManager: NSObject {
             try FileManager.default.setUbiquitous(true, itemAt: sourceUrl, destinationURL: destinationUrl)
         }
         item.fileUrl = destinationUrl
+    }
+    
+    //MARK: - Cloud Icons
+    
+    private var iconsMetadataQuery: NSMetadataQuery?
+    private var iconsQueryDidFinishGatheringObserver: Any?
+    private var iconsQueryDidUpdateObserver: Any?
+    
+    private func setupCloudIcons() {
+        let query = NSMetadataQuery()
+        iconsMetadataQuery = query
+        query.searchScopes = [NSMetadataQueryUbiquitousDocumentsScope]
+        query.predicate = NSPredicate(format: "%K LIKE '*.png'", NSMetadataItemFSNameKey)
+        
+        iconsQueryDidFinishGatheringObserver = NotificationCenter.default.addObserver(
+            forName: NSNotification.Name.NSMetadataQueryDidFinishGathering,
+            object: query,
+            queue: nil,
+            using: { [weak self] (notification) in
+                self?.cloudIconListReceived(query: notification.object as! NSMetadataQuery)
+            }
+        )
+        
+        iconsQueryDidUpdateObserver = NotificationCenter.default.addObserver(
+            forName: NSNotification.Name.NSMetadataQueryDidUpdate,
+            object: query,
+            queue: nil,
+            using: { [weak self] (notification) in
+                self?.cloudIconListReceived(query: notification.object as! NSMetadataQuery)
+            }
+        )
+        
+        query.start()
+    }
+    
+    private func removeCloudObservers() {
+        iconsMetadataQuery?.stop()
+        if iconsQueryDidFinishGatheringObserver != nil {
+            NotificationCenter.default.removeObserver(iconsQueryDidFinishGatheringObserver!)
+            iconsQueryDidFinishGatheringObserver = nil
+        }
+        if iconsQueryDidUpdateObserver != nil {
+            NotificationCenter.default.removeObserver(iconsQueryDidUpdateObserver!)
+            iconsQueryDidUpdateObserver = nil
+        }
+    }
+    
+    private func cloudIconListReceived(query: NSMetadataQuery) {
+        query.disableUpdates()
+        for result in query.results as! [NSMetadataItem] {
+            let status = result.value(forAttribute: NSMetadataUbiquitousItemDownloadingStatusKey) as! String
+            let isDownloading = result.value(forAttribute: NSMetadataUbiquitousItemIsDownloadingKey) as! Bool
+            if status == NSMetadataUbiquitousItemDownloadingStatusNotDownloaded && !isDownloading {
+                let url = result.value(forAttribute: NSMetadataItemURLKey) as! URL
+                do {
+                    print("startDownloadingUbiquitousItem:", url)
+                    try FileManager.default.startDownloadingUbiquitousItem(at: url)
+                } catch {
+                    print("startDownloadingUbiquitousItem:", error.localizedDescription)
+                }
+            }
+        }
+        query.enableUpdates()
     }
     
 }
