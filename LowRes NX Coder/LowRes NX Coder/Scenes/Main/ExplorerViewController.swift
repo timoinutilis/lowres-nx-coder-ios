@@ -139,7 +139,6 @@ class ExplorerViewController: UIViewController, UICollectionViewDelegateFlowLayo
             }
         })
         query.start()
-        
     }
     
     private func removeCloudObservers() {
@@ -320,29 +319,41 @@ class ExplorerViewController: UIViewController, UICollectionViewDelegateFlowLayo
         navigationController?.pushViewController(vc, animated: true)
     }
     
-    func deleteItem(_ item: ExplorerItem, cell: ExplorerItemCell) {
+    func deleteItem(_ item: ExplorerItem) {
+        metadataQuery?.disableUpdates()
+        
         ProjectManager.shared.deleteProject(item: item) { (error) in
             if let error = error {
+                self.metadataQuery?.enableUpdates()
                 self.showAlert(withTitle: "Could Not Delete Program", message: error.localizedDescription, block: nil)
             } else {
-                if let index = self.items?.index(of: item) {
-                    self.items?.remove(at: index)
-                }
-                if let indexPath = self.collectionView.indexPath(for: cell) {
-                    self.collectionView.deleteItems(at: [indexPath])
-                }
+                self.collectionView.performBatchUpdates({
+                    if let index = self.items?.index(of: item) {
+                        self.items?.remove(at: index)
+                        self.collectionView.deleteItems(at: [IndexPath(item: index, section: 0)])
+                    }
+                }, completion: { (finished) in
+                    self.metadataQuery?.enableUpdates()
+                })
             }
         }
     }
     
-    func renameItem(_ item: ExplorerItem, newName: String, cell: ExplorerItemCell) {
+    func renameItem(_ item: ExplorerItem, newName: String) {
+        metadataQuery?.disableUpdates()
+        
         ProjectManager.shared.renameProject(item: item, newName: newName) { (error) in
             if let error = error {
+                self.metadataQuery?.enableUpdates()
                 self.showAlert(withTitle: "Could Not Rename Program", message: error.localizedDescription, block: nil)
             } else {
-                if let indexPath = self.collectionView.indexPath(for: cell) {
-                    self.collectionView.reloadItems(at: [indexPath])
-                }
+                self.collectionView.performBatchUpdates({
+                    if let index = self.items?.index(of: item) {
+                        self.collectionView.reloadItems(at: [IndexPath(item: index, section: 0)])
+                    }
+                }, completion: { (finished) in
+                    self.metadataQuery?.enableUpdates()
+                })
             }
         }
     }
@@ -407,7 +418,7 @@ class ExplorerViewController: UIViewController, UICollectionViewDelegateFlowLayo
         alert.addAction(UIAlertAction(title: "Accept", style: .default, handler: { (action) in
             let textField = alert.textFields!.first!
             if let name = textField.text?.trimmingCharacters(in: .whitespaces) {
-                self.renameItem(item, newName: name, cell: cell)
+                self.renameItem(item, newName: name)
             }
         }))
         present(alert, animated: true, completion: nil)
@@ -420,7 +431,7 @@ class ExplorerViewController: UIViewController, UICollectionViewDelegateFlowLayo
         }
         let alert = UIAlertController(title: "Do you really want to delete “\(item.name)”?", message: message, preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { [unowned self] (action) in
-            self.deleteItem(item, cell: cell)
+            self.deleteItem(item)
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         present(alert, animated: true, completion: nil)
