@@ -166,6 +166,7 @@ class ProjectManager: NSObject {
             var coordError: NSError?
             
             // program file
+            print("deleteProject", item.fileUrl)
             fileCoordinator.coordinate(writingItemAt: item.fileUrl, options: .forDeleting, error: &coordError, byAccessor: { (url) in
                 do {
                     try FileManager.default.removeItem(at: url)
@@ -209,6 +210,7 @@ class ProjectManager: NSObject {
             var coordError: NSError?
             
             // program file
+            print("renameProject", item.fileUrl)
             fileCoordinator.coordinate(writingItemAt: item.fileUrl, options: .forMoving, writingItemAt: destUrl, options: .forReplacing, error: &coordError, byAccessor: { (sourceUrl, destUrl) in
                 do {
                     try FileManager.default.moveItem(at: sourceUrl, to: destUrl)

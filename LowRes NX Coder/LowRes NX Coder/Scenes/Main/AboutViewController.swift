@@ -39,7 +39,7 @@ class AboutViewController: UITableViewController, MFMailComposeViewControllerDel
         if !AppController.shared().isFullVersion {
             menuEntries.append(MenuEntry(title: "Full Version", action: .upgrade))
         }
-        menuEntries.append(MenuEntry(title: "Rate in App Store", action: .web(URL(string: "itms-apps://itunes.apple.com/app/id962117496")!)))
+//        menuEntries.append(MenuEntry(title: "Rate in App Store", action: .web(URL(string: "itms-apps://itunes.apple.com/app/id962117496")!)))
         menuEntries.append(MenuEntry(title: "Twitter", action: .web(URL(string: "https://twitter.com/timo_inutilis")!)))
         menuEntries.append(MenuEntry(title: "inutilis.com", action: .web(URL(string: "http://www.inutilis.com")!)))
         menuEntries.append(MenuEntry(title: "Contact", action: .contact))

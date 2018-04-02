@@ -35,13 +35,6 @@ class ExplorerViewController: UIViewController, UICollectionViewDelegateFlowLayo
         
         collectionView.dataSource = self
         collectionView.delegate = self
-//        collectionView.draggable = true
-        
-        let layout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
-        layout.itemSize = CGSize(width: 110, height: 100)
-        layout.minimumInteritemSpacing = 0
-        layout.minimumLineSpacing = 10
-        layout.sectionInset = UIEdgeInsets(top: 20, left: 10, bottom: 20, right: 10)
         
         if ProjectManager.shared.isCloudEnabled {
             setupCloud()
@@ -371,6 +364,11 @@ class ExplorerViewController: UIViewController, UICollectionViewDelegateFlowLayo
         return cell
     }
     
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "Footer", for: indexPath)
+        return view
+    }
+    
     //MARK: - UICollectionViewDelegateFlowLayout
     
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -422,6 +420,7 @@ class ExplorerViewController: UIViewController, UICollectionViewDelegateFlowLayo
             }
         }))
         present(alert, animated: true, completion: nil)
+        print("alert rename", item.name)
     }
     
     func explorerItemCell(_ cell: ExplorerItemCell, didSelectDelete item: ExplorerItem) {
@@ -435,6 +434,11 @@ class ExplorerViewController: UIViewController, UICollectionViewDelegateFlowLayo
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         present(alert, animated: true, completion: nil)
+        if let pop = alert.popoverPresentationController {
+            pop.sourceView = cell
+            pop.sourceRect = cell.bounds
+        }
+        print("alert delete", item.name)
     }
     
     //MARK: - NSMetadataQueryDelegate

@@ -54,9 +54,12 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
     private var compilerError: NSError?
     private var hasAppeared: Bool = false
     private var recognizer: UITapGestureRecognizer?
+    private var startDate: Date!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        startDate = Date()
         
         if let coreWrapper = coreWrapper {
             // program already compiled
@@ -384,7 +387,18 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
     }
     
     @IBAction func onExitTapped(_ sender: Any) {
-        presentingViewController?.dismiss(animated: true, completion: nil)
+        let timeSinceStart = Date().timeIntervalSince(startDate)
+        
+        if timeSinceStart >= 60, let coreWrapper = coreWrapper, core_getNumGamepads(&coreWrapper.core) == 0 {
+            let alert = UIAlertController(title: "Do you really want to exit this program?", message: nil, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Exit", style: .default, handler: { [unowned self] (action) in
+                self.presentingViewController?.dismiss(animated: true, completion: nil)
+            }))
+            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+            present(alert, animated: true, completion: nil)
+        } else {
+            presentingViewController?.dismiss(animated: true, completion: nil)
+        }
     }
     
     @IBAction func settingsTapped(_ sender: Any) {

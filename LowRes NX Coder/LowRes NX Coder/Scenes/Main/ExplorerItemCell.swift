@@ -40,12 +40,14 @@ class ExplorerItemCell: UICollectionViewCell {
     }
     
     @objc func renameItem(_ sender: Any?) {
+        print("tapped rename", item!.fileUrl)
         if let delegate = delegate {
             delegate.explorerItemCell(self, didSelectRename: item!)
         }
     }
     
     @objc func deleteItem(_ sender: Any?) {
+        print("tapped delete", item!.fileUrl)
         if let delegate = delegate {
             delegate.explorerItemCell(self, didSelectDelete: item!)
         }
