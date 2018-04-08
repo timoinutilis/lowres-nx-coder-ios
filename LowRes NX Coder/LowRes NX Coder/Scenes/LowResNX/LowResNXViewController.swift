@@ -420,6 +420,11 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
         
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         
+        if let pop = alert.popoverPresentationController {
+            let button = sender as! UIView
+            pop.sourceView = button
+            pop.sourceRect = button.bounds
+        }
         present(alert, animated: true, completion: nil)
     }
     

@@ -437,6 +437,7 @@ class ExplorerViewController: UIViewController, UICollectionViewDelegateFlowLayo
         if let pop = alert.popoverPresentationController {
             pop.sourceView = cell
             pop.sourceRect = cell.bounds
+            pop.permittedArrowDirections = [.down, .up]
         }
         print("alert delete", item.name)
     }
