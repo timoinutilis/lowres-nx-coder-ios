@@ -10,7 +10,6 @@
 
 @interface EditorTextView ()
 @property UIToolbar *keyboardToolbar;
-@property NSArray *keys;
 @end
 
 @implementation EditorTextView
@@ -20,8 +19,6 @@
     [super awakeFromNib];
     
     self.textContainerInset = UIEdgeInsetsMake(8, 8, 8, 8);
-    
-    self.keys = @[@"=", @"<", @">", @"+", @"-", @"*", @"/", @"(", @")", @"\""];
     
     if ([UITextInputAssistantItem class] && [UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad)
     {
@@ -42,10 +39,12 @@
 
 - (void)initKeyboardToolbar
 {
-    self.keyboardToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
+    self.keyboardToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 320, 32)];
+    
+    NSArray *keys = @[@"=", @"<", @">", @"+", @"-", @"*", @"/", @"(", @")", @","];
     
     NSMutableArray *buttons = [NSMutableArray array];
-    for (NSString *key in self.keys)
+    for (NSString *key in keys)
     {
         UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:key style:UIBarButtonItemStylePlain target:self action:@selector(onSpecialKeyTapped:)];
         [buttons addObject:button];
@@ -66,8 +65,10 @@
 
 - (void)initShortcutsBar
 {
+    NSArray *keys = @[@"=", @"<", @">", @"+", @"-", @"*", @"/", @"(", @")", @"\"", @"$", @":"];
+    
     NSMutableArray *buttons = [NSMutableArray array];
-    for (NSString *key in self.keys)
+    for (NSString *key in keys)
     {
         UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:key style:UIBarButtonItemStylePlain target:self action:@selector(onSpecialKeyTapped:)];
         [buttons addObject:button];

@@ -197,7 +197,7 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
             return nil
         }
         
-        let cString = sourceCode.cString(using: .ascii)
+        let cString = sourceCode.cString(using: .utf8)
         let error = itp_compileProgram(&coreWrapper.core, cString)
         if error.code != ErrorNone {
             return LowResNXError(error: error, sourceCode: sourceCode)
@@ -274,7 +274,7 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
     }
     
     func updateGameControllers() {
-        guard let coreWrapper = coreWrapper, !SUPPORTS_GAME_CONTROLLERS else {
+        guard let coreWrapper = coreWrapper, SUPPORTS_GAME_CONTROLLERS else {
             return
         }
         

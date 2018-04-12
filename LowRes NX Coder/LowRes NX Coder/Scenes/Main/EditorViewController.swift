@@ -372,7 +372,7 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
         
         let coreWrapper = CoreWrapper()
         
-        let cString = sourceCode.cString(using: .ascii)
+        let cString = sourceCode.cString(using: .utf8)
         let error = itp_compileProgram(&coreWrapper.core, cString)
         
         if error.code != ErrorNone {
