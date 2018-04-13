@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="p4g-d5-suo">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="p4g-d5-suo">
     <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -90,11 +90,17 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="724"/>
                                 <color key="backgroundColor" red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </webView>
+                            <activityIndicatorView hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="5t0-UH-VxJ">
+                                <rect key="frame" x="169" y="343.66666666666669" width="37" height="37"/>
+                                <color key="color" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="HIl-A8-TZc" firstAttribute="trailing" secondItem="Tiq-Xz-jxb" secondAttribute="trailing" id="JED-4N-vyz"/>
                             <constraint firstItem="HIl-A8-TZc" firstAttribute="leading" secondItem="Tiq-Xz-jxb" secondAttribute="leading" id="OZo-aY-ZBs"/>
+                            <constraint firstItem="5t0-UH-VxJ" firstAttribute="centerX" secondItem="Rwb-0W-2jo" secondAttribute="centerX" id="Vgj-W3-2BO"/>
+                            <constraint firstItem="5t0-UH-VxJ" firstAttribute="centerY" secondItem="Rwb-0W-2jo" secondAttribute="centerY" id="Xex-f1-vAA"/>
                             <constraint firstItem="HIl-A8-TZc" firstAttribute="top" secondItem="Rwb-0W-2jo" secondAttribute="top" id="eZs-SU-Kbo"/>
                             <constraint firstAttribute="bottom" secondItem="HIl-A8-TZc" secondAttribute="bottom" id="yLP-PZ-QQv"/>
                         </constraints>
@@ -102,6 +108,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Help" id="f6y-xG-fkW"/>
                     <connections>
+                        <outlet property="activityView" destination="5t0-UH-VxJ" id="849-fZ-lEZ"/>
                         <outlet property="webView" destination="HIl-A8-TZc" id="jzd-g0-myt"/>
                     </connections>
                 </viewController>

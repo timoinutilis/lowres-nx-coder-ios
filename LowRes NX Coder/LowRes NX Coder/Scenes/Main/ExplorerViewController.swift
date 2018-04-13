@@ -11,6 +11,7 @@ import UIKit
 class ExplorerViewController: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, ExplorerItemCellDelegate, NSMetadataQueryDelegate {
     
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var activityView: UIActivityIndicatorView!
     
     var items: [ExplorerItem]?
     var addedItem: ExplorerItem?
@@ -72,11 +73,17 @@ class ExplorerViewController: UIViewController, UICollectionViewDelegateFlowLayo
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         isVisible = true
-        if metadataQuery == nil, let indexPaths = collectionView.indexPathsForSelectedItems, !indexPaths.isEmpty {
-            collectionView.reloadItems(at: indexPaths)
-        }
         showAddedItem()
-        metadataQuery?.enableUpdates()
+        if let indexPaths = collectionView.indexPathsForSelectedItems, !indexPaths.isEmpty {
+            // update cell of last used program
+            collectionView.performBatchUpdates({
+                self.collectionView.reloadItems(at: indexPaths)
+            }, completion: { (finished) in
+                self.metadataQuery?.enableUpdates()
+            })
+        } else {
+            metadataQuery?.enableUpdates()
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -108,11 +115,15 @@ class ExplorerViewController: UIViewController, UICollectionViewDelegateFlowLayo
             items = nil
         }
         collectionView.reloadData()
+        updateFooter()
     }
     
     private func setupCloud() {
         self.items = nil
         collectionView.reloadData()
+        updateFooter()
+        
+        activityView.startAnimating()
         
         let query = NSMetadataQuery()
         metadataQuery = query
@@ -121,6 +132,7 @@ class ExplorerViewController: UIViewController, UICollectionViewDelegateFlowLayo
         query.delegate = self
         
         queryDidFinishGatheringObserver = NotificationCenter.default.addObserver(forName: NSNotification.Name.NSMetadataQueryDidFinishGathering, object: query, queue: nil, using: { [weak self] (notification) in
+            self?.activityView.stopAnimating()
             self?.cloudFileListReceived()
         })
         
@@ -159,6 +171,7 @@ class ExplorerViewController: UIViewController, UICollectionViewDelegateFlowLayo
         })
         self.items = items
         collectionView.reloadData()
+        updateFooter()
         
         query.enableUpdates()
     }
@@ -204,6 +217,7 @@ class ExplorerViewController: UIViewController, UICollectionViewDelegateFlowLayo
         } else {
             metadataQuery?.enableUpdates()
         }
+        updateFooter()
     }
     
     func showAddedItem() {
@@ -212,7 +226,14 @@ class ExplorerViewController: UIViewController, UICollectionViewDelegateFlowLayo
             let indexPath = IndexPath(item: items!.count - 1, section: 0)
             collectionView.insertItems(at: [indexPath])
             collectionView.scrollToItem(at: indexPath, at: .bottom, animated: true)
+            updateFooter()
             self.addedItem = nil
+        }
+    }
+    
+    private func updateFooter() {
+        if let footerView = collectionView.supplementaryView(forElementKind: UICollectionElementKindSectionFooter, at: IndexPath(item: 0, section: 0)) {
+            footerView.isHidden = items?.isEmpty ?? true
         }
     }
         
@@ -326,6 +347,7 @@ class ExplorerViewController: UIViewController, UICollectionViewDelegateFlowLayo
                         self.collectionView.deleteItems(at: [IndexPath(item: index, section: 0)])
                     }
                 }, completion: { (finished) in
+                    self.updateFooter()
                     self.metadataQuery?.enableUpdates()
                 })
             }
@@ -365,8 +387,9 @@ class ExplorerViewController: UIViewController, UICollectionViewDelegateFlowLayo
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "Footer", for: indexPath)
-        return view
+        let footerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "Footer", for: indexPath)
+        footerView.isHidden = items?.isEmpty ?? true
+        return footerView
     }
     
     //MARK: - UICollectionViewDelegateFlowLayout

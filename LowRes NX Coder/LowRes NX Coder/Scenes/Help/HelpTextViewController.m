@@ -15,6 +15,7 @@
 @interface HelpTextViewController ()
 
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityView;
 
 @end
 
@@ -63,11 +64,12 @@
 
 - (void)webViewDidStartLoad:(UIWebView *)webView
 {
-    
+    [self.activityView startAnimating];
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
+    [self.activityView stopAnimating];
     if (self.chapter)
     {
         [self jumpToChapter:self.chapter];

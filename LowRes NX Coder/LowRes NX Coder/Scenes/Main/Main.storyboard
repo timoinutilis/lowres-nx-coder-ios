@@ -36,7 +36,7 @@
                                 </variation>
                             </textView>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="kZb-hA-hPw">
-                                <rect key="frame" x="169" y="262" width="37" height="37"/>
+                                <rect key="frame" x="169" y="387.66666666666669" width="37" height="37"/>
                             </activityIndicatorView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WCW-HT-wOK" userLabel="Info View">
                                 <rect key="frame" x="0.0" y="134" width="375" height="40"/>
@@ -156,6 +156,7 @@
                         <constraints>
                             <constraint firstItem="Ls4-77-m9J" firstAttribute="trailing" secondItem="68W-Y2-mOw" secondAttribute="trailing" id="4TX-wE-KSd"/>
                             <constraint firstItem="68W-Y2-mOw" firstAttribute="bottom" secondItem="SjB-QF-tvR" secondAttribute="bottom" id="516-LG-7zb"/>
+                            <constraint firstItem="kZb-hA-hPw" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="61N-WR-8zy"/>
                             <constraint firstItem="Li9-mY-tbX" firstAttribute="top" secondItem="SjB-QF-tvR" secondAttribute="top" id="8KR-rX-vfA"/>
                             <constraint firstItem="WCW-HT-wOK" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="BaK-Pn-yke"/>
                             <constraint firstItem="WCW-HT-wOK" firstAttribute="top" secondItem="Riv-NM-enY" secondAttribute="bottom" id="CbC-ND-RQ2"/>
@@ -169,7 +170,6 @@
                             <constraint firstAttribute="trailing" secondItem="WCW-HT-wOK" secondAttribute="trailing" id="Mav-My-PAK"/>
                             <constraint firstAttribute="trailing" secondItem="Riv-NM-enY" secondAttribute="trailing" id="WE8-RS-JPv"/>
                             <constraint firstItem="Li9-mY-tbX" firstAttribute="bottom" secondItem="SjB-QF-tvR" secondAttribute="bottom" id="YTC-ne-kNv"/>
-                            <constraint firstItem="kZb-hA-hPw" firstAttribute="top" secondItem="WCW-HT-wOK" secondAttribute="bottom" constant="88" id="dZK-tI-VoU"/>
                             <constraint firstItem="68W-Y2-mOw" firstAttribute="leading" secondItem="Ls4-77-m9J" secondAttribute="leading" id="g20-Nj-yGe"/>
                             <constraint firstItem="kZb-hA-hPw" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="hIM-XM-RFI"/>
                             <constraint firstItem="Riv-NM-enY" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="nbk-4B-6nx"/>
@@ -409,20 +409,20 @@ The upgrade is valid for all your devices and without time limit.</string>
                         <rect key="frame" x="0.0" y="0.0" width="375" height="724"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <view key="tableHeaderView" contentMode="scaleToFill" id="LVT-MC-nf7">
+                        <view key="tableHeaderView" contentMode="scaleToFill" misplaced="YES" id="LVT-MC-nf7">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="200"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_about" translatesAutoresizingMaskIntoConstraints="NO" id="LfM-vY-AYb">
+                                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="icon_about" translatesAutoresizingMaskIntoConstraints="NO" id="LfM-vY-AYb">
                                     <rect key="frame" x="147.66666666666666" y="16" width="80" height="80"/>
                                 </imageView>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LOWRES NX CODER" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZfG-TZ-kA5" customClass="TextLabel">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="LOWRES NX CODER" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZfG-TZ-kA5" customClass="TextLabel">
                                     <rect key="frame" x="79" y="112" width="217" height="28"/>
                                     <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="24"/>
                                     <color key="textColor" red="0.0" green="0.0014800280332565308" blue="0.10033674538135529" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(Version x.x)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6zC-PQ-jSm" customClass="TextLabel">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="(Version x.x)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6zC-PQ-jSm" customClass="TextLabel">
                                     <rect key="frame" x="149.66666666666666" y="148" width="76" height="16"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                     <color key="textColor" red="0.0" green="0.0014800280332565308" blue="0.10033674538135529" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -440,12 +440,12 @@ The upgrade is valid for all your devices and without time limit.</string>
                                 <constraint firstAttribute="centerX" secondItem="6zC-PQ-jSm" secondAttribute="centerX" id="v47-JJ-vfC"/>
                             </constraints>
                         </view>
-                        <view key="tableFooterView" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" id="0Af-BT-7ZV">
+                        <view key="tableFooterView" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" id="0Af-BT-7ZV">
                             <rect key="frame" x="0.0" y="316" width="375" height="60"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g01-MB-aiJ">
-                                    <rect key="frame" x="8" y="16" width="359" height="36"/>
+                                    <rect key="frame" x="8" y="16" width="359" height="28.666666666666671"/>
                                     <string key="text">Developed by Timo Kloss
 Inutilis Software, 2017-2018</string>
                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
@@ -843,11 +843,17 @@ Inutilis Software, 2017-2018</string>
                                     </constraints>
                                 </collectionReusableView>
                             </collectionView>
+                            <activityIndicatorView hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="4B5-Tz-hRA">
+                                <rect key="frame" x="169" y="344" width="37" height="37"/>
+                                <color key="color" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="4B5-Tz-hRA" firstAttribute="centerY" secondItem="EsH-iL-o4a" secondAttribute="centerY" id="0L0-gA-5Z7"/>
                             <constraint firstItem="mgK-pS-p2l" firstAttribute="leading" secondItem="jSf-LH-K3l" secondAttribute="leading" id="FUe-gW-3JO"/>
                             <constraint firstItem="mgK-pS-p2l" firstAttribute="top" secondItem="EsH-iL-o4a" secondAttribute="top" id="K49-VT-C2N"/>
+                            <constraint firstItem="4B5-Tz-hRA" firstAttribute="centerX" secondItem="EsH-iL-o4a" secondAttribute="centerX" id="VrX-QR-N7k"/>
                             <constraint firstItem="jSf-LH-K3l" firstAttribute="trailing" secondItem="mgK-pS-p2l" secondAttribute="trailing" id="Xkz-Hc-gwP"/>
                             <constraint firstAttribute="bottom" secondItem="mgK-pS-p2l" secondAttribute="bottom" id="skS-Md-d4t"/>
                         </constraints>
@@ -856,6 +862,7 @@ Inutilis Software, 2017-2018</string>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="My Programs" id="qaN-Hc-taS"/>
                     <connections>
+                        <outlet property="activityView" destination="4B5-Tz-hRA" id="foP-Xt-RdS"/>
                         <outlet property="collectionView" destination="mgK-pS-p2l" id="mfe-ms-vYT"/>
                     </connections>
                 </viewController>

@@ -65,7 +65,7 @@
 
 - (void)initShortcutsBar
 {
-    NSArray *keys = @[@"=", @"<", @">", @"+", @"-", @"*", @"/", @"(", @")", @"\"", @"$", @":"];
+    NSArray *keys = @[@"=", @"<", @">", @"+", @"-", @"*", @"/", @"(", @")"];
     
     NSMutableArray *buttons = [NSMutableArray array];
     for (NSString *key in keys)
