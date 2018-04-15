@@ -20,6 +20,8 @@ class ExplorerViewController: UIViewController, UICollectionViewDelegateFlowLayo
     private var didAddProgramObserver: Any?
     private var queryDidFinishGatheringObserver: Any?
     private var queryDidUpdateObserver: Any?
+    private var willShowMenuObserver: Any?
+    private var didHideMenuObserver: Any?
     private var isVisible: Bool = false
     private var unassignedItems = [URL: ExplorerItem]()
     
@@ -84,12 +86,36 @@ class ExplorerViewController: UIViewController, UICollectionViewDelegateFlowLayo
         } else {
             metadataQuery?.enableUpdates()
         }
+        
+        willShowMenuObserver = NotificationCenter.default.addObserver(
+            forName: .UIMenuControllerWillShowMenu,
+            object: nil,
+            queue: nil
+        ) { [weak self] (notification) in
+            self?.metadataQuery?.disableUpdates()
+        }
+        didHideMenuObserver = NotificationCenter.default.addObserver(
+            forName: .UIMenuControllerDidHideMenu,
+            object: nil,
+            queue: nil
+        ) { [weak self] (notification) in
+            self?.metadataQuery?.enableUpdates()
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         isVisible = false
         metadataQuery?.disableUpdates()
+        
+        if willShowMenuObserver != nil {
+            NotificationCenter.default.removeObserver(willShowMenuObserver!)
+            willShowMenuObserver = nil
+        }
+        if didHideMenuObserver != nil {
+            NotificationCenter.default.removeObserver(didHideMenuObserver!)
+            didHideMenuObserver = nil
+        }
     }
     
     override func viewWillLayoutSubviews() {
@@ -443,7 +469,6 @@ class ExplorerViewController: UIViewController, UICollectionViewDelegateFlowLayo
             }
         }))
         present(alert, animated: true, completion: nil)
-        print("alert rename", item.name)
     }
     
     func explorerItemCell(_ cell: ExplorerItemCell, didSelectDelete item: ExplorerItem) {
@@ -462,7 +487,6 @@ class ExplorerViewController: UIViewController, UICollectionViewDelegateFlowLayo
             pop.sourceRect = cell.bounds
             pop.permittedArrowDirections = [.down, .up]
         }
-        print("alert delete", item.name)
     }
     
     //MARK: - NSMetadataQueryDelegate
