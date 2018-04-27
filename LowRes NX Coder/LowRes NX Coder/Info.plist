@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>LowRes NX</string>
+	<string>NX Dev</string>
 	<key>CFBundleDocumentTypes</key>
 	<array>
 		<dict>

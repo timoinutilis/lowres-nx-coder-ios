@@ -21,21 +21,14 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
     
     @IBOutlet private weak var exitButton: UIButton!
     @IBOutlet private weak var nxView: LowResNXView!
-    @IBOutlet private weak var containerView: UIView!
     @IBOutlet private weak var widthConstraint: NSLayoutConstraint!
-    @IBOutlet private weak var keyboardConstraint: NSLayoutConstraint!
-    @IBOutlet var gamepadConstraints: [NSLayoutConstraint]!
-    @IBOutlet weak var multiPlayerConstraint: NSLayoutConstraint!
     
-    @IBOutlet weak var p1Dpad: Dpad!
-    @IBOutlet weak var p1ButtonA: UIButton!
-    @IBOutlet weak var p1ButtonB: UIButton!
-    @IBOutlet weak var p1ButtonA2: UIButton!
-    @IBOutlet weak var p1ButtonB2: UIButton!
-    @IBOutlet weak var p2Dpad: Dpad!
-    @IBOutlet weak var p2ButtonA: UIButton!
-    @IBOutlet weak var p2ButtonB: UIButton!
-    @IBOutlet weak var pauseButton: UIButton!
+    @IBOutlet weak var leftButton: UIButton!
+    @IBOutlet weak var downButton: UIButton!
+    @IBOutlet weak var upButton: UIButton!
+    @IBOutlet weak var rightButton: UIButton!
+    @IBOutlet weak var aButton: UIButton!
+    @IBOutlet weak var bButton: UIButton!
     
     weak var delegate: LowResNXViewControllerDelegate?
     var document: ProjectDocument!
@@ -116,8 +109,6 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
         let displayLink = CADisplayLink(target: self, selector: #selector(update))
         self.displayLink = displayLink
         
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: .UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: .UIKeyboardWillHide, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(controllerDidConnect), name: .GCControllerDidConnect, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(controllerDidDisconnect), name: .GCControllerDidDisconnect, object: nil)
     }
@@ -146,6 +137,8 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
         if let error = compilerError {
             showError(error)
         }
+        
+        UIApplication.shared.isIdleTimerDisabled = true
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -155,6 +148,8 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
         
         diskDocument?.close(completionHandler: nil)
         diskDocument = nil
+        
+        UIApplication.shared.isIdleTimerDisabled = false
     }
     
     override var prefersStatusBarHidden: Bool {
@@ -174,22 +169,6 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
     
     override func preferredScreenEdgesDeferringSystemGestures() -> UIRectEdge {
         return .all
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
-        let screenWidth = containerView.bounds.size.width
-        let screenHeight = containerView.bounds.size.height
-        var maxWidthFactor: CGFloat
-        var maxHeightFactor: CGFloat
-        
-        // pixel exact scaling
-        let scale: CGFloat = view.window?.screen.scale ?? 1.0
-        maxWidthFactor = floor(screenWidth * scale / CGFloat(SCREEN_WIDTH)) / scale
-        maxHeightFactor = floor(screenHeight * scale / CGFloat(SCREEN_HEIGHT)) / scale
-        
-        widthConstraint.constant = (maxWidthFactor < maxHeightFactor) ? maxWidthFactor * CGFloat(SCREEN_WIDTH) : maxHeightFactor * CGFloat(SCREEN_WIDTH)
     }
     
     func compileAndStartProgram(sourceCode: String) -> LowResNXError? {
@@ -234,43 +213,6 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
     }
     
     func configureGameControllers() {
-        guard let coreWrapper = coreWrapper else {
-            return
-        }
-        
-        let numPlayers = Int(core_getNumGamepads(&coreWrapper.core))
-        
-        var numGameControllers = 0
-        
-        if SUPPORTS_GAME_CONTROLLERS {
-            let gameControllers = GCController.controllers()
-            for gameController in gameControllers {
-                gameController.playerIndex = GCControllerPlayerIndex(rawValue: numGameControllers)!
-                gameController.controllerPausedHandler = { [weak self] (controller) in
-                    if let coreWrapper = self?.coreWrapper {
-                        coreWrapper.input.pause = true
-                    }
-                }
-                numGameControllers += 1
-            }
-        }
-        
-        let numOnscreenGamepads = max(0, numPlayers - numGameControllers)
-        
-        p1Dpad.isHidden = numOnscreenGamepads < 1
-        p1ButtonA.isHidden = numOnscreenGamepads != 1
-        p1ButtonB.isHidden = numOnscreenGamepads != 1
-        p1ButtonA2.isHidden = numOnscreenGamepads < 2
-        p1ButtonB2.isHidden = numOnscreenGamepads < 2
-        p2Dpad.isHidden = numOnscreenGamepads < 2
-        p2ButtonA.isHidden = numOnscreenGamepads < 2
-        p2ButtonB.isHidden = numOnscreenGamepads < 2
-        pauseButton.isHidden = numOnscreenGamepads == 0
-        
-        for constraint in gamepadConstraints {
-            constraint.priority = UILayoutPriority(rawValue: numOnscreenGamepads > 0 ? 999 : 1)
-        }
-        multiPlayerConstraint.priority = UILayoutPriority(rawValue: numOnscreenGamepads > 1 ? 999 : 1)
     }
     
     func updateGameControllers() {
@@ -304,37 +246,16 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
             return
         }
         
-        let numGameControllers = SUPPORTS_GAME_CONTROLLERS ? GCController.controllers().count : 0
-        let numPlayers = Int(core_getNumGamepads(&coreWrapper.core))
-        let numOnscreenGamepads = numPlayers - numGameControllers
-        
-        if numOnscreenGamepads >= 1 {
-            core_setInputGamepad(&coreWrapper.input, Int32(numGameControllers),
-                                 p1Dpad.isDirUp, p1Dpad.isDirDown, p1Dpad.isDirLeft, p1Dpad.isDirRight,
-                                 p1ButtonA.isHighlighted || p1ButtonA2.isHighlighted,
-                                 p1ButtonB.isHighlighted || p1ButtonB2.isHighlighted)
-        }
-        
-        if numOnscreenGamepads >= 2 {
-            core_setInputGamepad(&coreWrapper.input, Int32(numGameControllers + 1),
-                                 p2Dpad.isDirUp, p2Dpad.isDirDown, p2Dpad.isDirLeft, p2Dpad.isDirRight,
-                                 p2ButtonA.isHighlighted,
-                                 p2ButtonB.isHighlighted)
-        }
+        core_setInputGamepad(&coreWrapper.input, Int32(0),
+                             upButton.isHighlighted, downButton.isHighlighted, leftButton.isHighlighted, rightButton.isHighlighted,
+                             aButton.isHighlighted,
+                             bButton.isHighlighted)
     }
     
     @objc func handleTap(sender: UITapGestureRecognizer) {
         if sender.state == .ended {
             becomeFirstResponder()
         }
-    }
-    
-    @IBAction func pauseTapped(_ sender: Any) {
-        guard let coreWrapper = coreWrapper else {
-            return
-        }
-        
-        coreWrapper.input.pause = true
     }
     
     override var canBecomeFirstResponder: Bool {
@@ -359,23 +280,6 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
             self.presentingViewController?.dismiss(animated: true, completion: nil)
         }))
         present(alert, animated: true, completion: nil)
-    }
-    
-    @objc func keyboardWillShow(_ notification: NSNotification) {
-        if let frameValue = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue {
-            let frame = frameValue.cgRectValue
-            keyboardConstraint.constant = view.bounds.size.height - frame.origin.y
-            UIView.animate(withDuration: 0.3, animations: { 
-                self.view.layoutIfNeeded()
-            })
-        }
-    }
-
-    @objc func keyboardWillHide(_ notification: NSNotification) {
-        keyboardConstraint.constant = 0
-        UIView.animate(withDuration: 0.3, animations: {
-            self.view.layoutIfNeeded()
-        })
     }
     
     @objc func controllerDidConnect(_ notification: NSNotification) {
