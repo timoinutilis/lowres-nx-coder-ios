@@ -31,15 +31,15 @@
 
     UIViewController *aboutVC = [self.storyboard instantiateViewControllerWithIdentifier:@"AboutNav"];
     
-//    UIStoryboard *communityStoryboard = [UIStoryboard storyboardWithName:@"Community" bundle:nil];
-//    UIViewController *communityVC = (UIViewController *)[communityStoryboard instantiateInitialViewController];
+    UIStoryboard *communityStoryboard = [UIStoryboard storyboardWithName:@"Community" bundle:nil];
+    UIViewController *communityVC = (UIViewController *)[communityStoryboard instantiateInitialViewController];
 
     explorerVC.tabBarItem = [self itemWithTitle:@"My Programs" imageName:@"programs"];
     helpVC.tabBarItem = [self itemWithTitle:@"Help" imageName:@"help"];
     aboutVC.tabBarItem = [self itemWithTitle:@"About" imageName:@"about"];
-//    communityVC.tabBarItem = [self itemWithTitle:@"Community" imageName:@"community"];
+    communityVC.tabBarItem = [self itemWithTitle:@"Community" imageName:@"community"];
     
-    self.viewControllers = @[explorerVC, helpVC, aboutVC/*, communityVC*/];
+    self.viewControllers = @[explorerVC, helpVC, aboutVC, communityVC];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationsNumChanged:) name:NotificationsNumChangeNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkShowPost:) name:ShowPostNotification object:nil];
@@ -77,7 +77,7 @@
 }
 
 - (void)updateCommunityBadge
-{/*
+{
     NSInteger num = [CommunityModel sharedInstance].numNewNotifications;
     UITabBarItem *item = self.tabBar.items[TabIndexCommunity];
     if (num > 0)
@@ -87,7 +87,7 @@
     else
     {
         item.badgeValue = nil;
-    }*/
+    }
 }
 
 - (void)dismissPresentedViewController:(void (^)(void))completion

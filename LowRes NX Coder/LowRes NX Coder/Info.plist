@@ -40,9 +40,11 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>LowResAPIClientID</key>
-	<string>T5VWaLW28x</string>
+	<string>LowResNXCoder-iOS</string>
 	<key>LowResAPIURL</key>
-	<string></string>
+	<string>https://lowresnxapi.timokloss.com</string>
+	<key>LowResNewsUserID</key>
+	<string>T5VWaLW28x</string>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSExceptionDomains</key>
