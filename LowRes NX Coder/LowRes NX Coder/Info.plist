@@ -44,18 +44,7 @@
 	<key>LowResAPIURL</key>
 	<string>https://lowresnxapi.timokloss.com</string>
 	<key>LowResNewsUserID</key>
-	<string>T5VWaLW28x</string>
-	<key>NSAppTransportSecurity</key>
-	<dict>
-		<key>NSExceptionDomains</key>
-		<dict>
-			<key>lowresfiles.timokloss.com</key>
-			<dict>
-				<key>NSExceptionAllowsInsecureHTTPLoads</key>
-				<true/>
-			</dict>
-		</dict>
-	</dict>
+	<string>h0Yz8BLVp7</string>
 	<key>NSUbiquitousContainers</key>
 	<dict>
 		<key>iCloud.com.inutilis.ios.LowRes-NX-Coder</key>
