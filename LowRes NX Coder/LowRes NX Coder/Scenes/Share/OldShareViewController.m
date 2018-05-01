@@ -18,7 +18,7 @@
 #import "ActionTableViewCell.h"
 #import "AppStyle.h"
 
-@interface ShareViewController ()
+@interface OldShareViewController ()
 
 @property ShareHeaderCell *headerCell;
 @property TextFieldTableViewCell *titleCell;
@@ -37,18 +37,7 @@
 
 @end
 
-@implementation ShareViewController
-
-+ (UIViewController *)createShareWithProject:(Project *)project
-{
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    ShareViewController *vc = (ShareViewController *)[storyboard instantiateViewControllerWithIdentifier:@"ShareView"];
-    vc.project = project;
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
-    nav.modalPresentationStyle = vc.modalPresentationStyle;
-    nav.modalTransitionStyle = vc.modalTransitionStyle;
-    return nav;
-}
+@implementation OldShareViewController
 
 - (void)viewDidLoad
 {

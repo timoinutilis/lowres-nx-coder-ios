@@ -228,11 +228,6 @@ NSString *const APIErrorTypeKey = @"APIErrorType";
         _follows = [NSMutableArray array];
         [[NSNotificationCenter defaultCenter] postNotificationName:FollowsLoadNotification object:self];
     }
-    
-    // update installation
-/*    PFInstallation *currentInstallation = [PFInstallation currentInstallation];
-    currentInstallation[@"user"] = [PFUser currentUser] ? [PFUser currentUser] : [NSNull null];
-    [currentInstallation saveInBackground];*/
 }
 
 - (void)sortFollows

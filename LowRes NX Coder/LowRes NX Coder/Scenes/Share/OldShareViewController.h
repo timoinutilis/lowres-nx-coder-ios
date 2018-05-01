@@ -10,11 +10,7 @@
 
 @class Project;
 
-@interface ShareViewController : GORMenuTableViewController
-
-@property Project *project;
-
-+ (UIViewController *)createShareWithProject:(Project *)project;
+@interface OldShareViewController : GORMenuTableViewController
 
 @end
 

@@ -58,6 +58,9 @@
 		920E1B701F78178D00664382 /* UIView+WebCacheOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 923AFD671F77E955002F6A5B /* UIView+WebCacheOperation.m */; };
 		920E1B731F781AC100664382 /* guidelines.html in Resources */ = {isa = PBXBuildFile; fileRef = 926EB1D51F757F5D0048A6CF /* guidelines.html */; };
 		921614301F7D70E2006AB2DE /* EditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9216142F1F7D70E2006AB2DE /* EditorViewController.swift */; };
+		921B0D892098D5F9001485DA /* ShareProgramActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921B0D882098D5F9001485DA /* ShareProgramActivity.swift */; };
+		921B0D8C2098DBE8001485DA /* Share.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 921B0D8B2098DBE8001485DA /* Share.storyboard */; };
+		921B0D8E2098DDF0001485DA /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921B0D8D2098DDF0001485DA /* ShareViewController.swift */; };
 		9227DC1E1FC8BB0700BC89FD /* ProjectManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9227DC1D1FC8BB0700BC89FD /* ProjectManager.swift */; };
 		9227DC221FC8C17A00BC89FD /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9227DC211FC8C17A00BC89FD /* SplashViewController.swift */; };
 		922F0A2A1FCCC172004EF2D2 /* programs in Resources */ = {isa = PBXBuildFile; fileRef = 922F0A291FCCC172004EF2D2 /* programs */; };
@@ -73,7 +76,6 @@
 		923AFD701F77EBBA002F6A5B /* LCCPostStats.m in Sources */ = {isa = PBXBuildFile; fileRef = 925CC67D1F7589420059C230 /* LCCPostStats.m */; };
 		923AFD711F77EBBC002F6A5B /* LCCUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 925CC6751F75893F0059C230 /* LCCUser.m */; };
 		923AFD721F77ED34002F6A5B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 926EB1D11F757DDD0048A6CF /* Main.storyboard */; };
-		923AFD781F77ED46002F6A5B /* ShareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 926EB1E51F75823E0048A6CF /* ShareViewController.m */; };
 		923AFD7A1F77ED46002F6A5B /* TabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 926EB1F01F7582510048A6CF /* TabBarController.m */; };
 		923AFD7B1F77ED46002F6A5B /* UpgradeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 926EB1E81F7582400048A6CF /* UpgradeViewController.m */; };
 		923AFD7C1F77ED52002F6A5B /* Help.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 926EB1FC1F7582A70048A6CF /* Help.storyboard */; };
@@ -158,6 +160,9 @@
 		920E1B191F77FF7A00664382 /* ExplorerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplorerViewController.swift; sourceTree = "<group>"; };
 		920E1B1B1F78000800664382 /* ExplorerItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplorerItemCell.swift; sourceTree = "<group>"; };
 		9216142F1F7D70E2006AB2DE /* EditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorViewController.swift; sourceTree = "<group>"; };
+		921B0D882098D5F9001485DA /* ShareProgramActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareProgramActivity.swift; sourceTree = "<group>"; };
+		921B0D8B2098DBE8001485DA /* Share.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Share.storyboard; sourceTree = "<group>"; };
+		921B0D8D2098DDF0001485DA /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
 		9227DC1D1FC8BB0700BC89FD /* ProjectManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManager.swift; sourceTree = "<group>"; };
 		9227DC211FC8C17A00BC89FD /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		922F0A291FCCC172004EF2D2 /* programs */ = {isa = PBXFileReference; lastKnownFileType = folder; name = programs; path = "LowRes NX Core/programs"; sourceTree = "<group>"; };
@@ -312,9 +317,9 @@
 		926EB1D91F757FAD0048A6CF /* UITableView+Parse.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UITableView+Parse.m"; sourceTree = "<group>"; };
 		926EB1DA1F757FAD0048A6CF /* UIViewController+LowResCoder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+LowResCoder.m"; sourceTree = "<group>"; };
 		926EB1E21F75823C0048A6CF /* TabBarController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TabBarController.h; sourceTree = "<group>"; };
-		926EB1E51F75823E0048A6CF /* ShareViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShareViewController.m; sourceTree = "<group>"; };
+		926EB1E51F75823E0048A6CF /* OldShareViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OldShareViewController.m; sourceTree = "<group>"; };
 		926EB1E81F7582400048A6CF /* UpgradeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UpgradeViewController.m; sourceTree = "<group>"; };
-		926EB1E91F7582410048A6CF /* ShareViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShareViewController.h; sourceTree = "<group>"; };
+		926EB1E91F7582410048A6CF /* OldShareViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OldShareViewController.h; sourceTree = "<group>"; };
 		926EB1EE1F7582500048A6CF /* UpgradeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UpgradeViewController.h; sourceTree = "<group>"; };
 		926EB1F01F7582510048A6CF /* TabBarController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TabBarController.m; sourceTree = "<group>"; };
 		926EB1F21F7582A30048A6CF /* HelpMasterNavController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HelpMasterNavController.h; sourceTree = "<group>"; };
@@ -433,6 +438,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		921B0D8A2098DBA8001485DA /* Share */ = {
+			isa = PBXGroup;
+			children = (
+				921B0D8B2098DBE8001485DA /* Share.storyboard */,
+				921B0D882098D5F9001485DA /* ShareProgramActivity.swift */,
+				921B0D8D2098DDF0001485DA /* ShareViewController.swift */,
+				926EB1E91F7582410048A6CF /* OldShareViewController.h */,
+				926EB1E51F75823E0048A6CF /* OldShareViewController.m */,
+			);
+			path = Share;
+			sourceTree = "<group>";
+		};
 		923AFD2F1F77E945002F6A5B /* AFNetworking */ = {
 			isa = PBXGroup;
 			children = (
@@ -616,6 +633,7 @@
 			isa = PBXGroup;
 			children = (
 				926EB1DD1F757FC90048A6CF /* Main */,
+				921B0D8A2098DBA8001485DA /* Share */,
 				9294F2E31FC4BA7300A90487 /* LowResNX */,
 				926EB1F11F7582660048A6CF /* Help */,
 				926EB1FD1F7582C60048A6CF /* Community */,
@@ -644,8 +662,6 @@
 				920E1B191F77FF7A00664382 /* ExplorerViewController.swift */,
 				920E1B1B1F78000800664382 /* ExplorerItemCell.swift */,
 				9216142F1F7D70E2006AB2DE /* EditorViewController.swift */,
-				926EB1E91F7582410048A6CF /* ShareViewController.h */,
-				926EB1E51F75823E0048A6CF /* ShareViewController.m */,
 				92A5248820697EDD00EDE7AF /* AboutViewController.swift */,
 				926EB1EE1F7582500048A6CF /* UpgradeViewController.h */,
 				926EB1E81F7582400048A6CF /* UpgradeViewController.m */,
@@ -977,6 +993,7 @@
 			files = (
 				920E1B731F781AC100664382 /* guidelines.html in Resources */,
 				923AFD721F77ED34002F6A5B /* Main.storyboard in Resources */,
+				921B0D8C2098DBE8001485DA /* Share.storyboard in Resources */,
 				922F0A2C1FCCC1FF004EF2D2 /* docs in Resources */,
 				920E1B481F7816FA00664382 /* ActivityView.xib in Resources */,
 				92EA93C51F744573007BEFB1 /* Assets.xcassets in Resources */,
@@ -1012,6 +1029,7 @@
 				923AFD7B1F77ED46002F6A5B /* UpgradeViewController.m in Sources */,
 				920E1B661F78178D00664382 /* SDWebImageDownloaderOperation.m in Sources */,
 				920E1B551F7816FA00664382 /* TextFieldTableViewCell.m in Sources */,
+				921B0D8E2098DDF0001485DA /* ShareViewController.swift in Sources */,
 				920E1B381F78024E00664382 /* GORMenuTableViewController.m in Sources */,
 				928402171F7448B500AC1466 /* core.c in Sources */,
 				923AFD981F77ED71002F6A5B /* CommSplitViewController.m in Sources */,
@@ -1026,6 +1044,7 @@
 				923AFD941F77ED71002F6A5B /* CommLogInViewController.m in Sources */,
 				923AFD961F77ED71002F6A5B /* CommPostViewController.m in Sources */,
 				920E1B581F78177600664382 /* AFHTTPSessionManager.m in Sources */,
+				921B0D892098D5F9001485DA /* ShareProgramActivity.swift in Sources */,
 				920E1B5C1F78177600664382 /* AFURLResponseSerialization.m in Sources */,
 				920E1B5A1F78177600664382 /* AFSecurityPolicy.m in Sources */,
 				923AFD911F77ED71002F6A5B /* CommDetailViewController.m in Sources */,
@@ -1125,7 +1144,6 @@
 				920E1B591F78177600664382 /* AFNetworkReachabilityManager.m in Sources */,
 				920E1B621F78178D00664382 /* SDImageCacheConfig.m in Sources */,
 				920E1B4E1F7816FA00664382 /* EditorTextView.m in Sources */,
-				923AFD781F77ED46002F6A5B /* ShareViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

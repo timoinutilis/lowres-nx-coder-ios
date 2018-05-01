@@ -344,7 +344,7 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
                 if !success {
                     self.showAlert(withTitle: "Could Not Save Program", message: nil, block: nil)
                 } else {
-                    let activityVC = UIActivityViewController(activityItems: [self.document.fileURL], applicationActivities: nil)
+                    let activityVC = UIActivityViewController(activityItems: [self.document.fileURL], applicationActivities: [ShareProgramActivity()])
                     activityVC.popoverPresentationController?.barButtonItem = sender as? UIBarButtonItem
                     self.present(activityVC, animated: true, completion: nil)
                 }
