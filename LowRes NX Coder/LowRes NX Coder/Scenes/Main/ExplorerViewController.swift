@@ -46,7 +46,7 @@ class ExplorerViewController: UIViewController, UICollectionViewDelegateFlowLayo
         }
         
         didAddProgramObserver = NotificationCenter.default.addObserver(forName: NSNotification.Name.ProjectManagerDidAddProgram, object: nil, queue: nil) { (notification) in
-            let item: ExplorerItem! = notification.userInfo!["item"] as! ExplorerItem!
+            let item: ExplorerItem! = notification.userInfo!["item"] as! ExplorerItem?
             self.unassignedItems[item.fileUrl] = item
             self.addedItem = item
             if self.isVisible {

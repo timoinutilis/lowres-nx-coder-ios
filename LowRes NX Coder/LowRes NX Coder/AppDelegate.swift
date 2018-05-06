@@ -19,7 +19,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         SKPaymentQueue.default().add(AppController.shared())
         
         AppStyle.setAppearance()
-
+        
+        // Eureka
+        Form.defaultNavigationOptions = .Disabled
+        
         return true
     }
 

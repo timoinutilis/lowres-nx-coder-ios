@@ -70,12 +70,12 @@ typedef NS_ENUM(NSInteger, Section) {
         UIBarButtonItem *doneItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(onDoneTapped:)];
         [items addObject:doneItem];
     }
-    if (   self.post.title == nil // opened from editor, so it's a program
-        || self.post.type == LCCPostTypeProgram)
-    {
-        UIBarButtonItem *actionItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(onActionTapped:)];
-        [items addObject:actionItem];
-    }
+//    if (   self.post.title == nil // opened from editor, so it's a program
+//        || self.post.type == LCCPostTypeProgram)
+//    {
+//        UIBarButtonItem *actionItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(onActionTapped:)];
+//        [items addObject:actionItem];
+//    }
     self.navigationItem.rightBarButtonItems = items;
 
     self.tableView.rowHeight = UITableViewAutomaticDimension;

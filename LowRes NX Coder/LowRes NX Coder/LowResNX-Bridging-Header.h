@@ -21,3 +21,5 @@
 #import "SearchToolbar.h"
 #import "BlockerView.h"
 #import "GORLabel.h"
+
+#import "CommLogInViewController.h"

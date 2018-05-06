@@ -27,7 +27,7 @@ class ShareProgramActivity: UIActivity {
     }
     
     override var activityImage: UIImage? {
-        return #imageLiteral(resourceName: "icon_about")
+        return #imageLiteral(resourceName: "communitysel")
     }
     
     override func canPerform(withActivityItems activityItems: [Any]) -> Bool {
@@ -37,10 +37,11 @@ class ShareProgramActivity: UIActivity {
     override func prepare(withActivityItems activityItems: [Any]) {
         let programUrl = activityItems.first as! URL
         
-        let storyboard = UIStoryboard(name: "Share", bundle: nil)
-        let nav = storyboard.instantiateInitialViewController() as! UINavigationController
-        let vc = nav.topViewController as! ShareViewController
+        let vc = ShareViewController(style: .grouped)
         vc.setup(activity: self, programUrl: programUrl)
+        
+        let nav = UINavigationController(rootViewController: vc)
+        
         shareViewController = nav
     }
     
