@@ -22,10 +22,10 @@ class ShareViewController: LowResFormViewController {
     }
     
     override func viewDidLoad() {
-        super.viewDidLoad()
-        
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(onCancelTapped))
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Post", style: .done, target: self, action: #selector(onPostTapped))
+        
+        super.viewDidLoad()
         
         let titleSection = Section("Title")
         form.append(titleSection)
@@ -87,6 +87,7 @@ class ShareViewController: LowResFormViewController {
             let imageData = try Data(contentsOf: imageUrl)
             let programData = try Data(contentsOf: programUrl)
             
+            isBusy = true
             CommunityModel.sharedInstance().uploadFile(withName: imageUrl.lastPathComponent, data: imageData) { (url, error) in
                 if let serverImageUrl = url {
                     CommunityModel.sharedInstance().uploadFile(withName: self.programUrl.lastPathComponent, data: programData, completion: { (url, error) in
@@ -105,19 +106,24 @@ class ShareViewController: LowResFormViewController {
                             CommunityModel.sharedInstance().sessionManager.post(route, parameters: params, progress: nil, success: { (task, response) in
                                 self.activity.activityDidFinish(true)
                             }, failure: { (task, error) in
-                                // error
+                                self.showSendError(error)
                             })
                         } else {
-                            // error
+                            self.showSendError(error)
                         }
                     })
                 } else {
-                    // error
+                    self.showSendError(error)
                 }
             }
         } catch {
-            // error
+            showSendError(error)
         }
+    }
+    
+    private func showSendError(_ error: Error?) {
+        isBusy = false
+        CommunityModel.sharedInstance().handleAPIError(error, title: "Could Not Send Program", viewController: self)
     }
     
     @objc func onCancelTapped(_ sender: Any) {
