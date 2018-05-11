@@ -8,7 +8,7 @@
 
 #import "CommSourceCodeViewController.h"
 #import "CommunityModel.h"
-#import "UIViewController+CommUtils.h"
+#import "LowRes_NX_Coder-Swift.h"
 #import "AppStyle.h"
 #import "ActivityView.h"
 
@@ -39,9 +39,11 @@
     self.activityView.state = ActivityStateBusy;
     self.downloadButton.enabled = NO;
     
-    [self.post loadSourceCodeWithCompletion:^(NSString *sourceCode, NSError *error) {
-        if (sourceCode)
+    [self.post loadSourceCodeWithCompletion:^(NSData *programData, NSError *error) {
+        if (programData)
         {
+            NSString *sourceCode = [[NSString alloc] initWithData:programData encoding:NSUTF8StringEncoding];
+            
             self.activityView.state = ActivityStateReady;
             [self.activityView removeFromSuperview];
             self.textView.text = sourceCode;

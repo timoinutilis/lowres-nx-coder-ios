@@ -97,7 +97,6 @@
 		923AFD991F77ED71002F6A5B /* CommStatusUpdateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 925CC5221F75876C0059C230 /* CommStatusUpdateViewController.m */; };
 		923AFD9A1F77ED71002F6A5B /* CommUsersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 925CC52B1F75876D0059C230 /* CommUsersViewController.m */; };
 		923AFD9B1F77ED71002F6A5B /* NotificationsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 925CC5281F75876D0059C230 /* NotificationsViewController.m */; };
-		923AFD9C1F77ED71002F6A5B /* UIViewController+CommUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 925CC5251F75876D0059C230 /* UIViewController+CommUtils.m */; };
 		923C311020587965003C89AC /* ToolsMenuConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 923C310F20587965003C89AC /* ToolsMenuConfiguration.swift */; };
 		924AB3F2205D986C00BCF977 /* IndexSideBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 924AB3F1205D986B00BCF977 /* IndexSideBar.swift */; };
 		925CC6B81F758A120059C230 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 925CC6B71F758A120059C230 /* StoreKit.framework */; };
@@ -142,6 +141,7 @@
 		9294F2E01FC4B9A600A90487 /* LowResNXViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9294F2DF1FC4B9A600A90487 /* LowResNXViewController.swift */; };
 		9294F2E21FC4BA1100A90487 /* CoreWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9294F2E11FC4BA1100A90487 /* CoreWrapper.swift */; };
 		92A5248920697EDE00EDE7AF /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A5248820697EDD00EDE7AF /* AboutViewController.swift */; };
+		92B8DD0F20A60638003E7331 /* UIViewController+CommUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B8DD0E20A60638003E7331 /* UIViewController+CommUtils.swift */; };
 		92C949E2209DC2B7005D6CB6 /* CellType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C9499A209DC2B7005D6CB6 /* CellType.swift */; };
 		92C949E3209DC2B7005D6CB6 /* Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C9499B209DC2B7005D6CB6 /* Cell.swift */; };
 		92C949E4209DC2B7005D6CB6 /* InlineRowType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C9499C209DC2B7005D6CB6 /* InlineRowType.swift */; };
@@ -289,7 +289,6 @@
 		92483F7C1F7C2A4300E6D476 /* LowRes NX Coder.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "LowRes NX Coder.entitlements"; sourceTree = "<group>"; };
 		924AB3F1205D986B00BCF977 /* IndexSideBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndexSideBar.swift; sourceTree = "<group>"; };
 		925CC5141F75876B0059C230 /* CommLogInViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommLogInViewController.m; sourceTree = "<group>"; };
-		925CC5151F75876B0059C230 /* UIViewController+CommUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIViewController+CommUtils.h"; sourceTree = "<group>"; };
 		925CC5161F75876B0059C230 /* CommUsersViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommUsersViewController.h; sourceTree = "<group>"; };
 		925CC5171F75876B0059C230 /* Community.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Community.storyboard; sourceTree = "<group>"; };
 		925CC5181F75876B0059C230 /* CommSourceCodeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommSourceCodeViewController.m; sourceTree = "<group>"; };
@@ -305,7 +304,6 @@
 		925CC5221F75876C0059C230 /* CommStatusUpdateViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommStatusUpdateViewController.m; sourceTree = "<group>"; };
 		925CC5231F75876C0059C230 /* CommSplitViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommSplitViewController.m; sourceTree = "<group>"; };
 		925CC5241F75876D0059C230 /* CommMasterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommMasterViewController.m; sourceTree = "<group>"; };
-		925CC5251F75876D0059C230 /* UIViewController+CommUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+CommUtils.m"; sourceTree = "<group>"; };
 		925CC5261F75876D0059C230 /* CommEditUserViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommEditUserViewController.m; sourceTree = "<group>"; };
 		925CC5271F75876D0059C230 /* CommGuidelinesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommGuidelinesViewController.h; sourceTree = "<group>"; };
 		925CC5281F75876D0059C230 /* NotificationsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotificationsViewController.m; sourceTree = "<group>"; };
@@ -472,6 +470,7 @@
 		9294F2DF1FC4B9A600A90487 /* LowResNXViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LowResNXViewController.swift; sourceTree = "<group>"; };
 		9294F2E11FC4BA1100A90487 /* CoreWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreWrapper.swift; sourceTree = "<group>"; };
 		92A5248820697EDD00EDE7AF /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
+		92B8DD0E20A60638003E7331 /* UIViewController+CommUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+CommUtils.swift"; sourceTree = "<group>"; };
 		92C9499A209DC2B7005D6CB6 /* CellType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellType.swift; sourceTree = "<group>"; };
 		92C9499B209DC2B7005D6CB6 /* Cell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cell.swift; sourceTree = "<group>"; };
 		92C9499C209DC2B7005D6CB6 /* InlineRowType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InlineRowType.swift; sourceTree = "<group>"; };
@@ -848,8 +847,7 @@
 				925CC52B1F75876D0059C230 /* CommUsersViewController.m */,
 				925CC5211F75876C0059C230 /* NotificationsViewController.h */,
 				925CC5281F75876D0059C230 /* NotificationsViewController.m */,
-				925CC5151F75876B0059C230 /* UIViewController+CommUtils.h */,
-				925CC5251F75876D0059C230 /* UIViewController+CommUtils.m */,
+				92B8DD0E20A60638003E7331 /* UIViewController+CommUtils.swift */,
 			);
 			path = Community;
 			sourceTree = "<group>";
@@ -1292,6 +1290,7 @@
 				923AFD811F77ED52002F6A5B /* HelpTextViewController.m in Sources */,
 				920E1B371F78024E00664382 /* GORLabel.m in Sources */,
 				92C94A01209DC2B8005D6CB6 /* SliderRow.swift in Sources */,
+				92B8DD0F20A60638003E7331 /* UIViewController+CommUtils.swift in Sources */,
 				920E1B571F7816FA00664382 /* TextViewTableViewCell.m in Sources */,
 				928402271F7448B500AC1466 /* interpreter_utils.c in Sources */,
 				92C949F2209DC2B8005D6CB6 /* SelectableRowType.swift in Sources */,
@@ -1317,7 +1316,6 @@
 				92C94A02209DC2B8005D6CB6 /* LabelRow.swift in Sources */,
 				923AFD981F77ED71002F6A5B /* CommSplitViewController.m in Sources */,
 				92C949EE209DC2B8005D6CB6 /* Validation.swift in Sources */,
-				923AFD9C1F77ED71002F6A5B /* UIViewController+CommUtils.m in Sources */,
 				9294F2E01FC4B9A600A90487 /* LowResNXViewController.swift in Sources */,
 				92C94A0F209DC2B8005D6CB6 /* Protocols.swift in Sources */,
 				923AFD6B1F77EBAC002F6A5B /* APIURLCache.m in Sources */,

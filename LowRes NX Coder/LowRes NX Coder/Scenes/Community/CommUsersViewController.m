@@ -10,7 +10,7 @@
 #import "CommunityModel.h"
 #import "CommDetailViewController.h"
 #import "UIViewController+LowResCoder.h"
-#import "UIViewController+CommUtils.h"
+#import "LowRes_NX_Coder-Swift.h"
 #import "UITableView+Parse.h"
 #import "ActivityView.h"
 

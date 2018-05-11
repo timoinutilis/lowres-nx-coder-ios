@@ -12,7 +12,7 @@
 #import "CommSourceCodeViewController.h"
 #import "CommDetailViewController.h"
 #import "CommLogInViewController.h"
-#import "UIViewController+CommUtils.h"
+#import "LowRes_NX_Coder-Swift.h"
 #import "UIViewController+LowResCoder.h"
 #import "NSString+Utils.h"
 #import "AppController.h"

@@ -14,7 +14,7 @@
 #import "CommEditUserViewController.h"
 #import "CommLogInViewController.h"
 #import "UIViewController+LowResCoder.h"
-#import "UIViewController+CommUtils.h"
+#import "LowRes_NX_Coder-Swift.h"
 #import "AppController.h"
 #import "GORCycleManager.h"
 #import "UITableView+Parse.h"

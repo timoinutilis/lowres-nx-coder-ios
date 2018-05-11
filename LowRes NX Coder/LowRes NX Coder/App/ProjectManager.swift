@@ -106,15 +106,18 @@ class ProjectManager: NSObject {
     
     func addNewProject(existingItems: [ExplorerItem], completion: @escaping ((Error?) -> Void)) {
         let name = newProgramName(existingItems: existingItems)
-        let url = localDocumentsUrl.appendingPathComponent(name)
-        
+        addProject(name: name, programData: nil, completion: completion)
+    }
+    
+    func addProject(name: String, programData: Data?, completion: @escaping ((Error?) -> Void)) {
+        let programUrl = localDocumentsUrl.appendingPathComponent(name).appendingPathExtension("nx")
         DispatchQueue.global().async {
             let fileCoordinator = NSFileCoordinator()
             var resultItem: ExplorerItem?
             var resultError: Error?
             var coordError: NSError?
-            fileCoordinator.coordinate(writingItemAt: url, options: .forReplacing, error: &coordError) { (url) in
-                if FileManager.default.createFile(atPath: url.path, contents: nil, attributes: nil) {
+            fileCoordinator.coordinate(writingItemAt: programUrl, options: .forReplacing, error: &coordError) { (url) in
+                if FileManager.default.createFile(atPath: url.path, contents: programData, attributes: nil) {
                     let item = ExplorerItem(fileUrl: url)
                     if self.isCloudEnabled {
                         do {
@@ -141,16 +144,16 @@ class ProjectManager: NSObject {
     }
     
     private func newProgramName(existingItems: [ExplorerItem]) -> String {
-        var name = "Unnamed Program.nx"
+        var name = "Unnamed Program"
         var ok = false
         var count = 1
         repeat {
             ok = true
             for item in existingItems {
-                if item.fileUrl.lastPathComponent.lowercased() == name.lowercased() {
+                if item.fileUrl.lastPathComponent.lowercased() == name.lowercased() + ".nx" {
                     ok = false
                     count += 1
-                    name = "Unnamed Program \(count).nx"
+                    name = "Unnamed Program \(count)"
                     break
                 }
             }

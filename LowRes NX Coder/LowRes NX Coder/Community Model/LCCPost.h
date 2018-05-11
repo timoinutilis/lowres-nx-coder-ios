@@ -33,7 +33,7 @@ typedef NS_ENUM(int, LCCPostCategory) {
     LCCPostCategoryForumDiscussion
 };
 
-typedef void (^LCCPostLoadSourceCodeBlock)(NSString *sourceCode, NSError *error);
+typedef void (^LCCPostLoadSourceCodeBlock)(NSData *programData, NSError *error);
 
 @interface LCCPost : APIObject
 

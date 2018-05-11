@@ -10,7 +10,7 @@
 #import "CommunityModel.h"
 
 @interface LCCPost()
-@property (nonatomic) NSString *sourceCode;
+@property (nonatomic) NSData *programData;
 @property (nonatomic) BOOL isLoadingSourceCode;
 @property (nonatomic) NSMutableArray<LCCPostLoadSourceCodeBlock> *blocks;
 @end
@@ -52,7 +52,7 @@
 
 - (BOOL)isSourceCodeLoaded
 {
-    return self.sourceCode != nil;
+    return self.programData != nil;
 }
 
 - (BOOL)isShared
@@ -62,9 +62,9 @@
 
 - (void)loadSourceCodeWithCompletion:(LCCPostLoadSourceCodeBlock)block
 {
-    if (self.sourceCode)
+    if (self.programData)
     {
-        block(self.sourceCode, nil);
+        block(self.programData, nil);
     }
     else
     {
@@ -81,9 +81,10 @@
             [[session dataTaskWithURL:self.program completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    if (response)
+                    NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
+                    if (httpResponse && httpResponse.statusCode == 200)
                     {
-                        self.sourceCode = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                        self.programData = data;
                     }
                     else
                     {
@@ -91,7 +92,7 @@
                     }
                     for (LCCPostLoadSourceCodeBlock block in self.blocks)
                     {
-                        block(self.sourceCode, error);
+                        block(self.programData, error);
                     }
                     self.blocks = nil;
                 });

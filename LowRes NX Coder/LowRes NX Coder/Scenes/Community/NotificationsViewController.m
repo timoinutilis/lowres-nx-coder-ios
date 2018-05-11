@@ -9,7 +9,7 @@
 #import "NotificationsViewController.h"
 #import "CommunityModel.h"
 #import "UIViewController+LowResCoder.h"
-#import "UIViewController+CommUtils.h"
+#import "LowRes_NX_Coder-Swift.h"
 #import "CommPostViewController.h"
 #import "CommDetailViewController.h"
 #import "AppStyle.h"
