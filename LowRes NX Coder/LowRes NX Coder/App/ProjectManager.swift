@@ -104,12 +104,8 @@ class ProjectManager: NSObject {
         }
     }
     
-    func addNewProject(existingItems: [ExplorerItem], completion: @escaping ((Error?) -> Void)) {
-        let name = newProgramName(existingItems: existingItems)
-        addProject(name: name, programData: nil, completion: completion)
-    }
-    
-    func addProject(name: String, programData: Data?, completion: @escaping ((Error?) -> Void)) {
+    func addProject(originalName: String, programData: Data?, completion: @escaping ((Error?) -> Void)) {
+        let name = availableProgramName(original: originalName)
         let programUrl = localDocumentsUrl.appendingPathComponent(name).appendingPathExtension("nx")
         DispatchQueue.global().async {
             let fileCoordinator = NSFileCoordinator()
@@ -143,19 +139,26 @@ class ProjectManager: NSObject {
         }
     }
     
-    private func newProgramName(existingItems: [ExplorerItem]) -> String {
-        var name = "Unnamed Program"
+    private func availableProgramName(original: String) -> String {
+        var name = original
         var ok = false
         var count = 1
         repeat {
             ok = true
-            for item in existingItems {
-                if item.fileUrl.lastPathComponent.lowercased() == name.lowercased() + ".nx" {
-                    ok = false
-                    count += 1
-                    name = "Unnamed Program \(count)"
-                    break
+            let localUrl = localDocumentsUrl.appendingPathComponent(name).appendingPathExtension("nx")
+            var existsInCloud = false
+            if let ubiquitousDocumentsUrl = ubiquitousDocumentsUrl {
+                let cloudUrl = ubiquitousDocumentsUrl.appendingPathComponent(name).appendingPathExtension("nx")
+                if FileManager.default.fileExists(atPath: cloudUrl.path) {
+                    existsInCloud = true
+                } else {
+                    existsInCloud = FileManager.default.isUbiquitousItem(at: cloudUrl)
                 }
+            }
+            if FileManager.default.fileExists(atPath: localUrl.path) || existsInCloud {
+                ok = false
+                count += 1
+                name = "\(original) (\(count))"
             }
         } while !ok
         return name

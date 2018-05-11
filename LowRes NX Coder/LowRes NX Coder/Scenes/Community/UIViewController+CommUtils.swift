@@ -39,7 +39,7 @@ extension UIViewController {
             BlockerView.dismiss()
             
             if let programData = programData {
-                ProjectManager.shared.addProject(name: post.title, programData: programData, completion: { (error) in
+                ProjectManager.shared.addProject(originalName: post.title, programData: programData, completion: { (error) in
                     if let error = error {
                         self.showAlert(withTitle: "Could Not Save Program", message: error.localizedDescription, block: nil)
                     } else {
