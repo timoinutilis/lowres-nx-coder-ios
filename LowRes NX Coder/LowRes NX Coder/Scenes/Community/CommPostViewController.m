@@ -276,7 +276,7 @@ typedef NS_ENUM(NSInteger, Section) {
 
 - (IBAction)onGetProgramTapped:(id)sender
 {
-    [self onGetProgramTappedWithPost:self.post];
+    [self addProgramOf:self.post];
 }
 
 - (IBAction)onShareTapped:(id)sender

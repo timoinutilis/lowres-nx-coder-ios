@@ -102,4 +102,26 @@
     }
 }
 
+- (void)loadImageWithCompletion:(LCCPostLoadImageBlock)block
+{
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+    
+    [[session dataTaskWithURL:self.image completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
+            if (httpResponse && httpResponse.statusCode == 200)
+            {
+                block(data, nil);
+            }
+            else
+            {
+                block(nil, error);
+                NSLog(@"Error: %@", error.localizedDescription);
+            }
+        });
+        
+    }] resume];
+}
+
 @end

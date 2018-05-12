@@ -104,7 +104,7 @@ class ProjectManager: NSObject {
         }
     }
     
-    func addProject(originalName: String, programData: Data?, completion: @escaping ((Error?) -> Void)) {
+    func addProject(originalName: String, programData: Data?, imageData: Data?, completion: @escaping ((Error?) -> Void)) {
         let name = availableProgramName(original: originalName)
         let programUrl = localDocumentsUrl.appendingPathComponent(name).appendingPathExtension("nx")
         DispatchQueue.global().async {
@@ -112,6 +112,7 @@ class ProjectManager: NSObject {
             var resultItem: ExplorerItem?
             var resultError: Error?
             var coordError: NSError?
+            // program
             fileCoordinator.coordinate(writingItemAt: programUrl, options: .forReplacing, error: &coordError) { (url) in
                 if FileManager.default.createFile(atPath: url.path, contents: programData, attributes: nil) {
                     let item = ExplorerItem(fileUrl: url)
@@ -127,6 +128,23 @@ class ProjectManager: NSObject {
                     }
                 }
             }
+            // image
+            if let imageData = imageData, let resultItem = resultItem {
+                let imageUrl = resultItem.imageUrl
+                let fileCoordinator = NSFileCoordinator()
+                var coordError: NSError?
+                fileCoordinator.coordinate(writingItemAt: imageUrl, options: .forReplacing, error: &coordError) { (url) in
+                    do {
+                        try imageData.write(to: url)
+                    } catch {
+                        print("addProject icon:", error.localizedDescription)
+                    }
+                }
+                if let error = coordError {
+                    print("addProject icon:", error.localizedDescription)
+                }
+            }
+            
             if resultItem == nil && coordError != nil {
                 resultError = coordError
             }

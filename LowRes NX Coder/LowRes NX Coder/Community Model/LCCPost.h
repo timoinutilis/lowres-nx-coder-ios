@@ -34,6 +34,7 @@ typedef NS_ENUM(int, LCCPostCategory) {
 };
 
 typedef void (^LCCPostLoadSourceCodeBlock)(NSData *programData, NSError *error);
+typedef void (^LCCPostLoadImageBlock)(NSData *imageData, NSError *error);
 
 @interface LCCPost : APIObject
 
@@ -52,6 +53,7 @@ typedef void (^LCCPostLoadSourceCodeBlock)(NSData *programData, NSError *error);
 
 - (NSString *)categoryString;
 - (void)loadSourceCodeWithCompletion:(LCCPostLoadSourceCodeBlock)block;
+- (void)loadImageWithCompletion:(LCCPostLoadImageBlock)block;
 
 
 @end
