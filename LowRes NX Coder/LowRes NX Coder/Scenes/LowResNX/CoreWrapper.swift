@@ -21,6 +21,7 @@ class CoreWrapper: NSObject {
     
     var core = Core()
     var input = CoreInput()
+    private(set) var sourceCode: String?
     private var coreDelegate = CoreDelegate()
     
     override init() {
@@ -39,6 +40,16 @@ class CoreWrapper: NSObject {
         core_deinit(&core)
     }
     
+    func compileProgram(sourceCode: String) -> LowResNXError? {
+        self.sourceCode = sourceCode
+        let cString = sourceCode.cString(using: .utf8)
+        let error = itp_compileProgram(&core, cString)
+        if error.code != ErrorNone {
+            return LowResNXError(error: error, sourceCode: sourceCode)
+        }
+        return nil
+    }
+    
 }
 
 class LowResNXError: NSError {
@@ -49,7 +60,7 @@ class LowResNXError: NSError {
     
     init(error: CoreError, sourceCode: String) {
         coreError = error
-        let index = sourceCode.index(sourceCode.startIndex, offsetBy: String.IndexDistance(error.sourcePosition))
+        let index = sourceCode.index(sourceCode.startIndex, offsetBy: Int(error.sourcePosition))
         let lineRange = sourceCode.lineRange(for: index ..< index)
         line = sourceCode[lineRange].trimmingCharacters(in: CharacterSet.whitespaces)
         message = String(cString:err_getString(error.code))

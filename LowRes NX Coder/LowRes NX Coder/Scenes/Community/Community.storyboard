@@ -530,60 +530,21 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="ProgramTitleCell" rowHeight="259" id="Vn2-wd-us1" customClass="ProgramTitleCell">
-                                <rect key="frame" x="0.0" y="55.5" width="320" height="259"/>
+                            <tableViewCell contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="ProgramTitleCell" rowHeight="334" id="Vn2-wd-us1" customClass="ProgramTitleCell">
+                                <rect key="frame" x="0.0" y="55.5" width="320" height="334"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" tableViewCell="Vn2-wd-us1" id="xPQ-5C-B44">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="258.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="333.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="saM-rf-vcT" customClass="BorderedButton">
-                                            <rect key="frame" x="16" y="237" width="30" height="11"/>
-                                            <state key="normal" title="Like">
-                                                <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            </state>
-                                            <connections>
-                                                <action selector="onLikeTapped:" destination="gW4-UF-hxM" eventType="touchUpInside" id="bS8-sO-Fwc"/>
-                                            </connections>
-                                        </button>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="..." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DfN-KT-w2b" customClass="TextLabel">
-                                            <rect key="frame" x="54" y="230" width="13" height="18"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="..." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UPg-iD-XA3" customClass="TextLabel">
-                                            <rect key="frame" x="237" y="230" width="13" height="18"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FUY-dp-hIg" customClass="BorderedButton">
-                                            <rect key="frame" x="160" y="224" width="69" height="30"/>
-                                            <state key="normal" title="Download">
-                                                <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            </state>
-                                            <connections>
-                                                <action selector="onGetProgramTapped:" destination="gW4-UF-hxM" eventType="touchUpInside" id="Qza-iC-e8c"/>
-                                            </connections>
-                                        </button>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lcG-mw-mbJ" customClass="BorderedButton">
-                                            <rect key="frame" x="264" y="224" width="40" height="30"/>
-                                            <state key="normal" title="Share">
-                                                <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            </state>
-                                            <connections>
-                                                <action selector="onShareTapped:" destination="gW4-UF-hxM" eventType="touchUpInside" id="oOE-lC-6LS"/>
-                                            </connections>
-                                        </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalCompressionResistancePriority="751" text="00/00/2050" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R3Z-Hy-44D" customClass="TextLabel">
-                                            <rect key="frame" x="16" y="215" width="63" height="14"/>
+                                            <rect key="frame" x="16" y="214.5" width="63" height="13.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="751" scrollEnabled="NO" editable="NO" text="Detail" translatesAutoresizingMaskIntoConstraints="NO" id="QZ4-NA-GcW">
-                                            <rect key="frame" x="16" y="163" width="288" height="36"/>
+                                            <rect key="frame" x="16" y="163" width="288" height="35.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             <dataDetectorType key="dataDetectorTypes" link="YES"/>
@@ -603,6 +564,83 @@
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="753" verticalHuggingPriority="753" horizontalCompressionResistancePriority="752" verticalCompressionResistancePriority="752" image="star" translatesAutoresizingMaskIntoConstraints="NO" id="bNm-vY-F1R">
                                             <rect key="frame" x="276" y="11" width="28" height="28"/>
                                         </imageView>
+                                        <stackView opaque="NO" contentMode="scaleToFill" spacing="32" translatesAutoresizingMaskIntoConstraints="NO" id="KTw-y6-ggz">
+                                            <rect key="frame" x="16" y="236" width="387" height="70"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JAq-3f-sUX" customClass="FilledButton" customModule="LowRes_NX_Coder" customModuleProvider="target">
+                                                    <rect key="frame" x="0.0" y="0.0" width="30" height="70"/>
+                                                    <state key="normal" title="Play"/>
+                                                    <connections>
+                                                        <action selector="onPlayTapped:" destination="gW4-UF-hxM" eventType="touchUpInside" id="kL6-hy-f0D"/>
+                                                    </connections>
+                                                </button>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VkR-b2-gxq">
+                                                    <rect key="frame" x="62" y="0.0" width="91" height="70"/>
+                                                    <subviews>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="saM-rf-vcT" customClass="BorderedButton">
+                                                            <rect key="frame" x="0.0" y="0.0" width="70" height="70"/>
+                                                            <state key="normal" title="Like">
+                                                                <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            </state>
+                                                            <connections>
+                                                                <action selector="onLikeTapped:" destination="gW4-UF-hxM" eventType="touchUpInside" id="bS8-sO-Fwc"/>
+                                                            </connections>
+                                                        </button>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="..." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DfN-KT-w2b" customClass="TextLabel">
+                                                            <rect key="frame" x="78" y="26" width="13" height="18"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstItem="saM-rf-vcT" firstAttribute="leading" secondItem="VkR-b2-gxq" secondAttribute="leading" id="1nF-9Q-6MV"/>
+                                                        <constraint firstAttribute="trailing" secondItem="DfN-KT-w2b" secondAttribute="trailing" id="T3B-ac-oFJ"/>
+                                                        <constraint firstItem="DfN-KT-w2b" firstAttribute="leading" secondItem="saM-rf-vcT" secondAttribute="trailing" constant="8" id="W1q-AH-aIE"/>
+                                                        <constraint firstItem="saM-rf-vcT" firstAttribute="bottom" secondItem="VkR-b2-gxq" secondAttribute="bottom" id="bvY-o9-aH7"/>
+                                                        <constraint firstItem="DfN-KT-w2b" firstAttribute="baseline" secondItem="saM-rf-vcT" secondAttribute="baseline" id="jL8-ap-4X4"/>
+                                                        <constraint firstItem="saM-rf-vcT" firstAttribute="top" secondItem="VkR-b2-gxq" secondAttribute="top" id="rid-pL-b43"/>
+                                                    </constraints>
+                                                </view>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XwN-MH-9ap">
+                                                    <rect key="frame" x="185" y="0.0" width="130" height="70"/>
+                                                    <subviews>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FUY-dp-hIg" customClass="BorderedButton">
+                                                            <rect key="frame" x="0.0" y="0.0" width="109" height="70"/>
+                                                            <state key="normal" title="Download">
+                                                                <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            </state>
+                                                            <connections>
+                                                                <action selector="onGetProgramTapped:" destination="gW4-UF-hxM" eventType="touchUpInside" id="Qza-iC-e8c"/>
+                                                            </connections>
+                                                        </button>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="..." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UPg-iD-XA3" customClass="TextLabel">
+                                                            <rect key="frame" x="117" y="26" width="13" height="18"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstItem="UPg-iD-XA3" firstAttribute="leading" secondItem="FUY-dp-hIg" secondAttribute="trailing" constant="8" id="10o-Ug-eSz"/>
+                                                        <constraint firstItem="FUY-dp-hIg" firstAttribute="top" secondItem="XwN-MH-9ap" secondAttribute="top" id="11j-f1-XCH"/>
+                                                        <constraint firstItem="UPg-iD-XA3" firstAttribute="baseline" secondItem="FUY-dp-hIg" secondAttribute="baseline" id="5Ng-Cl-hk2"/>
+                                                        <constraint firstAttribute="trailing" secondItem="UPg-iD-XA3" secondAttribute="trailing" id="IOe-nO-2Ts"/>
+                                                        <constraint firstAttribute="bottom" secondItem="FUY-dp-hIg" secondAttribute="bottom" id="QsJ-nZ-88s"/>
+                                                        <constraint firstItem="FUY-dp-hIg" firstAttribute="leading" secondItem="XwN-MH-9ap" secondAttribute="leading" id="zTu-Sr-MX4"/>
+                                                    </constraints>
+                                                </view>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lcG-mw-mbJ" customClass="BorderedButton">
+                                                    <rect key="frame" x="347" y="0.0" width="40" height="70"/>
+                                                    <state key="normal" title="Share">
+                                                        <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="onShareTapped:" destination="gW4-UF-hxM" eventType="touchUpInside" id="oOE-lC-6LS"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                        </stackView>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="bNm-vY-F1R" firstAttribute="trailing" secondItem="xPQ-5C-B44" secondAttribute="trailingMargin" id="0aJ-0o-jeJ"/>
@@ -610,24 +648,16 @@
                                         <constraint firstItem="v5V-7R-srr" firstAttribute="leading" secondItem="xPQ-5C-B44" secondAttribute="leadingMargin" id="4Aj-ep-5ml"/>
                                         <constraint firstItem="bNm-vY-F1R" firstAttribute="top" secondItem="xPQ-5C-B44" secondAttribute="topMargin" id="5cS-vX-gWH"/>
                                         <constraint firstItem="v5V-7R-srr" firstAttribute="top" secondItem="xPQ-5C-B44" secondAttribute="topMargin" id="6qQ-dR-2mg"/>
-                                        <constraint firstItem="DfN-KT-w2b" firstAttribute="baseline" secondItem="saM-rf-vcT" secondAttribute="baseline" id="801-8J-ym0"/>
-                                        <constraint firstItem="DfN-KT-w2b" firstAttribute="leading" secondItem="saM-rf-vcT" secondAttribute="trailing" constant="8" id="84W-tb-FcT"/>
                                         <constraint firstItem="QZ4-NA-GcW" firstAttribute="trailing" secondItem="xPQ-5C-B44" secondAttribute="trailingMargin" id="919-V2-2qr"/>
                                         <constraint firstItem="zLX-kS-gtf" firstAttribute="top" relation="greaterThanOrEqual" secondItem="xPQ-5C-B44" secondAttribute="topMargin" id="Ba4-dr-FbF"/>
                                         <constraint firstItem="R3Z-Hy-44D" firstAttribute="leading" secondItem="xPQ-5C-B44" secondAttribute="leadingMargin" id="CNe-76-4y6"/>
                                         <constraint firstItem="R3Z-Hy-44D" firstAttribute="top" secondItem="QZ4-NA-GcW" secondAttribute="bottom" constant="16" id="F9f-nh-S6q"/>
                                         <constraint firstItem="zLX-kS-gtf" firstAttribute="leading" secondItem="v5V-7R-srr" secondAttribute="trailing" constant="16" id="Nyc-4u-WGY"/>
-                                        <constraint firstItem="lcG-mw-mbJ" firstAttribute="trailing" secondItem="xPQ-5C-B44" secondAttribute="trailingMargin" id="OS3-ne-Xc5"/>
-                                        <constraint firstItem="saM-rf-vcT" firstAttribute="bottom" secondItem="xPQ-5C-B44" secondAttribute="bottomMargin" id="Psg-OC-h4M"/>
-                                        <constraint firstItem="FUY-dp-hIg" firstAttribute="leading" secondItem="v5V-7R-srr" secondAttribute="trailing" priority="750" constant="16" id="Qsb-ak-9UY"/>
                                         <constraint firstItem="zLX-kS-gtf" firstAttribute="bottom" secondItem="v5V-7R-srr" secondAttribute="bottom" id="VoH-iN-FyB"/>
-                                        <constraint firstItem="UPg-iD-XA3" firstAttribute="baseline" secondItem="FUY-dp-hIg" secondAttribute="baseline" id="ZzE-oB-mH8"/>
-                                        <constraint firstItem="saM-rf-vcT" firstAttribute="top" secondItem="R3Z-Hy-44D" secondAttribute="bottom" constant="8" id="gs3-c3-Fcj"/>
-                                        <constraint firstItem="lcG-mw-mbJ" firstAttribute="baseline" secondItem="saM-rf-vcT" secondAttribute="baseline" id="hTE-d8-v1l"/>
-                                        <constraint firstItem="FUY-dp-hIg" firstAttribute="baseline" secondItem="saM-rf-vcT" secondAttribute="baseline" id="hvd-ya-A6S"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="KTw-y6-ggz" secondAttribute="bottom" priority="249" id="ZKk-D6-AQN"/>
+                                        <constraint firstItem="KTw-y6-ggz" firstAttribute="top" secondItem="R3Z-Hy-44D" secondAttribute="bottom" constant="8" id="Zem-Vb-Iep"/>
                                         <constraint firstItem="zLX-kS-gtf" firstAttribute="trailing" secondItem="xPQ-5C-B44" secondAttribute="trailingMargin" id="l86-AG-mIh"/>
-                                        <constraint firstItem="UPg-iD-XA3" firstAttribute="leading" secondItem="FUY-dp-hIg" secondAttribute="trailing" constant="8" id="n45-Ei-320"/>
-                                        <constraint firstItem="saM-rf-vcT" firstAttribute="leading" secondItem="xPQ-5C-B44" secondAttribute="leadingMargin" id="nVS-S6-APE"/>
+                                        <constraint firstItem="KTw-y6-ggz" firstAttribute="leading" secondItem="xPQ-5C-B44" secondAttribute="leading" constant="16" id="oY6-yO-hRv"/>
                                         <constraint firstItem="QZ4-NA-GcW" firstAttribute="leading" secondItem="xPQ-5C-B44" secondAttribute="leadingMargin" id="zZw-1H-sHI"/>
                                     </constraints>
                                 </tableViewCellContentView>
@@ -645,7 +675,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="StatusTitleCell" rowHeight="185" id="TRS-Ga-0RY" customClass="ProgramTitleCell">
-                                <rect key="frame" x="0.0" y="314.5" width="320" height="185"/>
+                                <rect key="frame" x="0.0" y="389.5" width="320" height="185"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" tableViewCell="TRS-Ga-0RY" id="GK1-4b-TQJ">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="184.5"/>
@@ -721,7 +751,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="MenuCell" textLabel="zap-ef-OT3" style="IBUITableViewCellStyleDefault" id="PBp-YK-AzO" customClass="StandardTableViewCell">
-                                <rect key="frame" x="0.0" y="499.5" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="574.5" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="PBp-YK-AzO" id="tvp-Cw-e2p">
                                     <rect key="frame" x="0.0" y="0.0" width="286" height="43.5"/>
@@ -738,7 +768,7 @@
                                 </tableViewCellContentView>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="DeleteCell" textLabel="vrZ-fJ-L5v" style="IBUITableViewCellStyleDefault" id="BYH-zD-Xha">
-                                <rect key="frame" x="0.0" y="543.5" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="618.5" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="BYH-zD-Xha" id="4YF-01-eA6">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
@@ -755,7 +785,7 @@
                                 </tableViewCellContentView>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="CommentCell" rowHeight="91" id="gXP-zJ-Qos" customClass="CommentCell">
-                                <rect key="frame" x="0.0" y="587.5" width="320" height="91"/>
+                                <rect key="frame" x="0.0" y="662.5" width="320" height="91"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" tableViewCell="gXP-zJ-Qos" id="PwZ-dw-rh7">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="90.5"/>
@@ -807,7 +837,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="WriteCommentCell" rowHeight="126" id="3Of-yo-PTx" customClass="WriteCommentCell">
-                                <rect key="frame" x="0.0" y="678.5" width="320" height="126"/>
+                                <rect key="frame" x="0.0" y="753.5" width="320" height="126"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" tableViewCell="3Of-yo-PTx" id="3Mq-Gb-XcE">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="125.5"/>
@@ -852,7 +882,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="LoginCell" textLabel="9ba-pC-0r6" style="IBUITableViewCellStyleDefault" id="fXB-0g-QH9" customClass="ActionTableViewCell">
-                                <rect key="frame" x="0.0" y="804.5" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="879.5" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fXB-0g-QH9" id="Pef-os-jLO">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
@@ -869,7 +899,7 @@
                                 </tableViewCellContentView>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="GuidelinesCell" textLabel="Yhc-ru-roY" imageView="Ps7-rf-smE" style="IBUITableViewCellStyleDefault" id="Xeh-ec-Dsh" customClass="StandardTableViewCell">
-                                <rect key="frame" x="0.0" y="848.5" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="923.5" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Xeh-ec-Dsh" id="0C4-8k-rTn">
                                     <rect key="frame" x="0.0" y="0.0" width="286" height="43.5"/>
@@ -913,7 +943,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZZP-Ol-r5D" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1914" y="1128"/>
+            <point key="canvasLocation" x="1912.5" y="1127.1126760563379"/>
         </scene>
         <!--Source Code-->
         <scene sceneID="lsn-xD-5hn">

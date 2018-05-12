@@ -38,7 +38,7 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
     @IBOutlet weak var pauseButton: UIButton!
     
     weak var delegate: LowResNXViewControllerDelegate?
-    var document: ProjectDocument!
+    var document: ProjectDocument?
     var diskDocument: ProjectDocument?
     var coreWrapper: CoreWrapper?
     
@@ -70,13 +70,17 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
             // program not yet compiled, open document and compile...
             coreWrapper = CoreWrapper()
             
+            guard let document = document else {
+                fatalError("CoreWrapper or Document required")
+            }
+            
             if document.documentState == .closed {
                 document.open(completionHandler: { [weak self] (success) in
                     guard let strongSelf = self else {
                         return
                     }
                     var error: NSError?
-                    if success, let sourceCode = strongSelf.document.sourceCode {
+                    if success, let sourceCode = document.sourceCode {
                         error = strongSelf.compileAndStartProgram(sourceCode: sourceCode)
                     } else {
                         error = NSError(domain: "LowResNXCoder", code: 0, userInfo: [NSLocalizedDescriptionKey: "Could Not Open File"])
@@ -97,6 +101,7 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
         }
         
         guard let coreWrapper = coreWrapper else {
+            assertionFailure()
             return
         }
         
@@ -194,21 +199,23 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
     
     func compileAndStartProgram(sourceCode: String) -> LowResNXError? {
         guard let coreWrapper = coreWrapper else {
+            assertionFailure()
             return nil
         }
         
-        let cString = sourceCode.cString(using: .utf8)
-        let error = itp_compileProgram(&coreWrapper.core, cString)
-        if error.code != ErrorNone {
-            return LowResNXError(error: error, sourceCode: sourceCode)
-        } else {
+        let error = coreWrapper.compileProgram(sourceCode: sourceCode)
+        if error == nil {
             core_willRunProgram(&coreWrapper.core, Int(CFAbsoluteTimeGetCurrent() - AppController.shared().bootTime))
             core_setDebug(&coreWrapper.core, isDebugEnabled)
         }
-        return nil
+        return error
     }
     
     func captureProgramIcon() {
+        guard let document = document else {
+            assertionFailure()
+            return
+        }
         if let cgImage = nxView.layer.contents as! CGImage? {
             let uiImage = UIImage(cgImage: cgImage)
             ProjectManager.shared.saveProjectIcon(programUrl: document.fileURL, image: uiImage)
@@ -404,9 +411,11 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
     @IBAction func settingsTapped(_ sender: Any) {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
-        alert.addAction(UIAlertAction(title: "Capture Program Icon", style: .default, handler: { [unowned self] (action) in
-            self.captureProgramIcon()
-        }))
+        if document != nil {
+            alert.addAction(UIAlertAction(title: "Capture Program Icon", style: .default, handler: { [unowned self] (action) in
+                self.captureProgramIcon()
+            }))
+        }
         
         if isDebugEnabled {
             alert.addAction(UIAlertAction(title: "Disable Debug Mode", style: .default, handler: { [unowned self] (action) in
@@ -431,7 +440,11 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
     // MARK: - Core Wrapper Delegate
     
     func coreInterpreterDidFail(coreError: CoreError) {
-        let interpreterError = LowResNXError(error: coreError, sourceCode: document.sourceCode!)
+        guard let coreWrapper = coreWrapper else {
+            assertionFailure()
+            return
+        }
+        let interpreterError = LowResNXError(error: coreError, sourceCode: coreWrapper.sourceCode!)
         showError(interpreterError)
     }
     

@@ -257,6 +257,10 @@ typedef NS_ENUM(NSInteger, Section) {
     [self.tableView reloadData];
 }
 
+- (IBAction)onPlayTapped:(id)sender {
+    [self playProgramOf:self.post];
+}
+
 - (IBAction)onLikeTapped:(id)sender
 {
     if (![CommunityModel sharedInstance].currentUser)

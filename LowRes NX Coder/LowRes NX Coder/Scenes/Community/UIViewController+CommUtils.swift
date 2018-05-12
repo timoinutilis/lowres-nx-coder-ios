@@ -60,7 +60,40 @@ extension UIViewController {
             } else {
                 self.showAlert(withTitle: "Could Not Download Program", message: error?.localizedDescription, block: nil)
             }
-     
+        }
+    }
+    
+    @objc func playProgram(of post: LCCPost) {
+        view.endEditing(true)
+        
+        if !post.isSourceCodeLoaded {
+            BlockerView.show()
+        }
+        
+        post.loadSourceCode { (programData, error) in
+            BlockerView.dismiss()
+            
+            if let programData = programData {
+                let sourceCode = String(data: programData, encoding: .utf8)!
+                
+                let coreWrapper = CoreWrapper()
+                let error = coreWrapper.compileProgram(sourceCode: sourceCode)
+                
+                if let error = error {
+                    // show error
+                    let alert = UIAlertController(title: error.message, message: error.line, preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+                    self.present(alert, animated: true, completion: nil)
+                } else {
+                    // start
+                    let storyboard = UIStoryboard(name: "LowResNX", bundle: nil)
+                    let vc = storyboard.instantiateInitialViewController() as! LowResNXViewController
+                    vc.coreWrapper = coreWrapper
+                    self.present(vc, animated: true, completion: nil)
+                }
+            } else {
+                self.showAlert(withTitle: "Could Not Load Program", message: error?.localizedDescription, block: nil)
+            }
         }
     }
     
