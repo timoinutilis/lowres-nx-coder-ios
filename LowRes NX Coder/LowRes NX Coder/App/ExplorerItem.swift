@@ -22,6 +22,10 @@ class ExplorerItem: NSObject {
         return fileUrl.deletingPathExtension().appendingPathExtension("png")
     }
     
+    var hasImage: Bool {
+        return FileManager.default.fileExists(atPath: imageUrl.path)
+    }
+    
     var image: UIImage {
         do {
             let imageData = try Data(contentsOf: imageUrl)

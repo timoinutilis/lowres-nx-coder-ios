@@ -21,6 +21,11 @@ class LowResFormViewController: FormViewController {
         doneButtonItem = navigationItem.rightBarButtonItem
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        view.endEditing(true)
+    }
+    
     var isBusy: Bool = false {
         didSet {
             navigationItem.leftBarButtonItem?.isEnabled = !isBusy
