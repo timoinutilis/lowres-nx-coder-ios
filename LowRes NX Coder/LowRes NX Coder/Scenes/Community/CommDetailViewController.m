@@ -921,7 +921,7 @@ static const NSInteger LIMIT = 25;
     
     CALayer *layer = self.iconImageView.layer;
     layer.masksToBounds = YES;
-    layer.cornerRadius = 3;
+    layer.cornerRadius = 4;
     layer.borderWidth = 0.5;
     layer.borderColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.25].CGColor;
 }
