@@ -613,7 +613,7 @@ static const NSInteger LIMIT = 25;
         else if (self.mode == CommListModeEssentials)
         {
             CommInfoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CommInfoCell" forIndexPath:indexPath];
-            cell.infoTextLabel.text = @"A selection of the best LowRes Coder programs.";
+            cell.infoTextLabel.text = @"A selection of the best LowRes NX programs.";
             return cell;
         }
     }
