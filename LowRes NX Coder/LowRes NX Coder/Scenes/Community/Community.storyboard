@@ -352,29 +352,29 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ljC-i4-bqg">
-                                            <rect key="frame" x="16" y="11" width="64" height="64"/>
+                                            <rect key="frame" x="16" y="11" width="80" height="64"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="64" id="Fha-WG-M3S"/>
-                                                <constraint firstAttribute="width" constant="64" id="NZd-Xw-3IB"/>
+                                                <constraint firstAttribute="width" constant="80" id="NZd-Xw-3IB"/>
                                             </constraints>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="751" verticalHuggingPriority="751" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aCn-Yc-1tY" customClass="TextLabel">
-                                            <rect key="frame" x="88" y="11" width="35" height="20"/>
+                                            <rect key="frame" x="104" y="11" width="35" height="20"/>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="753" verticalHuggingPriority="753" horizontalCompressionResistancePriority="752" verticalCompressionResistancePriority="752" image="star_small" translatesAutoresizingMaskIntoConstraints="NO" id="3Nk-Fn-Nnv">
-                                            <rect key="frame" x="131" y="14" width="14" height="14"/>
+                                            <rect key="frame" x="147" y="14" width="14" height="14"/>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="750" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" ambiguous="YES" text="00/00/2050" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DLo-wj-oa8" customClass="TextLabel">
-                                            <rect key="frame" x="88" y="33" width="63" height="14"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" text="00/00/2050" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DLo-wj-oa8" customClass="TextLabel">
+                                            <rect key="frame" x="104" y="33" width="182" height="14"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="750" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" text="L0 D0 C0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2E2-cQ-nke" customClass="TextLabel">
-                                            <rect key="frame" x="88" y="49" width="50" height="14"/>
+                                            <rect key="frame" x="104" y="49" width="50" height="14"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
@@ -550,15 +550,15 @@
                                             <dataDetectorType key="dataDetectorTypes" link="YES"/>
                                         </textView>
                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Title" translatesAutoresizingMaskIntoConstraints="NO" id="zLX-kS-gtf">
-                                            <rect key="frame" x="160" y="94" width="144" height="45"/>
+                                            <rect key="frame" x="192" y="94" width="112" height="45"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                         </textView>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="v5V-7R-srr">
-                                            <rect key="frame" x="16" y="11" width="128" height="128"/>
+                                            <rect key="frame" x="16" y="11" width="160" height="128"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="128" id="HxY-F0-eVu"/>
-                                                <constraint firstAttribute="width" constant="128" id="oZ6-fS-T3U"/>
+                                                <constraint firstAttribute="width" constant="160" id="oZ6-fS-T3U"/>
                                             </constraints>
                                         </imageView>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="753" verticalHuggingPriority="753" horizontalCompressionResistancePriority="752" verticalCompressionResistancePriority="752" image="star" translatesAutoresizingMaskIntoConstraints="NO" id="bNm-vY-F1R">
@@ -574,36 +574,8 @@
                                                         <action selector="onPlayTapped:" destination="gW4-UF-hxM" eventType="touchUpInside" id="kL6-hy-f0D"/>
                                                     </connections>
                                                 </button>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VkR-b2-gxq">
-                                                    <rect key="frame" x="62" y="0.0" width="91" height="70"/>
-                                                    <subviews>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="saM-rf-vcT" customClass="BorderedButton">
-                                                            <rect key="frame" x="0.0" y="0.0" width="70" height="70"/>
-                                                            <state key="normal" title="Like">
-                                                                <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                            </state>
-                                                            <connections>
-                                                                <action selector="onLikeTapped:" destination="gW4-UF-hxM" eventType="touchUpInside" id="bS8-sO-Fwc"/>
-                                                            </connections>
-                                                        </button>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="..." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DfN-KT-w2b" customClass="TextLabel">
-                                                            <rect key="frame" x="78" y="26" width="13" height="18"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                    </subviews>
-                                                    <constraints>
-                                                        <constraint firstItem="saM-rf-vcT" firstAttribute="leading" secondItem="VkR-b2-gxq" secondAttribute="leading" id="1nF-9Q-6MV"/>
-                                                        <constraint firstAttribute="trailing" secondItem="DfN-KT-w2b" secondAttribute="trailing" id="T3B-ac-oFJ"/>
-                                                        <constraint firstItem="DfN-KT-w2b" firstAttribute="leading" secondItem="saM-rf-vcT" secondAttribute="trailing" constant="8" id="W1q-AH-aIE"/>
-                                                        <constraint firstItem="saM-rf-vcT" firstAttribute="bottom" secondItem="VkR-b2-gxq" secondAttribute="bottom" id="bvY-o9-aH7"/>
-                                                        <constraint firstItem="DfN-KT-w2b" firstAttribute="baseline" secondItem="saM-rf-vcT" secondAttribute="baseline" id="jL8-ap-4X4"/>
-                                                        <constraint firstItem="saM-rf-vcT" firstAttribute="top" secondItem="VkR-b2-gxq" secondAttribute="top" id="rid-pL-b43"/>
-                                                    </constraints>
-                                                </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XwN-MH-9ap">
-                                                    <rect key="frame" x="185" y="0.0" width="130" height="70"/>
+                                                    <rect key="frame" x="62" y="0.0" width="130" height="70"/>
                                                     <subviews>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FUY-dp-hIg" customClass="BorderedButton">
                                                             <rect key="frame" x="0.0" y="0.0" width="109" height="70"/>
@@ -628,6 +600,34 @@
                                                         <constraint firstAttribute="trailing" secondItem="UPg-iD-XA3" secondAttribute="trailing" id="IOe-nO-2Ts"/>
                                                         <constraint firstAttribute="bottom" secondItem="FUY-dp-hIg" secondAttribute="bottom" id="QsJ-nZ-88s"/>
                                                         <constraint firstItem="FUY-dp-hIg" firstAttribute="leading" secondItem="XwN-MH-9ap" secondAttribute="leading" id="zTu-Sr-MX4"/>
+                                                    </constraints>
+                                                </view>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VkR-b2-gxq">
+                                                    <rect key="frame" x="224" y="0.0" width="91" height="70"/>
+                                                    <subviews>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="saM-rf-vcT" customClass="BorderedButton">
+                                                            <rect key="frame" x="0.0" y="0.0" width="70" height="70"/>
+                                                            <state key="normal" title="Like">
+                                                                <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            </state>
+                                                            <connections>
+                                                                <action selector="onLikeTapped:" destination="gW4-UF-hxM" eventType="touchUpInside" id="bS8-sO-Fwc"/>
+                                                            </connections>
+                                                        </button>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="..." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DfN-KT-w2b" customClass="TextLabel">
+                                                            <rect key="frame" x="78" y="26" width="13" height="18"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstItem="saM-rf-vcT" firstAttribute="leading" secondItem="VkR-b2-gxq" secondAttribute="leading" id="1nF-9Q-6MV"/>
+                                                        <constraint firstAttribute="trailing" secondItem="DfN-KT-w2b" secondAttribute="trailing" id="T3B-ac-oFJ"/>
+                                                        <constraint firstItem="DfN-KT-w2b" firstAttribute="leading" secondItem="saM-rf-vcT" secondAttribute="trailing" constant="8" id="W1q-AH-aIE"/>
+                                                        <constraint firstItem="saM-rf-vcT" firstAttribute="bottom" secondItem="VkR-b2-gxq" secondAttribute="bottom" id="bvY-o9-aH7"/>
+                                                        <constraint firstItem="DfN-KT-w2b" firstAttribute="baseline" secondItem="saM-rf-vcT" secondAttribute="baseline" id="jL8-ap-4X4"/>
+                                                        <constraint firstItem="saM-rf-vcT" firstAttribute="top" secondItem="VkR-b2-gxq" secondAttribute="top" id="rid-pL-b43"/>
                                                     </constraints>
                                                 </view>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lcG-mw-mbJ" customClass="BorderedButton">

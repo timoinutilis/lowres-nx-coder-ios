@@ -43,11 +43,7 @@ extension UIViewController {
                     if let error = error {
                         self.showAlert(withTitle: "Could Not Save Program", message: error.localizedDescription, block: nil)
                     } else {
-                        let currentUser = CommunityModel.sharedInstance().currentUser
-                        if currentUser == nil || post.user != currentUser!.objectId {
-                            CommunityModel.sharedInstance().countDownloadPost(post)
-                        }
-                        
+                        CommunityModel.sharedInstance().countDownloadPost(post)
                         if self.isModal {
                             self.presentingViewController?.dismiss(animated: true, completion: {
                                 AppController.shared().tabBarController.showExplorer(animated: true, root: true)
@@ -90,6 +86,9 @@ extension UIViewController {
                     let vc = storyboard.instantiateInitialViewController() as! LowResNXViewController
                     vc.coreWrapper = coreWrapper
                     self.present(vc, animated: true, completion: nil)
+                    
+                    // count as download
+                    CommunityModel.sharedInstance().countDownloadPost(post)
                 }
             } else {
                 self.showAlert(withTitle: "Could Not Load Program", message: error?.localizedDescription, block: nil)

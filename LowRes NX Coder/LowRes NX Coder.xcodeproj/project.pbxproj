@@ -211,6 +211,7 @@
 		92D1A7641FBF6FDE0059450E /* data_manager.c in Sources */ = {isa = PBXBuildFile; fileRef = 92D1A7621FBF6FDE0059450E /* data_manager.c */; };
 		92DA4C99202CECE000129302 /* Dpad.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DA4C98202CECE000129302 /* Dpad.swift */; };
 		92E9D6B320A6DD2F003D5E76 /* FilledButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E9D6B220A6DD2F003D5E76 /* FilledButton.swift */; };
+		92E9D6B520A70B3D003D5E76 /* RecentDownloads.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E9D6B420A70B3D003D5E76 /* RecentDownloads.swift */; };
 		92EA93BE1F744572007BEFB1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92EA93BD1F744572007BEFB1 /* AppDelegate.swift */; };
 		92EA93C51F744573007BEFB1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 92EA93C41F744573007BEFB1 /* Assets.xcassets */; };
 		92ED99691FA4E3480073559B /* charsets.c in Sources */ = {isa = PBXBuildFile; fileRef = 92ED99631FA4E3470073559B /* charsets.c */; };
@@ -543,6 +544,7 @@
 		92D1A7631FBF6FDE0059450E /* data_manager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = data_manager.h; sourceTree = "<group>"; };
 		92DA4C98202CECE000129302 /* Dpad.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dpad.swift; sourceTree = "<group>"; };
 		92E9D6B220A6DD2F003D5E76 /* FilledButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilledButton.swift; sourceTree = "<group>"; };
+		92E9D6B420A70B3D003D5E76 /* RecentDownloads.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentDownloads.swift; sourceTree = "<group>"; };
 		92EA93BA1F744572007BEFB1 /* LowRes NX Coder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "LowRes NX Coder.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		92EA93BD1F744572007BEFB1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		92EA93C41F744573007BEFB1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -692,6 +694,7 @@
 				925CC6781F7589400059C230 /* APIURLCache.m */,
 				925CC6791F7589410059C230 /* CommunityModel.h */,
 				925CC67B1F7589410059C230 /* CommunityModel.m */,
+				92E9D6B420A70B3D003D5E76 /* RecentDownloads.swift */,
 				925CC6771F7589400059C230 /* LCCComment.h */,
 				925CC67F1F7589430059C230 /* LCCComment.m */,
 				925CC6741F75893F0059C230 /* LCCNotification.h */,
@@ -1426,6 +1429,7 @@
 				9227DC1E1FC8BB0700BC89FD /* ProjectManager.swift in Sources */,
 				9276994E1F7D678900211D15 /* ProjectDocument.swift in Sources */,
 				92930E4C203377DF00DE18B9 /* RoundHitBoxButton.swift in Sources */,
+				92E9D6B520A70B3D003D5E76 /* RecentDownloads.swift in Sources */,
 				928402261F7448B500AC1466 /* interpreter.c in Sources */,
 				923AFD9B1F77ED71002F6A5B /* NotificationsViewController.m in Sources */,
 				92C949F0209DC2B8005D6CB6 /* Section.swift in Sources */,

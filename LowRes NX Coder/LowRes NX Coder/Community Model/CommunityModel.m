@@ -11,6 +11,7 @@
 #import "UIViewController+LowResCoder.h"
 #import "CommLogInViewController.h"
 #import "APIURLCache.h"
+#import "LowRes_NX_Coder-Swift.h"
 
 NSString *const CurrentUserChangeNotification = @"CurrentUserChangeNotification";
 NSString *const FollowsLoadNotification = @"FollowsLoadNotification";
@@ -22,6 +23,7 @@ NSString *const NotificationsNumChangeNotification = @"NotificationsNumChangeNot
 
 NSString *const UserDefaultsLogInKey = @"UserDefaultsLogIn";
 NSString *const UserDefaultsCurrentUserKey = @"UserDefaultsCurrentUser";
+
 NSString *const HTTPHeaderSessionTokenKey = @"X-LowResCoder-Session-Token";
 NSString *const HTTPHeaderClientIDKey = @"X-LowResCoder-Client-ID";
 NSString *const HTTPHeaderClientVersionKey = @"X-LowResCoder-Client-Version";
@@ -304,17 +306,26 @@ NSString *const APIErrorTypeKey = @"APIErrorType";
 
 - (void)countDownloadPost:(LCCPost *)post
 {
-    NSString *route = [NSString stringWithFormat:@"/posts/%@/downloads", post.objectId];
-    [self.sessionManager POST:route parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
-        
-        LCCPostStats *stats = [[LCCPostStats alloc] initWithDictionary:responseObject[@"postStats"]];
-        [[NSNotificationCenter defaultCenter] postNotificationName:PostStatsChangeNotification object:self userInfo:@{@"stats":stats}];
-        
-    } failure:^(NSURLSessionDataTask * _Nonnull task, NSError * _Nonnull error) {
-        
-        NSLog(@"Error: %@", error.presentableError.localizedDescription);
-        
-    }];
+    LCCUser *currentUser = [CommunityModel sharedInstance].currentUser;
+    if (currentUser == nil || ![post.user isEqualToString:currentUser.objectId])
+    {
+        RecentDownloads *recentDownloads = [[RecentDownloads alloc] init];
+        if (![recentDownloads contains:post])
+        {
+            NSString *route = [NSString stringWithFormat:@"/posts/%@/downloads", post.objectId];
+            [self.sessionManager POST:route parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
+                
+                [recentDownloads add:post];
+                LCCPostStats *stats = [[LCCPostStats alloc] initWithDictionary:responseObject[@"postStats"]];
+                [[NSNotificationCenter defaultCenter] postNotificationName:PostStatsChangeNotification object:self userInfo:@{@"stats":stats}];
+                
+            } failure:^(NSURLSessionDataTask * _Nonnull task, NSError * _Nonnull error) {
+                
+                NSLog(@"Error: %@", error.presentableError.localizedDescription);
+                
+            }];
+        }
+    }
 }
 
 - (void)loadNotifications
