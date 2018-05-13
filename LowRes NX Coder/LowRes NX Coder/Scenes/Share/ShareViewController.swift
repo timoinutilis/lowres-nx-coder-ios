@@ -10,11 +10,15 @@ import UIKit
 
 class ShareViewController: LowResFormViewController {
     
-    private var activity: ShareProgramActivity!
+    private weak var activity: ShareProgramActivity!
     private var explorerItem: ExplorerItem!
+    private var headerSection: Section!
+    private var loginRow: ButtonRow!
+    private var logoutRow: LabelRow!
     private var titleRow: NameRow!
     private var descriptionRow: TextAreaRow!
     private var categorySection: SelectableSection<ListCheckRow<LCCPostCategory>>!
+    private var userChangeObserver: Any?
     
     func setup(activity: ShareProgramActivity, programUrl: URL) {
         self.activity = activity
@@ -29,7 +33,40 @@ class ShareViewController: LowResFormViewController {
         
         title = "Community"
         
-        let titleSection = Section("Title")
+        headerSection = Section(footer: "Post this program to your community profile! If we like it, we will feature it in the LowRes NX news.")
+        var header = HeaderFooterView<ThumbHeaderView>(.nibFile(name: "ThumbHeaderView", bundle: nil))
+        header.onSetupView = { [weak self] (view, _) in
+            view.image = self?.explorerItem.image
+        }
+        headerSection.header = header
+        form.append(headerSection)
+        
+        loginRow = ButtonRow()
+        loginRow.title = "Log in / Register"
+        loginRow.onCellSelection { [weak self] (cell, row) in
+            guard let strongSelf = self else { return }
+            let vc = CommLogInViewController.create()
+            strongSelf.present(inNavigationViewController: vc)
+        }
+        
+        logoutRow = LabelRow()
+        logoutRow.cellSetup { (cell, row) in
+            cell.selectionStyle = .default
+            let label = UILabel()
+            label.textColor = AppStyle.darkTintColor()
+            label.text = "Log Out"
+            label.sizeToFit()
+            cell.accessoryView = label
+        }
+        logoutRow.onCellSelection { (cell, row) in
+            CommunityModel.sharedInstance().logOut()
+            row.deselect()
+        }
+        
+        updateLogin()
+        
+        
+        let titleSection = Section("Program Title")
         form.append(titleSection)
         
         titleRow = NameRow()
@@ -75,6 +112,22 @@ class ShareViewController: LowResFormViewController {
         guidelinesRow.title = "Community Guidelines"
         guidelinesRow.presentationMode = .show(controllerProvider: .storyBoard(storyboardId: "CommGuidelinesView", storyboardName: "Community", bundle: Bundle.main), onDismiss: nil)
         descriptionSection.append(guidelinesRow)
+        
+        // notifications
+        
+        userChangeObserver = NotificationCenter.default.addObserver(
+            forName: NSNotification.Name.CurrentUserChange,
+            object: nil,
+            queue: .main)
+        { [weak self] (notification) in
+            self?.updateLogin()
+        }
+    }
+    
+    deinit {
+        if let userChangeObserver = userChangeObserver {
+            NotificationCenter.default.removeObserver(userChangeObserver)
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -98,6 +151,16 @@ class ShareViewController: LowResFormViewController {
                     self.presentingViewController?.dismiss(animated: true, completion: nil)
                 }
             }
+        }
+    }
+    
+    private func updateLogin() {
+        headerSection.removeAll()
+        if let currentUser = CommunityModel.sharedInstance().currentUser {
+            logoutRow.title = currentUser.username
+            headerSection.append(logoutRow)
+        } else {
+            headerSection.append(loginRow)
         }
     }
     

@@ -61,6 +61,8 @@
 		921B0D892098D5F9001485DA /* ShareProgramActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921B0D882098D5F9001485DA /* ShareProgramActivity.swift */; };
 		921B0D8C2098DBE8001485DA /* Share.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 921B0D8B2098DBE8001485DA /* Share.storyboard */; };
 		921B0D8E2098DDF0001485DA /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921B0D8D2098DDF0001485DA /* ShareViewController.swift */; };
+		9225EFA820A84B0D003C2831 /* ThumbHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9225EFA720A84B0D003C2831 /* ThumbHeaderView.xib */; };
+		9225EFAA20A84B9D003C2831 /* ThumbHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9225EFA920A84B9D003C2831 /* ThumbHeaderView.swift */; };
 		9227DC1E1FC8BB0700BC89FD /* ProjectManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9227DC1D1FC8BB0700BC89FD /* ProjectManager.swift */; };
 		9227DC221FC8C17A00BC89FD /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9227DC211FC8C17A00BC89FD /* SplashViewController.swift */; };
 		922F0A2A1FCCC172004EF2D2 /* programs in Resources */ = {isa = PBXBuildFile; fileRef = 922F0A291FCCC172004EF2D2 /* programs */; };
@@ -231,6 +233,8 @@
 		921B0D882098D5F9001485DA /* ShareProgramActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareProgramActivity.swift; sourceTree = "<group>"; };
 		921B0D8B2098DBE8001485DA /* Share.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Share.storyboard; sourceTree = "<group>"; };
 		921B0D8D2098DDF0001485DA /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
+		9225EFA720A84B0D003C2831 /* ThumbHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ThumbHeaderView.xib; sourceTree = "<group>"; };
+		9225EFA920A84B9D003C2831 /* ThumbHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThumbHeaderView.swift; sourceTree = "<group>"; };
 		9227DC1D1FC8BB0700BC89FD /* ProjectManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManager.swift; sourceTree = "<group>"; };
 		9227DC211FC8C17A00BC89FD /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		922F0A291FCCC172004EF2D2 /* programs */ = {isa = PBXFileReference; lastKnownFileType = folder; name = programs; path = "LowRes NX Core/programs"; sourceTree = "<group>"; };
@@ -1143,6 +1147,8 @@
 			isa = PBXGroup;
 			children = (
 				92C94A24209DC52F005D6CB6 /* LowResFormViewController.swift */,
+				9225EFA720A84B0D003C2831 /* ThumbHeaderView.xib */,
+				9225EFA920A84B9D003C2831 /* ThumbHeaderView.swift */,
 			);
 			path = Eureka;
 			sourceTree = "<group>";
@@ -1277,6 +1283,7 @@
 				92EA93C51F744573007BEFB1 /* Assets.xcassets in Resources */,
 				926EB1D31F757EA70048A6CF /* LaunchScreen.storyboard in Resources */,
 				92C94A22209DC2B8005D6CB6 /* Info.plist in Resources */,
+				9225EFA820A84B0D003C2831 /* ThumbHeaderView.xib in Resources */,
 				927F2C6F1FC4C1030041883C /* LowResNX.storyboard in Resources */,
 				923AFD8F1F77ED71002F6A5B /* Community.storyboard in Resources */,
 				923AFD7C1F77ED52002F6A5B /* Help.storyboard in Resources */,
@@ -1409,6 +1416,7 @@
 				920E1B471F7816FA00664382 /* ActivityView.m in Sources */,
 				920E1B561F7816FA00664382 /* TextLabel.m in Sources */,
 				928402251F7448B500AC1466 /* error.c in Sources */,
+				9225EFAA20A84B9D003C2831 /* ThumbHeaderView.swift in Sources */,
 				92C949E4209DC2B7005D6CB6 /* InlineRowType.swift in Sources */,
 				92C949E9209DC2B7005D6CB6 /* HeaderFooterView.swift in Sources */,
 				928402231F7448B500AC1466 /* cmd_variables.c in Sources */,
