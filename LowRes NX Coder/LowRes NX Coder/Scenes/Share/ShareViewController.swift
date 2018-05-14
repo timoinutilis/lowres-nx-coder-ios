@@ -183,9 +183,9 @@ class ShareViewController: LowResFormViewController {
             let programData = try Data(contentsOf: programUrl)
             
             isBusy = true
-            CommunityModel.sharedInstance().uploadFile(withName: imageUrl.lastPathComponent, data: imageData) { (url, error) in
+            CommunityModel.sharedInstance().uploadFile(withName: title + ".png", data: imageData) { (url, error) in
                 if let serverImageUrl = url {
-                    CommunityModel.sharedInstance().uploadFile(withName: programUrl.lastPathComponent, data: programData, completion: { (url, error) in
+                    CommunityModel.sharedInstance().uploadFile(withName: title + ".nx", data: programData, completion: { (url, error) in
                         if let serverProgramUrl = url {
                             let post = LCCPost()
                             post.type = .program
@@ -199,7 +199,15 @@ class ShareViewController: LowResFormViewController {
                             let route = "/users/\(userId)/posts"
                             
                             CommunityModel.sharedInstance().sessionManager.post(route, parameters: params, progress: nil, success: { (task, response) in
+                                if let responseDict = response as? [String: Any], let responsePost = responseDict["post"] as? [String: Any] {
+                                    post.update(with: responsePost)
+                                    post.resetDirty()
+                                }
+                                CommunityModel.sharedInstance().clearCache()
+                                // self.project.postId = post.objectId;
+                                
                                 self.activity.activityDidFinish(true)
+                                
                             }, failure: { (task, error) in
                                 self.showSendError(error)
                             })

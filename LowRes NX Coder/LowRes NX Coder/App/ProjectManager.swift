@@ -105,7 +105,8 @@ class ProjectManager: NSObject {
     }
     
     func addProject(originalName: String, programData: Data?, imageData: Data?, completion: @escaping ((Error?) -> Void)) {
-        let name = availableProgramName(original: originalName)
+        let safeName = originalName.replacingOccurrences(of: "/", with: "")
+        let name = availableProgramName(original: safeName)
         let programUrl = localDocumentsUrl.appendingPathComponent(name).appendingPathExtension("nx")
         DispatchQueue.global().async {
             let fileCoordinator = NSFileCoordinator()
@@ -224,7 +225,8 @@ class ProjectManager: NSObject {
     }
     
     func renameProject(item: ExplorerItem, newName: String, completion: @escaping (Error?) -> Void) {
-        let destUrl = item.fileUrl.deletingLastPathComponent().appendingPathComponent(newName).appendingPathExtension("nx")
+        let safeName = newName.replacingOccurrences(of: "/", with: "")
+        let destUrl = item.fileUrl.deletingLastPathComponent().appendingPathComponent(safeName).appendingPathExtension("nx")
         let srcImageUrl = item.imageUrl
         
         DispatchQueue.global().async {

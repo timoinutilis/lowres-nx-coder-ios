@@ -440,6 +440,7 @@ NSString *const APIErrorTypeKey = @"APIErrorType";
 
 - (void)uploadFileWithName:(NSString *)filename data:(NSData *)data completion:(LCCUploadResultBlock)block
 {
+    filename = [filename stringByReplacingOccurrencesOfString:@"/" withString:@""];
     NSString *escapedFilename = [filename stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
     NSString *route = [NSString stringWithFormat:@"/files/%@", escapedFilename];
     NSMutableURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:route relativeToURL:self.sessionManager.baseURL]].mutableCopy;
