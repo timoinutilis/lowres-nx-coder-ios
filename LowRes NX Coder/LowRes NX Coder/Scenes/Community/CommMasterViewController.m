@@ -18,7 +18,6 @@
 
 typedef NS_ENUM(NSInteger, Section) {
     SectionMain,
-    SectionDiscover,
     SectionAccount,
     SectionFollowing,
     Section_count
@@ -26,11 +25,7 @@ typedef NS_ENUM(NSInteger, Section) {
 
 typedef NS_ENUM(NSInteger, CellTag) {
     CellTagNews,
-    CellTagDiscover,
-    CellTagForum,
-    CellTagEssentials,
     CellTagAccount,
-    CellTagNotifications,
     CellTagLogIn,
     CellTagLogOut,
     CellTagFollowing
@@ -60,7 +55,6 @@ typedef NS_ENUM(NSInteger, CellTag) {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onUserChanged:) name:CurrentUserChangeNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onFollowsChanged:) name:FollowsChangeNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onFollowsChanged:) name:FollowsLoadNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onNotificationsNumChanged:) name:NotificationsNumChangeNotification object:nil];
     
     self.newsIndexPath = [NSIndexPath indexPathForRow:0 inSection:SectionMain];
     self.currentSelection = self.newsIndexPath;
@@ -73,7 +67,6 @@ typedef NS_ENUM(NSInteger, CellTag) {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:CurrentUserChangeNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:FollowsChangeNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:FollowsLoadNotification object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:NotificationsNumChangeNotification object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -115,14 +108,6 @@ typedef NS_ENUM(NSInteger, CellTag) {
     [self showCurrentSelection];
 }
 
-- (void)onNotificationsNumChanged:(NSNotification *)notification
-{
-    if ([CommunityModel sharedInstance].currentUser)
-    {
-        [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:2 inSection:SectionMain]] withRowAnimation:UITableViewRowAnimationFade];
-    }
-}
-
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -136,9 +121,6 @@ typedef NS_ENUM(NSInteger, CellTag) {
     {
         case SectionMain:
             return @"Main";
-            
-        case SectionDiscover:
-            return @"More Programs";
             
         case SectionAccount:
             return @"Your Account";
@@ -155,10 +137,7 @@ typedef NS_ENUM(NSInteger, CellTag) {
     switch (section)
     {
         case SectionMain:
-            return loggedIn ? 3 : 2;
-            
-        case SectionDiscover:
-            return loggedIn ? 2 : 1;
+            return 1;
             
         case SectionAccount:
             return loggedIn ? 2 : 1;
@@ -182,41 +161,6 @@ typedef NS_ENUM(NSInteger, CellTag) {
                 cell = [tableView dequeueReusableCellWithIdentifier:@"MenuCell" forIndexPath:indexPath];
                 cell.textLabel.text = @"News";
                 cell.tag = CellTagNews;
-            }
-            else if (indexPath.row == 1)
-            {
-                cell = [tableView dequeueReusableCellWithIdentifier:@"MenuCell" forIndexPath:indexPath];
-                cell.textLabel.text = @"Forum";
-                cell.tag = CellTagForum;
-            }
-            else if (indexPath.row == 2)
-            {
-                cell = [tableView dequeueReusableCellWithIdentifier:@"NotificationsCell" forIndexPath:indexPath];
-                NSInteger num = [CommunityModel sharedInstance].numNewNotifications;
-                if (num > 0)
-                {
-                    cell.textLabel.text = [NSString stringWithFormat:@"Notifications (%ld)", (long)num];
-                }
-                else
-                {
-                    cell.textLabel.text = @"Notifications";
-                }
-                cell.tag = CellTagNotifications;
-            }
-            break;
-        }
-        case SectionDiscover: {
-            if (indexPath.row == 0)
-            {
-                cell = [tableView dequeueReusableCellWithIdentifier:@"MenuCell" forIndexPath:indexPath];
-                cell.textLabel.text = @"Essentials";
-                cell.tag = CellTagEssentials;
-            }
-            else if (indexPath.row == 1)
-            {
-                cell = [tableView dequeueReusableCellWithIdentifier:@"MenuCell" forIndexPath:indexPath];
-                cell.textLabel.text = @"Discover";
-                cell.tag = CellTagDiscover;
             }
             break;
         }
@@ -302,21 +246,6 @@ typedef NS_ENUM(NSInteger, CellTag) {
             case CellTagNews: {
                 LCCUser *user = [CommunityModel sharedInstance].currentUser;
                 [vc setUser:user mode:CommListModeNews];
-                break;
-            }
-            case CellTagForum: {
-                LCCUser *user = [CommunityModel sharedInstance].currentUser;
-                [vc setUser:user mode:CommListModeForum];
-                break;
-            }
-            case CellTagDiscover: {
-                LCCUser *user = [CommunityModel sharedInstance].currentUser;
-                [vc setUser:user mode:CommListModeDiscover];
-                break;
-            }
-            case CellTagEssentials: {
-                LCCUser *user = [CommunityModel sharedInstance].currentUser;
-                [vc setUser:user mode:CommListModeEssentials];
                 break;
             }
             case CellTagAccount: {

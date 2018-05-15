@@ -30,6 +30,9 @@ class ExplorerViewController: UIViewController, UICollectionViewDelegateFlowLayo
         
         view.backgroundColor = AppStyle.brightColor()
         
+        let aboutImage = #imageLiteral(resourceName: "about").withRenderingMode(.alwaysTemplate)
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: aboutImage, style: .plain, target: self, action: #selector(onAboutTapped))
+        
         let addProjectItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(onAddProjectTapped))
 //        let actionItem = UIBarButtonItem(image: UIImage(named:"folder"), style: .plain, target: self, action: #selector(onActionTapped))
         
@@ -261,6 +264,11 @@ class ExplorerViewController: UIViewController, UICollectionViewDelegateFlowLayo
         if let footerView = collectionView.supplementaryView(forElementKind: UICollectionElementKindSectionFooter, at: IndexPath(item: 0, section: 0)) {
             footerView.isHidden = items?.isEmpty ?? true
         }
+    }
+    
+    @objc func onAboutTapped(_ sender: Any) {
+        let aboutVC = storyboard!.instantiateViewController(withIdentifier: "AboutNav")
+        present(aboutVC, animated: true, completion: nil)
     }
         
     @objc func onAddProjectTapped(_ sender: Any) {

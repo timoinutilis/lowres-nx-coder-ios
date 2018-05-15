@@ -73,6 +73,10 @@ class AboutViewController: UITableViewController, MFMailComposeViewControllerDel
         }
     }
     
+    @IBAction func onDoneTapped(_ sender: Any) {
+        presentingViewController?.dismiss(animated: true, completion: nil)
+    }
+    
     // MARK: - Table view data source
     
     override func numberOfSections(in tableView: UITableView) -> Int {

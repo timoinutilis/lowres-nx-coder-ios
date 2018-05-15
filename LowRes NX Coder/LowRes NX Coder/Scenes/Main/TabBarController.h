@@ -11,8 +11,8 @@
 typedef NS_ENUM(NSInteger, TabIndex) {
     TabIndexExplorer,
     TabIndexHelp,
-    TabIndexAbout,
-    TabIndexCommunity
+    TabIndexCommunity,
+    TabIndexNotifications
 };
 
 @interface TabBarController : UITabBarController

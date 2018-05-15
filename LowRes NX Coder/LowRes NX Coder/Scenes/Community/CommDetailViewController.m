@@ -30,7 +30,10 @@ typedef NS_ENUM(NSInteger, CellTag) {
     CellTagFollowers,
     CellTagFollowing,
     CellTagWriteStatus,
-    CellTagAdminResetPassword
+    CellTagAdminResetPassword,
+    CellTagForum,
+    CellTagEssentials,
+    CellTagDiscover
 };
 
 typedef NS_ENUM(NSInteger, Section) {
@@ -508,6 +511,11 @@ static const NSInteger LIMIT = 25;
         {
             return 2;
         }
+        else if (self.mode == CommListModeNews)
+        {
+            BOOL isLoggedIn = [CommunityModel sharedInstance].currentUser != nil;
+            return isLoggedIn ? 3 : 2;
+        }
         else
         {
             return 1;
@@ -576,16 +584,27 @@ static const NSInteger LIMIT = 25;
         }
         else if (self.mode == CommListModeNews)
         {
-            CommInfoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CommInfoCell" forIndexPath:indexPath];
-            if ([CommunityModel sharedInstance].currentUser)
+            if (indexPath.row == 0)
             {
-                cell.infoTextLabel.text = @"Here you see featured programs, official news, and posts of all the users you follow.";
+                UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"DetailMenuCell" forIndexPath:indexPath];
+                cell.textLabel.text = @"Forum";
+                cell.tag = CellTagForum;
+                return cell;
             }
-            else
+            else if (indexPath.row == 1)
             {
-                cell.infoTextLabel.text = @"Here you see featured programs and official news. Log in to follow more users!";
+                UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"DetailMenuCell" forIndexPath:indexPath];
+                cell.textLabel.text = @"Essentials";
+                cell.tag = CellTagEssentials;
+                return cell;
             }
-            return cell;
+            else if (indexPath.row == 2)
+            {
+                UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"DetailMenuCell" forIndexPath:indexPath];
+                cell.textLabel.text = @"Discover";
+                cell.tag = CellTagDiscover;
+                return cell;
+            }
         }
         else if (self.mode == CommListModeDiscover)
         {
@@ -710,6 +729,24 @@ static const NSInteger LIMIT = 25;
         case CellTagAdminResetPassword: {
             [tableView deselectRowAtIndexPath:indexPath animated:YES];
             [self resetPassword];
+            break;
+        }
+        case CellTagForum: {
+            CommDetailViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"CommDetailView"];
+            [vc setUser:self.user mode:CommListModeForum];
+            [self.navigationController showViewController:vc sender:self];
+            break;
+        }
+        case CellTagDiscover: {
+            CommDetailViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"CommDetailView"];
+            [vc setUser:self.user mode:CommListModeDiscover];
+            [self.navigationController showViewController:vc sender:self];
+            break;
+        }
+        case CellTagEssentials: {
+            CommDetailViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"CommDetailView"];
+            [vc setUser:self.user mode:CommListModeEssentials];
+            [self.navigationController showViewController:vc sender:self];
             break;
         }
     }
