@@ -221,7 +221,7 @@ static const NSInteger LIMIT = 25;
     switch (self.mode)
     {
         case CommListModeNews: {
-            self.title = @"News";
+            self.title = @"Community";
             self.currentOffset = 0;
             self.currentRoute = [NSString stringWithFormat:@"users/%@/news", (self.user ? self.user.objectId : @"guest")];
             [self loadCurrentQueryForceReload:forceReload];
@@ -532,7 +532,7 @@ static const NSInteger LIMIT = 25;
 {
     if (section == SectionPosts)
     {
-        return @"Posts";
+        return self.mode == CommListModeNews ? @"News" : @"Posts";
     }
     return nil;
 }

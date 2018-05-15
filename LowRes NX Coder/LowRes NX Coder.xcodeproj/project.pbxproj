@@ -92,7 +92,6 @@
 		923AFD921F77ED71002F6A5B /* CommEditUserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 925CC5261F75876D0059C230 /* CommEditUserViewController.m */; };
 		923AFD931F77ED71002F6A5B /* CommGuidelinesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 925CC5191F75876B0059C230 /* CommGuidelinesViewController.m */; };
 		923AFD941F77ED71002F6A5B /* CommLogInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 925CC5141F75876B0059C230 /* CommLogInViewController.m */; };
-		923AFD951F77ED71002F6A5B /* CommMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 925CC5241F75876D0059C230 /* CommMasterViewController.m */; };
 		923AFD961F77ED71002F6A5B /* CommPostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 925CC51F1F75876C0059C230 /* CommPostViewController.m */; };
 		923AFD971F77ED71002F6A5B /* CommSourceCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 925CC5181F75876B0059C230 /* CommSourceCodeViewController.m */; };
 		923AFD981F77ED71002F6A5B /* CommSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 925CC5231F75876C0059C230 /* CommSplitViewController.m */; };
@@ -301,7 +300,6 @@
 		925CC5191F75876B0059C230 /* CommGuidelinesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommGuidelinesViewController.m; sourceTree = "<group>"; };
 		925CC51A1F75876B0059C230 /* CommDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommDetailViewController.m; sourceTree = "<group>"; };
 		925CC51B1F75876B0059C230 /* CommEditUserViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommEditUserViewController.h; sourceTree = "<group>"; };
-		925CC51C1F75876C0059C230 /* CommMasterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommMasterViewController.h; sourceTree = "<group>"; };
 		925CC51D1F75876C0059C230 /* CommPostViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommPostViewController.h; sourceTree = "<group>"; };
 		925CC51E1F75876C0059C230 /* CommLogInViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommLogInViewController.h; sourceTree = "<group>"; };
 		925CC51F1F75876C0059C230 /* CommPostViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommPostViewController.m; sourceTree = "<group>"; };
@@ -309,7 +307,6 @@
 		925CC5211F75876C0059C230 /* NotificationsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotificationsViewController.h; sourceTree = "<group>"; };
 		925CC5221F75876C0059C230 /* CommStatusUpdateViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommStatusUpdateViewController.m; sourceTree = "<group>"; };
 		925CC5231F75876C0059C230 /* CommSplitViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommSplitViewController.m; sourceTree = "<group>"; };
-		925CC5241F75876D0059C230 /* CommMasterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommMasterViewController.m; sourceTree = "<group>"; };
 		925CC5261F75876D0059C230 /* CommEditUserViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommEditUserViewController.m; sourceTree = "<group>"; };
 		925CC5271F75876D0059C230 /* CommGuidelinesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommGuidelinesViewController.h; sourceTree = "<group>"; };
 		925CC5281F75876D0059C230 /* NotificationsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotificationsViewController.m; sourceTree = "<group>"; };
@@ -843,8 +840,6 @@
 				925CC5191F75876B0059C230 /* CommGuidelinesViewController.m */,
 				925CC51E1F75876C0059C230 /* CommLogInViewController.h */,
 				925CC5141F75876B0059C230 /* CommLogInViewController.m */,
-				925CC51C1F75876C0059C230 /* CommMasterViewController.h */,
-				925CC5241F75876D0059C230 /* CommMasterViewController.m */,
 				925CC51D1F75876C0059C230 /* CommPostViewController.h */,
 				925CC51F1F75876C0059C230 /* CommPostViewController.m */,
 				925CC5201F75876C0059C230 /* CommSourceCodeViewController.h */,
@@ -1448,7 +1443,6 @@
 				920E1B671F78178D00664382 /* SDWebImageManager.m in Sources */,
 				92C949F1209DC2B8005D6CB6 /* Form.swift in Sources */,
 				923AFD9A1F77ED71002F6A5B /* CommUsersViewController.m in Sources */,
-				923AFD951F77ED71002F6A5B /* CommMasterViewController.m in Sources */,
 				92C94A14209DC2B8005D6CB6 /* FieldsRow.swift in Sources */,
 				923AFD7D1F77ED52002F6A5B /* HelpContent.m in Sources */,
 				92D1A7641FBF6FDE0059450E /* data_manager.c in Sources */,
