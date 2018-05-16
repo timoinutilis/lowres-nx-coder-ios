@@ -56,6 +56,7 @@
     
     self.unreadDate = [CommunityModel sharedInstance].currentUser.notificationsOpenedDate;
     [[CommunityModel sharedInstance] onOpenNotifications];
+    [self.tableView reloadData];
 }
 
 - (void)dealloc
@@ -77,14 +78,18 @@
         [self.tableView reloadDataAnimatedWithOldArray:oldNotifications newArray:self.notifications inSection:0 offset:0];
         [self.refreshControl endRefreshing];
         
-        self.unreadDate = [CommunityModel sharedInstance].currentUser.notificationsOpenedDate;
-        [[CommunityModel sharedInstance] onOpenNotifications];
+//        self.unreadDate = [CommunityModel sharedInstance].currentUser.notificationsOpenedDate;
+//        [[CommunityModel sharedInstance] onOpenNotifications];
     }
 }
 
 - (IBAction)onRefreshPulled:(id)sender
 {
     [[CommunityModel sharedInstance] loadNotifications];
+    if (![CommunityModel sharedInstance].currentUser)
+    {
+        [self.refreshControl endRefreshing];
+    }
 }
 
 #pragma mark - Table view

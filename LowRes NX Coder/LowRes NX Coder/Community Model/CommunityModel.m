@@ -198,6 +198,7 @@ NSString *const APIErrorTypeKey = @"APIErrorType";
     _notifications = nil;
     
     [[NSNotificationCenter defaultCenter] postNotificationName:CurrentUserChangeNotification object:self];
+    [[NSNotificationCenter defaultCenter] postNotificationName:NotificationsUpdateNotification object:self];
     [self updateCurrentUser];
     [self updateNewNotifications];
 }
