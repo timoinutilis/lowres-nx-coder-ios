@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CommTableViewController.h"
 
 @class LCCUser;
 
@@ -16,7 +17,7 @@ typedef NS_ENUM(NSInteger, CommUsersMode) {
     CommUsersModeFollowing
 };
 
-@interface CommUsersViewController : UITableViewController
+@interface CommUsersViewController : CommTableViewController
 
 - (void)setUser:(LCCUser *)user mode:(CommUsersMode)mode;
 

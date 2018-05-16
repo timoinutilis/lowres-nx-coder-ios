@@ -8,7 +8,6 @@
 
 #import "TabBarController.h"
 #import "HelpSplitViewController.h"
-#import "CommSplitViewController.h"
 #import "AppController.h"
 #import "CommunityModel.h"
 

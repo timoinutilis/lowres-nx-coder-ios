@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CommTableViewController.h"
 
 typedef NS_ENUM(NSInteger, CommPostMode) {
     CommPostModeUndefined = 0,
@@ -15,7 +16,7 @@ typedef NS_ENUM(NSInteger, CommPostMode) {
 
 @class LCCPost, LCCComment, LCCUser, LCCPostStats;
 
-@interface CommPostViewController : UITableViewController
+@interface CommPostViewController : CommTableViewController
 
 - (void)setPost:(LCCPost *)post mode:(CommPostMode)mode;
 - (void)setPost:(LCCPost *)post mode:(CommPostMode)mode commentId:(NSString *)commentId;

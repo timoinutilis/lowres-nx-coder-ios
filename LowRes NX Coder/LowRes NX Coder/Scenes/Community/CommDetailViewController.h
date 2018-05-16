@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "LCCPost.h"
+#import "CommTableViewController.h"
 
 @class LCCUser, LCCPostStats;
 
@@ -20,7 +21,7 @@ typedef NS_ENUM(NSInteger, CommListMode) {
     CommListModeEssentials
 };
 
-@interface CommDetailViewController : UITableViewController
+@interface CommDetailViewController : CommTableViewController
 
 - (void)setUser:(LCCUser *)user mode:(CommListMode)mode;
 

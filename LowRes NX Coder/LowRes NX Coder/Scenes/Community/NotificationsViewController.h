@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CommTableViewController.h"
 
 @class LCCNotification;
 
-@interface NotificationsViewController : UITableViewController
+@interface NotificationsViewController : CommTableViewController
 
 @end
 

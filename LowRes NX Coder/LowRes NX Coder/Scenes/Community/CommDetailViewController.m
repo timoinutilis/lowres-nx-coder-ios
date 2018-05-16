@@ -85,7 +85,6 @@ static const NSInteger LIMIT = 25;
     self.profileCell = [self.tableView dequeueReusableCellWithIdentifier:@"CommProfileCell"];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onFollowsChanged:) name:FollowsChangeNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onUserChanged:) name:CurrentUserChangeNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onPostDeleted:) name:PostDeleteNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onStatsChanged:) name:PostStatsChangeNotification object:nil];
 }
@@ -93,7 +92,6 @@ static const NSInteger LIMIT = 25;
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:FollowsChangeNotification object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:CurrentUserChangeNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:PostDeleteNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:PostStatsChangeNotification object:nil];
 }
@@ -173,6 +171,7 @@ static const NSInteger LIMIT = 25;
 
 - (void)onUserChanged:(NSNotification *)notification
 {
+    [super onUserChanged:notification];
     if (self.mode == CommListModeNews || self.mode == CommListModeDiscover)
     {
         self.user = [CommunityModel sharedInstance].currentUser;

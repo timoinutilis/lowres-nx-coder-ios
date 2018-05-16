@@ -94,7 +94,6 @@
 		923AFD941F77ED71002F6A5B /* CommLogInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 925CC5141F75876B0059C230 /* CommLogInViewController.m */; };
 		923AFD961F77ED71002F6A5B /* CommPostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 925CC51F1F75876C0059C230 /* CommPostViewController.m */; };
 		923AFD971F77ED71002F6A5B /* CommSourceCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 925CC5181F75876B0059C230 /* CommSourceCodeViewController.m */; };
-		923AFD981F77ED71002F6A5B /* CommSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 925CC5231F75876C0059C230 /* CommSplitViewController.m */; };
 		923AFD991F77ED71002F6A5B /* CommStatusUpdateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 925CC5221F75876C0059C230 /* CommStatusUpdateViewController.m */; };
 		923AFD9A1F77ED71002F6A5B /* CommUsersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 925CC52B1F75876D0059C230 /* CommUsersViewController.m */; };
 		923AFD9B1F77ED71002F6A5B /* NotificationsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 925CC5281F75876D0059C230 /* NotificationsViewController.m */; };
@@ -102,6 +101,7 @@
 		924AB3F2205D986C00BCF977 /* IndexSideBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 924AB3F1205D986B00BCF977 /* IndexSideBar.swift */; };
 		925CC6B81F758A120059C230 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 925CC6B71F758A120059C230 /* StoreKit.framework */; };
 		925CC6BA1F758A360059C230 /* ReplayKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 925CC6B91F758A360059C230 /* ReplayKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		926A236320AC9B710083E1C3 /* CommTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 926A236220AC9B710083E1C3 /* CommTableViewController.m */; };
 		926EB1D31F757EA70048A6CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 926EB1D21F757EA70048A6CF /* LaunchScreen.storyboard */; };
 		926EB1DC1F757FAD0048A6CF /* UIViewController+LowResCoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 926EB1DA1F757FAD0048A6CF /* UIViewController+LowResCoder.m */; };
 		9276994C1F7D649800211D15 /* ExplorerItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9276994B1F7D649800211D15 /* ExplorerItem.swift */; };
@@ -306,11 +306,9 @@
 		925CC5201F75876C0059C230 /* CommSourceCodeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommSourceCodeViewController.h; sourceTree = "<group>"; };
 		925CC5211F75876C0059C230 /* NotificationsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotificationsViewController.h; sourceTree = "<group>"; };
 		925CC5221F75876C0059C230 /* CommStatusUpdateViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommStatusUpdateViewController.m; sourceTree = "<group>"; };
-		925CC5231F75876C0059C230 /* CommSplitViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommSplitViewController.m; sourceTree = "<group>"; };
 		925CC5261F75876D0059C230 /* CommEditUserViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommEditUserViewController.m; sourceTree = "<group>"; };
 		925CC5271F75876D0059C230 /* CommGuidelinesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommGuidelinesViewController.h; sourceTree = "<group>"; };
 		925CC5281F75876D0059C230 /* NotificationsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotificationsViewController.m; sourceTree = "<group>"; };
-		925CC5291F75876D0059C230 /* CommSplitViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommSplitViewController.h; sourceTree = "<group>"; };
 		925CC52A1F75876D0059C230 /* CommDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommDetailViewController.h; sourceTree = "<group>"; };
 		925CC52B1F75876D0059C230 /* CommUsersViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommUsersViewController.m; sourceTree = "<group>"; };
 		925CC52C1F75876E0059C230 /* CommStatusUpdateViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommStatusUpdateViewController.h; sourceTree = "<group>"; };
@@ -376,6 +374,8 @@
 		925CC6B41F7589BA0059C230 /* AppStyle.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppStyle.m; sourceTree = "<group>"; };
 		925CC6B71F758A120059C230 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		925CC6B91F758A360059C230 /* ReplayKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReplayKit.framework; path = System/Library/Frameworks/ReplayKit.framework; sourceTree = SDKROOT; };
+		926A236120AC9B710083E1C3 /* CommTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommTableViewController.h; sourceTree = "<group>"; };
+		926A236220AC9B710083E1C3 /* CommTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommTableViewController.m; sourceTree = "<group>"; };
 		926EB1D11F757DDD0048A6CF /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		926EB1D21F757EA70048A6CF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		926EB1D51F757F5D0048A6CF /* guidelines.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = guidelines.html; sourceTree = "<group>"; };
@@ -832,6 +832,9 @@
 				925CC5171F75876B0059C230 /* Community.storyboard */,
 				926EB1D71F757FAD0048A6CF /* UITableView+Parse.h */,
 				926EB1D91F757FAD0048A6CF /* UITableView+Parse.m */,
+				92B8DD0E20A60638003E7331 /* UIViewController+CommUtils.swift */,
+				926A236120AC9B710083E1C3 /* CommTableViewController.h */,
+				926A236220AC9B710083E1C3 /* CommTableViewController.m */,
 				925CC52A1F75876D0059C230 /* CommDetailViewController.h */,
 				925CC51A1F75876B0059C230 /* CommDetailViewController.m */,
 				925CC51B1F75876B0059C230 /* CommEditUserViewController.h */,
@@ -844,15 +847,12 @@
 				925CC51F1F75876C0059C230 /* CommPostViewController.m */,
 				925CC5201F75876C0059C230 /* CommSourceCodeViewController.h */,
 				925CC5181F75876B0059C230 /* CommSourceCodeViewController.m */,
-				925CC5291F75876D0059C230 /* CommSplitViewController.h */,
-				925CC5231F75876C0059C230 /* CommSplitViewController.m */,
 				925CC52C1F75876E0059C230 /* CommStatusUpdateViewController.h */,
 				925CC5221F75876C0059C230 /* CommStatusUpdateViewController.m */,
 				925CC5161F75876B0059C230 /* CommUsersViewController.h */,
 				925CC52B1F75876D0059C230 /* CommUsersViewController.m */,
 				925CC5211F75876C0059C230 /* NotificationsViewController.h */,
 				925CC5281F75876D0059C230 /* NotificationsViewController.m */,
-				92B8DD0E20A60638003E7331 /* UIViewController+CommUtils.swift */,
 			);
 			path = Community;
 			sourceTree = "<group>";
@@ -1322,7 +1322,6 @@
 				920E1B381F78024E00664382 /* GORMenuTableViewController.m in Sources */,
 				928402171F7448B500AC1466 /* core.c in Sources */,
 				92C94A02209DC2B8005D6CB6 /* LabelRow.swift in Sources */,
-				923AFD981F77ED71002F6A5B /* CommSplitViewController.m in Sources */,
 				92C949EE209DC2B8005D6CB6 /* Validation.swift in Sources */,
 				9294F2E01FC4B9A600A90487 /* LowResNXViewController.swift in Sources */,
 				92C94A0F209DC2B8005D6CB6 /* Protocols.swift in Sources */,
@@ -1491,6 +1490,7 @@
 				92C94A15209DC2B8005D6CB6 /* DateInlineRow.swift in Sources */,
 				920E1B4E1F7816FA00664382 /* EditorTextView.m in Sources */,
 				92C94A0C209DC2B8005D6CB6 /* DateFieldRow.swift in Sources */,
+				926A236320AC9B710083E1C3 /* CommTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

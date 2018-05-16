@@ -84,14 +84,12 @@ typedef NS_ENUM(NSInteger, Section) {
     
     [self loadAllForceReload:NO];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onUserChanged:) name:CurrentUserChangeNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onPostDeleted:) name:PostDeleteNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onStatsChanged:) name:PostStatsChangeNotification object:nil];
 }
 
 - (void)dealloc
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:CurrentUserChangeNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:PostDeleteNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:PostStatsChangeNotification object:nil];
 }
@@ -254,6 +252,7 @@ typedef NS_ENUM(NSInteger, Section) {
 
 - (void)onUserChanged:(NSNotification *)notification
 {
+    [super onUserChanged:notification];
     [self.tableView reloadData];
 }
 
