@@ -105,9 +105,10 @@ static const NSInteger LIMIT = 25;
         LCCUser *user = [CommunityModel sharedInstance].currentUser;
         [self setUser:user mode:CommListModeNews];
     }
-    if (self.activityView.state == ActivityStateUnknown)
+    if (self.activityView.state == ActivityStateUnknown || self.shouldReload)
     {
-        [self updateDataForceReload:NO];
+        [self updateDataForceReload:self.shouldReload];
+        self.shouldReload = NO;
     }
 }
 
@@ -139,7 +140,7 @@ static const NSInteger LIMIT = 25;
     self.mode = mode;
 }
 
-- (IBAction)onRefreshPulled:(id)sender
+- (void)reloadContent
 {
     if (self.activityView.state != ActivityStateBusy)
     {
@@ -149,6 +150,11 @@ static const NSInteger LIMIT = 25;
     {
         [self.refreshControl endRefreshing];
     }
+}
+
+- (IBAction)onRefreshPulled:(id)sender
+{
+    [self reloadContent];
 }
 
 - (void)onDoneTapped:(id)sender

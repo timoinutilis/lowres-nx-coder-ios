@@ -15,6 +15,7 @@
 
 @interface CommTableViewController ()
 @property UIBarButtonItem *loginItem;
+@property BOOL isVisible;
 @end
 
 @implementation CommTableViewController
@@ -22,15 +23,24 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onUserChanged:) name:CurrentUserChangeNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onAppActivate:) name:UIApplicationDidBecomeActiveNotification object:nil];
 }
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:CurrentUserChangeNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidBecomeActiveNotification object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    self.isVisible = YES;
     [self updateUser];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    self.isVisible = NO;
+    self.shouldReload = NO;
 }
 
 - (void)updateUser {
@@ -48,6 +58,19 @@
 
 - (void)onUserChanged:(NSNotification *)notification {
     [self updateUser];
+}
+
+- (void)onAppActivate:(NSNotification *)notification {
+    if (self.isVisible) {
+        [self reloadContent];
+        self.shouldReload = NO;
+    } else {
+        self.shouldReload = YES;
+    }
+}
+
+- (void)reloadContent {
+    // Override
 }
 
 - (void)onLoginItemTapped:(id)sender {

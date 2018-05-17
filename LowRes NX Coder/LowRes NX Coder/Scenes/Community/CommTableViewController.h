@@ -10,6 +10,9 @@
 
 @interface CommTableViewController : UITableViewController
 
+@property BOOL shouldReload;
+
 - (void)onUserChanged:(NSNotification *)notification;
+- (void)reloadContent;
 
 @end

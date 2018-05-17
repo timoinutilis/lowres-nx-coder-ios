@@ -17,7 +17,6 @@
 
 @interface NotificationsViewController ()
 
-@property UIActivityIndicatorView *activityIndicator;
 @property NSArray <LCCNotification *> *notifications;
 @property NSDate *unreadDate;
 
@@ -25,25 +24,12 @@
 
 @implementation NotificationsViewController
 
-- (instancetype)initWithCoder:(NSCoder *)aDecoder
-{
-    if (self = [super initWithCoder:aDecoder])
-    {
-        _activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
-        _activityIndicator.hidesWhenStopped = YES;
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.tableView.estimatedRowHeight = 63;
-    
-    UIBarButtonItem *activityItem = [[UIBarButtonItem alloc] initWithCustomView:self.activityIndicator];
-    self.navigationItem.rightBarButtonItem = activityItem;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onNotificationsChanged:) name:NotificationsUpdateNotification object:nil];
     
@@ -66,13 +52,8 @@
 
 - (void)onNotificationsChanged:(NSNotification *)notification
 {
-    if ([CommunityModel sharedInstance].isUpdatingNotifications)
+    if (![CommunityModel sharedInstance].isUpdatingNotifications)
     {
-        [self.activityIndicator startAnimating];
-    }
-    else
-    {
-        [self.activityIndicator stopAnimating];
         NSArray *oldNotifications = self.notifications;
         self.notifications = [CommunityModel sharedInstance].notifications.copy;
         [self.tableView reloadDataAnimatedWithOldArray:oldNotifications newArray:self.notifications inSection:0 offset:0];

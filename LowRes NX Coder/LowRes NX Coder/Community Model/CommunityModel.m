@@ -346,6 +346,7 @@ NSString *const APIErrorTypeKey = @"APIErrorType";
             params[@"after"] = [[NSDateFormatter sharedAPIDateFormatter] stringFromDate:lastNotification.createdAt];
         }
         
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
         [self.sessionManager GET:route parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
             
             NSArray *notifications = [LCCNotification objectsFromArray:responseObject[@"notifications"]];
@@ -375,6 +376,7 @@ NSString *const APIErrorTypeKey = @"APIErrorType";
                     _notifications = notifications.mutableCopy;
                 }
             }
+            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
             _isUpdatingNotifications = NO;
             [[NSNotificationCenter defaultCenter] postNotificationName:NotificationsUpdateNotification object:self];
             [self updateNewNotifications];
