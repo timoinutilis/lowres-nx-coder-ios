@@ -47,7 +47,7 @@
     if (self.navigationController.viewControllers.firstObject == self) {
         LCCUser *user = [CommunityModel sharedInstance].currentUser;
         if (user) {
-            UIImage *userImage = [[UIImage imageNamed:@"community"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+            UIImage *userImage = [[UIImage imageNamed:@"profile"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
             self.loginItem = [[UIBarButtonItem alloc] initWithImage:userImage style:UIBarButtonItemStylePlain target:self action:@selector(onUserTapped:)];
         } else {
             self.loginItem = [[UIBarButtonItem alloc] initWithTitle:@"Log In" style:UIBarButtonItemStylePlain target:self action:@selector(onLoginItemTapped:)];
