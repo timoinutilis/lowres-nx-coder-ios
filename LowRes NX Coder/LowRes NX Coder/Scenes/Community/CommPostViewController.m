@@ -260,8 +260,9 @@ typedef NS_ENUM(NSInteger, Section) {
     [self playProgramOf:self.post];
 }
 
-- (IBAction)onLikeTapped:(id)sender
+- (IBAction)onLikeTapped:(UIButton *)sender
 {
+    sender.enabled = NO;
     if (![CommunityModel sharedInstance].currentUser)
     {
         CommLogInViewController *vc = [CommLogInViewController create];

@@ -42,6 +42,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidBecomeActive(_ application: UIApplication) {
         CommunityModel.sharedInstance().loadNotifications()
+        CommunityModel.sharedInstance().updateCurrentUser()
         RecentDownloads().clean()
     }
 

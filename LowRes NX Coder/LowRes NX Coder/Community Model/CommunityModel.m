@@ -142,6 +142,15 @@ NSString *const APIErrorTypeKey = @"APIErrorType";
 
 - (void)handleAPIError:(NSError *)error title:(NSString *)title viewController:(UIViewController *)vc
 {
+    if (!vc)
+    {
+        vc = [UIApplication sharedApplication].keyWindow.rootViewController;
+        while (vc.presentedViewController)
+        {
+            vc = vc.presentedViewController;
+        }
+    }
+    
     NSError *presentableError = error.presentableError;
     [vc showAlertWithTitle:title message:presentableError.localizedDescription block:^{
         
@@ -252,7 +261,7 @@ NSString *const APIErrorTypeKey = @"APIErrorType";
         
     } failure:^(NSURLSessionDataTask * _Nonnull task, NSError * _Nonnull error) {
         
-        NSLog(@"Error: %@", error.presentableError.localizedDescription);
+        [self handleAPIError:error title:@"Could Not Follow User" viewController:nil];
         
     }];
 }
@@ -271,7 +280,7 @@ NSString *const APIErrorTypeKey = @"APIErrorType";
             
         } failure:^(NSURLSessionDataTask * _Nonnull task, NSError * _Nonnull error) {
             
-            NSLog(@"Error: %@", error.presentableError.localizedDescription);
+            [self handleAPIError:error title:@"Could Not Stop Following User" viewController:nil];
             
         }];
     }
@@ -300,7 +309,7 @@ NSString *const APIErrorTypeKey = @"APIErrorType";
         
     } failure:^(NSURLSessionDataTask * _Nonnull task, NSError * _Nonnull error) {
         
-        NSLog(@"Error: %@", error.presentableError.localizedDescription);
+        [self handleAPIError:error title:@"Could Not Like Post" viewController:nil];
         
     }];
 }
