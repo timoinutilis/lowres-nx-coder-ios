@@ -15,7 +15,7 @@
     [super awakeFromNib];
     self.layer.borderWidth = 1;
     self.layer.cornerRadius = 4;
-    self.contentEdgeInsets = UIEdgeInsetsMake(4, 6, 4, 6);
+    self.contentEdgeInsets = UIEdgeInsetsMake(6, 8, 6, 8);
 }
 
 - (void)tintColorDidChange

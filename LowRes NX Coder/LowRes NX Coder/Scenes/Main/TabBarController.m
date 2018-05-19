@@ -35,7 +35,7 @@
     explorerVC.tabBarItem = [self itemWithTitle:@"My Programs" imageName:@"programs"];
     helpVC.tabBarItem = [self itemWithTitle:@"Help" imageName:@"help"];
     communityVC.tabBarItem = [self itemWithTitle:@"Community" imageName:@"community"];
-    notificationsVC.tabBarItem = [self itemWithTitle:@"Notifications" imageName:@"community"];
+    notificationsVC.tabBarItem = [self itemWithTitle:@"Notifications" imageName:@"notifications"];
     
     self.viewControllers = @[explorerVC, helpVC, communityVC, notificationsVC];
     

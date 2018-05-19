@@ -14,7 +14,7 @@ class FilledButton: UIButton {
         super.awakeFromNib()
         layer.cornerRadius = 4
         clipsToBounds = true
-        contentEdgeInsets = UIEdgeInsets(top: 4, left: 6, bottom: 4, right: 6)
+        contentEdgeInsets = UIEdgeInsets(top: 6, left: 8, bottom: 6, right: 8)
         setTitleColor(UIColor.white, for: .normal)
     }
     
