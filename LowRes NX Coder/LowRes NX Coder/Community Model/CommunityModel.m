@@ -253,14 +253,18 @@ NSString *const APIErrorTypeKey = @"APIErrorType";
 {
     NSString *route = [NSString stringWithFormat:@"/users/%@/followers", user.objectId];
     NSDictionary *params = @{@"user":self.currentUser.objectId};
+    
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     [self.sessionManager POST:route parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
         
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         [self clearCache];
         [self.follows insertObject:user atIndex:0];
         [[NSNotificationCenter defaultCenter] postNotificationName:FollowsChangeNotification object:self];
         
     } failure:^(NSURLSessionDataTask * _Nonnull task, NSError * _Nonnull error) {
         
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         [self handleAPIError:error title:@"Could Not Follow User" viewController:nil];
         
     }];
@@ -272,14 +276,18 @@ NSString *const APIErrorTypeKey = @"APIErrorType";
     if (user)
     {
         NSString *route = [NSString stringWithFormat:@"/users/%@/followers/%@", user.objectId, self.currentUser.objectId];
+        
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
         [self.sessionManager DELETE:route parameters:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
-
+            
+            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
             [self clearCache];
             [self.follows removeObject:user];
             [[NSNotificationCenter defaultCenter] postNotificationName:FollowsChangeNotification object:self];
             
         } failure:^(NSURLSessionDataTask * _Nonnull task, NSError * _Nonnull error) {
             
+            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
             [self handleAPIError:error title:@"Could Not Stop Following User" viewController:nil];
             
         }];
@@ -302,13 +310,17 @@ NSString *const APIErrorTypeKey = @"APIErrorType";
 {
     NSString *route = [NSString stringWithFormat:@"/posts/%@/likes", post.objectId];
     NSDictionary *params = @{@"user": self.currentUser.objectId};
+    
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     [self.sessionManager POST:route parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
         
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         LCCPostStats *stats = [[LCCPostStats alloc] initWithDictionary:responseObject[@"postStats"]];
         [[NSNotificationCenter defaultCenter] postNotificationName:PostStatsChangeNotification object:self userInfo:@{@"stats":stats}];
         
     } failure:^(NSURLSessionDataTask * _Nonnull task, NSError * _Nonnull error) {
         
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         [self handleAPIError:error title:@"Could Not Like Post" viewController:nil];
         
     }];
