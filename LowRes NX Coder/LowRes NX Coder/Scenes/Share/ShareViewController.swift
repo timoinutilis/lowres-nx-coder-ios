@@ -92,6 +92,11 @@ class ShareViewController: LowResFormViewController {
         demoRow.title = "Demo (graphics/sound example)"
         demoRow.selectableValue = .demo
         categorySection.append(demoRow)
+
+        let assetRow = ListCheckRow<LCCPostCategory>()
+        assetRow.title = "Assets (sprites, tiles, fonts, music)"
+        assetRow.selectableValue = .assets
+        categorySection.append(assetRow)
         
         form.append(categorySection)
         

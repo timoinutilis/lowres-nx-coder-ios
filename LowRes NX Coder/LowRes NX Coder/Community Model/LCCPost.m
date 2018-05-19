@@ -37,6 +37,8 @@
             return @"Tool";
         case LCCPostCategoryDemo:
             return @"Demo";
+        case LCCPostCategoryAssets:
+            return @"Assets";
         case LCCPostCategoryStatus:
             return @"Status Update";
         case LCCPostCategoryForumHowTo:

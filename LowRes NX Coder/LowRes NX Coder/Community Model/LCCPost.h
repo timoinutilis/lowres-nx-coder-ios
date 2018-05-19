@@ -26,6 +26,7 @@ typedef NS_ENUM(int, LCCPostCategory) {
     LCCPostCategoryGame = 2,
     LCCPostCategoryTool,
     LCCPostCategoryDemo,
+    LCCPostCategoryAssets,
     
     // Forum
     LCCPostCategoryForumHowTo = 10,

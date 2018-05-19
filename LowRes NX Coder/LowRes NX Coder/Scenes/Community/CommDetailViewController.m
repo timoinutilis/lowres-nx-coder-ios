@@ -428,7 +428,8 @@ static const NSInteger LIMIT = 25;
             case 1: self.filterCategory = LCCPostCategoryGame; break;
             case 2: self.filterCategory = LCCPostCategoryTool; break;
             case 3: self.filterCategory = LCCPostCategoryDemo; break;
-            case 4: self.filterCategory = LCCPostCategoryStatus; break;
+            case 4: self.filterCategory = LCCPostCategoryAssets; break;
+            case 5: self.filterCategory = LCCPostCategoryStatus; break;
         }
     }
 }
@@ -909,9 +910,10 @@ static const NSInteger LIMIT = 25;
             [self.segmentedControl insertSegmentWithTitle:@"Games" atIndex:1 animated:NO];
             [self.segmentedControl insertSegmentWithTitle:@"Tools" atIndex:2 animated:NO];
             [self.segmentedControl insertSegmentWithTitle:@"Demos" atIndex:3 animated:NO];
+            [self.segmentedControl insertSegmentWithTitle:@"Assets" atIndex:4 animated:NO];
             if (mode != CommListModeEssentials)
             {
-                [self.segmentedControl insertSegmentWithTitle:@"Status" atIndex:4 animated:NO];
+                [self.segmentedControl insertSegmentWithTitle:@"Status" atIndex:5 animated:NO];
             }
             break;
     }
@@ -936,8 +938,11 @@ static const NSInteger LIMIT = 25;
         case LCCPostCategoryForumDiscussion:
             self.segmentedControl.selectedSegmentIndex = 3;
             break;
-        case LCCPostCategoryStatus:
+        case LCCPostCategoryAssets:
             self.segmentedControl.selectedSegmentIndex = 4;
+            break;
+        case LCCPostCategoryStatus:
+            self.segmentedControl.selectedSegmentIndex = 5;
             break;
     }
 }

@@ -404,20 +404,20 @@ The upgrade is valid for all your devices and without time limit.</string>
                         <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <view key="tableHeaderView" contentMode="scaleToFill" misplaced="YES" id="LVT-MC-nf7">
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="LVT-MC-nf7">
                             <rect key="frame" x="0.0" y="0.0" width="320" height="200"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="icon_about" translatesAutoresizingMaskIntoConstraints="NO" id="LfM-vY-AYb">
+                                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_about" translatesAutoresizingMaskIntoConstraints="NO" id="LfM-vY-AYb">
                                     <rect key="frame" x="120" y="16" width="80" height="80"/>
                                 </imageView>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="LOWRES NX CODER" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZfG-TZ-kA5" customClass="TextLabel">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LOWRES NX CODER" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZfG-TZ-kA5" customClass="TextLabel">
                                     <rect key="frame" x="51.5" y="112" width="217" height="28"/>
                                     <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="24"/>
                                     <color key="textColor" red="0.0" green="0.0014800280332565308" blue="0.10033674538135529" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="(Version x.x)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6zC-PQ-jSm" customClass="TextLabel">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(Version x.x)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6zC-PQ-jSm" customClass="TextLabel">
                                     <rect key="frame" x="122" y="148" width="76" height="16"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                     <color key="textColor" red="0.0" green="0.0014800280332565308" blue="0.10033674538135529" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -435,12 +435,12 @@ The upgrade is valid for all your devices and without time limit.</string>
                                 <constraint firstAttribute="centerX" secondItem="6zC-PQ-jSm" secondAttribute="centerX" id="v47-JJ-vfC"/>
                             </constraints>
                         </view>
-                        <view key="tableFooterView" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" id="0Af-BT-7ZV">
+                        <view key="tableFooterView" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" id="0Af-BT-7ZV">
                             <rect key="frame" x="0.0" y="316" width="320" height="60"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g01-MB-aiJ">
-                                    <rect key="frame" x="8" y="16" width="304" height="29"/>
+                                    <rect key="frame" x="8" y="16" width="304" height="36"/>
                                     <string key="text">Developed by Timo Kloss
 Inutilis Software, 2017-2018</string>
                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
