@@ -13,25 +13,14 @@
 		920E1B321F78024500664382 /* NSString+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 925CC6991F75896F0059C230 /* NSString+Utils.m */; };
 		920E1B331F78024500664382 /* UIColor+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 925CC69B1F75896F0059C230 /* UIColor+Utils.m */; };
 		920E1B351F78024500664382 /* UITextView+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 925CC69F1F75896F0059C230 /* UITextView+Utils.m */; };
-		920E1B361F78024E00664382 /* GORCycleManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 925CC6A21F75896F0059C230 /* GORCycleManager.m */; };
 		920E1B371F78024E00664382 /* GORLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 925CC6A41F75896F0059C230 /* GORLabel.m */; };
-		920E1B381F78024E00664382 /* GORMenuTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 925CC6A61F75896F0059C230 /* GORMenuTableViewController.m */; };
-		920E1B3B1F78024E00664382 /* GORTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 925CC6AC1F75896F0059C230 /* GORTableViewController.m */; };
-		920E1B461F7816FA00664382 /* ActionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 925CC5471F75889D0059C230 /* ActionTableViewCell.m */; };
-		920E1B471F7816FA00664382 /* ActivityView.m in Sources */ = {isa = PBXBuildFile; fileRef = 925CC53E1F75889A0059C230 /* ActivityView.m */; };
-		920E1B481F7816FA00664382 /* ActivityView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 925CC5301F7588960059C230 /* ActivityView.xib */; };
 		920E1B491F7816FA00664382 /* BackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 925CC52E1F7588950059C230 /* BackgroundView.m */; };
 		920E1B4A1F7816FA00664382 /* BlockerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 925CC5391F7588980059C230 /* BlockerView.m */; };
 		920E1B4B1F7816FA00664382 /* BlockerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 925CC53A1F7588980059C230 /* BlockerView.xib */; };
-		920E1B4C1F7816FA00664382 /* BorderedButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 925CC5421F75889B0059C230 /* BorderedButton.m */; };
 		920E1B4E1F7816FA00664382 /* EditorTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 925CC5491F75889F0059C230 /* EditorTextView.m */; };
-		920E1B501F7816FA00664382 /* LimitedTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 925CC5431F75889B0059C230 /* LimitedTextView.m */; };
 		920E1B531F7816FA00664382 /* SearchToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 925CC53D1F7588990059C230 /* SearchToolbar.m */; };
 		920E1B541F7816FA00664382 /* StandardTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 925CC5381F7588980059C230 /* StandardTableViewCell.m */; };
-		920E1B551F7816FA00664382 /* TextFieldTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 925CC54E1F7588A10059C230 /* TextFieldTableViewCell.m */; };
 		920E1B561F7816FA00664382 /* TextLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 925CC54B1F75889F0059C230 /* TextLabel.m */; };
-		920E1B571F7816FA00664382 /* TextViewTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 925CC5411F75889B0059C230 /* TextViewTableViewCell.m */; };
-		920E1B731F781AC100664382 /* guidelines.html in Resources */ = {isa = PBXBuildFile; fileRef = 926EB1D51F757F5D0048A6CF /* guidelines.html */; };
 		921614301F7D70E2006AB2DE /* EditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9216142F1F7D70E2006AB2DE /* EditorViewController.swift */; };
 		9227DC1E1FC8BB0700BC89FD /* ProjectManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9227DC1D1FC8BB0700BC89FD /* ProjectManager.swift */; };
 		9227DC221FC8C17A00BC89FD /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9227DC211FC8C17A00BC89FD /* SplashViewController.swift */; };
@@ -94,7 +83,6 @@
 		92A5248920697EDE00EDE7AF /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A5248820697EDD00EDE7AF /* AboutViewController.swift */; };
 		92D1A7641FBF6FDE0059450E /* data_manager.c in Sources */ = {isa = PBXBuildFile; fileRef = 92D1A7621FBF6FDE0059450E /* data_manager.c */; };
 		92DA4C99202CECE000129302 /* Dpad.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DA4C98202CECE000129302 /* Dpad.swift */; };
-		92E9D6B320A6DD2F003D5E76 /* FilledButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E9D6B220A6DD2F003D5E76 /* FilledButton.swift */; };
 		92EA93BE1F744572007BEFB1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92EA93BD1F744572007BEFB1 /* AppDelegate.swift */; };
 		92EA93C51F744573007BEFB1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 92EA93C41F744573007BEFB1 /* Assets.xcassets */; };
 		92ED99691FA4E3480073559B /* charsets.c in Sources */ = {isa = PBXBuildFile; fileRef = 92ED99631FA4E3470073559B /* charsets.c */; };
@@ -119,45 +107,26 @@
 		92483F7C1F7C2A4300E6D476 /* LowRes NX Coder.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "LowRes NX Coder.entitlements"; sourceTree = "<group>"; };
 		924AB3F1205D986B00BCF977 /* IndexSideBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndexSideBar.swift; sourceTree = "<group>"; };
 		925CC52E1F7588950059C230 /* BackgroundView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BackgroundView.m; sourceTree = "<group>"; };
-		925CC52F1F7588950059C230 /* LimitedTextView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LimitedTextView.h; sourceTree = "<group>"; };
-		925CC5301F7588960059C230 /* ActivityView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ActivityView.xib; sourceTree = "<group>"; };
 		925CC5331F7588960059C230 /* EditorTextView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditorTextView.h; sourceTree = "<group>"; };
 		925CC5361F7588970059C230 /* StandardTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StandardTableViewCell.h; sourceTree = "<group>"; };
 		925CC5381F7588980059C230 /* StandardTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StandardTableViewCell.m; sourceTree = "<group>"; };
 		925CC5391F7588980059C230 /* BlockerView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlockerView.m; sourceTree = "<group>"; };
 		925CC53A1F7588980059C230 /* BlockerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BlockerView.xib; sourceTree = "<group>"; };
-		925CC53C1F7588990059C230 /* ActionTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ActionTableViewCell.h; sourceTree = "<group>"; };
 		925CC53D1F7588990059C230 /* SearchToolbar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchToolbar.m; sourceTree = "<group>"; };
-		925CC53E1F75889A0059C230 /* ActivityView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ActivityView.m; sourceTree = "<group>"; };
-		925CC53F1F75889A0059C230 /* TextViewTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TextViewTableViewCell.h; sourceTree = "<group>"; };
 		925CC5401F75889A0059C230 /* TextLabel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TextLabel.h; sourceTree = "<group>"; };
-		925CC5411F75889B0059C230 /* TextViewTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TextViewTableViewCell.m; sourceTree = "<group>"; };
-		925CC5421F75889B0059C230 /* BorderedButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BorderedButton.m; sourceTree = "<group>"; };
-		925CC5431F75889B0059C230 /* LimitedTextView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LimitedTextView.m; sourceTree = "<group>"; };
-		925CC5441F75889C0059C230 /* TextFieldTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TextFieldTableViewCell.h; sourceTree = "<group>"; };
-		925CC5451F75889C0059C230 /* ActivityView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ActivityView.h; sourceTree = "<group>"; };
 		925CC5461F75889D0059C230 /* BackgroundView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BackgroundView.h; sourceTree = "<group>"; };
-		925CC5471F75889D0059C230 /* ActionTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ActionTableViewCell.m; sourceTree = "<group>"; };
 		925CC5481F75889E0059C230 /* BlockerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlockerView.h; sourceTree = "<group>"; };
 		925CC5491F75889F0059C230 /* EditorTextView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditorTextView.m; sourceTree = "<group>"; };
 		925CC54B1F75889F0059C230 /* TextLabel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TextLabel.m; sourceTree = "<group>"; };
 		925CC54D1F7588A00059C230 /* SearchToolbar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchToolbar.h; sourceTree = "<group>"; };
-		925CC54E1F7588A10059C230 /* TextFieldTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TextFieldTableViewCell.m; sourceTree = "<group>"; };
-		925CC54F1F7588A10059C230 /* BorderedButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BorderedButton.h; sourceTree = "<group>"; };
 		925CC6981F75896F0059C230 /* NSString+Utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+Utils.h"; sourceTree = "<group>"; };
 		925CC6991F75896F0059C230 /* NSString+Utils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+Utils.m"; sourceTree = "<group>"; };
 		925CC69A1F75896F0059C230 /* UIColor+Utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIColor+Utils.h"; sourceTree = "<group>"; };
 		925CC69B1F75896F0059C230 /* UIColor+Utils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Utils.m"; sourceTree = "<group>"; };
 		925CC69E1F75896F0059C230 /* UITextView+Utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UITextView+Utils.h"; sourceTree = "<group>"; };
 		925CC69F1F75896F0059C230 /* UITextView+Utils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UITextView+Utils.m"; sourceTree = "<group>"; };
-		925CC6A11F75896F0059C230 /* GORCycleManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GORCycleManager.h; sourceTree = "<group>"; };
-		925CC6A21F75896F0059C230 /* GORCycleManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GORCycleManager.m; sourceTree = "<group>"; };
 		925CC6A31F75896F0059C230 /* GORLabel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GORLabel.h; sourceTree = "<group>"; };
 		925CC6A41F75896F0059C230 /* GORLabel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GORLabel.m; sourceTree = "<group>"; };
-		925CC6A51F75896F0059C230 /* GORMenuTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GORMenuTableViewController.h; sourceTree = "<group>"; };
-		925CC6A61F75896F0059C230 /* GORMenuTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GORMenuTableViewController.m; sourceTree = "<group>"; };
-		925CC6AB1F75896F0059C230 /* GORTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GORTableViewController.h; sourceTree = "<group>"; };
-		925CC6AC1F75896F0059C230 /* GORTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GORTableViewController.m; sourceTree = "<group>"; };
 		925CC6B11F7589B90059C230 /* AppStyle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppStyle.h; sourceTree = "<group>"; };
 		925CC6B21F7589B90059C230 /* AppController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppController.m; sourceTree = "<group>"; };
 		925CC6B31F7589BA0059C230 /* AppController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppController.h; sourceTree = "<group>"; };
@@ -166,7 +135,6 @@
 		925CC6B91F758A360059C230 /* ReplayKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReplayKit.framework; path = System/Library/Frameworks/ReplayKit.framework; sourceTree = SDKROOT; };
 		926EB1D11F757DDD0048A6CF /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		926EB1D21F757EA70048A6CF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
-		926EB1D51F757F5D0048A6CF /* guidelines.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = guidelines.html; sourceTree = "<group>"; };
 		926EB1D81F757FAD0048A6CF /* UIViewController+LowResCoder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIViewController+LowResCoder.h"; sourceTree = "<group>"; };
 		926EB1DA1F757FAD0048A6CF /* UIViewController+LowResCoder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+LowResCoder.m"; sourceTree = "<group>"; };
 		926EB1E21F75823C0048A6CF /* TabBarController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TabBarController.h; sourceTree = "<group>"; };
@@ -260,7 +228,6 @@
 		92D1A7621FBF6FDE0059450E /* data_manager.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = data_manager.c; sourceTree = "<group>"; };
 		92D1A7631FBF6FDE0059450E /* data_manager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = data_manager.h; sourceTree = "<group>"; };
 		92DA4C98202CECE000129302 /* Dpad.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dpad.swift; sourceTree = "<group>"; };
-		92E9D6B220A6DD2F003D5E76 /* FilledButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilledButton.swift; sourceTree = "<group>"; };
 		92EA93BA1F744572007BEFB1 /* LowRes NX Coder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "LowRes NX Coder.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		92EA93BD1F744572007BEFB1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		92EA93C41F744573007BEFB1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -295,22 +262,14 @@
 			children = (
 				925CC6A31F75896F0059C230 /* GORLabel.h */,
 				925CC6A41F75896F0059C230 /* GORLabel.m */,
-				925CC5451F75889C0059C230 /* ActivityView.h */,
-				925CC53E1F75889A0059C230 /* ActivityView.m */,
-				925CC5301F7588960059C230 /* ActivityView.xib */,
 				925CC5461F75889D0059C230 /* BackgroundView.h */,
 				925CC52E1F7588950059C230 /* BackgroundView.m */,
 				925CC5481F75889E0059C230 /* BlockerView.h */,
 				925CC5391F7588980059C230 /* BlockerView.m */,
 				925CC53A1F7588980059C230 /* BlockerView.xib */,
-				925CC54F1F7588A10059C230 /* BorderedButton.h */,
-				925CC5421F75889B0059C230 /* BorderedButton.m */,
-				92E9D6B220A6DD2F003D5E76 /* FilledButton.swift */,
 				925CC5331F7588960059C230 /* EditorTextView.h */,
 				925CC5491F75889F0059C230 /* EditorTextView.m */,
 				924AB3F1205D986B00BCF977 /* IndexSideBar.swift */,
-				925CC52F1F7588950059C230 /* LimitedTextView.h */,
-				925CC5431F75889B0059C230 /* LimitedTextView.m */,
 				925CC54D1F7588A00059C230 /* SearchToolbar.h */,
 				925CC53D1F7588990059C230 /* SearchToolbar.m */,
 				925CC5401F75889A0059C230 /* TextLabel.h */,
@@ -319,14 +278,6 @@
 				92930E4B203377DF00DE18B9 /* RoundHitBoxButton.swift */,
 			);
 			path = Views;
-			sourceTree = "<group>";
-		};
-		925CC6921F75896F0059C230 /* Gor Lib */ = {
-			isa = PBXGroup;
-			children = (
-				925CC6A01F75896F0059C230 /* UI */,
-			);
-			path = "Gor Lib";
 			sourceTree = "<group>";
 		};
 		925CC6931F75896F0059C230 /* Extensions */ = {
@@ -340,19 +291,6 @@
 				925CC69F1F75896F0059C230 /* UITextView+Utils.m */,
 			);
 			path = Extensions;
-			sourceTree = "<group>";
-		};
-		925CC6A01F75896F0059C230 /* UI */ = {
-			isa = PBXGroup;
-			children = (
-				925CC6A11F75896F0059C230 /* GORCycleManager.h */,
-				925CC6A21F75896F0059C230 /* GORCycleManager.m */,
-				925CC6A51F75896F0059C230 /* GORMenuTableViewController.h */,
-				925CC6A61F75896F0059C230 /* GORMenuTableViewController.m */,
-				925CC6AB1F75896F0059C230 /* GORTableViewController.h */,
-				925CC6AC1F75896F0059C230 /* GORTableViewController.m */,
-			);
-			path = UI;
 			sourceTree = "<group>";
 		};
 		925CC6AF1F75899E0059C230 /* App */ = {
@@ -390,14 +328,6 @@
 				926EB1DA1F757FAD0048A6CF /* UIViewController+LowResCoder.m */,
 			);
 			path = Scenes;
-			sourceTree = "<group>";
-		};
-		926EB1D41F757EF30048A6CF /* HTML */ = {
-			isa = PBXGroup;
-			children = (
-				926EB1D51F757F5D0048A6CF /* guidelines.html */,
-			);
-			path = HTML;
 			sourceTree = "<group>";
 		};
 		926EB1DD1F757FC90048A6CF /* Main */ = {
@@ -574,14 +504,8 @@
 		92A524862069771100EDE7AF /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				925CC53C1F7588990059C230 /* ActionTableViewCell.h */,
-				925CC5471F75889D0059C230 /* ActionTableViewCell.m */,
 				925CC5361F7588970059C230 /* StandardTableViewCell.h */,
 				925CC5381F7588980059C230 /* StandardTableViewCell.m */,
-				925CC5441F75889C0059C230 /* TextFieldTableViewCell.h */,
-				925CC54E1F7588A10059C230 /* TextFieldTableViewCell.m */,
-				925CC53F1F75889A0059C230 /* TextViewTableViewCell.h */,
-				925CC5411F75889B0059C230 /* TextViewTableViewCell.m */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -620,8 +544,6 @@
 			children = (
 				92483F7C1F7C2A4300E6D476 /* LowRes NX Coder.entitlements */,
 				92EA93C41F744573007BEFB1 /* Assets.xcassets */,
-				926EB1D41F757EF30048A6CF /* HTML */,
-				925CC6921F75896F0059C230 /* Gor Lib */,
 				925CC6931F75896F0059C230 /* Extensions */,
 				925CC6AF1F75899E0059C230 /* App */,
 				92A524862069771100EDE7AF /* Cells */,
@@ -702,10 +624,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				920E1B731F781AC100664382 /* guidelines.html in Resources */,
 				923AFD721F77ED34002F6A5B /* Main.storyboard in Resources */,
 				922F0A2C1FCCC1FF004EF2D2 /* docs in Resources */,
-				920E1B481F7816FA00664382 /* ActivityView.xib in Resources */,
 				92EA93C51F744573007BEFB1 /* Assets.xcassets in Resources */,
 				926EB1D31F757EA70048A6CF /* LaunchScreen.storyboard in Resources */,
 				927F2C6F1FC4C1030041883C /* LowResNX.storyboard in Resources */,
@@ -724,7 +644,6 @@
 			files = (
 				923AFD811F77ED52002F6A5B /* HelpTextViewController.m in Sources */,
 				920E1B371F78024E00664382 /* GORLabel.m in Sources */,
-				920E1B571F7816FA00664382 /* TextViewTableViewCell.m in Sources */,
 				928402271F7448B500AC1466 /* interpreter_utils.c in Sources */,
 				9284021F1F7448B500AC1466 /* cmd_screen.c in Sources */,
 				923AFD7E1F77ED52002F6A5B /* HelpMasterNavController.m in Sources */,
@@ -732,17 +651,13 @@
 				92ED99701FA4E3770073559B /* core_delegate.c in Sources */,
 				9284021E1F7448B500AC1466 /* cmd_memory.c in Sources */,
 				923AFD7B1F77ED46002F6A5B /* UpgradeViewController.m in Sources */,
-				920E1B551F7816FA00664382 /* TextFieldTableViewCell.m in Sources */,
-				920E1B381F78024E00664382 /* GORMenuTableViewController.m in Sources */,
 				928402171F7448B500AC1466 /* core.c in Sources */,
 				9294F2E01FC4B9A600A90487 /* LowResNXViewController.swift in Sources */,
 				920E1B531F7816FA00664382 /* SearchToolbar.m in Sources */,
-				920E1B461F7816FA00664382 /* ActionTableViewCell.m in Sources */,
 				9284021B1F7448B500AC1466 /* cmd_files.c in Sources */,
 				9284022F1F7448B500AC1466 /* text_lib.c in Sources */,
 				928402211F7448B500AC1466 /* cmd_strings.c in Sources */,
 				92FAB24D1FC07D1C002E45FB /* LowResNXView.swift in Sources */,
-				920E1B3B1F78024E00664382 /* GORTableViewController.m in Sources */,
 				9284022E1F7448B500AC1466 /* sprites_lib.c in Sources */,
 				923C311020587965003C89AC /* ToolsMenuConfiguration.swift in Sources */,
 				9284022D1F7448B500AC1466 /* default_characters.c in Sources */,
@@ -755,12 +670,10 @@
 				928402221F7448B500AC1466 /* cmd_text.c in Sources */,
 				928402341F7448B500AC1466 /* overlay_data.c in Sources */,
 				928402281F7448B500AC1466 /* labels.c in Sources */,
-				920E1B4C1F7816FA00664382 /* BorderedButton.m in Sources */,
 				92ED996A1FA4E3480073559B /* tokenizer.c in Sources */,
 				920E1B4A1F7816FA00664382 /* BlockerView.m in Sources */,
 				920E1B1A1F77FF7A00664382 /* ExplorerViewController.swift in Sources */,
 				9284021C1F7448B500AC1466 /* cmd_io.c in Sources */,
-				920E1B501F7816FA00664382 /* LimitedTextView.m in Sources */,
 				920E1B541F7816FA00664382 /* StandardTableViewCell.m in Sources */,
 				920E1B351F78024500664382 /* UITextView+Utils.m in Sources */,
 				9284022C1F7448B500AC1466 /* variables.c in Sources */,
@@ -772,7 +685,6 @@
 				9208A7D1202120AF00D1EFF7 /* cmd_subs.c in Sources */,
 				920E1B321F78024500664382 /* NSString+Utils.m in Sources */,
 				926EB1DC1F757FAD0048A6CF /* UIViewController+LowResCoder.m in Sources */,
-				920E1B471F7816FA00664382 /* ActivityView.m in Sources */,
 				920E1B561F7816FA00664382 /* TextLabel.m in Sources */,
 				928402251F7448B500AC1466 /* error.c in Sources */,
 				928402231F7448B500AC1466 /* cmd_variables.c in Sources */,
@@ -781,7 +693,6 @@
 				928402191F7448B500AC1466 /* cmd_control.c in Sources */,
 				923AFD7F1F77ED52002F6A5B /* HelpSplitViewController.m in Sources */,
 				928402321F7448B500AC1466 /* video_chip.c in Sources */,
-				920E1B361F78024E00664382 /* GORCycleManager.m in Sources */,
 				9227DC1E1FC8BB0700BC89FD /* ProjectManager.swift in Sources */,
 				9276994E1F7D678900211D15 /* ProjectDocument.swift in Sources */,
 				92930E4C203377DF00DE18B9 /* RoundHitBoxButton.swift in Sources */,
@@ -795,7 +706,6 @@
 				928402331F7448B500AC1466 /* overlay.c in Sources */,
 				923AFD691F77EB27002F6A5B /* AppStyle.m in Sources */,
 				923AFD801F77ED52002F6A5B /* HelpTableViewController.m in Sources */,
-				92E9D6B320A6DD2F003D5E76 /* FilledButton.swift in Sources */,
 				923AFD681F77EB23002F6A5B /* AppController.m in Sources */,
 				92ED99691FA4E3480073559B /* charsets.c in Sources */,
 				928402311F7448B500AC1466 /* machine.c in Sources */,

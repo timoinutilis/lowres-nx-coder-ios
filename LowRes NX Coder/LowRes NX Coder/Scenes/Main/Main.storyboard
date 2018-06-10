@@ -497,13 +497,7 @@ Inutilis Software, 2017-2018</string>
                             <outlet property="delegate" destination="dks-Z0-Sk1" id="ntb-Nl-TNz"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="About" id="Sfk-O4-4iW">
-                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="done" id="eH9-hy-yMf">
-                            <connections>
-                                <action selector="onDoneTapped:" destination="dks-Z0-Sk1" id="FF3-65-k20"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="About" id="Sfk-O4-4iW"/>
                     <connections>
                         <outlet property="copyrightLabel" destination="g01-MB-aiJ" id="tC3-4k-7YS"/>
                         <outlet property="titleLabel" destination="ZfG-TZ-kA5" id="OLh-qV-LGf"/>

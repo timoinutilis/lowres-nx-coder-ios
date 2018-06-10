@@ -18,9 +18,16 @@ class AboutViewController: UITableViewController, MFMailComposeViewControllerDel
         case contact
     }
     
-    struct MenuEntry {
+    class MenuEntry {
         let title: String
         let action: Action
+        let isBold: Bool
+        
+        init(title: String, action: Action, isBold: Bool = false) {
+            self.title = title
+            self.action = action
+            self.isBold = isBold
+        }
     }
     
     @IBOutlet weak var titleLabel: UILabel!
@@ -39,9 +46,10 @@ class AboutViewController: UITableViewController, MFMailComposeViewControllerDel
         if !AppController.shared().isFullVersion {
             menuEntries.append(MenuEntry(title: "Full Version", action: .upgrade))
         }
-        menuEntries.append(MenuEntry(title: "Rate in App Store", action: .web(URL(string: "itms-apps://itunes.apple.com/app/id1318884577")!)))
+        menuEntries.append(MenuEntry(title: "Community Forum", action: .web(URL(string: "https://lowresnx.inutilis.com")!), isBold: true))
         menuEntries.append(MenuEntry(title: "Twitter", action: .web(URL(string: "https://twitter.com/timo_inutilis")!)))
         menuEntries.append(MenuEntry(title: "inutilis.com", action: .web(URL(string: "http://www.inutilis.com")!)))
+        menuEntries.append(MenuEntry(title: "Rate in App Store", action: .web(URL(string: "itms-apps://itunes.apple.com/app/id1318884577")!)))
         menuEntries.append(MenuEntry(title: "Contact", action: .contact))
     }
     
@@ -73,10 +81,6 @@ class AboutViewController: UITableViewController, MFMailComposeViewControllerDel
         }
     }
     
-    @IBAction func onDoneTapped(_ sender: Any) {
-        presentingViewController?.dismiss(animated: true, completion: nil)
-    }
-    
     // MARK: - Table view data source
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -99,6 +103,7 @@ class AboutViewController: UITableViewController, MFMailComposeViewControllerDel
         default:
             let cell = tableView.dequeueReusableCell(withIdentifier: "Disclosure", for: indexPath)
             cell.textLabel!.text = entry.title
+            cell.textLabel!.font = entry.isBold ? UIFont.boldSystemFont(ofSize: 17) : UIFont.systemFont(ofSize: 17)
             return cell
         }
     }
