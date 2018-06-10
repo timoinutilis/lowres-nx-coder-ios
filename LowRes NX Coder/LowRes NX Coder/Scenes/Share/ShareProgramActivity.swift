@@ -27,7 +27,7 @@ class ShareProgramActivity: UIActivity {
     }
     
     override var activityImage: UIImage? {
-        return #imageLiteral(resourceName: "communitysel")
+        return #imageLiteral(resourceName: "sharecommunity")
     }
     
     override func canPerform(withActivityItems activityItems: [Any]) -> Bool {
@@ -41,6 +41,7 @@ class ShareProgramActivity: UIActivity {
         vc.setup(activity: self, programUrl: programUrl)
         
         let nav = UINavigationController(rootViewController: vc)
+        nav.modalPresentationStyle = .formSheet
         
         shareViewController = nav
     }
