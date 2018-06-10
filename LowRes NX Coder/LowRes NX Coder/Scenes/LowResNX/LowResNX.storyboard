@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="eHk-P2-FSa">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="eHk-P2-FSa">
     <device id="retina5_5" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -205,6 +205,7 @@
                         <outlet property="containerView" destination="hDT-ts-Kz3" id="yZX-kn-Id7"/>
                         <outlet property="exitButton" destination="UGT-qu-6MS" id="1Fs-QI-Poo"/>
                         <outlet property="keyboardConstraint" destination="SnL-1b-KG9" id="Agd-pK-Wqb"/>
+                        <outlet property="menuButton" destination="xvW-7I-abI" id="Bet-kw-MTW"/>
                         <outlet property="multiPlayerConstraint" destination="Yxl-eA-0g4" id="MFZ-3E-oE4"/>
                         <outlet property="nxView" destination="Daq-lQ-abv" id="2Us-a8-YRb"/>
                         <outlet property="p1ButtonA" destination="yqc-bc-XaK" id="GQw-oO-Ise"/>

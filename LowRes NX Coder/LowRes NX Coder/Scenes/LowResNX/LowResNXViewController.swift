@@ -19,7 +19,10 @@ protocol LowResNXViewControllerDelegate: class {
 
 class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate {
     
+    let screenshotScaleFactor: CGFloat = 3.0
+    
     @IBOutlet private weak var exitButton: UIButton!
+    @IBOutlet weak var menuButton: UIButton!
     @IBOutlet private weak var nxView: LowResNXView!
     @IBOutlet private weak var containerView: UIView!
     @IBOutlet private weak var widthConstraint: NSLayoutConstraint!
@@ -222,8 +225,34 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
         }
     }
     
+    func shareScreenshot() {
+        if let cgImage = nxView.layer.contents as! CGImage? {
+            let uiImage = UIImage(cgImage: cgImage)
+            
+            // rescale
+            let size = CGSize(width: CGFloat(SCREEN_WIDTH) * screenshotScaleFactor, height: CGFloat(SCREEN_HEIGHT) * screenshotScaleFactor)
+            UIGraphicsBeginImageContextWithOptions(size, true, 1.0)
+            let context = UIGraphicsGetCurrentContext()
+            context?.interpolationQuality = .none
+            uiImage.draw(in: CGRect(origin: CGPoint(), size: size))
+            let scaledImage = UIGraphicsGetImageFromCurrentImageContext()!
+            UIGraphicsEndImageContext()
+            
+            // share
+            let activityVC = UIActivityViewController(activityItems: [scaledImage], applicationActivities: nil)
+            activityVC.popoverPresentationController?.sourceView = menuButton
+            activityVC.popoverPresentationController?.sourceRect = menuButton.bounds
+            self.present(activityVC, animated: true, completion: nil)
+        }
+    }
+    
     @objc func update(displaylink: CADisplayLink) {
         guard let coreWrapper = coreWrapper else {
+            return
+        }
+        
+        // pause when any alerts are visible
+        if presentedViewController != nil {
             return
         }
         
@@ -416,6 +445,10 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
                 self.captureProgramIcon()
             }))
         }
+        
+        alert.addAction(UIAlertAction(title: "Share Screenshot", style: .default, handler: { [unowned self] (action) in
+            self.shareScreenshot()
+        }))
         
         if isDebugEnabled {
             alert.addAction(UIAlertAction(title: "Disable Debug Mode", style: .default, handler: { [unowned self] (action) in

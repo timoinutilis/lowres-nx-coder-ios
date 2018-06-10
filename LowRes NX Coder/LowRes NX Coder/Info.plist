@@ -36,7 +36,7 @@
 	<key>CFBundleShortVersionString</key>
 	<string>1.1</string>
 	<key>CFBundleVersion</key>
-	<string>18</string>
+	<string>19</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>LowResAPIClientID</key>
@@ -56,6 +56,8 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Allow this to save screenshots.</string>
 	<key>NSUbiquitousContainers</key>
 	<dict>
 		<key>iCloud.com.inutilis.ios.LowRes-NX-Coder</key>
