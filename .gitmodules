@@ -7,6 +7,3 @@
 [submodule "LowRes NX Coder/SDWebImage"]
 	path = LowRes NX Coder/SDWebImage
 	url = https://github.com/rs/SDWebImage.git
-[submodule "LowRes NX Coder/Eureka"]
-	path = LowRes NX Coder/Eureka
-	url = https://github.com/xmartlabs/Eureka.git

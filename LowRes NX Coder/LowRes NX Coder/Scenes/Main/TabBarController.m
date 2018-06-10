@@ -9,7 +9,6 @@
 #import "TabBarController.h"
 #import "HelpSplitViewController.h"
 #import "AppController.h"
-#import "CommunityModel.h"
 
 @interface TabBarController ()
 
@@ -28,33 +27,22 @@
     UIStoryboard *helpStoryboard = [UIStoryboard storyboardWithName:@"Help" bundle:nil];
     UIViewController *helpVC = (UIViewController *)[helpStoryboard instantiateInitialViewController];
     
-    UIStoryboard *communityStoryboard = [UIStoryboard storyboardWithName:@"Community" bundle:nil];
-    UIViewController *communityVC = (UIViewController *)[communityStoryboard instantiateInitialViewController];
-    UIViewController *notificationsVC = (UIViewController *)[communityStoryboard instantiateViewControllerWithIdentifier:@"NotificationsNavigationController"];
-
+    UIViewController *aboutVC = [self.storyboard instantiateViewControllerWithIdentifier:@"AboutNav"];
+    
     explorerVC.tabBarItem = [self itemWithTitle:@"My Programs" imageName:@"programs"];
     helpVC.tabBarItem = [self itemWithTitle:@"Help" imageName:@"help"];
-    communityVC.tabBarItem = [self itemWithTitle:@"Community" imageName:@"community"];
-    notificationsVC.tabBarItem = [self itemWithTitle:@"Notifications" imageName:@"notifications"];
+    aboutVC.tabBarItem = [self itemWithTitle:@"About" imageName:@"about"];
     
-    self.viewControllers = @[explorerVC, helpVC, communityVC, notificationsVC];
+    self.viewControllers = @[explorerVC, helpVC, aboutVC];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationsNumChanged:) name:NotificationsNumChangeNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkShowPost:) name:ShowPostNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkImportProject:) name:ImportProjectNotification object:nil];
 }
 
 - (void)dealloc
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:NotificationsNumChangeNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:ShowPostNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:ImportProjectNotification object:nil];
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [self updateCommunityBadge];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -67,25 +55,6 @@
 - (UITabBarItem *)itemWithTitle:(NSString *)title imageName:(NSString *)imageName
 {
     return [[UITabBarItem alloc] initWithTitle:title image:[UIImage imageNamed:imageName] selectedImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@sel", imageName]]];
-}
-
-- (void)notificationsNumChanged:(NSNotification *)notification
-{
-    [self updateCommunityBadge];
-}
-
-- (void)updateCommunityBadge
-{
-    NSInteger num = [CommunityModel sharedInstance].numNewNotifications;
-    UITabBarItem *item = self.tabBar.items[TabIndexNotifications];
-    if (num > 0)
-    {
-        item.badgeValue = @(num).stringValue;
-    }
-    else
-    {
-        item.badgeValue = nil;
-    }
 }
 
 - (void)dismissPresentedViewController:(void (^)(void))completion

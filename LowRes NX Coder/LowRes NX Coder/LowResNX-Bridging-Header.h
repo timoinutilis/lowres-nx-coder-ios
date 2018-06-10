@@ -12,7 +12,6 @@
 #import "TabBarController.h"
 #import "HelpContent.h"
 #import "AppStyle.h"
-#import "CommunityModel.h"
 #import "NSString+Utils.h"
 #import "UITextView+Utils.h"
 #import "UIViewController+LowResCoder.h"
@@ -21,5 +20,3 @@
 #import "SearchToolbar.h"
 #import "BlockerView.h"
 #import "GORLabel.h"
-
-#import "CommLogInViewController.h"

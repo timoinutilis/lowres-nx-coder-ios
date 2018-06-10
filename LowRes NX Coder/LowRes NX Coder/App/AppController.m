@@ -10,7 +10,6 @@
 #import "UIViewController+LowResCoder.h"
 #import "HelpContent.h"
 #import "TabBarController.h"
-#import "CommunityModel.h"
 
 NSString *const FullVersionProductID = @"fullversion";
 
