@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="oli-IW-NHE">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="oli-IW-NHE">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -405,7 +405,7 @@ The upgrade is valid for all your devices and without time limit.</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="LVT-MC-nf7">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="200"/>
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="210"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_about" translatesAutoresizingMaskIntoConstraints="NO" id="LfM-vY-AYb">
@@ -423,24 +423,31 @@ The upgrade is valid for all your devices and without time limit.</string>
                                     <color key="textColor" red="0.0" green="0.0014800280332565308" blue="0.10033674538135529" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="(Core Version x.x)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YKX-no-k1H">
+                                    <rect key="frame" x="106" y="164" width="108.5" height="16"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
                             </subviews>
                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
                                 <constraint firstItem="LfM-vY-AYb" firstAttribute="top" secondItem="LVT-MC-nf7" secondAttribute="top" constant="16" id="CMK-BB-zEQ"/>
+                                <constraint firstItem="YKX-no-k1H" firstAttribute="centerX" secondItem="LVT-MC-nf7" secondAttribute="centerX" id="EOZ-1a-u0M"/>
                                 <constraint firstItem="6zC-PQ-jSm" firstAttribute="top" secondItem="ZfG-TZ-kA5" secondAttribute="bottom" constant="8" id="WNW-MP-4MD"/>
                                 <constraint firstAttribute="centerX" secondItem="LfM-vY-AYb" secondAttribute="centerX" id="kLx-g9-cIa"/>
-                                <constraint firstAttribute="bottom" secondItem="6zC-PQ-jSm" secondAttribute="bottom" constant="36" id="sOI-FS-Jus"/>
                                 <constraint firstItem="ZfG-TZ-kA5" firstAttribute="top" secondItem="LfM-vY-AYb" secondAttribute="bottom" constant="16" id="sVg-0a-hpN"/>
                                 <constraint firstAttribute="centerX" secondItem="ZfG-TZ-kA5" secondAttribute="centerX" id="tgS-VF-TRo"/>
                                 <constraint firstAttribute="centerX" secondItem="6zC-PQ-jSm" secondAttribute="centerX" id="v47-JJ-vfC"/>
+                                <constraint firstItem="YKX-no-k1H" firstAttribute="top" secondItem="6zC-PQ-jSm" secondAttribute="bottom" id="xlh-O4-vQA"/>
                             </constraints>
                         </view>
                         <view key="tableFooterView" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" id="0Af-BT-7ZV">
-                            <rect key="frame" x="0.0" y="316" width="320" height="60"/>
+                            <rect key="frame" x="0.0" y="326" width="320" height="60"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g01-MB-aiJ">
-                                    <rect key="frame" x="8" y="16" width="304" height="36"/>
+                                    <rect key="frame" x="8" y="16" width="304" height="29"/>
                                     <string key="text">Developed by Timo Kloss
 Inutilis Software, 2017-2018</string>
                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
@@ -451,14 +458,13 @@ Inutilis Software, 2017-2018</string>
                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
                                 <constraint firstItem="g01-MB-aiJ" firstAttribute="leading" secondItem="0Af-BT-7ZV" secondAttribute="leadingMargin" id="6QX-FW-sSW"/>
-                                <constraint firstAttribute="bottom" secondItem="g01-MB-aiJ" secondAttribute="bottom" constant="8" id="SGQ-Ri-4oT"/>
                                 <constraint firstAttribute="trailingMargin" secondItem="g01-MB-aiJ" secondAttribute="trailing" id="aco-lN-r75"/>
                                 <constraint firstItem="g01-MB-aiJ" firstAttribute="top" secondItem="0Af-BT-7ZV" secondAttribute="top" constant="16" id="qiV-15-CCB"/>
                             </constraints>
                         </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Disclosure" textLabel="4vg-hA-p4D" style="IBUITableViewCellStyleDefault" id="hhH-4t-BLN">
-                                <rect key="frame" x="0.0" y="228" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="238" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="hhH-4t-BLN" id="ka0-1a-f9b">
                                     <rect key="frame" x="0.0" y="0.0" width="286" height="43.5"/>
@@ -475,7 +481,7 @@ Inutilis Software, 2017-2018</string>
                                 </tableViewCellContentView>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="Info" textLabel="LrI-pk-z3L" style="IBUITableViewCellStyleDefault" id="GmA-IY-F2S">
-                                <rect key="frame" x="0.0" y="272" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="282" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="GmA-IY-F2S" id="1m5-2A-Qfw">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
@@ -500,6 +506,7 @@ Inutilis Software, 2017-2018</string>
                     <navigationItem key="navigationItem" title="About" id="Sfk-O4-4iW"/>
                     <connections>
                         <outlet property="copyrightLabel" destination="g01-MB-aiJ" id="tC3-4k-7YS"/>
+                        <outlet property="coreVersionLabel" destination="YKX-no-k1H" id="y0m-le-yPl"/>
                         <outlet property="titleLabel" destination="ZfG-TZ-kA5" id="OLh-qV-LGf"/>
                         <outlet property="versionLabel" destination="6zC-PQ-jSm" id="GKJ-um-c8j"/>
                         <segue destination="cfP-MT-scX" kind="show" identifier="Upgrade" id="go0-hS-0Gm"/>
@@ -507,7 +514,7 @@ Inutilis Software, 2017-2018</string>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9KE-Ux-WAz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1249" y="329"/>
+            <point key="canvasLocation" x="1248.75" y="328.52112676056339"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="RGF-gP-Rq2">

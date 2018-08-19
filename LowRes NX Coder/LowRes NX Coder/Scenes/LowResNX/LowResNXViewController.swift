@@ -58,6 +58,7 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
     private var hasAppeared: Bool = false
     private var recognizer: UITapGestureRecognizer?
     private var startDate: Date!
+    private var audioPlayer: LowResNXAudioPlayer!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -109,6 +110,7 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
         }
         
         nxView.coreWrapper = coreWrapper
+        audioPlayer = LowResNXAudioPlayer(coreWrapper: coreWrapper)
         
         coreWrapper.delegate = self
         configureGameControllers()
@@ -159,7 +161,10 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         view.endEditing(true)
+        
         displayLink?.invalidate()
+        
+        audioPlayer.stop()
         
         diskDocument?.close(completionHandler: nil)
         diskDocument = nil
@@ -540,6 +545,9 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
             } else {
                 self.recognizer?.isEnabled = false
                 self.resignFirstResponder()
+            }
+            if controlsInfo.isAudioEnabled {
+                self.audioPlayer.start()
             }
         }
     }

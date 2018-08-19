@@ -77,6 +77,9 @@
 		928402321F7448B500AC1466 /* video_chip.c in Sources */ = {isa = PBXBuildFile; fileRef = 9284020F1F7448B500AC1466 /* video_chip.c */; };
 		928402331F7448B500AC1466 /* overlay.c in Sources */ = {isa = PBXBuildFile; fileRef = 928402121F7448B500AC1466 /* overlay.c */; };
 		928402341F7448B500AC1466 /* overlay_data.c in Sources */ = {isa = PBXBuildFile; fileRef = 928402141F7448B500AC1466 /* overlay_data.c */; };
+		9289C40721288748009BE093 /* audio_lib.c in Sources */ = {isa = PBXBuildFile; fileRef = 9289C40521288747009BE093 /* audio_lib.c */; };
+		9289C40A21288757009BE093 /* cmd_audio.c in Sources */ = {isa = PBXBuildFile; fileRef = 9289C40821288757009BE093 /* cmd_audio.c */; };
+		9289C40C2128A46E009BE093 /* LowResNXAudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9289C40B2128A46E009BE093 /* LowResNXAudioPlayer.swift */; };
 		92930E4C203377DF00DE18B9 /* RoundHitBoxButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92930E4B203377DF00DE18B9 /* RoundHitBoxButton.swift */; };
 		9294F2E01FC4B9A600A90487 /* LowResNXViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9294F2DF1FC4B9A600A90487 /* LowResNXViewController.swift */; };
 		9294F2E21FC4BA1100A90487 /* CoreWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9294F2E11FC4BA1100A90487 /* CoreWrapper.swift */; };
@@ -221,6 +224,11 @@
 		928402141F7448B500AC1466 /* overlay_data.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = overlay_data.c; sourceTree = "<group>"; };
 		928402151F7448B500AC1466 /* overlay_data.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = overlay_data.h; sourceTree = "<group>"; };
 		928402351F7448E000AC1466 /* LowResNX-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LowResNX-Bridging-Header.h"; sourceTree = "<group>"; };
+		9289C40521288747009BE093 /* audio_lib.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = audio_lib.c; sourceTree = "<group>"; };
+		9289C40621288747009BE093 /* audio_lib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = audio_lib.h; sourceTree = "<group>"; };
+		9289C40821288757009BE093 /* cmd_audio.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cmd_audio.c; sourceTree = "<group>"; };
+		9289C40921288757009BE093 /* cmd_audio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cmd_audio.h; sourceTree = "<group>"; };
+		9289C40B2128A46E009BE093 /* LowResNXAudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LowResNXAudioPlayer.swift; sourceTree = "<group>"; };
 		92930E4B203377DF00DE18B9 /* RoundHitBoxButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundHitBoxButton.swift; sourceTree = "<group>"; };
 		9294F2DF1FC4B9A600A90487 /* LowResNXViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LowResNXViewController.swift; sourceTree = "<group>"; };
 		9294F2E11FC4BA1100A90487 /* CoreWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreWrapper.swift; sourceTree = "<group>"; };
@@ -397,21 +405,12 @@
 			children = (
 				92ED99631FA4E3470073559B /* charsets.c */,
 				92ED99681FA4E3480073559B /* charsets.h */,
-				92ED99661FA4E3480073559B /* string_utils.c */,
-				92ED99641FA4E3470073559B /* string_utils.h */,
-				92ED99651FA4E3470073559B /* tokenizer.c */,
-				92ED99671FA4E3480073559B /* tokenizer.h */,
-				928401F31F7448B500AC1466 /* interpreter.c */,
-				928401F41F7448B500AC1466 /* interpreter.h */,
-				928401F51F7448B500AC1466 /* interpreter_config.h */,
-				928401F61F7448B500AC1466 /* interpreter_utils.c */,
-				928401F71F7448B500AC1466 /* interpreter_utils.h */,
+				9289C40821288757009BE093 /* cmd_audio.c */,
+				9289C40921288757009BE093 /* cmd_audio.h */,
 				928401D71F7448B500AC1466 /* cmd_background.c */,
 				928401D81F7448B500AC1466 /* cmd_background.h */,
 				928401D91F7448B500AC1466 /* cmd_control.c */,
 				928401DA1F7448B500AC1466 /* cmd_control.h */,
-				9208A7CF202120AE00D1EFF7 /* cmd_subs.c */,
-				9208A7D0202120AF00D1EFF7 /* cmd_subs.h */,
 				928401DB1F7448B500AC1466 /* cmd_data.c */,
 				928401DC1F7448B500AC1466 /* cmd_data.h */,
 				928401DD1F7448B500AC1466 /* cmd_files.c */,
@@ -428,6 +427,8 @@
 				928401E81F7448B500AC1466 /* cmd_sprites.h */,
 				928401E91F7448B500AC1466 /* cmd_strings.c */,
 				928401EA1F7448B500AC1466 /* cmd_strings.h */,
+				9208A7CF202120AE00D1EFF7 /* cmd_subs.c */,
+				9208A7D0202120AF00D1EFF7 /* cmd_subs.h */,
 				928401EB1F7448B500AC1466 /* cmd_text.c */,
 				928401EC1F7448B500AC1466 /* cmd_text.h */,
 				928401ED1F7448B500AC1466 /* cmd_variables.c */,
@@ -436,12 +437,21 @@
 				928401F01F7448B500AC1466 /* data.h */,
 				928401F11F7448B500AC1466 /* error.c */,
 				928401F21F7448B500AC1466 /* error.h */,
+				928401F51F7448B500AC1466 /* interpreter_config.h */,
+				928401F61F7448B500AC1466 /* interpreter_utils.c */,
+				928401F71F7448B500AC1466 /* interpreter_utils.h */,
+				928401F31F7448B500AC1466 /* interpreter.c */,
+				928401F41F7448B500AC1466 /* interpreter.h */,
 				928401F81F7448B500AC1466 /* labels.c */,
 				928401F91F7448B500AC1466 /* labels.h */,
 				928401FA1F7448B500AC1466 /* rcstring.c */,
 				928401FB1F7448B500AC1466 /* rcstring.h */,
+				92ED99661FA4E3480073559B /* string_utils.c */,
+				92ED99641FA4E3470073559B /* string_utils.h */,
 				928401FC1F7448B500AC1466 /* token.c */,
 				928401FD1F7448B500AC1466 /* token.h */,
+				92ED99651FA4E3470073559B /* tokenizer.c */,
+				92ED99671FA4E3480073559B /* tokenizer.h */,
 				928401FE1F7448B500AC1466 /* value.c */,
 				928401FF1F7448B500AC1466 /* value.h */,
 				928402001F7448B500AC1466 /* variables.c */,
@@ -453,12 +463,14 @@
 		928402021F7448B500AC1466 /* libraries */ = {
 			isa = PBXGroup;
 			children = (
-				92ED996D1FA4E3530073559B /* startup_sequence.c */,
-				92ED996C1FA4E3530073559B /* startup_sequence.h */,
+				9289C40521288747009BE093 /* audio_lib.c */,
+				9289C40621288747009BE093 /* audio_lib.h */,
 				928402031F7448B500AC1466 /* default_characters.c */,
 				928402041F7448B500AC1466 /* default_characters.h */,
 				928402051F7448B500AC1466 /* sprites_lib.c */,
 				928402061F7448B500AC1466 /* sprites_lib.h */,
+				92ED996D1FA4E3530073559B /* startup_sequence.c */,
+				92ED996C1FA4E3530073559B /* startup_sequence.h */,
 				928402071F7448B500AC1466 /* text_lib.c */,
 				928402081F7448B500AC1466 /* text_lib.h */,
 			);
@@ -496,6 +508,7 @@
 				927F2C6E1FC4C1030041883C /* LowResNX.storyboard */,
 				9294F2DF1FC4B9A600A90487 /* LowResNXViewController.swift */,
 				92FAB24C1FC07D1B002E45FB /* LowResNXView.swift */,
+				9289C40B2128A46E009BE093 /* LowResNXAudioPlayer.swift */,
 				9294F2E11FC4BA1100A90487 /* CoreWrapper.swift */,
 			);
 			path = LowResNX;
@@ -655,10 +668,12 @@
 				9294F2E01FC4B9A600A90487 /* LowResNXViewController.swift in Sources */,
 				920E1B531F7816FA00664382 /* SearchToolbar.m in Sources */,
 				9284021B1F7448B500AC1466 /* cmd_files.c in Sources */,
+				9289C40A21288757009BE093 /* cmd_audio.c in Sources */,
 				9284022F1F7448B500AC1466 /* text_lib.c in Sources */,
 				928402211F7448B500AC1466 /* cmd_strings.c in Sources */,
 				92FAB24D1FC07D1C002E45FB /* LowResNXView.swift in Sources */,
 				9284022E1F7448B500AC1466 /* sprites_lib.c in Sources */,
+				9289C40C2128A46E009BE093 /* LowResNXAudioPlayer.swift in Sources */,
 				923C311020587965003C89AC /* ToolsMenuConfiguration.swift in Sources */,
 				9284022D1F7448B500AC1466 /* default_characters.c in Sources */,
 				9284022A1F7448B500AC1466 /* token.c in Sources */,
@@ -679,6 +694,7 @@
 				9284022C1F7448B500AC1466 /* variables.c in Sources */,
 				920E1B331F78024500664382 /* UIColor+Utils.m in Sources */,
 				92A5248920697EDE00EDE7AF /* AboutViewController.swift in Sources */,
+				9289C40721288748009BE093 /* audio_lib.c in Sources */,
 				9276994C1F7D649800211D15 /* ExplorerItem.swift in Sources */,
 				928402201F7448B500AC1466 /* cmd_sprites.c in Sources */,
 				9284021D1F7448B500AC1466 /* cmd_maths.c in Sources */,

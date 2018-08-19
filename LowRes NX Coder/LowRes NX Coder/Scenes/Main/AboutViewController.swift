@@ -32,6 +32,7 @@ class AboutViewController: UITableViewController, MFMailComposeViewControllerDel
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var versionLabel: UILabel!
+    @IBOutlet weak var coreVersionLabel: UILabel!
     @IBOutlet weak var copyrightLabel: UILabel!
     
     private var menuEntries = [MenuEntry]()
@@ -40,6 +41,7 @@ class AboutViewController: UITableViewController, MFMailComposeViewControllerDel
         super.viewDidLoad()
         
         versionLabel.text = "Version \(appVersion)"
+        coreVersionLabel.text = "Core \(coreVersion)"
         
         menuEntries.append(MenuEntry(title: "This is a free preview version of the app. Later versions will have limitations in the editor, which will require an in-app purchase to unlock the full experience. However, playing games will always be free.", action: .none))
         
@@ -59,6 +61,10 @@ class AboutViewController: UITableViewController, MFMailComposeViewControllerDel
         return "\(shortVersion ?? "?") (\(bundleVersion ?? "?"))"
     }
     
+    private var coreVersion: String {
+        return CORE_VERSION
+    }
+    
     private func sendMail() {
         if MFMailComposeViewController.canSendMail() {
             let mailViewController = MFMailComposeViewController()
@@ -71,7 +77,7 @@ class AboutViewController: UITableViewController, MFMailComposeViewControllerDel
             mailViewController.setToRecipients(["support@inutilis.com"])
             mailViewController.setSubject("LowRes NX Coder")
             
-            let body = "\n\n\n\n\(device.model)\n\(device.systemName) \(device.systemVersion)\nApp \(appVersion)"
+            let body = "\n\n\n\n\(device.model)\n\(device.systemName) \(device.systemVersion)\nApp \(appVersion)\nCore \(coreVersion)"
             mailViewController.setMessageBody(body, isHTML: false)
             
             present(mailViewController, animated: true, completion: nil)
