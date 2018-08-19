@@ -28,7 +28,6 @@ class LowResNXAudioPlayer: NSObject {
             let session = AVAudioSession.sharedInstance()
             do {
                 try session.setCategory(AVAudioSessionCategoryAmbient)
-                try session.setPreferredSampleRate(22050)
                 try session.setActive(true)
             } catch {
                 print("AVAudioSession", error.localizedDescription)
@@ -53,7 +52,7 @@ class LowResNXAudioPlayer: NSObject {
             
             var buffer: AudioQueueBufferRef?
             for _ in 0 ..< 2 {
-                AudioQueueAllocateBuffer(queue, 735 * dataFormat.mBytesPerFrame, &buffer)
+                AudioQueueAllocateBuffer(queue, 1470 * dataFormat.mBytesPerFrame, &buffer)
                 if let buffer = buffer {
                     let capacity = buffer.pointee.mAudioDataBytesCapacity
                     audio_renderAudio(&coreWrapper.core, buffer.pointee.mAudioData.assumingMemoryBound(to: Int16.self), Int32(buffer.pointee.mAudioDataBytesCapacity / 2), Int32(AVAudioSession.sharedInstance().sampleRate))

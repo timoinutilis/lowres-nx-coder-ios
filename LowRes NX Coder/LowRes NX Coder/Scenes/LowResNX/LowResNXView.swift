@@ -11,17 +11,17 @@ import UIKit
 class LowResNXView: UIView {
     var coreWrapper: CoreWrapper?
 
-    private var data: UnsafeMutablePointer<UInt8>?
+    private var data: UnsafeMutablePointer<UInt32>?
     private var dataProvider: CGDataProvider?
     private var wasTouchReleased = false
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
-        let dataLength = Int(SCREEN_WIDTH) * Int(SCREEN_HEIGHT) * 4;
-        data = UnsafeMutablePointer<UInt8>.allocate(capacity: dataLength)
+        let numPixels = Int(SCREEN_WIDTH) * Int(SCREEN_HEIGHT);
+        data = UnsafeMutablePointer<UInt32>.allocate(capacity: numPixels)
         var callbacks = CGDataProviderDirectCallbacks(version: 0, getBytePointer: getBytePointerCallback, releaseBytePointer: nil, getBytesAtPosition: nil, releaseInfo: nil)
-        dataProvider = CGDataProvider(directInfo: data, size: off_t(dataLength), callbacks: &callbacks)
+        dataProvider = CGDataProvider(directInfo: data, size: off_t(numPixels * 4), callbacks: &callbacks)
     }
     
     override func awakeFromNib() {
@@ -30,7 +30,7 @@ class LowResNXView: UIView {
     
     func render() {
         if let coreWrapper = coreWrapper, let dataProvider = dataProvider {
-            video_renderScreen(&coreWrapper.core, data, SCREEN_WIDTH*4)
+            video_renderScreen(&coreWrapper.core, data)
             let image = CGImage(width: Int(SCREEN_WIDTH), height: Int(SCREEN_HEIGHT), bitsPerComponent: 8, bitsPerPixel: 32, bytesPerRow: Int(SCREEN_WIDTH)*4, space: CGColorSpaceCreateDeviceRGB(), bitmapInfo: CGBitmapInfo(rawValue: CGImageAlphaInfo.noneSkipLast.rawValue), provider: dataProvider, decode: nil, shouldInterpolate: false, intent: .defaultIntent)
             
             layer.contents = image
