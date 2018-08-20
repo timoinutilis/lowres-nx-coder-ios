@@ -490,18 +490,18 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
         if let delegate = delegate {
             // tool editing current program
             let diskSourceCode = delegate.nxSourceCodeForVirtualDisk()
-            let cDiskSourceCode = diskSourceCode.cString(using: .ascii)
+            let cDiskSourceCode = diskSourceCode.cString(using: .utf8)
             data_import(diskDataManager, cDiskSourceCode, true)
         } else {
             // tool editing shared disk file
             if let diskDocument = diskDocument {
-                let cDiskSourceCode = (diskDocument.sourceCode ?? "").cString(using: .ascii)
+                let cDiskSourceCode = (diskDocument.sourceCode ?? "").cString(using: .utf8)
                 data_import(diskDataManager, cDiskSourceCode, true)
             } else {
                 ProjectManager.shared.getDiskDocument(completion: { (document, error) in
                     if let document = document {
                         self.diskDocument = document
-                        let cDiskSourceCode = (document.sourceCode ?? "").cString(using: .ascii)
+                        let cDiskSourceCode = (document.sourceCode ?? "").cString(using: .utf8)
                         data_import(diskDataManager, cDiskSourceCode, true)
                         self.showAlert(withTitle: "Using “Disk.nx” as Virtual Disk", message: nil, block: {
                             core_diskLoaded(&self.coreWrapper!.core)
@@ -520,7 +520,7 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
     
     func coreDiskDriveDidSave(diskDataManager: UnsafeMutablePointer<DataManager>?) {
         let output = data_export(diskDataManager)
-        if let output = output, let diskSourceCode = String(cString: output, encoding: .ascii) {
+        if let output = output, let diskSourceCode = String(cString: output, encoding: .utf8) {
             if let delegate = delegate {
                 // tool editing current program
                 delegate.nxDidSaveVirtualDisk(sourceCode: diskSourceCode)
