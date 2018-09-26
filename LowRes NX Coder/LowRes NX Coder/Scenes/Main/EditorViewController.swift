@@ -10,9 +10,6 @@ import UIKit
 
 /*
  int const EditorDemoMaxLines = 24;
- NSString *const CoachMarkIDStart = @"CoachMarkIDStart";
- NSString *const CoachMarkIDShare = @"CoachMarkIDShare";
- NSString *const CoachMarkIDHelp = @"CoachMarkIDHelp";
  
  NSString *const InfoIDExample = @"InfoIDExample";
  NSString *const InfoIDLongProgram = @"InfoIDLongProgram";
@@ -115,6 +112,7 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: .UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: .UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(applicationWillResignActive), name: .UIApplicationWillResignActive, object: nil)
         
     }
     
@@ -165,36 +163,7 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
             app.replayPreviewViewController.modalPresentationStyle = UIModalPresentationFullScreen;
             [self presentViewController:app.replayPreviewViewController animated:YES completion:nil];
         }
-             else if (self.project.isDefault.boolValue)
-             {
-             if ([app isUnshownInfoID:CoachMarkIDStart])
-             {
-             [app onShowInfoID:CoachMarkIDStart];
-             CoachMarkView *coachMark = [[CoachMarkView alloc] initWithText:@"Tap the Play button to run this program!" complete:nil];
-             [coachMark setTargetNavBar:self.navigationController.navigationBar itemIndex:0];
-             [coachMark show];
-             }
-             }
-             else if (!self.project.isDefault.boolValue && self.wasEditedSinceOpened && self.sourceCodeTextView.text.length >= 200)
-             {
-             if ([app isUnshownInfoID:CoachMarkIDShare])
-             {
-             [app onShowInfoID:CoachMarkIDShare];
-             CoachMarkView *coachMark = [[CoachMarkView alloc] initWithText:@"Are you happy with your program? Share it with the community!" complete:nil];
-             [coachMark setTargetNavBar:self.navigationController.navigationBar itemIndex:3];
-             [coachMark show];
-             }
-             }
-        else if ([self.sourceCodeTextView.text isEqualToString:@""])
-        {
-            if ([app isUnshownInfoID:CoachMarkIDHelp])
-            {
-                [app onShowInfoID:CoachMarkIDHelp];
-                CoachMarkView *coachMark = [[CoachMarkView alloc] initWithText:@"Go to the Help tab to learn how to create your own programs!" complete:nil];
-                [coachMark setTargetTabBar:[AppController sharedController].tabBarController.tabBar itemIndex:1];
-                [coachMark show];
-            }
-        }*/
+        */
     }
     
     private func setBarButtonsEnabled(_ enabled: Bool) {
@@ -227,6 +196,22 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
         sourceCodeTextView.contentInset = insets
         sourceCodeTextView.scrollIndicatorInsets = insets
         indexSideBarConstraint.constant = -insets.bottom
+    }
+    
+    @objc func applicationWillResignActive(_ notification: Notification) {
+        let app = UIApplication.shared
+        var bgTask = UIBackgroundTaskInvalid
+        
+        bgTask = app.beginBackgroundTask {
+            app.endBackgroundTask(bgTask)
+            bgTask = UIBackgroundTaskInvalid
+        }
+        
+        updateDocument()
+        document.autosave(completionHandler: { (succeeded) in
+            app.endBackgroundTask(bgTask)
+            bgTask = UIBackgroundTaskInvalid
+        })
     }
     
     func updateDocument() {

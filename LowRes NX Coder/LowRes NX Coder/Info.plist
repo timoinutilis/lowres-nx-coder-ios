@@ -36,26 +36,11 @@
 	<key>CFBundleShortVersionString</key>
 	<string>1.2</string>
 	<key>CFBundleVersion</key>
-	<string>20</string>
+	<string>23</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>LowResAPIClientID</key>
-	<string>LowResNXCoder-iOS</string>
-	<key>LowResAPIURL</key>
-	<string>https://lowresnxapi.timokloss.com</string>
-	<key>LowResNewsUserID</key>
-	<string>h0Yz8BLVp7</string>
-	<key>NSAppTransportSecurity</key>
-	<dict>
-		<key>NSExceptionDomains</key>
-		<dict>
-			<key>localhost</key>
-			<dict>
-				<key>NSExceptionAllowsInsecureHTTPLoads</key>
-				<true/>
-			</dict>
-		</dict>
-	</dict>
+	<key>LSSupportsOpeningDocumentsInPlace</key>
+	<false/>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>Allow this to save screenshots.</string>
 	<key>NSUbiquitousContainers</key>
