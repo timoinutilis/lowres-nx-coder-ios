@@ -171,13 +171,13 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
     }
     
     override var prefersStatusBarHidden: Bool {
-        if #available(iOS 11.0, *) {
-            if let window = UIApplication.shared.delegate?.window {
-                if window?.safeAreaInsets.top != 0 {
-                    return false
-                }
-            }
-        }
+//        if #available(iOS 11.0, *) {
+//            if let window = UIApplication.shared.delegate?.window {
+//                if window?.safeAreaInsets.top != 0 {
+//                    return false
+//                }
+//            }
+//        }
         return true
     }
     
