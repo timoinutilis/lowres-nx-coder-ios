@@ -41,7 +41,11 @@
 	<true/>
 	<key>LSSupportsOpeningDocumentsInPlace</key>
 	<false/>
+	<key>NSContactsUsageDescription</key>
+	<string>Allow this to save screenshots.</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Allow this to save screenshots.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Allow this to save screenshots.</string>
 	<key>NSUbiquitousContainers</key>
 	<dict>
