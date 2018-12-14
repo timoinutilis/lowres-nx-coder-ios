@@ -60,9 +60,13 @@ class LowResNXError: NSError {
     
     init(error: CoreError, sourceCode: String) {
         coreError = error
-        let index = sourceCode.index(sourceCode.startIndex, offsetBy: Int(error.sourcePosition))
-        let lineRange = sourceCode.lineRange(for: index ..< index)
-        line = sourceCode[lineRange].trimmingCharacters(in: CharacterSet.whitespaces)
+        if error.sourcePosition < sourceCode.count {
+            let index = sourceCode.index(sourceCode.startIndex, offsetBy: Int(error.sourcePosition))
+            let lineRange = sourceCode.lineRange(for: index ..< index)
+            line = sourceCode[lineRange].trimmingCharacters(in: CharacterSet.whitespaces)
+        } else {
+            line = ""
+        }
         message = String(cString:err_getString(error.code))
         super.init(domain: "LowResNX", code: Int(coreError.code.rawValue), userInfo: [NSLocalizedDescriptionKey: "\(message): \(line)"])
     }
