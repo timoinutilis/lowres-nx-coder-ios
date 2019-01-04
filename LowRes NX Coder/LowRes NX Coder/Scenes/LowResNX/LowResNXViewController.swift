@@ -53,6 +53,7 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
         }
     }
     
+    private var controlsInfo: ControlsInfo = ControlsInfo()
     private var displayLink: CADisplayLink?
     private var compilerError: NSError?
     private var hasAppeared: Bool = false
@@ -124,6 +125,11 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
         self.recognizer = recognizer
         
         let displayLink = CADisplayLink(target: self, selector: #selector(update))
+        if #available(iOS 10.0, *) {
+            displayLink.preferredFramesPerSecond = 60
+        } else {
+            displayLink.frameInterval = 1
+        }
         self.displayLink = displayLink
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: .UIKeyboardWillShow, object: nil)
@@ -264,23 +270,13 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
         updateGameControllers()
         updateOnscreenGamepads()
         
-        let oldNumPlayers = core_getNumGamepads(&coreWrapper.core)
         core_update(&coreWrapper.core, &coreWrapper.input)
-        let newNumPlayers = core_getNumGamepads(&coreWrapper.core)
         
-        if newNumPlayers != oldNumPlayers {
-            configureGameControllers()
-        }
         nxView.render()
     }
     
     func configureGameControllers() {
-        guard let coreWrapper = coreWrapper else {
-            return
-        }
-        
-        let numPlayers = Int(core_getNumGamepads(&coreWrapper.core))
-        
+        let numPlayers = Int(controlsInfo.numGamepadsEnabled)
         var numGameControllers = 0
         
         if SUPPORTS_GAME_CONTROLLERS {
@@ -346,7 +342,7 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
         }
         
         let numGameControllers = SUPPORTS_GAME_CONTROLLERS ? GCController.controllers().count : 0
-        let numPlayers = Int(core_getNumGamepads(&coreWrapper.core))
+        let numPlayers = Int(controlsInfo.numGamepadsEnabled)
         let numOnscreenGamepads = numPlayers - numGameControllers
         
         if numOnscreenGamepads >= 1 {
@@ -379,11 +375,7 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
     }
     
     override var canBecomeFirstResponder: Bool {
-        guard let coreWrapper = coreWrapper else {
-            return false
-        }
-        
-        return core_getKeyboardEnabled(&coreWrapper.core)
+        return controlsInfo.keyboardMode == KeyboardModeOn
     }
     
     private func showError(_ error: NSError) {
@@ -430,7 +422,7 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
     @IBAction func onExitTapped(_ sender: Any) {
         let timeSinceStart = Date().timeIntervalSince(startDate)
         
-        if timeSinceStart >= 60, let coreWrapper = coreWrapper, core_getNumGamepads(&coreWrapper.core) == 0 {
+        if timeSinceStart >= 60 && controlsInfo.isTouchEnabled {
             let alert = UIAlertController(title: "Do you really want to exit this program?", message: nil, preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Exit", style: .default, handler: { [unowned self] (action) in
                 self.presentingViewController?.dismiss(animated: true, completion: nil)
@@ -539,7 +531,8 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
     
     func coreControlsDidChange(controlsInfo: ControlsInfo) {
         DispatchQueue.main.async {
-            if controlsInfo.isKeyboardEnabled {
+            self.controlsInfo = controlsInfo
+            if controlsInfo.keyboardMode == KeyboardModeOn {
                 self.recognizer?.isEnabled = true
                 self.becomeFirstResponder()
             } else {
@@ -549,6 +542,7 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
             if controlsInfo.isAudioEnabled {
                 self.audioPlayer.start()
             }
+            self.configureGameControllers()
         }
     }
     
