@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="oli-IW-NHE">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="oli-IW-NHE">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -72,19 +70,19 @@
                                 <rect key="frame" x="0.0" y="64" width="320" height="46"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Find Text" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0qF-dj-Piz">
-                                        <rect key="frame" x="8" y="8" width="80.5" height="30"/>
+                                        <rect key="frame" x="8" y="8" width="53" height="30"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" autocorrectionType="no" spellCheckingType="no" keyboardType="alphabet" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Replace With" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Tue-Eq-eaG">
-                                        <rect key="frame" x="170.5" y="8" width="80.5" height="30"/>
+                                        <rect key="frame" x="171" y="8" width="53" height="30"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" autocorrectionType="no" spellCheckingType="no" keyboardType="alphabet" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PBo-nZ-YAN">
-                                        <rect key="frame" x="96.5" y="4" width="29" height="39"/>
+                                        <rect key="frame" x="69" y="-8" width="43" height="62"/>
                                         <inset key="contentEdgeInsets" minX="8" minY="8" maxX="8" maxY="8"/>
                                         <state key="normal" image="prev"/>
                                         <connections>
@@ -92,7 +90,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lEe-xR-bXU">
-                                        <rect key="frame" x="259" y="4.5" width="43" height="38"/>
+                                        <rect key="frame" x="232" y="-4" width="70" height="54"/>
                                         <inset key="contentEdgeInsets" minX="8" minY="8" maxX="8" maxY="8"/>
                                         <state key="normal" image="replace"/>
                                         <connections>
@@ -100,7 +98,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5pA-ad-p0N">
-                                        <rect key="frame" x="133.5" y="3" width="29" height="39"/>
+                                        <rect key="frame" x="120" y="-8" width="43" height="62"/>
                                         <inset key="contentEdgeInsets" minX="8" minY="8" maxX="8" maxY="8"/>
                                         <state key="normal" image="next"/>
                                         <connections>
@@ -220,7 +218,7 @@ The upgrade is valid for all your devices and without time limit.</string>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yqV-0v-CbY">
-                                        <rect key="frame" x="32" y="298" width="225" height="30"/>
+                                        <rect key="frame" x="31.5" y="298" width="225" height="30"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d5T-K3-Spc">
                                                 <rect key="frame" x="0.0" y="0.0" width="64" height="30"/>
@@ -256,7 +254,7 @@ The upgrade is valid for all your devices and without time limit.</string>
                                         <rect key="frame" x="134" y="303" width="20" height="20"/>
                                     </activityIndicatorView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Thank you for the upgrade!" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mMK-I5-wyt">
-                                        <rect key="frame" x="34" y="303" width="221" height="20"/>
+                                        <rect key="frame" x="33.5" y="303" width="221" height="20"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -404,7 +402,7 @@ The upgrade is valid for all your devices and without time limit.</string>
                         <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <view key="tableHeaderView" contentMode="scaleToFill" id="LVT-MC-nf7">
+                        <view key="tableHeaderView" contentMode="scaleToFill" misplaced="YES" id="LVT-MC-nf7">
                             <rect key="frame" x="0.0" y="0.0" width="320" height="210"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
@@ -449,7 +447,7 @@ The upgrade is valid for all your devices and without time limit.</string>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g01-MB-aiJ">
                                     <rect key="frame" x="8" y="16" width="304" height="29"/>
                                     <string key="text">Developed by Timo Kloss
-Inutilis Software, 2017-2018</string>
+Inutilis Software, 2017-2019</string>
                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
@@ -612,7 +610,7 @@ Inutilis Software, 2017-2018</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UBu-4K-4uE">
-                                                    <rect key="frame" x="22" y="0.0" width="80" height="64"/>
+                                                    <rect key="frame" x="22.5" y="0.0" width="80" height="64"/>
                                                     <color key="backgroundColor" red="0.79607843137254897" green="0.80392156862745101" blue="0.81960784313725488" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="64" id="9z0-hj-rja"/>
@@ -620,7 +618,7 @@ Inutilis Software, 2017-2018</string>
                                                     </constraints>
                                                 </view>
                                                 <imageView opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="star" translatesAutoresizingMaskIntoConstraints="NO" id="cbG-7Z-OPe">
-                                                    <rect key="frame" x="12" y="0.0" width="28" height="28"/>
+                                                    <rect key="frame" x="12.5" y="0.0" width="28" height="28"/>
                                                 </imageView>
                                             </subviews>
                                         </view>
@@ -692,9 +690,9 @@ Inutilis Software, 2017-2018</string>
     <resources>
         <image name="icon_about" width="80" height="80"/>
         <image name="navbar_shadow" width="1" height="4"/>
-        <image name="next" width="13" height="23"/>
-        <image name="prev" width="13" height="23"/>
-        <image name="replace" width="27" height="19"/>
+        <image name="next" width="27" height="46"/>
+        <image name="prev" width="27" height="46"/>
+        <image name="replace" width="54" height="38"/>
         <image name="star" width="28" height="28"/>
         <image name="toolbar_shadow" width="1" height="3"/>
     </resources>

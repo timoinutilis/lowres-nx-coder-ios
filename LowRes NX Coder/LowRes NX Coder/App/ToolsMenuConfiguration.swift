@@ -11,9 +11,9 @@ import UIKit
 class ToolsMenuConfiguration: NSObject {
     
     private let defaultPrograms = [
-        "Char Designer 1.2.nx",
-        "BG Designer 1.2.nx",
-        "Sound Composer 1.0.nx"
+        "Char Designer 1.3.nx",
+        "BG Designer 1.3.nx",
+        "Sound Composer 1.1.nx"
     ]
     
     private(set) var programUrls: [URL]!
