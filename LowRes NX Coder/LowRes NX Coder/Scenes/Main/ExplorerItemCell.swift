@@ -16,8 +16,8 @@ protocol ExplorerItemCellDelegate: class {
 class ExplorerItemCell: UICollectionViewCell {
     
     @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var shadowView: UIView!
     @IBOutlet weak var previewImageView: UIImageView!
-    @IBOutlet weak var starImageView: UIImageView!
     @IBOutlet weak var folderView: UIView!
     
     weak var delegate: ExplorerItemCellDelegate?
@@ -27,7 +27,6 @@ class ExplorerItemCell: UICollectionViewCell {
             if let item = item {
                 nameLabel.text = item.name
                 previewImageView.image = item.image
-                starImageView.isHidden = !item.isDefault
             }
         }
     }
@@ -35,8 +34,15 @@ class ExplorerItemCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         let imageLayer = previewImageView != nil ? previewImageView.layer : folderView.layer
-        imageLayer.cornerRadius = 4
+        imageLayer.cornerRadius = 2
         imageLayer.masksToBounds = true
+        previewImageView.backgroundColor = AppStyle.mediumTintColor()
+        
+        shadowView.layer.cornerRadius = 3
+        
+        nameLabel.layer.shadowOffset = CGSize(width: 0, height: 2)
+        nameLabel.layer.shadowOpacity = 1.0
+        nameLabel.layer.shadowRadius = 0.0
     }
     
     @objc func renameItem(_ sender: Any?) {

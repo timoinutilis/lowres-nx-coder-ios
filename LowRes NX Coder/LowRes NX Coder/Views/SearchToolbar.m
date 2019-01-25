@@ -25,7 +25,10 @@
 - (void)awakeFromNib
 {
     [super awakeFromNib];
-    self.backgroundColor = [AppStyle barColor];
+    self.backgroundColor = [AppStyle mediumTintColor];
+    self.tintColor = [AppStyle brightTintColor];
+    self.findTextField.tintColor = [AppStyle mediumTintColor];
+    self.replaceTextField.tintColor = [AppStyle mediumTintColor];
     self.findTextField.delegate = self;
     self.replaceTextField.delegate = self;
 }

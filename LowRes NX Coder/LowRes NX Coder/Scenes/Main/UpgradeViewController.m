@@ -34,7 +34,7 @@
         self.navigationItem.rightBarButtonItem = doneItem;
     }
     
-    self.upgradedLabel.textColor = [AppStyle barColor];
+    self.upgradedLabel.textColor = [AppStyle whiteColor];
     
     if ([SKPaymentQueue canMakePayments] && [AppController sharedController].purchaseState == PurchaseStateUninitialized)
     {

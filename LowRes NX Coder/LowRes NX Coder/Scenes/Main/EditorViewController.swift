@@ -61,10 +61,10 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
         
         navigationItem.title = document.localizedName
         
-        view.backgroundColor = AppStyle.editorColor()
-        sourceCodeTextView.backgroundColor = AppStyle.editorColor()
-        sourceCodeTextView.textColor = AppStyle.tintColor()
-        sourceCodeTextView.tintColor = AppStyle.brightColor()
+        view.backgroundColor = AppStyle.darkGrayColor()
+        sourceCodeTextView.backgroundColor = AppStyle.darkGrayColor()
+        sourceCodeTextView.textColor = AppStyle.brightTintColor()
+        sourceCodeTextView.tintColor = AppStyle.whiteColor()
         sourceCodeTextView.indicatorStyle = .white
         
         sourceCodeTextView.layoutManager.allowsNonContiguousLayout = false
@@ -81,8 +81,8 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
         
         searchToolbar.searchDelegate = self
 
-        infoView.backgroundColor = AppStyle.warningColor()
-        infoLabel.textColor = AppStyle.brightColor()
+        infoView.backgroundColor = AppStyle.brightTintColor()
+        infoLabel.textColor = AppStyle.darkGrayColor()
 
         indexSideBar.textView = sourceCodeTextView
 

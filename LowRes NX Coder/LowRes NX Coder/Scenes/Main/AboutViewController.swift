@@ -43,6 +43,10 @@ class AboutViewController: UITableViewController, MFMailComposeViewControllerDel
         versionLabel.text = "Version \(appVersion)"
         coreVersionLabel.text = "Core \(coreVersion)"
         
+        coreVersionLabel.textColor = AppStyle.mediumGrayColor()
+        copyrightLabel.textColor = AppStyle.mediumGrayColor()
+        tableView.indicatorStyle = .white
+        
         menuEntries.append(MenuEntry(title: "This is a free preview version of the app. Later versions will have limitations in the editor, which will require an in-app purchase to unlock the full experience. However, playing games will always be free.", action: .none))
         
         if !AppController.shared().isFullVersion {
@@ -69,7 +73,7 @@ class AboutViewController: UITableViewController, MFMailComposeViewControllerDel
         if MFMailComposeViewController.canSendMail() {
             let mailViewController = MFMailComposeViewController()
             
-            mailViewController.view.tintColor = AppStyle.tintColor()
+            mailViewController.view.tintColor = AppStyle.darkTintColor()
             mailViewController.mailComposeDelegate = self
             
             let device = UIDevice.current

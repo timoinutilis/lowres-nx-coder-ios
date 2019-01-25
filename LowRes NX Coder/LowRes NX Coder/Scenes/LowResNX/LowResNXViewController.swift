@@ -187,9 +187,9 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
         return true
     }
     
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
-    }
+//    override var preferredStatusBarStyle: UIStatusBarStyle {
+//        return .lightContent
+//    }
     
     override func preferredScreenEdgesDeferringSystemGestures() -> UIRectEdge {
         return .all

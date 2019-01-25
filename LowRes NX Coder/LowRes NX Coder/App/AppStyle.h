@@ -13,16 +13,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (void)setAppearance;
 
-+ (UIColor *)barColor;
-+ (UIColor *)tintColor;
++ (UIColor *)mediumTintColor;
 + (UIColor *)darkTintColor;
 + (UIColor *)brightTintColor;
-+ (UIColor *)tableBackgroundColor;
-+ (UIColor *)darkColor;
-+ (UIColor *)brightColor;
-+ (UIColor *)editorColor;
-+ (UIColor *)warningColor;
-+ (UIColor *)sideBarColor;
++ (UIColor *)darkGrayColor;
++ (UIColor *)mediumDarkGrayColor;
++ (UIColor *)mediumGrayColor;
++ (UIColor *)whiteColor;
 
 @end
 NS_ASSUME_NONNULL_END

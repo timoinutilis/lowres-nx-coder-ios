@@ -2,17 +2,16 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "icon_96.png",
+      "filename" : "nav_shadow.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "icon_192.png",
+      "filename" : "nav_shadow@2x.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "icon_288.png",
       "scale" : "3x"
     }
   ],

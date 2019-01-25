@@ -28,7 +28,7 @@ class ExplorerViewController: UIViewController, UICollectionViewDelegateFlowLayo
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = AppStyle.brightColor()
+        view.backgroundColor = AppStyle.darkGrayColor()
         
         let addProjectItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(onAddProjectTapped))
 //        let actionItem = UIBarButtonItem(image: UIImage(named:"folder"), style: .plain, target: self, action: #selector(onActionTapped))
@@ -38,6 +38,8 @@ class ExplorerViewController: UIViewController, UICollectionViewDelegateFlowLayo
         
         collectionView.dataSource = self
         collectionView.delegate = self
+        
+        collectionView.indicatorStyle = .white
         
         if ProjectManager.shared.isCloudEnabled {
             setupCloud()
@@ -425,7 +427,7 @@ class ExplorerViewController: UIViewController, UICollectionViewDelegateFlowLayo
         let layout = collectionViewLayout as! UICollectionViewFlowLayout
         let width = collectionView.bounds.size.width - layout.sectionInset.left - layout.sectionInset.right
         let numItemsPerLine = floor(width / 110)
-        return CGSize(width: floor(width / numItemsPerLine), height: 100)
+        return CGSize(width: floor(width / numItemsPerLine), height: 105)
     }
     
     func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {

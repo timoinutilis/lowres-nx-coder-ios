@@ -21,85 +21,72 @@
     window.tintColor = [AppStyle darkTintColor];
     
     // Bars
-    [UINavigationBar appearance].barTintColor = [AppStyle barColor];
-    [UINavigationBar appearance].tintColor = [AppStyle tintColor];
+    [UINavigationBar appearance].barTintColor = [AppStyle mediumTintColor];
+    [UINavigationBar appearance].tintColor = [AppStyle brightTintColor];
     [UINavigationBar appearance].translucent = NO;
-    [UINavigationBar appearance].titleTextAttributes = @{NSForegroundColorAttributeName: [AppStyle darkColor]};
+    [UINavigationBar appearance].barStyle = UIBarStyleDefault;
+    [UINavigationBar appearance].titleTextAttributes = @{NSForegroundColorAttributeName: [AppStyle darkGrayColor]};
     [[UINavigationBar appearance] setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
-    [UINavigationBar appearance].shadowImage = [[UIImage alloc] init];
-    [UIToolbar appearanceWhenContainedInInstancesOfClasses:@[[UINavigationController class]]].barTintColor = [AppStyle barColor];
-    [UIToolbar appearanceWhenContainedInInstancesOfClasses:@[[UINavigationController class]]].tintColor = [AppStyle tintColor];
+    [UINavigationBar appearance].shadowImage = [UIImage imageNamed:@"nav_shadow"];
+    [UIToolbar appearanceWhenContainedInInstancesOfClasses:@[[UINavigationController class]]].barTintColor = [AppStyle mediumTintColor];
+    [UIToolbar appearanceWhenContainedInInstancesOfClasses:@[[UINavigationController class]]].tintColor = [AppStyle brightTintColor];
     [UIToolbar appearanceWhenContainedInInstancesOfClasses:@[[UINavigationController class]]].translucent = NO;
-    [UITabBar appearance].barTintColor = [AppStyle barColor];
-    [UITabBar appearance].tintColor = [AppStyle tintColor];
+    [UITabBar appearance].barTintColor = [AppStyle mediumDarkGrayColor];
+    [UITabBar appearance].tintColor = [AppStyle brightTintColor];
     [UITabBar appearance].translucent = NO;
-    [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[AppStyle darkColor], NSForegroundColorAttributeName, nil] forState:UIControlStateNormal];
-    [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[AppStyle tintColor], NSForegroundColorAttributeName, nil] forState:UIControlStateSelected];
+    [UITabBar appearance].barStyle = UIBarStyleDefault;
+//    [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[AppStyle brightColor], NSForegroundColorAttributeName, nil] forState:UIControlStateNormal];
+//    [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[AppStyle tintColor], NSForegroundColorAttributeName, nil] forState:UIControlStateSelected];
     
     
     // Backgrounds
-    [BackgroundView appearance].backgroundColor = [AppStyle brightColor];
-//    [UIWebView appearance].backgroundColor = [AppStyle brightColor];
-    [UITableView appearance].backgroundColor = [AppStyle brightColor];
-    [UITableViewCell appearance].backgroundColor = [AppStyle brightColor];
-    [UICollectionView appearance].backgroundColor = [AppStyle brightColor];
-    [UITextView appearanceWhenContainedInInstancesOfClasses:@[[UITableViewCell class]]].backgroundColor = [AppStyle brightColor];
+    [BackgroundView appearance].backgroundColor = [AppStyle darkGrayColor];
+    [UIWebView appearance].backgroundColor = [UIColor whiteColor];
+    [UITableView appearance].backgroundColor = [AppStyle darkGrayColor];
+    [UITableViewCell appearance].backgroundColor = [AppStyle darkGrayColor];
+    [UICollectionView appearance].backgroundColor = [AppStyle darkGrayColor];
+    [UITextView appearanceWhenContainedInInstancesOfClasses:@[[UITableViewCell class]]].backgroundColor = [AppStyle darkGrayColor];
     
     // Texts
-    [TextLabel appearance].textColor = [AppStyle darkColor];
-    [GORLabel appearance].textColor = [AppStyle darkColor];
-    [UITextField appearance].textColor = [AppStyle darkColor];
-    [UITextView appearance].textColor = [AppStyle darkColor];
+    [TextLabel appearance].textColor = [AppStyle whiteColor];
+    [GORLabel appearance].textColor = [AppStyle whiteColor];
+    [UITextField appearance].textColor = [AppStyle darkGrayColor];
+    [UITextView appearance].textColor = [AppStyle whiteColor];
 }
 
-+ (UIColor *)barColor
++ (UIColor *)mediumTintColor
 {
-    return [UIColor colorWithHex:0x87888a alpha:1.0f];
-}
-
-+ (UIColor *)tintColor
-{
-    return [UIColor colorWithHex:0x00eecd alpha:1.0f];
+    return [UIColor colorWithHex:0x00AAAA alpha:1.0f];
 }
 
 + (UIColor *)darkTintColor
 {
-    return [UIColor colorWithHex:0x05ad96 alpha:1.0f];
+    return [UIColor colorWithHex:0x005555 alpha:1.0f];
 }
 
 + (UIColor *)brightTintColor
 {
-    return [UIColor colorWithHex:0xb8f4ec alpha:1.0f];
+    return [UIColor colorWithHex:0x00FFFF alpha:1.0f];
 }
 
-+ (UIColor *)darkColor
++ (UIColor *)darkGrayColor
 {
-    return [UIColor colorWithHex:0x000222 alpha:1.0f];
+    return [UIColor colorWithHex:0x222222 alpha:1.0f];
 }
 
-+ (UIColor *)brightColor
++ (UIColor *)mediumDarkGrayColor
 {
-    return [UIColor colorWithHex:0xf6f6f6 alpha:1.0f];
+    return [UIColor colorWithHex:0x333333 alpha:1.0f];
 }
 
-+ (UIColor *)tableBackgroundColor
++ (UIColor *)mediumGrayColor
 {
-    return [UIColor colorWithHex:0xf1f1f1 alpha:1.0f];
+    return [UIColor colorWithHex:0x555555 alpha:1.0f];
 }
 
-+ (UIColor *)editorColor
++ (UIColor *)whiteColor
 {
-    return [UIColor colorWithHex:0x0e2a27 alpha:1.0f];
-}
-
-+ (UIColor *)warningColor
-{
-    return [UIColor colorWithHex:0xF0573C alpha:1.0f];
-}
-
-+ (UIColor *)sideBarColor
-{
-    return [UIColor colorWithHex:0x87888a alpha:0.2f];
+    return [UIColor colorWithHex:0xDDDDDD alpha:1.0f];
 }
 
 @end

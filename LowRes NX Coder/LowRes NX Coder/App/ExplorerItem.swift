@@ -26,7 +26,7 @@ class ExplorerItem: NSObject {
         return FileManager.default.fileExists(atPath: imageUrl.path)
     }
     
-    var image: UIImage {
+    var image: UIImage? {
         do {
             let imageData = try Data(contentsOf: imageUrl)
             if let image = UIImage(data: imageData) {
@@ -34,7 +34,7 @@ class ExplorerItem: NSObject {
             }
         } catch {
         }
-        return UIImage(named:"icon_project")!
+        return nil
     }
     
     var createdAt: Date {

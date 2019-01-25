@@ -16,8 +16,8 @@
     [super awakeFromNib];
     
     // Initialization code
-    self.textLabel.textColor = [AppStyle darkColor];
-    self.detailTextLabel.textColor = [AppStyle darkColor];
+//    self.textLabel.textColor = [AppStyle darkColor];
+//    self.detailTextLabel.textColor = [AppStyle darkColor];
 }
 
 @end

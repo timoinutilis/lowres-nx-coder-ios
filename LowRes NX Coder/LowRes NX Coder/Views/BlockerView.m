@@ -60,8 +60,8 @@ static BlockerView *_currentInstance;
 {
     [super awakeFromNib];
     self.alpha = 0;
-    self.activityIndicatorView.color = [AppStyle brightColor];
-    self.backgroundColor = [[AppStyle darkColor] colorWithAlphaComponent:0.25];
+    self.activityIndicatorView.color = [AppStyle whiteColor];
+    self.backgroundColor = [[AppStyle darkGrayColor] colorWithAlphaComponent:0.25];
 }
 
 @end

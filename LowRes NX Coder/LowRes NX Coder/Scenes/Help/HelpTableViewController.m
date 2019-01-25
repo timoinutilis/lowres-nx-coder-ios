@@ -27,6 +27,8 @@
     [super viewDidLoad];
     
     _cancelItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(onCancelTapped:)];
+    
+    self.tableView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
 }
 
 - (void)viewWillAppear:(BOOL)animated
