@@ -28,13 +28,15 @@
     [UINavigationBar appearance].titleTextAttributes = @{NSForegroundColorAttributeName: [AppStyle darkGrayColor]};
     [[UINavigationBar appearance] setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
     [UINavigationBar appearance].shadowImage = [UIImage imageNamed:@"nav_shadow"];
-    [UIToolbar appearanceWhenContainedInInstancesOfClasses:@[[UINavigationController class]]].barTintColor = [AppStyle mediumTintColor];
-    [UIToolbar appearanceWhenContainedInInstancesOfClasses:@[[UINavigationController class]]].tintColor = [AppStyle brightTintColor];
-    [UIToolbar appearanceWhenContainedInInstancesOfClasses:@[[UINavigationController class]]].translucent = NO;
+//    [UIToolbar appearanceWhenContainedInInstancesOfClasses:@[[UINavigationController class]]].barTintColor = [AppStyle mediumTintColor];
+//    [UIToolbar appearanceWhenContainedInInstancesOfClasses:@[[UINavigationController class]]].tintColor = [AppStyle brightTintColor];
+//    [UIToolbar appearanceWhenContainedInInstancesOfClasses:@[[UINavigationController class]]].translucent = NO;
     [UITabBar appearance].barTintColor = [AppStyle mediumDarkGrayColor];
     [UITabBar appearance].tintColor = [AppStyle brightTintColor];
     [UITabBar appearance].translucent = NO;
     [UITabBar appearance].barStyle = UIBarStyleDefault;
+    [UITabBar appearance].backgroundImage = [[UIImage alloc] init];
+    [UITabBar appearance].shadowImage = [UIImage imageNamed:@"tab_shadow"];
 //    [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[AppStyle brightColor], NSForegroundColorAttributeName, nil] forState:UIControlStateNormal];
 //    [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[AppStyle tintColor], NSForegroundColorAttributeName, nil] forState:UIControlStateSelected];
     

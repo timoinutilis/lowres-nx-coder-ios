@@ -550,7 +550,7 @@ Inutilis Software, 2017-2019</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EVQ-Wv-NI3">
-                                                    <rect key="frame" x="14" y="-1" width="82" height="67"/>
+                                                    <rect key="frame" x="15" y="0.0" width="80" height="64"/>
                                                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </view>
                                                 <imageView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="KyM-fJ-oxW">
@@ -563,11 +563,11 @@ Inutilis Software, 2017-2019</string>
                                             </subviews>
                                         </view>
                                         <constraints>
-                                            <constraint firstItem="EVQ-Wv-NI3" firstAttribute="trailing" secondItem="KyM-fJ-oxW" secondAttribute="trailing" constant="1" id="5O1-zx-LDp"/>
+                                            <constraint firstItem="EVQ-Wv-NI3" firstAttribute="trailing" secondItem="KyM-fJ-oxW" secondAttribute="trailing" id="5O1-zx-LDp"/>
                                             <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Y0e-d8-avy" secondAttribute="bottom" id="8Ot-2a-OG7"/>
-                                            <constraint firstItem="EVQ-Wv-NI3" firstAttribute="bottom" secondItem="KyM-fJ-oxW" secondAttribute="bottom" constant="2" id="BMq-UZ-g4G"/>
-                                            <constraint firstItem="EVQ-Wv-NI3" firstAttribute="top" secondItem="KyM-fJ-oxW" secondAttribute="top" constant="-1" id="POS-03-Asm"/>
-                                            <constraint firstItem="EVQ-Wv-NI3" firstAttribute="leading" secondItem="KyM-fJ-oxW" secondAttribute="leading" constant="-1" id="Pon-YK-Jeb"/>
+                                            <constraint firstItem="EVQ-Wv-NI3" firstAttribute="bottom" secondItem="KyM-fJ-oxW" secondAttribute="bottom" id="BMq-UZ-g4G"/>
+                                            <constraint firstItem="EVQ-Wv-NI3" firstAttribute="top" secondItem="KyM-fJ-oxW" secondAttribute="top" id="POS-03-Asm"/>
+                                            <constraint firstItem="EVQ-Wv-NI3" firstAttribute="leading" secondItem="KyM-fJ-oxW" secondAttribute="leading" id="Pon-YK-Jeb"/>
                                             <constraint firstItem="Y0e-d8-avy" firstAttribute="leading" secondItem="4E0-sW-TxH" secondAttribute="leading" constant="5" id="QGz-au-waU"/>
                                             <constraint firstAttribute="trailing" secondItem="Y0e-d8-avy" secondAttribute="trailing" constant="5" id="T2w-7z-xjB"/>
                                             <constraint firstItem="KyM-fJ-oxW" firstAttribute="centerX" secondItem="4E0-sW-TxH" secondAttribute="centerX" id="XCL-OG-IiJ"/>
