@@ -556,8 +556,12 @@ Inutilis Software, 2017-2019</string>
                                                 <imageView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="KyM-fJ-oxW">
                                                     <rect key="frame" x="15" y="0.0" width="80" height="64"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="80" id="UGd-ZM-RS3"/>
-                                                        <constraint firstAttribute="height" constant="64" id="zmi-OK-J6e"/>
+                                                        <constraint firstAttribute="width" constant="80" id="UGd-ZM-RS3">
+                                                            <variation key="heightClass=regular-widthClass=regular" constant="160"/>
+                                                        </constraint>
+                                                        <constraint firstAttribute="height" constant="64" id="zmi-OK-J6e">
+                                                            <variation key="heightClass=regular-widthClass=regular" constant="128"/>
+                                                        </constraint>
                                                     </constraints>
                                                 </imageView>
                                             </subviews>
@@ -579,42 +583,6 @@ Inutilis Software, 2017-2019</string>
                                             <outlet property="nameLabel" destination="Y0e-d8-avy" id="Vmk-zp-lqd"/>
                                             <outlet property="previewImageView" destination="KyM-fJ-oxW" id="wFy-vq-YjC"/>
                                             <outlet property="shadowView" destination="EVQ-Wv-NI3" id="QRY-DJ-nd8"/>
-                                        </connections>
-                                    </collectionViewCell>
-                                    <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="FolderCell" id="7me-Ui-7ff" customClass="ExplorerItemCell" customModule="LowRes_NX_Coder" customModuleProvider="target">
-                                        <rect key="frame" x="120" y="20" width="125" height="105"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="125" height="105"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="(Folder Name)" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="TU6-sw-ZCd" customClass="TextLabel">
-                                                    <rect key="frame" x="5" y="66" width="115" height="17"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UBu-4K-4uE">
-                                                    <rect key="frame" x="22.5" y="0.0" width="80" height="64"/>
-                                                    <color key="backgroundColor" red="0.79607843137254897" green="0.80392156862745101" blue="0.81960784313725488" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="64" id="9z0-hj-rja"/>
-                                                        <constraint firstAttribute="width" constant="80" id="rhJ-KR-bgb"/>
-                                                    </constraints>
-                                                </view>
-                                            </subviews>
-                                        </view>
-                                        <constraints>
-                                            <constraint firstItem="TU6-sw-ZCd" firstAttribute="top" secondItem="UBu-4K-4uE" secondAttribute="bottom" constant="2" id="4Ob-GU-hL5"/>
-                                            <constraint firstItem="UBu-4K-4uE" firstAttribute="centerX" secondItem="7me-Ui-7ff" secondAttribute="centerX" id="DTO-Bf-6qc"/>
-                                            <constraint firstItem="UBu-4K-4uE" firstAttribute="top" secondItem="7me-Ui-7ff" secondAttribute="top" id="Lv0-AP-AL3"/>
-                                            <constraint firstAttribute="trailing" secondItem="TU6-sw-ZCd" secondAttribute="trailing" constant="5" id="OiI-6n-chu"/>
-                                            <constraint firstItem="TU6-sw-ZCd" firstAttribute="leading" secondItem="7me-Ui-7ff" secondAttribute="leading" constant="5" id="SPI-dJ-oVc"/>
-                                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="TU6-sw-ZCd" secondAttribute="bottom" id="umr-pe-vgN"/>
-                                        </constraints>
-                                        <size key="customSize" width="125" height="105"/>
-                                        <connections>
-                                            <outlet property="folderView" destination="UBu-4K-4uE" id="wKA-OM-iGm"/>
-                                            <outlet property="nameLabel" destination="TU6-sw-ZCd" id="isg-p5-crr"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
