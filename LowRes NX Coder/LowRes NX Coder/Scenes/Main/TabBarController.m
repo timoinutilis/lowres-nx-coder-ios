@@ -54,7 +54,7 @@
 
 - (UITabBarItem *)itemWithTitle:(NSString *)title imageName:(NSString *)imageName
 {
-    return [[UITabBarItem alloc] initWithTitle:title image:[UIImage imageNamed:[NSString stringWithFormat:@"%@sel", imageName]] selectedImage:nil];
+    return [[UITabBarItem alloc] initWithTitle:title image:[UIImage imageNamed:imageName] selectedImage:nil];
 }
 
 - (void)dismissPresentedViewController:(void (^)(void))completion

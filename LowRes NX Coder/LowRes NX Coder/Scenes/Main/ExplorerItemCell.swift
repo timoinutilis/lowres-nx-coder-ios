@@ -42,10 +42,9 @@ class ExplorerItemCell: UICollectionViewCell {
         shadowView.layer.shadowOffset = CGSize(width: 0, height: 2)
         shadowView.layer.shadowOpacity = 1.0
         shadowView.layer.shadowRadius = 1.0
-
-        nameLabel.layer.shadowOffset = CGSize(width: 0, height: 2)
-        nameLabel.layer.shadowOpacity = 1.0
-        nameLabel.layer.shadowRadius = 0.0
+        
+        nameLabel.shadowColor = UIColor.black
+        nameLabel.shadowOffset = CGSize(width: 0, height: 2)
     }
     
     @objc func renameItem(_ sender: Any?) {

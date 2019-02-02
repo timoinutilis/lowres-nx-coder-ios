@@ -21,7 +21,9 @@
 		920E1B531F7816FA00664382 /* SearchToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 925CC53D1F7588990059C230 /* SearchToolbar.m */; };
 		920E1B541F7816FA00664382 /* StandardTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 925CC5381F7588980059C230 /* StandardTableViewCell.m */; };
 		920E1B561F7816FA00664382 /* TextLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 925CC54B1F75889F0059C230 /* TextLabel.m */; };
+		920FC8682204C25A004707E7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 920FC8672204C25A004707E7 /* LaunchScreen.storyboard */; };
 		921614301F7D70E2006AB2DE /* EditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9216142F1F7D70E2006AB2DE /* EditorViewController.swift */; };
+		9227DA902204302F0035615C /* Boot Intro.nx in Resources */ = {isa = PBXBuildFile; fileRef = 9227DA8F2204302F0035615C /* Boot Intro.nx */; };
 		9227DC1E1FC8BB0700BC89FD /* ProjectManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9227DC1D1FC8BB0700BC89FD /* ProjectManager.swift */; };
 		9227DC221FC8C17A00BC89FD /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9227DC211FC8C17A00BC89FD /* SplashViewController.swift */; };
 		922F0A2A1FCCC172004EF2D2 /* programs in Resources */ = {isa = PBXBuildFile; fileRef = 922F0A291FCCC172004EF2D2 /* programs */; };
@@ -41,7 +43,6 @@
 		924AB3F2205D986C00BCF977 /* IndexSideBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 924AB3F1205D986B00BCF977 /* IndexSideBar.swift */; };
 		925CC6B81F758A120059C230 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 925CC6B71F758A120059C230 /* StoreKit.framework */; };
 		925CC6BA1F758A360059C230 /* ReplayKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 925CC6B91F758A360059C230 /* ReplayKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		926EB1D31F757EA70048A6CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 926EB1D21F757EA70048A6CF /* LaunchScreen.storyboard */; };
 		926EB1DC1F757FAD0048A6CF /* UIViewController+LowResCoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 926EB1DA1F757FAD0048A6CF /* UIViewController+LowResCoder.m */; };
 		9276994C1F7D649800211D15 /* ExplorerItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9276994B1F7D649800211D15 /* ExplorerItem.swift */; };
 		9276994E1F7D678900211D15 /* ProjectDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9276994D1F7D678900211D15 /* ProjectDocument.swift */; };
@@ -101,7 +102,9 @@
 		9208A7D0202120AF00D1EFF7 /* cmd_subs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cmd_subs.h; sourceTree = "<group>"; };
 		920E1B191F77FF7A00664382 /* ExplorerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplorerViewController.swift; sourceTree = "<group>"; };
 		920E1B1B1F78000800664382 /* ExplorerItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplorerItemCell.swift; sourceTree = "<group>"; };
+		920FC8672204C25A004707E7 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9216142F1F7D70E2006AB2DE /* EditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorViewController.swift; sourceTree = "<group>"; };
+		9227DA8F2204302F0035615C /* Boot Intro.nx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Boot Intro.nx"; sourceTree = "<group>"; };
 		9227DC1D1FC8BB0700BC89FD /* ProjectManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManager.swift; sourceTree = "<group>"; };
 		9227DC211FC8C17A00BC89FD /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		922F0A291FCCC172004EF2D2 /* programs */ = {isa = PBXFileReference; lastKnownFileType = folder; name = programs; path = "LowRes NX Core/programs"; sourceTree = "<group>"; };
@@ -137,7 +140,6 @@
 		925CC6B71F758A120059C230 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		925CC6B91F758A360059C230 /* ReplayKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReplayKit.framework; path = System/Library/Frameworks/ReplayKit.framework; sourceTree = SDKROOT; };
 		926EB1D11F757DDD0048A6CF /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
-		926EB1D21F757EA70048A6CF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		926EB1D81F757FAD0048A6CF /* UIViewController+LowResCoder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIViewController+LowResCoder.h"; sourceTree = "<group>"; };
 		926EB1DA1F757FAD0048A6CF /* UIViewController+LowResCoder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+LowResCoder.m"; sourceTree = "<group>"; };
 		926EB1E21F75823C0048A6CF /* TabBarController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TabBarController.h; sourceTree = "<group>"; };
@@ -331,8 +333,8 @@
 				926EB1DD1F757FC90048A6CF /* Main */,
 				9294F2E31FC4BA7300A90487 /* LowResNX */,
 				926EB1F11F7582660048A6CF /* Help */,
-				926EB1D21F757EA70048A6CF /* LaunchScreen.storyboard */,
 				926EB1D81F757FAD0048A6CF /* UIViewController+LowResCoder.h */,
+				920FC8672204C25A004707E7 /* LaunchScreen.storyboard */,
 				926EB1DA1F757FAD0048A6CF /* UIViewController+LowResCoder.m */,
 			);
 			path = Scenes;
@@ -557,6 +559,7 @@
 			children = (
 				92483F7C1F7C2A4300E6D476 /* LowRes NX Coder.entitlements */,
 				92EA93C41F744573007BEFB1 /* Assets.xcassets */,
+				9227DA8F2204302F0035615C /* Boot Intro.nx */,
 				925CC6931F75896F0059C230 /* Extensions */,
 				925CC6AF1F75899E0059C230 /* App */,
 				92A524862069771100EDE7AF /* Cells */,
@@ -637,10 +640,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				920FC8682204C25A004707E7 /* LaunchScreen.storyboard in Resources */,
 				923AFD721F77ED34002F6A5B /* Main.storyboard in Resources */,
+				9227DA902204302F0035615C /* Boot Intro.nx in Resources */,
 				922F0A2C1FCCC1FF004EF2D2 /* docs in Resources */,
 				92EA93C51F744573007BEFB1 /* Assets.xcassets in Resources */,
-				926EB1D31F757EA70048A6CF /* LaunchScreen.storyboard in Resources */,
 				927F2C6F1FC4C1030041883C /* LowResNX.storyboard in Resources */,
 				923AFD7C1F77ED52002F6A5B /* Help.storyboard in Resources */,
 				920E1B4B1F7816FA00664382 /* BlockerView.xib in Resources */,

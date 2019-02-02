@@ -10,17 +10,77 @@ import UIKit
 
 class SplashViewController: UIViewController {
 
+    @IBOutlet weak var splashImageView: UIImageView!
+    @IBOutlet weak var nxView: LowResNXView!
+    
+    private var coreWrapper = CoreWrapper()
+    private var displayLink: CADisplayLink!
+    private var audioPlayer: LowResNXAudioPlayer!
+    
+    private var isSetupDone = false
+    private var isAnimationDone = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        nxView.coreWrapper = coreWrapper
+        audioPlayer = LowResNXAudioPlayer(coreWrapper: coreWrapper)
+        displayLink = createDisplayLink()
+
+        loadIntro()
+
+        ProjectManager.shared.setup {
+            self.isSetupDone = true
+            self.checkStart()
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        ProjectManager.shared.setup {
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1.0) {
-                self.showApp()
-            }
+        audioPlayer.start()
+        displayLink.add(to: .current, forMode: .defaultRunLoopMode)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        displayLink.invalidate()
+        audioPlayer.stop()
+    }
+    
+    private func loadIntro() {
+        let url = Bundle.main.url(forResource: "Boot Intro", withExtension: "nx")!
+        let sourceCode = try! String(contentsOf: url)
+        let error = coreWrapper.compileProgram(sourceCode: sourceCode)
+        guard error == nil else { fatalError() }
+
+        core_willRunProgram(&coreWrapper.core, Int(CFAbsoluteTimeGetCurrent() - AppController.shared().bootTime))
+        machine_poke(&coreWrapper.core, 0xA000, 1)
+    }
+
+    private func createDisplayLink() -> CADisplayLink {
+        let displayLink = CADisplayLink(target: self, selector: #selector(update))
+        if #available(iOS 10.0, *) {
+            displayLink.preferredFramesPerSecond = 60
+        } else {
+            displayLink.frameInterval = 1
+        }
+        return displayLink
+    }
+
+    @objc private func update(displaylink: CADisplayLink) {
+        core_update(&coreWrapper.core, &coreWrapper.input)
+        nxView.render()
+
+        if machine_peek(&coreWrapper.core, 0xA000) == 2 {
+            machine_poke(&coreWrapper.core, 0xA000, 3)
+            isAnimationDone = true
+            checkStart()
+        }
+    }
+    
+    private func checkStart() {
+        if isSetupDone && isAnimationDone {
+            showApp()
         }
     }
     
