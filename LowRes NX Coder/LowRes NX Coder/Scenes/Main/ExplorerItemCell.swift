@@ -18,7 +18,6 @@ class ExplorerItemCell: UICollectionViewCell {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var shadowView: UIView!
     @IBOutlet weak var previewImageView: UIImageView!
-    @IBOutlet weak var folderView: UIView!
     
     weak var delegate: ExplorerItemCellDelegate?
     
@@ -33,7 +32,7 @@ class ExplorerItemCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        let imageLayer = previewImageView != nil ? previewImageView.layer : folderView.layer
+        let imageLayer = previewImageView.layer
         imageLayer.cornerRadius = 2
         imageLayer.masksToBounds = true
         previewImageView.backgroundColor = AppStyle.mediumTintColor()

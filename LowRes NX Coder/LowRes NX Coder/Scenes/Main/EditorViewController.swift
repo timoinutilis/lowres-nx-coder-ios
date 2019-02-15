@@ -3,20 +3,10 @@
 //  LowRes NX Coder
 //
 //  Created by Timo Kloss on 28/9/17.
-//  Copyright © 2017 Inutilis Software. All rights reserved.
+//  Copyright © 2017-2019 Inutilis Software. All rights reserved.
 //
 
 import UIKit
-
-/*
- int const EditorDemoMaxLines = 24;
- 
- NSString *const InfoIDExample = @"InfoIDExample";
- NSString *const InfoIDLongProgram = @"InfoIDLongProgram";
- NSString *const InfoIDPaste = @"InfoIDPaste";
- 
- typedef void(^InfoBlock)(void);
-*/
 
 class EditorViewController: UIViewController, UITextViewDelegate, EditorTextViewDelegate, SearchToolbarDelegate, ProjectDocumentDelegate, LowResNXViewControllerDelegate {
     
@@ -24,31 +14,17 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
     @IBOutlet weak var searchToolbar: SearchToolbar!
     @IBOutlet weak var indexSideBar: IndexSideBar!
     @IBOutlet weak var searchToolbarConstraint: NSLayoutConstraint!
-    @IBOutlet weak var infoView: UIView!
-    @IBOutlet weak var infoLabel: UILabel!
-    @IBOutlet weak var infoViewConstraint: NSLayoutConstraint!
     @IBOutlet weak var indexSideBarConstraint: NSLayoutConstraint!
     @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
     
-    var numLines: UInt = 0
     var didAppearAlready = false
     var spacesToInsert: String?
     var shouldUpdateSideBar = false
     
     private var documentStateChangedObserver: Any?
-    
-    /*
-     @property BOOL wasEditedSinceOpened;
-     @property BOOL wasEditedSinceLastRun;
-     @property (strong) InfoBlock infoBlock;
-     @property NSString *infoId;
-
- */
-    
     var document: ProjectDocument!
-    
     var keyboardRect = CGRect()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -81,15 +57,10 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
         
         searchToolbar.searchDelegate = self
 
-        infoView.backgroundColor = AppStyle.brightTintColor()
-        infoLabel.textColor = AppStyle.darkGrayColor()
-
         indexSideBar.textView = sourceCodeTextView
 
         keyboardRect = CGRect()
 
-//        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didUpgrade:) name:UpgradeNotification object:nil];
-        
         activityIndicatorView.isHidden = true
         sourceCodeTextView.isEditable = false
         
@@ -140,30 +111,14 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
             view.layoutIfNeeded()
             searchToolbarConstraint.constant = -searchToolbar.bounds.size.height
             searchToolbar.isHidden = true
-            
-            // hide info bar
-            infoViewConstraint.constant = -infoView.bounds.size.height
-            infoView.isHidden = true
-            view.layoutIfNeeded()
         }
         updateEditorInsets()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
         indexSideBar.update()
         sourceCodeTextView.flashScrollIndicators()
-/*
-        AppController *app = [AppController sharedController];
-        if (app.replayPreviewViewController)
-        {
-            // Recorded Video!
-            app.replayPreviewViewController.previewControllerDelegate = self;
-            app.replayPreviewViewController.modalPresentationStyle = UIModalPresentationFullScreen;
-            [self presentViewController:app.replayPreviewViewController animated:YES completion:nil];
-        }
-        */
     }
     
     private func setBarButtonsEnabled(_ enabled: Bool) {
@@ -215,11 +170,6 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
     }
     
     func updateDocument() {
-        /*
-         && ![self isExample]
-         && ([AppController sharedController].isFullVersion || self.sourceCodeTextView.text.countLines <= EditorDemoMaxLines)
-         */
-        
         let state = document.documentState
         if !state.contains(.closed) && sourceCodeTextView.text != document.sourceCode {
             document.sourceCode = sourceCodeTextView.text.uppercased()
@@ -384,69 +334,12 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
     
     func projectDocumentContentDidUpdate(_ projectDocument: ProjectDocument) {
         sourceCodeTextView.text = projectDocument.sourceCode ?? ""
-        numLines = sourceCodeTextView.text.countLines()
     }
     
     //MARK: - UITextViewDelegate
     
-    func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
-/*        if ([self isExample])
-        {
-            if (self.infoId != InfoIDExample)
-            {
-                __weak EditorViewController *weakSelf = self;
-                [self showInfo:@"Changes in example programs will not be saved.\nMake a copy?" infoId:InfoIDExample block:^{
-                    [weakSelf onDuplicateTapped];
-                    }];
-            }
-        }*/
-        return true
-    }
-    
-    func textViewDidBeginEditing(_ textView: UITextView) {
-/*        self.wasEditedSinceOpened = YES;
-        self.wasEditedSinceLastRun = YES;*/
-    }
-    
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         let oldText = (textView.text as NSString).substring(with: range)
-        let oldTextLineBreaks = oldText.countChar(UInt16(10))
-        let newTextLineBreaks = text.countChar(UInt16(10))
-        let newNumLines = numLines - oldTextLineBreaks + newTextLineBreaks
-/*
-        if (![AppController sharedController].isFullVersion)
-        {
-            __weak EditorViewController *weakSelf = self;
-            if (text.length > 1 && newNumLines > EditorDemoMaxLines)
-            {
-                [self showInfo:@"Cannot paste into long programs.\nShow information about full version?" infoId:InfoIDPaste block:^{
-                    [weakSelf performSegueWithIdentifier:@"Upgrade" sender:weakSelf];
-                    }];
-                return NO;
-            }
-            
-            if (self.infoId != InfoIDLongProgram && ![self isExample] && newNumLines > EditorDemoMaxLines)
-            {
-                [self showInfo:@"Changes in long programs will not be saved.\nShow information about full version?" infoId:InfoIDLongProgram block:^{
-                    [weakSelf performSegueWithIdentifier:@"Upgrade" sender:weakSelf];
-                    }];
-            }
-            else if ([self isExample])
-            {
-                if (self.infoId != InfoIDExample)
-                {
-                    [self showInfo:@"Changes in example programs will not be saved.\nMake a copy?" infoId:InfoIDExample block:^{
-                        [weakSelf onDuplicateTapped];
-                        }];
-                }
-            }
-            else if (newNumLines <= EditorDemoMaxLines || self.infoId == InfoIDPaste)
-            {
-                [self hideInfo];
-            }
-        }
-        */
-        numLines = newNumLines
         
         // check for indent
         spacesToInsert = nil
@@ -616,186 +509,5 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
             projectDocumentContentDidUpdate(document)
         }
     }
-
-/*
     
-
-     - (void)didUpgrade:(NSNotification *)notification
-     {
-     if (self.infoId && self.infoId != InfoIDExample)
-     {
-     [self hideInfo];
-     }
-     
-     }
-
-
-    
-     
-
-    - (void)projectSettingsDidChange
-    {
-    //    self.navigationItem.title = self.project.name;
-    }
-    
-    - (void)showPost:(LCCPost *)post
-    {
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Community" bundle:nil];
-    CommPostViewController *vc = (CommPostViewController *)[storyboard instantiateViewControllerWithIdentifier:@"CommPostView"];
-    [vc setPost:post mode:CommPostModePost];
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
-    nav.modalPresentationStyle = UIModalPresentationFormSheet;
-    [self presentViewController:nav animated:YES completion:nil];
-    }
-    
-
-    - (void)onRecordVideoTapped:(id)sender
-    {
-    if (![RPScreenRecorder class])
-    {
-    [self showAlertWithTitle:@"Recording is not available" message:@"Please update your device to iOS 9 or higher!" block:nil];
-    }
-    else if (![RPScreenRecorder sharedRecorder].available)
-    {
-    [self showAlertWithTitle:@"Recording is not available" message:@"Your device doesn't support screen recording or the recorder is currently not usable." block:nil];
-    }
-    else
-    {
-    __weak EditorViewController *weakSelf = self;
-    
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Video Recording"
-    message:@"Please make videos in landscape orientation and in fullscreen mode whenever possible."
-    preferredStyle:UIAlertControllerStyleAlert];
-    
-    [alert addAction:[UIAlertAction actionWithTitle:@"Record Screen & Microphone" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-    //            [weakSelf runProgramWithRecordingMode:RecordingModeScreenAndMic];
-    }]];
-    
-    [alert addAction:[UIAlertAction actionWithTitle:@"Record Screen Only" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-    //            [weakSelf runProgramWithRecordingMode:RecordingModeScreen];
-    }]];
-    
-    [alert addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
-    
-    [self presentViewController:alert animated:YES completion:nil];
-    }
-    }
-    
-    - (void)previewControllerDidFinish:(RPPreviewViewController *)previewController
-    {
-    dispatch_async(dispatch_get_main_queue(), ^{
-    [self dismissViewControllerAnimated:YES completion:nil];
-    [AppController sharedController].replayPreviewViewController = nil;
-    });
-    }
-    
-    #pragma mark - Search and Replace
-    
-
-    
-     
-
-    
-    #pragma mark - Info bar
-    
-    - (void)showInfo:(NSString *)text infoId:(NSString *)infoId block:(InfoBlock)block
-    {
-    self.infoBlock = block;
-    self.infoId = infoId;
-    
-    if (self.infoViewConstraint.constant != 0.0)
-    {
-    self.infoLabel.text = text;
-    [self.view layoutIfNeeded];
-    self.infoView.hidden = NO;
-    self.infoViewConstraint.constant = 0.0;
-    
-    [UIView animateWithDuration:0.3 animations:^{
-    [self.view layoutIfNeeded];
-    }];
-    }
-    else
-    {
-    [UIView transitionWithView:self.infoView duration:0.3 options:UIViewAnimationOptionTransitionFlipFromBottom animations:^{
-    self.infoLabel.text = text;
-    } completion:nil];
-    }
-    }
-    
-    - (void)hideInfo
-    {
-    self.infoBlock = nil;
-    self.infoId = nil;
-    
-    if (self.infoViewConstraint.constant == 0.0)
-    {
-    [self.view layoutIfNeeded];
-    self.infoViewConstraint.constant = -self.infoView.bounds.size.height;
-    
-    [UIView animateWithDuration:0.3 animations:^{
-    [self.view layoutIfNeeded];
-    } completion:^(BOOL finished) {
-    if (self.infoViewConstraint.constant != 0.0)
-    {
-    self.infoView.hidden = YES;
-    }
-    }];
-    }
-    }
-    
-    - (IBAction)onInfoTapped:(id)sender
-    {
-    if (self.infoBlock)
-    {
-    self.infoBlock();
-    }
-    }
-    
-    #pragma mark - Compile and run
-    /*
-     - (void)runProgramWithRecordingMode:(RecordingMode)recordingMode
-     {
-     NSError *error;
-     
-     Runnable *runnable = [Compiler compileSourceCode:sourceCode error:&error];
-     if (runnable)
-     {
-     runnable.recordingMode = recordingMode;
-     [self run:runnable];
-     }
-     else if (error)
-     {
-     NSUInteger errorPosition = error.programPosition;
-     NSString *line = [sourceCode substringWithLineAtIndex:errorPosition];
-     EditorViewController __weak *weakSelf = self;
-     
-     UIAlertController* alert = [UIAlertController alertControllerWithTitle:error.localizedDescription message:line preferredStyle:UIAlertControllerStyleAlert];
-     [alert addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
-     [alert addAction:[UIAlertAction actionWithTitle:@"Go to Error" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-     NSRange range = NSMakeRange(errorPosition, 0);
-     weakSelf.sourceCodeTextView.selectedRange = range;
-     [weakSelf.sourceCodeTextView becomeFirstResponder];
-     }]];
-     [self presentViewController:alert animated:YES completion:nil];
-     }
-     }
-     
-     
-     - (void)run:(Runnable *)runnable
-     {
-     RunnerViewController *vc = (RunnerViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"Runner"];
-     vc.project = self.project;
-     vc.runnable = runnable;
-     vc.wasEditedSinceLastRun = self.wasEditedSinceLastRun;
-     vc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-     [self presentViewController:vc animated:YES completion:nil];
-     
-     self.wasEditedSinceLastRun = NO;
-     }
-     */
-    - (BOOL)isExample
-    {
-    return self.project.isDefault;
-    }
-*/
 }

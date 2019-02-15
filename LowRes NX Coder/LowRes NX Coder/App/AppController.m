@@ -44,11 +44,6 @@ NSString *const ImportProjectNotification = @"ImportProjectNotification";
     return self;
 }
 
-- (BOOL)isFullVersion
-{
-    return YES;
-}
-
 - (void)showAlertWithTitle:(NSString *)title message:(NSString *)message
 {
     UIViewController *vc = self.tabBarController.selectedViewController;

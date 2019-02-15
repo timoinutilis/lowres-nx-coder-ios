@@ -7,29 +7,25 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <StoreKit/StoreKit.h>
 
 extern NSString *const ShowPostNotification;
-extern NSString *const UpgradeNotification;
 extern NSString *const ImportProjectNotification;
 
-@class TabBarController, HelpContent, RPPreviewViewController;
+@class TabBarController, HelpContent;
 
 @interface TempProject : NSObject
 @property NSString *name;
 @property NSString *sourceCode;
 @end
 
-@interface AppController : NSObject <SKProductsRequestDelegate, SKPaymentTransactionObserver>
+@interface AppController : NSObject
 
 @property (weak) TabBarController *tabBarController;
 
 @property (readonly) HelpContent *helpContent;
 
-@property (readonly) BOOL isFullVersion;
 @property NSString *shouldShowPostId;
 @property TempProject *shouldImportProject;
-@property RPPreviewViewController *replayPreviewViewController;
 @property (readonly) CFAbsoluteTime bootTime;
 
 + (AppController *)sharedController;

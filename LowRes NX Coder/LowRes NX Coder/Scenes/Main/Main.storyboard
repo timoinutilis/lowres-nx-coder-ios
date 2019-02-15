@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SjB-QF-tvR" customClass="EditorTextView">
-                                <rect key="frame" x="0.0" y="86" width="320" height="418"/>
+                                <rect key="frame" x="0.0" y="46" width="320" height="458"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="tintColor" red="0.95564913749694824" green="0.95562052726745605" blue="0.95563679933547974" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="18"/>
@@ -29,7 +29,7 @@
                                 </variation>
                             </textView>
                             <view opaque="NO" contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="Li9-mY-tbX" customClass="IndexSideBar" customModule="LowRes_NX_Coder" customModuleProvider="target">
-                                <rect key="frame" x="298" y="86" width="22" height="418"/>
+                                <rect key="frame" x="298" y="46" width="22" height="458"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="22" id="amw-3n-hIz"/>
                                 </constraints>
@@ -37,35 +37,6 @@
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="kZb-hA-hPw">
                                 <rect key="frame" x="141.5" y="233.5" width="37" height="37"/>
                             </activityIndicatorView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WCW-HT-wOK" userLabel="Info View">
-                                <rect key="frame" x="0.0" y="46" width="320" height="40"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c04-Mh-rcv">
-                                        <rect key="frame" x="8" y="3" width="304" height="34"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AMv-Sl-9Ff">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
-                                        <connections>
-                                            <action selector="onInfoTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="aML-Wg-SRS"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="AMv-Sl-9Ff" secondAttribute="trailing" id="AGU-cI-vcG"/>
-                                    <constraint firstItem="AMv-Sl-9Ff" firstAttribute="leading" secondItem="WCW-HT-wOK" secondAttribute="leading" id="Bky-wD-t2z"/>
-                                    <constraint firstAttribute="trailingMargin" secondItem="c04-Mh-rcv" secondAttribute="trailing" id="GVG-gj-Vqg"/>
-                                    <constraint firstItem="c04-Mh-rcv" firstAttribute="leading" secondItem="WCW-HT-wOK" secondAttribute="leadingMargin" id="anT-t2-7LC"/>
-                                    <constraint firstItem="AMv-Sl-9Ff" firstAttribute="top" secondItem="WCW-HT-wOK" secondAttribute="top" id="fUs-zz-wTK"/>
-                                    <constraint firstAttribute="height" constant="40" id="jLc-KQ-6z2"/>
-                                    <constraint firstItem="c04-Mh-rcv" firstAttribute="top" secondItem="WCW-HT-wOK" secondAttribute="top" constant="3" id="oFj-dY-qSI"/>
-                                    <constraint firstAttribute="bottom" secondItem="AMv-Sl-9Ff" secondAttribute="bottom" id="oI3-vk-bH6"/>
-                                    <constraint firstAttribute="bottom" secondItem="c04-Mh-rcv" secondAttribute="bottom" constant="3" id="yjP-XL-mYP"/>
-                                </constraints>
-                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Riv-NM-enY" customClass="SearchToolbar">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="46"/>
                                 <subviews>
@@ -136,19 +107,16 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="kZb-hA-hPw" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="61N-WR-8zy"/>
-                            <constraint firstItem="WCW-HT-wOK" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="BaK-Pn-yke"/>
-                            <constraint firstItem="WCW-HT-wOK" firstAttribute="top" secondItem="Riv-NM-enY" secondAttribute="bottom" id="CbC-ND-RQ2"/>
                             <constraint firstAttribute="bottom" secondItem="SjB-QF-tvR" secondAttribute="bottom" id="E73-rc-dsw"/>
                             <constraint firstItem="SjB-QF-tvR" firstAttribute="leading" secondItem="Ls4-77-m9J" secondAttribute="leading" id="HdZ-qd-903"/>
+                            <constraint firstItem="SjB-QF-tvR" firstAttribute="top" secondItem="Riv-NM-enY" secondAttribute="bottom" id="LQW-OC-klV"/>
                             <constraint firstItem="Ls4-77-m9J" firstAttribute="trailing" secondItem="SjB-QF-tvR" secondAttribute="trailing" id="MHR-FO-uGb"/>
-                            <constraint firstAttribute="trailing" secondItem="WCW-HT-wOK" secondAttribute="trailing" id="Mav-My-PAK"/>
-                            <constraint firstItem="SjB-QF-tvR" firstAttribute="top" secondItem="WCW-HT-wOK" secondAttribute="bottom" id="RAB-QY-AVs"/>
                             <constraint firstAttribute="trailing" secondItem="Riv-NM-enY" secondAttribute="trailing" id="WE8-RS-JPv"/>
                             <constraint firstItem="Li9-mY-tbX" firstAttribute="bottom" secondItem="SjB-QF-tvR" secondAttribute="bottom" id="YTC-ne-kNv"/>
-                            <constraint firstItem="Li9-mY-tbX" firstAttribute="top" secondItem="WCW-HT-wOK" secondAttribute="bottom" id="ZzV-Ab-afb"/>
                             <constraint firstItem="kZb-hA-hPw" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="hIM-XM-RFI"/>
                             <constraint firstItem="Riv-NM-enY" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="nbk-4B-6nx"/>
                             <constraint firstItem="Riv-NM-enY" firstAttribute="top" secondItem="Ls4-77-m9J" secondAttribute="top" id="o8t-FJ-C2P"/>
+                            <constraint firstItem="Li9-mY-tbX" firstAttribute="top" secondItem="Riv-NM-enY" secondAttribute="bottom" id="rjr-PX-c04"/>
                             <constraint firstItem="Li9-mY-tbX" firstAttribute="trailing" secondItem="SjB-QF-tvR" secondAttribute="trailing" id="scr-bY-g6G"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Ls4-77-m9J"/>
@@ -160,9 +128,6 @@
                         <outlet property="activityIndicatorView" destination="kZb-hA-hPw" id="0qD-dC-CPg"/>
                         <outlet property="indexSideBar" destination="Li9-mY-tbX" id="J3r-KJ-Mxf"/>
                         <outlet property="indexSideBarConstraint" destination="YTC-ne-kNv" id="HIf-3e-jOg"/>
-                        <outlet property="infoLabel" destination="c04-Mh-rcv" id="CIj-6o-l8D"/>
-                        <outlet property="infoView" destination="WCW-HT-wOK" id="0CL-AH-8lo"/>
-                        <outlet property="infoViewConstraint" destination="CbC-ND-RQ2" id="gy7-t6-u48"/>
                         <outlet property="searchToolbar" destination="Riv-NM-enY" id="4dH-vQ-aSu"/>
                         <outlet property="searchToolbarConstraint" destination="o8t-FJ-C2P" id="Euk-uv-9QN"/>
                         <outlet property="sourceCodeTextView" destination="SjB-QF-tvR" id="adj-Wv-Tev"/>
@@ -176,11 +141,11 @@
         <scene sceneID="0aa-QZ-Dxx">
             <objects>
                 <tableViewController id="L1e-0h-SY4" customClass="DonationViewController" customModule="LowRes_NX_Coder" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="bOZ-io-XqS">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="bOZ-io-XqS">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <view key="tableHeaderView" contentMode="scaleToFill" id="dvn-eA-KIe">
+                        <view key="tableHeaderView" contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" id="dvn-eA-KIe">
                             <rect key="frame" x="0.0" y="0.0" width="320" height="335"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
@@ -196,7 +161,6 @@
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7qu-NE-hxH" customClass="TextLabel">
                                     <rect key="frame" x="8" y="148.5" width="304" height="170.5"/>
                                     <string key="text">This app is free and all features are completely available and without limitations.
-
 However it is a lot of work to create an app like this. If you like it, please consider a donation for its development. Thanks a lot!</string>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
@@ -215,12 +179,12 @@ However it is a lot of work to create an app like this. If you like it, please c
                                 <constraint firstAttribute="trailingMargin" secondItem="7qu-NE-hxH" secondAttribute="trailing" id="qt5-qw-QSp"/>
                             </constraints>
                         </view>
-                        <view key="tableFooterView" contentMode="scaleToFill" id="APW-Ye-qs3">
+                        <view key="tableFooterView" contentMode="scaleToFill" misplaced="YES" id="APW-Ye-qs3">
                             <rect key="frame" x="0.0" y="407" width="320" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="I2P-eQ-hjh">
-                                    <rect key="frame" x="150" y="12" width="20" height="20"/>
+                                    <rect key="frame" x="150" y="-10" width="20" height="20"/>
                                 </activityIndicatorView>
                             </subviews>
                             <constraints>
@@ -346,7 +310,7 @@ However it is a lot of work to create an app like this. If you like it, please c
                         <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <view key="tableHeaderView" contentMode="scaleToFill" id="LVT-MC-nf7">
+                        <view key="tableHeaderView" contentMode="scaleToFill" misplaced="YES" id="LVT-MC-nf7">
                             <rect key="frame" x="0.0" y="0.0" width="320" height="210"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
