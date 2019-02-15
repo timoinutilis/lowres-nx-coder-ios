@@ -9,14 +9,6 @@
 #import <Foundation/Foundation.h>
 #import <StoreKit/StoreKit.h>
 
-typedef NS_ENUM(NSInteger, PurchaseState) {
-    PurchaseStateUninitialized,
-    PurchaseStateLoadingProducts,
-    PurchaseStateProductsReady,
-    PurchaseStateBusy
-};
-
-extern NSString *const PurchaseStateNotification;
 extern NSString *const ShowPostNotification;
 extern NSString *const UpgradeNotification;
 extern NSString *const ImportProjectNotification;
@@ -34,21 +26,13 @@ extern NSString *const ImportProjectNotification;
 
 @property (readonly) HelpContent *helpContent;
 
-@property (readonly) PurchaseState purchaseState;
 @property (readonly) BOOL isFullVersion;
-@property (readonly) SKProduct *fullVersionProduct;
 @property NSString *shouldShowPostId;
 @property TempProject *shouldImportProject;
 @property RPPreviewViewController *replayPreviewViewController;
 @property (readonly) CFAbsoluteTime bootTime;
 
 + (AppController *)sharedController;
-
-- (void)upgradeToFullVersion;
-
-- (void)requestProducts;
-- (void)purchaseProduct:(SKProduct *)product;
-- (void)restorePurchases;
 
 - (BOOL)handleOpenURL:(NSURL *)url;
 

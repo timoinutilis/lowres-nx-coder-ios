@@ -13,7 +13,7 @@ class AboutViewController: UITableViewController, MFMailComposeViewControllerDel
     
     enum Action {
         case none
-        case upgrade
+        case donate
         case web(URL)
         case contact
     }
@@ -47,15 +47,11 @@ class AboutViewController: UITableViewController, MFMailComposeViewControllerDel
         copyrightLabel.textColor = AppStyle.mediumGrayColor()
         tableView.indicatorStyle = .white
         
-        menuEntries.append(MenuEntry(title: "This is a free preview version of the app. Later versions will have limitations in the editor, which will require an in-app purchase to unlock the full experience. However, playing games will always be free.", action: .none))
-        
-        if !AppController.shared().isFullVersion {
-            menuEntries.append(MenuEntry(title: "Full Version", action: .upgrade))
-        }
         menuEntries.append(MenuEntry(title: "Community Forum", action: .web(URL(string: "https://lowresnx.inutilis.com/programs.php")!), isBold: true))
+        menuEntries.append(MenuEntry(title: "Rate in App Store", action: .web(URL(string: "itms-apps://itunes.apple.com/app/id1318884577")!)))
+        menuEntries.append(MenuEntry(title: "Donate to Developer", action: .donate))
         menuEntries.append(MenuEntry(title: "Twitter", action: .web(URL(string: "https://twitter.com/timo_inutilis")!)))
         menuEntries.append(MenuEntry(title: "inutilis.com", action: .web(URL(string: "http://www.inutilis.com")!)))
-        menuEntries.append(MenuEntry(title: "Rate in App Store", action: .web(URL(string: "itms-apps://itunes.apple.com/app/id1318884577")!)))
         menuEntries.append(MenuEntry(title: "Contact", action: .contact))
     }
     
@@ -124,8 +120,8 @@ class AboutViewController: UITableViewController, MFMailComposeViewControllerDel
         let entry = menuEntries[indexPath.row]
         
         switch entry.action {
-        case .upgrade:
-            performSegue(withIdentifier: "Upgrade", sender: self)
+        case .donate:
+            performSegue(withIdentifier: "Donate", sender: self)
             
         case .web(let url):
             UIApplication.shared.openURL(url)

@@ -32,7 +32,6 @@
 		923AFD691F77EB27002F6A5B /* AppStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 925CC6B41F7589BA0059C230 /* AppStyle.m */; };
 		923AFD721F77ED34002F6A5B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 926EB1D11F757DDD0048A6CF /* Main.storyboard */; };
 		923AFD7A1F77ED46002F6A5B /* TabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 926EB1F01F7582510048A6CF /* TabBarController.m */; };
-		923AFD7B1F77ED46002F6A5B /* UpgradeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 926EB1E81F7582400048A6CF /* UpgradeViewController.m */; };
 		923AFD7C1F77ED52002F6A5B /* Help.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 926EB1FC1F7582A70048A6CF /* Help.storyboard */; };
 		923AFD7D1F77ED52002F6A5B /* HelpContent.m in Sources */ = {isa = PBXBuildFile; fileRef = 926EB1F61F7582A50048A6CF /* HelpContent.m */; };
 		923AFD7E1F77ED52002F6A5B /* HelpMasterNavController.m in Sources */ = {isa = PBXBuildFile; fileRef = 926EB1FA1F7582A60048A6CF /* HelpMasterNavController.m */; };
@@ -43,6 +42,7 @@
 		924AB3F2205D986C00BCF977 /* IndexSideBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 924AB3F1205D986B00BCF977 /* IndexSideBar.swift */; };
 		925CC6B81F758A120059C230 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 925CC6B71F758A120059C230 /* StoreKit.framework */; };
 		925CC6BA1F758A360059C230 /* ReplayKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 925CC6B91F758A360059C230 /* ReplayKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		926075512216ECEC0017E04B /* DonationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926075502216ECEC0017E04B /* DonationViewController.swift */; };
 		926EB1DC1F757FAD0048A6CF /* UIViewController+LowResCoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 926EB1DA1F757FAD0048A6CF /* UIViewController+LowResCoder.m */; };
 		9276994C1F7D649800211D15 /* ExplorerItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9276994B1F7D649800211D15 /* ExplorerItem.swift */; };
 		9276994E1F7D678900211D15 /* ProjectDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9276994D1F7D678900211D15 /* ProjectDocument.swift */; };
@@ -139,12 +139,11 @@
 		925CC6B41F7589BA0059C230 /* AppStyle.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppStyle.m; sourceTree = "<group>"; };
 		925CC6B71F758A120059C230 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		925CC6B91F758A360059C230 /* ReplayKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReplayKit.framework; path = System/Library/Frameworks/ReplayKit.framework; sourceTree = SDKROOT; };
+		926075502216ECEC0017E04B /* DonationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DonationViewController.swift; sourceTree = "<group>"; };
 		926EB1D11F757DDD0048A6CF /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		926EB1D81F757FAD0048A6CF /* UIViewController+LowResCoder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIViewController+LowResCoder.h"; sourceTree = "<group>"; };
 		926EB1DA1F757FAD0048A6CF /* UIViewController+LowResCoder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+LowResCoder.m"; sourceTree = "<group>"; };
 		926EB1E21F75823C0048A6CF /* TabBarController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TabBarController.h; sourceTree = "<group>"; };
-		926EB1E81F7582400048A6CF /* UpgradeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UpgradeViewController.m; sourceTree = "<group>"; };
-		926EB1EE1F7582500048A6CF /* UpgradeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UpgradeViewController.h; sourceTree = "<group>"; };
 		926EB1F01F7582510048A6CF /* TabBarController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TabBarController.m; sourceTree = "<group>"; };
 		926EB1F21F7582A30048A6CF /* HelpMasterNavController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HelpMasterNavController.h; sourceTree = "<group>"; };
 		926EB1F31F7582A30048A6CF /* HelpTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HelpTableViewController.m; sourceTree = "<group>"; };
@@ -351,8 +350,7 @@
 				920E1B1B1F78000800664382 /* ExplorerItemCell.swift */,
 				9216142F1F7D70E2006AB2DE /* EditorViewController.swift */,
 				92A5248820697EDD00EDE7AF /* AboutViewController.swift */,
-				926EB1EE1F7582500048A6CF /* UpgradeViewController.h */,
-				926EB1E81F7582400048A6CF /* UpgradeViewController.m */,
+				926075502216ECEC0017E04B /* DonationViewController.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -667,7 +665,6 @@
 				920E1B1C1F78000800664382 /* ExplorerItemCell.swift in Sources */,
 				92ED99701FA4E3770073559B /* core_delegate.c in Sources */,
 				9284021E1F7448B500AC1466 /* cmd_memory.c in Sources */,
-				923AFD7B1F77ED46002F6A5B /* UpgradeViewController.m in Sources */,
 				928402171F7448B500AC1466 /* core.c in Sources */,
 				9294F2E01FC4B9A600A90487 /* LowResNXViewController.swift in Sources */,
 				920E1B531F7816FA00664382 /* SearchToolbar.m in Sources */,
@@ -701,6 +698,7 @@
 				9289C40721288748009BE093 /* audio_lib.c in Sources */,
 				9276994C1F7D649800211D15 /* ExplorerItem.swift in Sources */,
 				928402201F7448B500AC1466 /* cmd_sprites.c in Sources */,
+				926075512216ECEC0017E04B /* DonationViewController.swift in Sources */,
 				9284021D1F7448B500AC1466 /* cmd_maths.c in Sources */,
 				9208A7D1202120AF00D1EFF7 /* cmd_subs.c in Sources */,
 				920E1B321F78024500664382 /* NSString+Utils.m in Sources */,

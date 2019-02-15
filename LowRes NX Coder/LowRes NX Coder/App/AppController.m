@@ -11,9 +11,6 @@
 #import "HelpContent.h"
 #import "TabBarController.h"
 
-NSString *const FullVersionProductID = @"fullversion";
-
-NSString *const PurchaseStateNotification = @"PurchaseStateNotification";
 NSString *const ShowPostNotification = @"ShowPostNotification";
 NSString *const UpgradeNotification = @"UpgradeNotification";
 NSString *const ImportProjectNotification = @"ImportProjectNotification";
@@ -39,8 +36,6 @@ NSString *const ImportProjectNotification = @"ImportProjectNotification";
 {
     if (self = [super init])
     {
-        _purchaseState = PurchaseStateUninitialized;
-        
         NSURL *url = [[NSBundle mainBundle] URLForResource:@"manual" withExtension:@"html" subdirectory:@"docs"];
         _helpContent = [[HelpContent alloc] initWithURL:url];
         
@@ -52,16 +47,6 @@ NSString *const ImportProjectNotification = @"ImportProjectNotification";
 - (BOOL)isFullVersion
 {
     return YES;
-//    NSUserDefaults *storage = [NSUserDefaults standardUserDefaults];
-//    return [storage boolForKey:FullVersionProductID];
-}
-
-- (void)upgradeToFullVersion
-{
-    NSUserDefaults *storage = [NSUserDefaults standardUserDefaults];
-    [storage setBool:YES forKey:FullVersionProductID];
-    [storage synchronize];
-    [[NSNotificationCenter defaultCenter] postNotificationName:UpgradeNotification object:self];
 }
 
 - (void)showAlertWithTitle:(NSString *)title message:(NSString *)message
@@ -76,111 +61,6 @@ NSString *const ImportProjectNotification = @"ImportProjectNotification";
     [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil]];
     
     [vc presentViewController:alert animated:YES completion:nil];
-}
-
-- (void)requestProducts
-{
-    self.purchaseState = PurchaseStateLoadingProducts;
-    NSSet *productIdentifiers = [NSSet setWithObject:FullVersionProductID];
-    SKProductsRequest *productsRequest = [[SKProductsRequest alloc] initWithProductIdentifiers:productIdentifiers];
-    productsRequest.delegate = self;
-    [productsRequest start];
-}
-
-- (void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response
-{
-    for (SKProduct *product in response.products)
-    {
-        if ([product.productIdentifier isEqualToString:FullVersionProductID])
-        {
-            _fullVersionProduct = product;
-        }
-    }
-    self.purchaseState = PurchaseStateProductsReady;
-}
-
-- (void)purchaseProduct:(SKProduct *)product
-{
-    self.purchaseState = PurchaseStateBusy;
-    SKMutablePayment *payment = [SKMutablePayment paymentWithProduct:product];
-    [[SKPaymentQueue defaultQueue] addPayment:payment];
-}
-
-- (void)restorePurchases
-{
-    self.purchaseState = PurchaseStateBusy;
-    [[SKPaymentQueue defaultQueue] restoreCompletedTransactions];
-}
-
-- (void)paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray *)transactions
-{
-    for (SKPaymentTransaction *transaction in transactions)
-    {
-        switch (transaction.transactionState)
-        {
-            case SKPaymentTransactionStatePurchasing: {
-                break;
-            }
-            case SKPaymentTransactionStateDeferred: {
-                break;
-            }
-            case SKPaymentTransactionStateFailed: {
-                [self showAlertWithTitle:@"Not upgraded" message:transaction.error.localizedDescription];
-                [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
-                self.purchaseState = PurchaseStateProductsReady;
-                break;
-            }
-            case SKPaymentTransactionStatePurchased: {
-                [self purchasedProductID:transaction.payment.productIdentifier];
-                [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
-                self.purchaseState = PurchaseStateProductsReady;
-                break;
-            }
-            case SKPaymentTransactionStateRestored: {
-                [self purchasedProductID:transaction.payment.productIdentifier];
-                [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
-                self.purchaseState = PurchaseStateProductsReady;
-                break;
-            }
-            default:
-                // For debugging
-                NSLog(@"Unexpected transaction state %@", @(transaction.transactionState));
-                break;
-        }
-    }
-}
-
-- (void)paymentQueue:(SKPaymentQueue *)queue removedTransactions:(NSArray *)transactions
-{
-    self.purchaseState = PurchaseStateProductsReady;
-}
-
-- (void)paymentQueue:(SKPaymentQueue *)queue restoreCompletedTransactionsFailedWithError:(NSError *)error
-{
-    self.purchaseState = PurchaseStateProductsReady;
-}
-
-- (void)paymentQueueRestoreCompletedTransactionsFinished:(SKPaymentQueue *)queue
-{
-    self.purchaseState = PurchaseStateProductsReady;
-    if (!self.isFullVersion)
-    {
-        [self showAlertWithTitle:@"Not upgraded to full version" message:@"Maybe you upgraded with another App Store account?"];
-    }
-}
-
-- (void)purchasedProductID:(NSString *)productID
-{
-    if ([productID isEqualToString:FullVersionProductID])
-    {
-        [self upgradeToFullVersion];
-    }
-}
-
-- (void)setPurchaseState:(PurchaseState)purchaseState
-{
-    _purchaseState = purchaseState;
-    [[NSNotificationCenter defaultCenter] postNotificationName:PurchaseStateNotification object:self];
 }
 
 - (BOOL)handleOpenURL:(NSURL *)url

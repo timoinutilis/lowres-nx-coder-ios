@@ -22,7 +22,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="splash_icon" translatesAutoresizingMaskIntoConstraints="NO" id="o03-lr-Xtc">
-                                <rect key="frame" x="123.66666666666669" y="374" width="128" height="64"/>
+                                <rect key="frame" x="139.66666666666666" y="382" width="96" height="48"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -38,6 +38,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="splash_icon" width="128" height="64"/>
+        <image name="splash_icon" width="96" height="48"/>
     </resources>
 </document>
