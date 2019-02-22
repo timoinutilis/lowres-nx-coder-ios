@@ -28,7 +28,6 @@
 		9227DC221FC8C17A00BC89FD /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9227DC211FC8C17A00BC89FD /* SplashViewController.swift */; };
 		922F0A2A1FCCC172004EF2D2 /* programs in Resources */ = {isa = PBXBuildFile; fileRef = 922F0A291FCCC172004EF2D2 /* programs */; };
 		922F0A2C1FCCC1FF004EF2D2 /* docs in Resources */ = {isa = PBXBuildFile; fileRef = 922F0A2B1FCCC1FF004EF2D2 /* docs */; };
-		923AFD681F77EB23002F6A5B /* AppController.m in Sources */ = {isa = PBXBuildFile; fileRef = 925CC6B21F7589B90059C230 /* AppController.m */; };
 		923AFD691F77EB27002F6A5B /* AppStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 925CC6B41F7589BA0059C230 /* AppStyle.m */; };
 		923AFD721F77ED34002F6A5B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 926EB1D11F757DDD0048A6CF /* Main.storyboard */; };
 		923AFD7A1F77ED46002F6A5B /* TabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 926EB1F01F7582510048A6CF /* TabBarController.m */; };
@@ -47,6 +46,7 @@
 		9276994C1F7D649800211D15 /* ExplorerItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9276994B1F7D649800211D15 /* ExplorerItem.swift */; };
 		9276994E1F7D678900211D15 /* ProjectDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9276994D1F7D678900211D15 /* ProjectDocument.swift */; };
 		927F2C6F1FC4C1030041883C /* LowResNX.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 927F2C6E1FC4C1030041883C /* LowResNX.storyboard */; };
+		92817749221FDA72005B7A24 /* AppController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92817748221FDA72005B7A24 /* AppController.swift */; };
 		928402161F7448B500AC1466 /* disk_drive.c in Sources */ = {isa = PBXBuildFile; fileRef = 928401D11F7448B500AC1466 /* disk_drive.c */; };
 		928402171F7448B500AC1466 /* core.c in Sources */ = {isa = PBXBuildFile; fileRef = 928401D31F7448B500AC1466 /* core.c */; };
 		928402181F7448B500AC1466 /* cmd_background.c in Sources */ = {isa = PBXBuildFile; fileRef = 928401D71F7448B500AC1466 /* cmd_background.c */; };
@@ -134,8 +134,6 @@
 		925CC6A31F75896F0059C230 /* GORLabel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GORLabel.h; sourceTree = "<group>"; };
 		925CC6A41F75896F0059C230 /* GORLabel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GORLabel.m; sourceTree = "<group>"; };
 		925CC6B11F7589B90059C230 /* AppStyle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppStyle.h; sourceTree = "<group>"; };
-		925CC6B21F7589B90059C230 /* AppController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppController.m; sourceTree = "<group>"; };
-		925CC6B31F7589BA0059C230 /* AppController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppController.h; sourceTree = "<group>"; };
 		925CC6B41F7589BA0059C230 /* AppStyle.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppStyle.m; sourceTree = "<group>"; };
 		925CC6B71F758A120059C230 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		925CC6B91F758A360059C230 /* ReplayKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReplayKit.framework; path = System/Library/Frameworks/ReplayKit.framework; sourceTree = SDKROOT; };
@@ -159,6 +157,7 @@
 		9276994B1F7D649800211D15 /* ExplorerItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplorerItem.swift; sourceTree = "<group>"; };
 		9276994D1F7D678900211D15 /* ProjectDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDocument.swift; sourceTree = "<group>"; };
 		927F2C6E1FC4C1030041883C /* LowResNX.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LowResNX.storyboard; sourceTree = "<group>"; };
+		92817748221FDA72005B7A24 /* AppController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppController.swift; sourceTree = "<group>"; };
 		928401D11F7448B500AC1466 /* disk_drive.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = disk_drive.c; sourceTree = "<group>"; };
 		928401D21F7448B500AC1466 /* disk_drive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = disk_drive.h; sourceTree = "<group>"; };
 		928401D31F7448B500AC1466 /* core.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = core.c; sourceTree = "<group>"; };
@@ -305,8 +304,7 @@
 		925CC6AF1F75899E0059C230 /* App */ = {
 			isa = PBXGroup;
 			children = (
-				925CC6B31F7589BA0059C230 /* AppController.h */,
-				925CC6B21F7589B90059C230 /* AppController.m */,
+				92817748221FDA72005B7A24 /* AppController.swift */,
 				925CC6B11F7589B90059C230 /* AppStyle.h */,
 				925CC6B41F7589BA0059C230 /* AppStyle.m */,
 				923C310F20587965003C89AC /* ToolsMenuConfiguration.swift */,
@@ -698,6 +696,7 @@
 				9289C40721288748009BE093 /* audio_lib.c in Sources */,
 				9276994C1F7D649800211D15 /* ExplorerItem.swift in Sources */,
 				928402201F7448B500AC1466 /* cmd_sprites.c in Sources */,
+				92817749221FDA72005B7A24 /* AppController.swift in Sources */,
 				926075512216ECEC0017E04B /* DonationViewController.swift in Sources */,
 				9284021D1F7448B500AC1466 /* cmd_maths.c in Sources */,
 				9208A7D1202120AF00D1EFF7 /* cmd_subs.c in Sources */,
@@ -724,7 +723,6 @@
 				928402331F7448B500AC1466 /* overlay.c in Sources */,
 				923AFD691F77EB27002F6A5B /* AppStyle.m in Sources */,
 				923AFD801F77ED52002F6A5B /* HelpTableViewController.m in Sources */,
-				923AFD681F77EB23002F6A5B /* AppController.m in Sources */,
 				92ED99691FA4E3480073559B /* charsets.c in Sources */,
 				928402311F7448B500AC1466 /* machine.c in Sources */,
 				9284021A1F7448B500AC1466 /* cmd_data.c in Sources */,

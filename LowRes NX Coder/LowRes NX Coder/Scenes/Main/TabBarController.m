@@ -8,7 +8,7 @@
 
 #import "TabBarController.h"
 #import "HelpSplitViewController.h"
-#import "AppController.h"
+#import "LowRes_NX_Coder-Swift.h"
 
 @interface TabBarController ()
 
@@ -20,7 +20,7 @@
 {
     [super viewDidLoad];
     
-    [AppController sharedController].tabBarController = self;
+    AppController.shared.tabBarController = self;
     
     UIViewController *explorerVC = [self.storyboard instantiateViewControllerWithIdentifier:@"ExplorerNav"];
 
@@ -34,22 +34,11 @@
     aboutVC.tabBarItem = [self itemWithTitle:@"About" imageName:@"about"];
     
     self.viewControllers = @[explorerVC, helpVC, aboutVC];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkShowPost:) name:ShowPostNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkImportProject:) name:ImportProjectNotification object:nil];
-}
-
-- (void)dealloc
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:ShowPostNotification object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:ImportProjectNotification object:nil];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [self checkShowPost:nil];
-    [self checkImportProject:nil];
 }
 
 - (UITabBarItem *)itemWithTitle:(NSString *)title imageName:(NSString *)imageName
@@ -72,50 +61,6 @@
     {
         completion();
     }
-}
-
-- (void)checkShowPost:(NSNotification *)notification
-{/*
-    AppController *app = [AppController sharedController];
-    if (app.shouldShowPostId && self.selectedIndex != TabIndexCommunity)
-    {
-        [self dismissPresentedViewController:^{
-            self.selectedIndex = TabIndexCommunity;
-        }];
-    }*/
-}
-
-- (void)checkImportProject:(NSNotification *)notification
-{
-    AppController *app = [AppController sharedController];
-    if (app.shouldImportProject)
-    {
-        __weak TabBarController *weakSelf = self;
-        
-        [self dismissPresentedViewController:^{
-            UIAlertController *alert = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"Do you want to add \"%@\" as a new program?", app.shouldImportProject.name]
-                                                                           message:nil preferredStyle:UIAlertControllerStyleAlert];
-            [alert addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-                app.shouldImportProject = nil;
-            }]];
-            
-            [alert addAction:[UIAlertAction actionWithTitle:@"Add" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                [weakSelf importProject:app.shouldImportProject];
-                app.shouldImportProject = nil;
-            }]];
-            
-            [self presentViewController:alert animated:YES completion:nil];
-        }];
-    }
-}
-
-- (void)importProject:(TempProject *)tempProject
-{/*
-    Project *project = [[ModelManager sharedManager] createNewProjectInFolder:[ModelManager sharedManager].rootFolder];
-    project.name = tempProject.name;
-    project.sourceCode = tempProject.sourceCode;
-    
-    [self showExplorerAnimated:YES root:YES];*/
 }
 
 - (void)showExplorerAnimated:(BOOL)animated root:(BOOL)root

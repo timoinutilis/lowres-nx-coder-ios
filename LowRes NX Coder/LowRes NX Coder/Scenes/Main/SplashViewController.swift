@@ -3,7 +3,7 @@
 //  LowRes NX Coder
 //
 //  Created by Timo Kloss on 24/11/17.
-//  Copyright © 2017 Inutilis Software. All rights reserved.
+//  Copyright © 2017-2019 Inutilis Software. All rights reserved.
 //
 
 import UIKit
@@ -53,7 +53,7 @@ class SplashViewController: UIViewController {
         let error = coreWrapper.compileProgram(sourceCode: sourceCode)
         guard error == nil else { fatalError() }
 
-        core_willRunProgram(&coreWrapper.core, Int(CFAbsoluteTimeGetCurrent() - AppController.shared().bootTime))
+        core_willRunProgram(&coreWrapper.core, Int(CFAbsoluteTimeGetCurrent() - AppController.shared.bootTime))
         machine_poke(&coreWrapper.core, 0xA000, 1)
     }
 

@@ -106,10 +106,11 @@ class DonationViewController: UITableViewController, SKProductsRequestDelegate, 
                 
             case .purchased:
                 SKPaymentQueue.default().finishTransaction(transaction)
+                AppController.shared.hasDontated = true
                 
                 BlockerView.dismiss()
                 
-                let alert = UIAlertController(title: "Thank You!", message: "...", preferredStyle: .alert)
+                let alert = UIAlertController(title: "Donation Successful", message: "Thank you for your support!", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                 present(alert, animated: true, completion: nil)
                 
@@ -118,7 +119,7 @@ class DonationViewController: UITableViewController, SKProductsRequestDelegate, 
                 
                 BlockerView.dismiss()
                 
-                let alert = UIAlertController(title: "Donation Failed", message: transaction.error?.localizedDescription, preferredStyle: .alert)
+                let alert = UIAlertController(title: "Donation Canceled", message: transaction.error?.localizedDescription, preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                 present(alert, animated: true, completion: nil)
                 

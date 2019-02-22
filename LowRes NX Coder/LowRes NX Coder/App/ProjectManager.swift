@@ -3,7 +3,7 @@
 //  LowRes NX Coder
 //
 //  Created by Timo Kloss on 24/11/17.
-//  Copyright © 2017 Inutilis Software. All rights reserved.
+//  Copyright © 2017-2019 Inutilis Software. All rights reserved.
 //
 
 import UIKit
@@ -13,13 +13,8 @@ extension Notification.Name {
 }
 
 class ProjectManager: NSObject {
-
-    class var shared: ProjectManager {
-        struct Static {
-            static let instance: ProjectManager = ProjectManager()
-        }
-        return Static.instance
-    }
+    
+    static let shared = ProjectManager()
     
     var isCloudEnabled: Bool {
         return FileManager.default.ubiquityIdentityToken != nil

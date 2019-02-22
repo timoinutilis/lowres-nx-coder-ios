@@ -8,7 +8,6 @@
 
 #include "core.h"
 
-#import "AppController.h"
 #import "TabBarController.h"
 #import "HelpContent.h"
 #import "AppStyle.h"

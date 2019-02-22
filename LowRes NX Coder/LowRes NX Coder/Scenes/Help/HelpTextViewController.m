@@ -10,7 +10,7 @@
 #import "HelpTableViewController.h"
 #import "HelpContent.h"
 #import "HelpSplitViewController.h"
-#import "AppController.h"
+#import "LowRes_NX_Coder-Swift.h"
 
 @interface HelpTextViewController ()
 
@@ -32,7 +32,7 @@
     self.navigationItem.leftBarButtonItem = self.splitViewController.displayModeButtonItem;
     self.navigationItem.leftItemsSupplementBackButton = YES;
     
-    HelpContent *helpContent = [AppController sharedController].helpContent;
+    HelpContent *helpContent = AppController.shared.helpContent;
     [self.webView loadHTMLString:helpContent.manualHtml baseURL:helpContent.url];
 }
 

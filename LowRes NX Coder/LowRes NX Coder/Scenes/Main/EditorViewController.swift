@@ -403,18 +403,18 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
             }
         }
         
-        let helpContent = AppController.shared().helpContent!
+        let helpContent = AppController.shared.helpContent
         let results = helpContent.chapters(forSearchText: selectedText)
 
         if results.count == 1 {
             let chapter = results.first!
-            AppController.shared().tabBarController.showHelp(forChapter: chapter.htmlChapter)
+            AppController.shared.tabBarController.showHelp(forChapter: chapter.htmlChapter)
         
         } else if results.count > 1 {
             let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
             for chapter in results {
                 alert.addAction(UIAlertAction(title: chapter.title, style: .default, handler: { (action) in
-                    AppController.shared().tabBarController.showHelp(forChapter: chapter.htmlChapter)
+                    AppController.shared.tabBarController.showHelp(forChapter: chapter.htmlChapter)
                 }))
             }
             alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))

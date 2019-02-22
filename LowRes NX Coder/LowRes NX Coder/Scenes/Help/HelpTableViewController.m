@@ -10,7 +10,7 @@
 #import "HelpTextViewController.h"
 #import "HelpContent.h"
 #import "HelpSplitViewController.h"
-#import "AppController.h"
+#import "LowRes_NX_Coder-Swift.h"
 
 @interface HelpTableViewController ()
 
@@ -35,7 +35,7 @@
 {
     [super viewWillAppear:animated];
     
-    self.helpContent = [AppController sharedController].helpContent;
+    self.helpContent = AppController.shared.helpContent;
     
     [self updateBarButtonCollapsed:self.splitViewController.collapsed];
 }

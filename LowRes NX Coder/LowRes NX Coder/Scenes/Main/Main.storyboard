@@ -159,8 +159,9 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7qu-NE-hxH" customClass="TextLabel">
-                                    <rect key="frame" x="8" y="148.5" width="304" height="170.5"/>
+                                    <rect key="frame" x="8" y="148.5" width="304" height="162.5"/>
                                     <string key="text">This app is free and all features are completely available and without limitations.
+
 However it is a lot of work to create an app like this. If you like it, please consider a donation for its development. Thanks a lot!</string>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
@@ -168,7 +169,7 @@ However it is a lot of work to create an app like this. If you like it, please c
                                 </label>
                             </subviews>
                             <constraints>
-                                <constraint firstAttribute="bottom" secondItem="7qu-NE-hxH" secondAttribute="bottom" constant="16" id="Fau-nf-aPw"/>
+                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="7qu-NE-hxH" secondAttribute="bottom" constant="16" id="Fau-nf-aPw"/>
                                 <constraint firstItem="iCN-wF-fZ1" firstAttribute="centerX" secondItem="dvn-eA-KIe" secondAttribute="centerX" id="H7V-Ma-jwT"/>
                                 <constraint firstItem="7qu-NE-hxH" firstAttribute="leading" secondItem="dvn-eA-KIe" secondAttribute="leadingMargin" id="M8L-aI-Nyh"/>
                                 <constraint firstItem="iCN-wF-fZ1" firstAttribute="top" secondItem="dvn-eA-KIe" secondAttribute="top" constant="16" id="ZQu-qf-Fo1"/>
