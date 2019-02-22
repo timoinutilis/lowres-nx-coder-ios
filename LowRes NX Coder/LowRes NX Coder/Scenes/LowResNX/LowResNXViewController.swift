@@ -3,7 +3,7 @@
 //  LowRes NX iOS
 //
 //  Created by Timo Kloss on 1/9/17.
-//  Copyright © 2017 Inutilis Software. All rights reserved.
+//  Copyright © 2017-2019 Inutilis Software. All rights reserved.
 //
 
 import UIKit
@@ -53,6 +53,13 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
         }
     }
     
+    var isSafeScaleEnabled = false {
+        didSet {
+            configureGameControllers()
+            view.setNeedsLayout()
+        }
+    }
+    
     private var controlsInfo: ControlsInfo = ControlsInfo()
     private var displayLink: CADisplayLink?
     private var compilerError: NSError?
@@ -65,6 +72,8 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
         super.viewDidLoad()
         
         startDate = Date()
+        
+        isSafeScaleEnabled = AppController.shared.isSafeScaleEnabled
         
         if let coreWrapper = coreWrapper {
             // program already compiled
@@ -203,10 +212,16 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
         var maxWidthFactor: CGFloat
         var maxHeightFactor: CGFloat
         
-        // pixel exact scaling
-        let scale: CGFloat = view.window?.screen.scale ?? 1.0
-        maxWidthFactor = floor(screenWidth * scale / CGFloat(SCREEN_WIDTH)) / scale
-        maxHeightFactor = floor(screenHeight * scale / CGFloat(SCREEN_HEIGHT)) / scale
+        if isSafeScaleEnabled {
+            // pixel exact scaling
+            let scale: CGFloat = view.window?.screen.scale ?? 1.0
+            maxWidthFactor = floor(screenWidth * scale / CGFloat(SCREEN_WIDTH)) / scale
+            maxHeightFactor = floor(screenHeight * scale / CGFloat(SCREEN_HEIGHT)) / scale
+        } else {
+            // normal scaling
+            maxWidthFactor = screenWidth / CGFloat(SCREEN_WIDTH)
+            maxHeightFactor = screenHeight / CGFloat(SCREEN_HEIGHT)
+        }
         
         widthConstraint.constant = (maxWidthFactor < maxHeightFactor) ? maxWidthFactor * CGFloat(SCREEN_WIDTH) : maxHeightFactor * CGFloat(SCREEN_WIDTH)
     }
@@ -305,7 +320,7 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
         pauseButton.isHidden = numOnscreenGamepads == 0
         
         for constraint in gamepadConstraints {
-            constraint.priority = UILayoutPriority(rawValue: numOnscreenGamepads > 0 ? 999 : 1)
+            constraint.priority = UILayoutPriority(rawValue: (numOnscreenGamepads > 0 && isSafeScaleEnabled) ? 999 : 1)
         }
         multiPlayerConstraint.priority = UILayoutPriority(rawValue: numOnscreenGamepads > 1 ? 999 : 1)
     }
@@ -436,6 +451,18 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
     
     @IBAction func settingsTapped(_ sender: Any) {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        
+        if isSafeScaleEnabled {
+            alert.addAction(UIAlertAction(title: "Zoom In", style: .default, handler: { [unowned self] (action) in
+                self.isSafeScaleEnabled = false
+                AppController.shared.isSafeScaleEnabled = false
+            }))
+        } else {
+            alert.addAction(UIAlertAction(title: "Zoom Out (Pixel Perfect)", style: .default, handler: { [unowned self] (action) in
+                self.isSafeScaleEnabled = true
+                AppController.shared.isSafeScaleEnabled = true
+            }))
+        }
         
         if document != nil {
             alert.addAction(UIAlertAction(title: "Capture Program Icon", style: .default, handler: { [unowned self] (action) in

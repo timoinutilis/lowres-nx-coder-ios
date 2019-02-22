@@ -11,7 +11,8 @@ import UIKit
 @objc class AppController: NSObject {
     
     private static let hasDontatedKey = "hasDontated"
-    
+    private static let isSafeScaleEnabledKey = "isSafeScaleEnabled"
+
     @objc static let shared = AppController()
     
     @objc weak var tabBarController: TabBarController!
@@ -25,6 +26,15 @@ import UIKit
         }
         set {
             UserDefaults.standard.set(newValue, forKey: AppController.hasDontatedKey)
+        }
+    }
+    
+    var isSafeScaleEnabled: Bool {
+        get {
+            return UserDefaults.standard.bool(forKey: AppController.isSafeScaleEnabledKey)
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: AppController.isSafeScaleEnabledKey)
         }
     }
     
