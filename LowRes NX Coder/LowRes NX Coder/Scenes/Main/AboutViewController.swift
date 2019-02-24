@@ -48,7 +48,7 @@ class AboutViewController: UITableViewController, MFMailComposeViewControllerDel
         tableView.indicatorStyle = .white
         
         menuEntries.append(MenuEntry(title: "Community Forum", action: .web(URL(string: "https://lowresnx.inutilis.com/programs.php")!), isBold: true))
-        menuEntries.append(MenuEntry(title: "Rate in App Store", action: .web(URL(string: "itms-apps://itunes.apple.com/app/id1318884577")!)))
+        menuEntries.append(MenuEntry(title: "Rate in App Store", action: .web(URL(string: "https://itunes.apple.com/app/id1318884577?action=write-review")!)))
         menuEntries.append(MenuEntry(title: "Donate to Developer", action: .donate))
         menuEntries.append(MenuEntry(title: "Twitter", action: .web(URL(string: "https://twitter.com/timo_inutilis")!)))
         menuEntries.append(MenuEntry(title: "inutilis.com", action: .web(URL(string: "http://www.inutilis.com")!)))

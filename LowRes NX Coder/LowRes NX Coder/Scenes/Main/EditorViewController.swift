@@ -18,6 +18,7 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
     @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
     
     var didAppearAlready = false
+    var didRunProgramAlready = false
     var spacesToInsert: String?
     var shouldUpdateSideBar = false
     
@@ -119,6 +120,10 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
         super.viewDidAppear(animated)
         indexSideBar.update()
         sourceCodeTextView.flashScrollIndicators()
+        
+        if didRunProgramAlready && AppController.shared.numRunProgramsThisVersion >= 20 {
+            AppController.shared.requestAppStoreReview()
+        }
     }
     
     private func setBarButtonsEnabled(_ enabled: Bool) {
@@ -327,6 +332,9 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
             vc.document = document
             vc.coreWrapper = coreWrapper
             present(vc, animated: true, completion: nil)
+            
+            AppController.shared.numRunProgramsThisVersion += 1
+            didRunProgramAlready = true
         }
     }
     

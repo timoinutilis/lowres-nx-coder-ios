@@ -7,12 +7,16 @@
 //
 
 import UIKit
+import StoreKit
 
 @objc class AppController: NSObject {
     
     private static let hasDontatedKey = "hasDontated"
     private static let isSafeScaleEnabledKey = "isSafeScaleEnabled"
-
+    private static let numRunProgramsThisVersionKey = "numRunProgramsThisVersion"
+    private static let lastVersionKey = "lastVersion"
+    private static let lastVersionPromptedForReviewKey = "lastVersionPromptedForReview"
+    
     @objc static let shared = AppController()
     
     @objc weak var tabBarController: TabBarController!
@@ -38,11 +42,43 @@ import UIKit
         }
     }
     
+    var numRunProgramsThisVersion: Int {
+        get {
+            return UserDefaults.standard.integer(forKey: AppController.numRunProgramsThisVersionKey)
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: AppController.numRunProgramsThisVersionKey)
+        }
+    }
+    
+    var currentVersion: String {
+        let version = Bundle.main.object(forInfoDictionaryKey: kCFBundleVersionKey as String) as! String
+        return version
+    }
+    
     private override init() {
         let url = Bundle.main.url(forResource: "manual", withExtension: "html", subdirectory:"docs")!
         helpContent = HelpContent(url: url)
         
         bootTime = CFAbsoluteTimeGetCurrent()
+        
+        super.init()
+        
+        let lastVersion = UserDefaults.standard.string(forKey: AppController.lastVersionKey)
+        if currentVersion != lastVersion {
+            numRunProgramsThisVersion = 0
+            UserDefaults.standard.set(currentVersion, forKey: AppController.lastVersionKey)
+        }
+    }
+    
+    func requestAppStoreReview() {
+        let lastVersionPromptedForReview = UserDefaults.standard.string(forKey: AppController.lastVersionPromptedForReviewKey)
+        if currentVersion != lastVersionPromptedForReview {
+            if #available(iOS 10.3, *) {
+                SKStoreReviewController.requestReview()
+            }
+            UserDefaults.standard.set(currentVersion, forKey: AppController.lastVersionPromptedForReviewKey)
+        }
     }
     
 }

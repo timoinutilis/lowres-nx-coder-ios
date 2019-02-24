@@ -111,7 +111,9 @@ class DonationViewController: UITableViewController, SKProductsRequestDelegate, 
                 BlockerView.dismiss()
                 
                 let alert = UIAlertController(title: "Donation Successful", message: "Thank you for your support!", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action) in
+                    AppController.shared.requestAppStoreReview()
+                }))
                 present(alert, animated: true, completion: nil)
                 
             case .failed:
