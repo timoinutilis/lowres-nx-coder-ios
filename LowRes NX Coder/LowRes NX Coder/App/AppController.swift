@@ -24,6 +24,8 @@ import StoreKit
     @objc let helpContent: HelpContent
     @objc let bootTime: CFAbsoluteTime
     
+    private var webSource: WebSource?
+    
     var hasDontated: Bool {
         get {
             return UserDefaults.standard.bool(forKey: AppController.hasDontatedKey)
@@ -79,6 +81,32 @@ import StoreKit
             }
             UserDefaults.standard.set(currentVersion, forKey: AppController.lastVersionPromptedForReviewKey)
         }
+    }
+    
+    func runProgram(_ webSource: WebSource) {
+        if tabBarController != nil {
+            showProgram(webSource)
+        } else {
+            self.webSource = webSource
+        }
+    }
+    
+    @objc func checkShowProgram() {
+        if let webSource = webSource {
+            showProgram(webSource)
+            self.webSource = nil
+        }
+    }
+    
+    private func showProgram(_ webSource: WebSource) {
+        let storyboard = UIStoryboard(name: "LowResNX", bundle: nil)
+        let vc = storyboard.instantiateInitialViewController() as! LowResNXViewController
+        vc.webSource = webSource
+        
+        if tabBarController.presentedViewController != nil {
+            tabBarController.dismiss(animated: false, completion: nil)
+        }
+        tabBarController.present(vc, animated: true, completion: nil)
     }
     
 }

@@ -283,13 +283,13 @@ class ExplorerViewController: UIViewController, UICollectionViewDelegateFlowLayo
         })
         alert.addAction(addAction)
 
-        let renameAction = UIAlertAction(title:"Rename this Folder", style: .default, handler: { [weak self] (action) in
+        let renameAction = UIAlertAction(title:"Rename This Folder", style: .default, handler: { [weak self] (action) in
             self?.onRenameFolderTapped()
         })
         renameAction.isEnabled = isNormalFolder
         alert.addAction(renameAction)
 
-        let deleteAction = UIAlertAction(title:"Delete this Folder", style: .destructive, handler: { [weak self] (action) in
+        let deleteAction = UIAlertAction(title:"Delete This Folder", style: .destructive, handler: { [weak self] (action) in
             self?.onDeleteFolderTapped()
         })
         deleteAction.isEnabled = isNormalFolder

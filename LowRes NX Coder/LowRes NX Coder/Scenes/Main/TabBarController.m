@@ -34,11 +34,14 @@
     aboutVC.tabBarItem = [self itemWithTitle:@"About" imageName:@"about"];
     
     self.viewControllers = @[explorerVC, helpVC, aboutVC];
+    
+    [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(didAddProgram) name:@"ProjectManagerDidAddProgram" object:nil];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    [AppController.shared checkShowProgram];
 }
 
 - (UITabBarItem *)itemWithTitle:(NSString *)title imageName:(NSString *)imageName
@@ -85,6 +88,14 @@
     self.selectedIndex = TabIndexHelp;
     HelpSplitViewController *helpVC = (HelpSplitViewController *)self.selectedViewController;
     [helpVC showChapter:chapter];
+}
+
+- (void)didAddProgram
+{
+    if (self.selectedIndex != 0)
+    {
+        self.selectedIndex = 0;
+    }
 }
 
 @end

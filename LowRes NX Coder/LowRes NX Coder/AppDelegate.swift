@@ -50,6 +50,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     print("importProgram:", error.localizedDescription)
                 }
             })
+            return true
+            
+        } else if url.scheme == "lowresnx" {
+            if let components = URLComponents(url: url, resolvingAgainstBaseURL: false), let items = components.queryItems {
+                var name: String?
+                var program: URL?
+                var image: URL?
+                
+                for item in items {
+                    if item.name == "name" {
+                        name = item.value
+                    } else if item.name == "program", let value = item.value {
+                        program = URL(string: value)
+                    } else if item.name == "image", let value = item.value {
+                        image = URL(string: value)
+                    }
+                }
+                if let name = name, let program = program {
+                    let webSource = WebSource(name: name, programUrl: program, imageUrl: image)
+                    AppController.shared.runProgram(webSource)
+                }
+            }
+            return true
         }
         return false
     }

@@ -17,9 +17,15 @@ protocol LowResNXViewControllerDelegate: class {
     func nxDidSaveVirtualDisk(sourceCode: String)
 }
 
+struct WebSource {
+    let name: String
+    let programUrl: URL
+    let imageUrl: URL?
+}
+
 class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate {
     
-    let screenshotScaleFactor: CGFloat = 3.0
+    let screenshotScaleFactor: CGFloat = 4.0
     
     @IBOutlet private weak var exitButton: UIButton!
     @IBOutlet weak var menuButton: UIButton!
@@ -41,9 +47,11 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
     @IBOutlet weak var pauseButton: UIButton!
     
     weak var delegate: LowResNXViewControllerDelegate?
+    var webSource: WebSource?
     var document: ProjectDocument?
     var diskDocument: ProjectDocument?
     var coreWrapper: CoreWrapper?
+    var imageData: Data?
     
     var isDebugEnabled = false {
         didSet {
@@ -62,8 +70,7 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
     
     private var controlsInfo: ControlsInfo = ControlsInfo()
     private var displayLink: CADisplayLink?
-    private var compilerError: NSError?
-    private var hasAppeared: Bool = false
+    private var errorToShow: Error?
     private var recognizer: UITapGestureRecognizer?
     private var startDate: Date!
     private var audioPlayer: LowResNXAudioPlayer!
@@ -79,6 +86,43 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
             // program already compiled
             core_willRunProgram(&coreWrapper.core, Int(CFAbsoluteTimeGetCurrent() - AppController.shared.bootTime))
             core_setDebug(&coreWrapper.core, isDebugEnabled)
+            
+        } else if let webSource = webSource {
+            // load program from web
+            coreWrapper = CoreWrapper()
+            
+            let group = DispatchGroup()
+            var sourceCode: String?
+            var groupError: Error?
+            
+            group.enter()
+            DispatchQueue.global().async {
+                do {
+                    sourceCode = try String(contentsOf: webSource.programUrl, encoding: .utf8)
+                } catch {
+                    groupError = error
+                }
+                group.leave()
+            }
+            
+            if let imageUrl = webSource.imageUrl {
+                group.enter()
+                DispatchQueue.global().async {
+                    self.imageData = try? Data(contentsOf: imageUrl)
+                    group.leave()
+                }
+            }
+            
+            group.notify(queue: .main) {
+                if let sourceCode = sourceCode {
+                    let error = self.compileAndStartProgram(sourceCode: sourceCode)
+                    if let error = error {
+                        self.showError(error)
+                    }
+                } else if let error = groupError {
+                    self.showError(error)
+                }
+            }
             
         } else {
             // program not yet compiled, open document and compile...
@@ -100,16 +144,12 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
                         error = NSError(domain: "LowResNXCoder", code: 0, userInfo: [NSLocalizedDescriptionKey: "Could Not Open File"])
                     }
                     if let error = error {
-                        if strongSelf.hasAppeared {
-                            strongSelf.showError(error)
-                        } else {
-                            strongSelf.compilerError = error
-                        }
+                        strongSelf.showError(error)
                     }
                 })
             } else if document.documentState == .normal {
                 if let sourceCode = document.sourceCode {
-                    compilerError = compileAndStartProgram(sourceCode: sourceCode)
+                    errorToShow = compileAndStartProgram(sourceCode: sourceCode)
                 }
             }
         }
@@ -164,13 +204,8 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        hasAppeared = true
-        
         displayLink?.add(to: .current, forMode: .defaultRunLoopMode)
-        
-        if let error = compilerError {
-            showError(error)
-        }
+        checkShowError()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -269,6 +304,22 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
             activityVC.popoverPresentationController?.sourceView = menuButton
             activityVC.popoverPresentationController?.sourceRect = menuButton.bounds
             self.present(activityVC, animated: true, completion: nil)
+        }
+    }
+    
+    func saveProgramFromWeb() {
+        guard
+            let webSource = webSource,
+            let sourceCode = coreWrapper?.sourceCode,
+            let programData = sourceCode.data(using: .utf8)
+            else {
+                assertionFailure()
+                return
+        }
+        BlockerView.show()
+        ProjectManager.shared.addProject(originalName: webSource.name, programData: programData, imageData: imageData) { (error) in
+            BlockerView.dismiss()
+            self.presentingViewController?.dismiss(animated: true, completion: nil)
         }
     }
     
@@ -393,7 +444,15 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
         return controlsInfo.keyboardMode == KeyboardModeOn
     }
     
-    private func showError(_ error: NSError) {
+    private func showError(_ error: Error) {
+        errorToShow = error
+        checkShowError()
+    }
+    
+    private func checkShowError() {
+        guard let error = errorToShow else { return }
+        errorToShow = nil
+        
         var title: String?
         var message: String?
         if let nxError = error as? LowResNXError {
@@ -474,6 +533,12 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
             self.shareScreenshot()
         }))
         
+        if webSource != nil {
+            alert.addAction(UIAlertAction(title: "Save To My Programs", style: .default, handler: { [unowned self] (action) in
+                self.saveProgramFromWeb()
+            }))
+        }
+        
         if isDebugEnabled {
             alert.addAction(UIAlertAction(title: "Disable Debug Mode", style: .default, handler: { [unowned self] (action) in
                 self.isDebugEnabled = false
@@ -522,7 +587,7 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
                         self.diskDocument = document
                         let cDiskSourceCode = (document.sourceCode ?? "").cString(using: .utf8)
                         data_import(diskDataManager, cDiskSourceCode, true)
-                        self.showAlert(withTitle: "Using “Disk.nx” as Virtual Disk", message: nil, block: {
+                        self.showAlert(withTitle: "Using “Disk.nx” As Virtual Disk", message: nil, block: {
                             core_diskLoaded(&self.coreWrapper!.core)
                         })
                     } else {

@@ -21,6 +21,7 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
     var didRunProgramAlready = false
     var spacesToInsert: String?
     var shouldUpdateSideBar = false
+    var didAddProject = false
     
     private var documentStateChangedObserver: Any?
     var document: ProjectDocument!
@@ -85,7 +86,8 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: .UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: .UIKeyboardWillHide, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(applicationWillResignActive), name: .UIApplicationWillResignActive, object: nil)
-        
+        NotificationCenter.default.addObserver(self, selector: #selector(projectManagerDidAddProgram), name: .ProjectManagerDidAddProgram, object: nil)
+
     }
     
     deinit {
@@ -121,7 +123,10 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
         indexSideBar.update()
         sourceCodeTextView.flashScrollIndicators()
         
-        if didRunProgramAlready && AppController.shared.numRunProgramsThisVersion >= 20 {
+        if didAddProject {
+            navigationController?.popViewController(animated: true)
+            didAddProject = false
+        } else if didRunProgramAlready && AppController.shared.numRunProgramsThisVersion >= 20 {
             AppController.shared.requestAppStoreReview()
         }
     }
@@ -172,6 +177,10 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
             app.endBackgroundTask(bgTask)
             bgTask = UIBackgroundTaskInvalid
         })
+    }
+    
+    @objc func projectManagerDidAddProgram(_ notification: Notification) {
+        didAddProject = true
     }
     
     func updateDocument() {
@@ -230,7 +239,7 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
         
         let config = ToolsMenuConfiguration()
         
-        let alert = UIAlertController(title: "Edit ROM entries with tool...", message: nil, preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: "Edit ROM Entries With Tool...", message: nil, preferredStyle: .actionSheet)
         
         for programUrl in config.programUrls {
             let title = programUrl.deletingPathExtension().lastPathComponent
@@ -317,7 +326,7 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
             // show error
             let alert = UIAlertController(title: error.message, message: error.line, preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-            alert.addAction(UIAlertAction(title: "Go to Error", style: .default, handler: { [weak self] (action) in
+            alert.addAction(UIAlertAction(title: "Go To Error", style: .default, handler: { [weak self] (action) in
                 let range = NSMakeRange(Int(error.coreError.sourcePosition), 0)
                 self?.sourceCodeTextView.selectedRange = range
                 self?.sourceCodeTextView.becomeFirstResponder()
@@ -435,7 +444,7 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
             present(alert, animated: true, completion: nil)
             
         } else {
-            showAlert(withTitle: "\(selectedText) is not a keyword", message: nil, block: nil)
+            showAlert(withTitle: "\(selectedText) Is Not A Keyword", message: nil, block: nil)
         }
     }
     
