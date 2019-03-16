@@ -19,7 +19,10 @@ class ShareViewController: UIViewController, WKNavigationDelegate {
     private var activityView: UIActivityIndicatorView!
     
     override func loadView() {
-        webView = WKWebView(frame: CGRect.zero)
+        let config = WKWebViewConfiguration()
+        config.processPool = AppController.shared.webProcessPool
+        webView = WKWebView(frame: CGRect.zero, configuration: config)
+        
         webView.backgroundColor = AppStyle.darkGrayColor()
         webView.isOpaque = false
         webView.scrollView.indicatorStyle = .white

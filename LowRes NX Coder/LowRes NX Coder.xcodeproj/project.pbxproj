@@ -42,6 +42,7 @@
 		925CC6B81F758A120059C230 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 925CC6B71F758A120059C230 /* StoreKit.framework */; };
 		925CC6BA1F758A360059C230 /* ReplayKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 925CC6B91F758A360059C230 /* ReplayKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		926075512216ECEC0017E04B /* DonationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926075502216ECEC0017E04B /* DonationViewController.swift */; };
+		92612125223D73BE0079A486 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92612124223D73BE0079A486 /* WebViewController.swift */; };
 		926EB1DC1F757FAD0048A6CF /* UIViewController+LowResCoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 926EB1DA1F757FAD0048A6CF /* UIViewController+LowResCoder.m */; };
 		9276994C1F7D649800211D15 /* ExplorerItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9276994B1F7D649800211D15 /* ExplorerItem.swift */; };
 		9276994E1F7D678900211D15 /* ProjectDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9276994D1F7D678900211D15 /* ProjectDocument.swift */; };
@@ -141,6 +142,7 @@
 		925CC6B71F758A120059C230 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		925CC6B91F758A360059C230 /* ReplayKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReplayKit.framework; path = System/Library/Frameworks/ReplayKit.framework; sourceTree = SDKROOT; };
 		926075502216ECEC0017E04B /* DonationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DonationViewController.swift; sourceTree = "<group>"; };
+		92612124223D73BE0079A486 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		926EB1D11F757DDD0048A6CF /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		926EB1D81F757FAD0048A6CF /* UIViewController+LowResCoder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIViewController+LowResCoder.h"; sourceTree = "<group>"; };
 		926EB1DA1F757FAD0048A6CF /* UIViewController+LowResCoder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+LowResCoder.m"; sourceTree = "<group>"; };
@@ -356,6 +358,7 @@
 				9216142F1F7D70E2006AB2DE /* EditorViewController.swift */,
 				92A5248820697EDD00EDE7AF /* AboutViewController.swift */,
 				926075502216ECEC0017E04B /* DonationViewController.swift */,
+				92612124223D73BE0079A486 /* WebViewController.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -700,6 +703,7 @@
 				920E1B491F7816FA00664382 /* BackgroundView.m in Sources */,
 				928402221F7448B500AC1466 /* cmd_text.c in Sources */,
 				928402341F7448B500AC1466 /* overlay_data.c in Sources */,
+				92612125223D73BE0079A486 /* WebViewController.swift in Sources */,
 				928402281F7448B500AC1466 /* labels.c in Sources */,
 				92ED996A1FA4E3480073559B /* tokenizer.c in Sources */,
 				920E1B4A1F7816FA00664382 /* BlockerView.m in Sources */,

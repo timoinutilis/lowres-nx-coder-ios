@@ -8,6 +8,7 @@
 
 import UIKit
 import StoreKit
+import WebKit
 
 @objc class AppController: NSObject {
     
@@ -25,6 +26,7 @@ import StoreKit
     
     @objc let helpContent: HelpContent
     @objc let bootTime: CFAbsoluteTime
+    let webProcessPool = WKProcessPool()
     
     private var webSource: WebSource?
     

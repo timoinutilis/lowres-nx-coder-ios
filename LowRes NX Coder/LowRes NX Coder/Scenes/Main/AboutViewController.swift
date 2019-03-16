@@ -16,6 +16,7 @@ class AboutViewController: UITableViewController, MFMailComposeViewControllerDel
         case donate
         case web(URL)
         case contact
+        case logout
     }
     
     class MenuEntry {
@@ -36,6 +37,7 @@ class AboutViewController: UITableViewController, MFMailComposeViewControllerDel
     @IBOutlet weak var copyrightLabel: UILabel!
     
     private var menuEntries = [MenuEntry]()
+    private var currentUsername: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,6 +57,11 @@ class AboutViewController: UITableViewController, MFMailComposeViewControllerDel
         menuEntries.append(MenuEntry(title: "Contact", action: .contact))
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        updateLogin()
+    }
+    
     private var appVersion: String {
         let shortVersion = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString")
         let bundleVersion = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion")
@@ -63,6 +70,23 @@ class AboutViewController: UITableViewController, MFMailComposeViewControllerDel
     
     private var coreVersion: String {
         return CORE_VERSION
+    }
+    
+    private func updateLogin() {
+        let username = AppController.shared.username
+        if username != currentUsername {
+            menuEntries.removeAll { (entry) -> Bool in
+                switch entry.action {
+                case .logout: return true
+                default: return false
+                }
+            }
+            if let username = username {
+                menuEntries.append(MenuEntry(title: "Log Out (\(username))", action: .logout))
+            }
+            currentUsername = username
+            tableView.reloadData()
+        }
     }
     
     private func sendMail() {
@@ -85,6 +109,16 @@ class AboutViewController: UITableViewController, MFMailComposeViewControllerDel
             let url = URL(string: "mailto:support@inutilis.com")!
             UIApplication.shared.openURL(url)
         }
+    }
+    
+    private func logout() {
+        let vc = WebViewController()
+        vc.url = URL(string: "http://localhost:8888/logout.php?webmode=app")!
+        vc.title = "Log Out"
+        let nc = UINavigationController(rootViewController: vc)
+        present(nc, animated: true, completion: nil)
+        
+        AppController.shared.didLogOut()
     }
     
     // MARK: - Table view data source
@@ -130,6 +164,9 @@ class AboutViewController: UITableViewController, MFMailComposeViewControllerDel
         case .contact:
             sendMail()
             tableView.deselectRow(at: indexPath, animated: true)
+            
+        case .logout:
+            logout()
             
         default:
             break
