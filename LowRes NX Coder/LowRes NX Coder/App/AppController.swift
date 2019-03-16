@@ -16,6 +16,8 @@ import StoreKit
     private static let numRunProgramsThisVersionKey = "numRunProgramsThisVersion"
     private static let lastVersionKey = "lastVersion"
     private static let lastVersionPromptedForReviewKey = "lastVersionPromptedForReview"
+    private static let userIdKey = "userIdKey"
+    private static let usernameKey = "usernameKey"
     
     @objc static let shared = AppController()
     
@@ -50,6 +52,24 @@ import StoreKit
         }
         set {
             UserDefaults.standard.set(newValue, forKey: AppController.numRunProgramsThisVersionKey)
+        }
+    }
+    
+    private(set) var userId: String? {
+        get {
+            return UserDefaults.standard.string(forKey: AppController.userIdKey)
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: AppController.userIdKey)
+        }
+    }
+    
+    private(set) var username: String? {
+        get {
+            return UserDefaults.standard.string(forKey: AppController.usernameKey)
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: AppController.usernameKey)
         }
     }
     
@@ -107,6 +127,16 @@ import StoreKit
             tabBarController.dismiss(animated: false, completion: nil)
         }
         tabBarController.present(vc, animated: true, completion: nil)
+    }
+    
+    func didLogIn(userId: String, username: String) {
+        self.userId = userId
+        self.username = username
+    }
+    
+    func didLogOut() {
+        self.userId = nil
+        self.username = nil
     }
     
 }
