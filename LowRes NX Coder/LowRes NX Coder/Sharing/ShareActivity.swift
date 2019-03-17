@@ -19,11 +19,11 @@ class ShareActivity: UIActivity {
     }
     
     override var activityTitle: String? {
-        return "Post to Forum"
+        return "Share With Community"
     }
     
     override var activityImage: UIImage? {
-        return UIImage(named: "programs")
+        return UIImage(named: "sharecommunity")
     }
     
     override func canPerform(withActivityItems activityItems: [Any]) -> Bool {

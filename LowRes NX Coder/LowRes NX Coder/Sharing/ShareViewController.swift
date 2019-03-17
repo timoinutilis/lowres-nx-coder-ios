@@ -10,6 +10,8 @@ import UIKit
 import WebKit
 
 class ShareViewController: UIViewController, WKNavigationDelegate {
+    
+    static let baseUrl: URL = URL(string: "https://lowresnx.inutilis.com/")!
 
     weak var activity: ShareActivity?
     var programUrl: URL?
@@ -33,14 +35,14 @@ class ShareViewController: UIViewController, WKNavigationDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.title = "Post To Forum"
+        navigationItem.title = "Share With Community"
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel))
         
         activityView = UIActivityIndicatorView(activityIndicatorStyle: .white)
         activityView.sizeToFit()
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: activityView)
         
-        let urlRequest = URLRequest(url: URL(string: "http://localhost:8888/app_auth.php")!)
+        let urlRequest = URLRequest(url: ShareViewController.baseUrl.appendingPathComponent("app_auth.php"))
         webView.load(urlRequest)
     }
     
@@ -59,7 +61,7 @@ class ShareViewController: UIViewController, WKNavigationDelegate {
             let programData = try Data(contentsOf: programUrl)
             let imageData = try Data(contentsOf: imageUrl)
             
-            var urlRequest = URLRequest(url: URL(string: "http://localhost:8888/app_posting.php")!)
+            var urlRequest = URLRequest(url: ShareViewController.baseUrl.appendingPathComponent("app_posting.php"))
             urlRequest.httpMethod = "POST"
             urlRequest.setMultipartBody(parameters: [
                 "program_file": MultipartFile(filename: programUrl.lastPathComponent, data: programData, mime: "text/plain"),
@@ -83,6 +85,7 @@ class ShareViewController: UIViewController, WKNavigationDelegate {
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         if let url = navigationAction.request.url {
             if url.path == "/topic.php" {
+                // sharing done
                 activityView.stopAnimating()
                 decisionHandler(.cancel)
                 
@@ -96,6 +99,13 @@ class ShareViewController: UIViewController, WKNavigationDelegate {
                 }))
                 present(alert, animated: true, completion: nil)
                 return
+                
+            } else if navigationAction.targetFrame == nil {
+                // open in new view
+                let vc = WebViewController()
+                vc.url = url
+                vc.isModal = false
+                navigationController?.pushViewController(vc, animated: true)
             }
         }
         decisionHandler(.allow)

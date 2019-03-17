@@ -14,6 +14,7 @@ class WebViewController: UIViewController {
     private var webView: WKWebView!
     
     var url: URL?
+    var isModal = true
     
     override func loadView() {
         let config = WKWebViewConfiguration()
@@ -29,7 +30,9 @@ class WebViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(done))
+        if isModal {
+            navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(done))
+        }
         
         if let url = url {
             let urlRequest = URLRequest(url: url)

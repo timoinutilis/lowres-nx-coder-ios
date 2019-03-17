@@ -112,8 +112,9 @@ class AboutViewController: UITableViewController, MFMailComposeViewControllerDel
     }
     
     private func logout() {
+        let urlString = ShareViewController.baseUrl.appendingPathComponent("logout.php").absoluteString + "?webmode=app";
         let vc = WebViewController()
-        vc.url = URL(string: "http://localhost:8888/logout.php?webmode=app")!
+        vc.url = URL(string: urlString)!
         vc.title = "Log Out"
         let nc = UINavigationController(rootViewController: vc)
         present(nc, animated: true, completion: nil)
