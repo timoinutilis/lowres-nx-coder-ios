@@ -11,7 +11,8 @@ import WebKit
 
 class ShareViewController: UIViewController, WKNavigationDelegate {
     
-    static let baseUrl: URL = URL(string: "https://lowresnx.inutilis.com/")!
+    static let baseUrl = URL(string: "https://lowresnx.inutilis.com/")!
+//    static let baseUrl = URL(string: "http://localhost:8888/")!
 
     weak var activity: ShareActivity?
     var programUrl: URL?
@@ -57,20 +58,21 @@ class ShareViewController: UIViewController, WKNavigationDelegate {
             return
         }
         
-        do {
-            let programData = try Data(contentsOf: programUrl)
-            let imageData = try Data(contentsOf: imageUrl)
-            
-            var urlRequest = URLRequest(url: ShareViewController.baseUrl.appendingPathComponent("app_posting.php"))
-            urlRequest.httpMethod = "POST"
-            urlRequest.setMultipartBody(parameters: [
-                "program_file": MultipartFile(filename: programUrl.lastPathComponent, data: programData, mime: "text/plain"),
-                "image_file": MultipartFile(filename: imageUrl.lastPathComponent, data: imageData, mime: "image/png")
-            ])
-            webView.load(urlRequest)
-        } catch {
-            showError(error)
+        let programData = try? Data(contentsOf: programUrl)
+        let imageData = try? Data(contentsOf: imageUrl)
+        
+        var urlRequest = URLRequest(url: ShareViewController.baseUrl.appendingPathComponent("app_posting.php"))
+        urlRequest.httpMethod = "POST"
+        
+        var parameters: [String: Any] = [:]
+        if let programData = programData {
+            parameters["program_file"] = MultipartFile(filename: programUrl.lastPathComponent, data: programData, mime: "text/plain")
         }
+        if let imageData = imageData {
+            parameters["image_file"] = MultipartFile(filename: imageUrl.lastPathComponent, data: imageData, mime: "image/png")
+        }
+        urlRequest.setMultipartBody(parameters: parameters)
+        webView.load(urlRequest)
     }
     
     func showError(_ error: Error? = nil) {
