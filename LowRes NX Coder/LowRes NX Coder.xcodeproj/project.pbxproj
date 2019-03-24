@@ -40,7 +40,6 @@
 		923C311020587965003C89AC /* ToolsMenuConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 923C310F20587965003C89AC /* ToolsMenuConfiguration.swift */; };
 		924AB3F2205D986C00BCF977 /* IndexSideBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 924AB3F1205D986B00BCF977 /* IndexSideBar.swift */; };
 		925CC6B81F758A120059C230 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 925CC6B71F758A120059C230 /* StoreKit.framework */; };
-		925CC6BA1F758A360059C230 /* ReplayKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 925CC6B91F758A360059C230 /* ReplayKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		926075512216ECEC0017E04B /* DonationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926075502216ECEC0017E04B /* DonationViewController.swift */; };
 		92612125223D73BE0079A486 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92612124223D73BE0079A486 /* WebViewController.swift */; };
 		926EB1DC1F757FAD0048A6CF /* UIViewController+LowResCoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 926EB1DA1F757FAD0048A6CF /* UIViewController+LowResCoder.m */; };
@@ -265,7 +264,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				925CC6BA1F758A360059C230 /* ReplayKit.framework in Frameworks */,
 				925CC6B81F758A120059C230 /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
