@@ -145,21 +145,21 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <view key="tableHeaderView" contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" id="dvn-eA-KIe">
+                        <view key="tableHeaderView" contentMode="scaleToFill" misplaced="YES" layoutMarginsFollowReadableWidth="YES" id="dvn-eA-KIe">
                             <rect key="frame" x="0.0" y="0.0" width="320" height="335"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="250" image="icon_about" translatesAutoresizingMaskIntoConstraints="NO" id="iCN-wF-fZ1">
-                                    <rect key="frame" x="120" y="16" width="80" height="80"/>
+                                    <rect key="frame" x="120" y="16" width="80" height="24"/>
                                 </imageView>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Donate To Developer" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nq7-k6-o2g" customClass="TextLabel">
-                                    <rect key="frame" x="8" y="112" width="304" height="20.5"/>
+                                    <rect key="frame" x="8" y="56" width="304" height="20.5"/>
                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7qu-NE-hxH" customClass="TextLabel">
-                                    <rect key="frame" x="8" y="148.5" width="304" height="162.5"/>
+                                    <rect key="frame" x="8" y="92.5" width="304" height="162.5"/>
                                     <string key="text">This app is free and all features are completely available and without limitations.
 
 However it is a lot of work to create an app like this. If you like it, please consider a donation for its development. Thanks a lot!</string>
@@ -232,6 +232,53 @@ However it is a lot of work to create an app like this. If you like it, please c
                 <placeholder placeholderIdentifier="IBFirstResponder" id="L6n-Le-xxu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2057" y="329"/>
+        </scene>
+        <!--Community-->
+        <scene sceneID="RPm-V6-JHV">
+            <objects>
+                <viewController id="4FR-4E-1pq" customClass="CommunityViewController" customModule="LowRes_NX_Coder" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="x62-KY-rlb" customClass="BackgroundView">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="W5I-aS-W3p">
+                                <rect key="frame" x="10" y="188.5" width="300" height="191"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="community_big" translatesAutoresizingMaskIntoConstraints="NO" id="bvr-cf-8PZ">
+                                        <rect key="frame" x="106" y="0.0" width="88" height="88"/>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" text="Meet other users, play their games, discuss and get help on the website." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C2q-Hc-bu4" customClass="TextLabel">
+                                        <rect key="frame" x="10.5" y="104" width="279" height="41"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gzX-7R-OA9">
+                                        <rect key="frame" x="101.5" y="161" width="97" height="30"/>
+                                        <color key="tintColor" red="0.0" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <state key="normal" title="Open In Safari"/>
+                                        <connections>
+                                            <action selector="openAction:" destination="4FR-4E-1pq" eventType="touchUpInside" id="sRW-VB-5CK"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="300" id="6G7-uA-PEc"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="W5I-aS-W3p" firstAttribute="centerY" secondItem="x62-KY-rlb" secondAttribute="centerY" id="lak-Bn-n9j"/>
+                            <constraint firstItem="W5I-aS-W3p" firstAttribute="centerX" secondItem="x62-KY-rlb" secondAttribute="centerX" id="rgb-2Q-Lb3"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="St1-A2-XCa"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Community" id="KKt-Yb-ROi"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OY2-13-QHs" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3945" y="328.52112676056339"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="2IR-fi-xuT">
@@ -561,8 +608,27 @@ Inutilis Software, 2017-2019</string>
             </objects>
             <point key="canvasLocation" x="525" y="1148.2394366197184"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="mAu-md-pGD">
+            <objects>
+                <navigationController storyboardIdentifier="CommunityNav" automaticallyAdjustsScrollViewInsets="NO" id="Qy1-oJ-8Dv" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="arr-IJ-JtF">
+                        <rect key="frame" x="0.0" y="20" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="4FR-4E-1pq" kind="relationship" relationship="rootViewController" id="PyJ-ui-eNC"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tJG-xp-3nQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3096" y="329"/>
+        </scene>
     </scenes>
     <resources>
+        <image name="community_big" width="88" height="88"/>
         <image name="icon_about" width="80" height="80"/>
         <image name="next" width="27" height="46"/>
         <image name="prev" width="27" height="46"/>

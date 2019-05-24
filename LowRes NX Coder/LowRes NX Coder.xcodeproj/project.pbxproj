@@ -84,6 +84,7 @@
 		92930E4C203377DF00DE18B9 /* RoundHitBoxButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92930E4B203377DF00DE18B9 /* RoundHitBoxButton.swift */; };
 		9294F2E01FC4B9A600A90487 /* LowResNXViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9294F2DF1FC4B9A600A90487 /* LowResNXViewController.swift */; };
 		9294F2E21FC4BA1100A90487 /* CoreWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9294F2E11FC4BA1100A90487 /* CoreWrapper.swift */; };
+		92A1C9322297E12C00364F80 /* CommunityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A1C9312297E12C00364F80 /* CommunityViewController.swift */; };
 		92A5248920697EDE00EDE7AF /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A5248820697EDD00EDE7AF /* AboutViewController.swift */; };
 		92A7E148223B8EBC00ED2487 /* ShareActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A7E147223B8EBC00ED2487 /* ShareActivity.swift */; };
 		92A7E14B223B91FD00ED2487 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A7E149223B91FD00ED2487 /* ShareViewController.swift */; };
@@ -236,6 +237,7 @@
 		92930E4B203377DF00DE18B9 /* RoundHitBoxButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundHitBoxButton.swift; sourceTree = "<group>"; };
 		9294F2DF1FC4B9A600A90487 /* LowResNXViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LowResNXViewController.swift; sourceTree = "<group>"; };
 		9294F2E11FC4BA1100A90487 /* CoreWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreWrapper.swift; sourceTree = "<group>"; };
+		92A1C9312297E12C00364F80 /* CommunityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityViewController.swift; sourceTree = "<group>"; };
 		92A5248820697EDD00EDE7AF /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		92A7E147223B8EBC00ED2487 /* ShareActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareActivity.swift; sourceTree = "<group>"; };
 		92A7E149223B91FD00ED2487 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
@@ -356,6 +358,7 @@
 				9216142F1F7D70E2006AB2DE /* EditorViewController.swift */,
 				92A5248820697EDD00EDE7AF /* AboutViewController.swift */,
 				926075502216ECEC0017E04B /* DonationViewController.swift */,
+				92A1C9312297E12C00364F80 /* CommunityViewController.swift */,
 				92612124223D73BE0079A486 /* WebViewController.swift */,
 			);
 			path = Main;
@@ -741,6 +744,7 @@
 				923AFD7D1F77ED52002F6A5B /* HelpContent.m in Sources */,
 				92D1A7641FBF6FDE0059450E /* data_manager.c in Sources */,
 				928402301F7448B500AC1466 /* audio_chip.c in Sources */,
+				92A1C9322297E12C00364F80 /* CommunityViewController.swift in Sources */,
 				92A7E14B223B91FD00ED2487 /* ShareViewController.swift in Sources */,
 				928402331F7448B500AC1466 /* overlay.c in Sources */,
 				923AFD691F77EB27002F6A5B /* AppStyle.m in Sources */,

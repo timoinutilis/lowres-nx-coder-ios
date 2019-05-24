@@ -224,6 +224,7 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
         } else {
             searchToolbar.isHidden = false
             searchToolbarConstraint.constant = 0.0
+            sourceCodeTextView.endEditing(true)
         }
         UIView.animate(withDuration: 0.3, animations: {
             self.view.layoutIfNeeded()

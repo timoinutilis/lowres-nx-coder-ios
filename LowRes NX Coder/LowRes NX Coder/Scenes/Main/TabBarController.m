@@ -29,11 +29,14 @@
     
     UIViewController *aboutVC = [self.storyboard instantiateViewControllerWithIdentifier:@"AboutNav"];
     
+    UIViewController *communityVC = [self.storyboard instantiateViewControllerWithIdentifier:@"CommunityNav"];
+    
     explorerVC.tabBarItem = [self itemWithTitle:@"My Programs" imageName:@"programs"];
     helpVC.tabBarItem = [self itemWithTitle:@"Help" imageName:@"help"];
     aboutVC.tabBarItem = [self itemWithTitle:@"About" imageName:@"about"];
+    communityVC.tabBarItem = [self itemWithTitle:@"Community" imageName:@"community"];
     
-    self.viewControllers = @[explorerVC, helpVC, aboutVC];
+    self.viewControllers = @[explorerVC, helpVC, aboutVC, communityVC];
     
     [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(didAddProgram) name:@"ProjectManagerDidAddProgram" object:nil];
 }

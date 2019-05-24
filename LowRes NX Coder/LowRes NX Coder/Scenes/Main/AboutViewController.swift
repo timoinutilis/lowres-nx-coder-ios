@@ -49,7 +49,6 @@ class AboutViewController: UITableViewController, MFMailComposeViewControllerDel
         copyrightLabel.textColor = AppStyle.mediumGrayColor()
         tableView.indicatorStyle = .white
         
-        menuEntries.append(MenuEntry(title: "Community Forum", action: .web(URL(string: "https://lowresnx.inutilis.com/programs.php")!), isBold: true))
         menuEntries.append(MenuEntry(title: "Rate In App Store", action: .web(URL(string: "https://itunes.apple.com/app/id1318884577?action=write-review")!)))
         menuEntries.append(MenuEntry(title: "Donate To Developer", action: .donate))
         menuEntries.append(MenuEntry(title: "Twitter", action: .web(URL(string: "https://twitter.com/timo_inutilis")!)))
