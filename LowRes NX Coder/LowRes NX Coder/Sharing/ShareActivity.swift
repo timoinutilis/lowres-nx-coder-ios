@@ -19,7 +19,7 @@ class ShareActivity: UIActivity {
     }
     
     override var activityTitle: String? {
-        return "Share With Community"
+        return "Share with Community"
     }
     
     override var activityImage: UIImage? {

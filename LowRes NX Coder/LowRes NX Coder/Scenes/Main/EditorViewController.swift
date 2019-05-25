@@ -240,7 +240,7 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
         
         let config = ToolsMenuConfiguration()
         
-        let alert = UIAlertController(title: "Edit ROM Entries With Tool...", message: nil, preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: "Edit ROM Entries with Tool...", message: nil, preferredStyle: .actionSheet)
         
         for programUrl in config.programUrls {
             let title = programUrl.deletingPathExtension().lastPathComponent
@@ -283,7 +283,7 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
         view.endEditing(true)
         
         if sourceCodeTextView.text.isEmpty {
-            showAlert(withTitle: "Cannot Share This Program", message: "This program is empty. Please write something!", block: nil)
+            showAlert(withTitle: "Cannot Share this Program", message: "This program is empty. Please write something!", block: nil)
         } else {
             updateDocument()
             if document.hasUnsavedChanges {
@@ -292,7 +292,7 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
             document.autosave(completionHandler: { (success) in
                 BlockerView.dismiss()
                 if !success {
-                    self.showAlert(withTitle: "Could Not Save Program", message: nil, block: nil)
+                    self.showAlert(withTitle: "Could not Save Program", message: nil, block: nil)
                 } else {
                     let activityVC = UIActivityViewController(
                         activityItems: [self.document.fileURL],
@@ -330,7 +330,7 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
             // show error
             let alert = UIAlertController(title: error.message, message: error.line, preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-            alert.addAction(UIAlertAction(title: "Go To Error", style: .default, handler: { [weak self] (action) in
+            alert.addAction(UIAlertAction(title: "Go to Error", style: .default, handler: { [weak self] (action) in
                 let range = NSMakeRange(Int(error.coreError.sourcePosition), 0)
                 self?.sourceCodeTextView.selectedRange = range
                 self?.sourceCodeTextView.becomeFirstResponder()
@@ -448,7 +448,7 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
             present(alert, animated: true, completion: nil)
             
         } else {
-            showAlert(withTitle: "\(selectedText) Is Not A Keyword", message: nil, block: nil)
+            showAlert(withTitle: "\(selectedText) Is not a Keyword", message: nil, block: nil)
         }
     }
     

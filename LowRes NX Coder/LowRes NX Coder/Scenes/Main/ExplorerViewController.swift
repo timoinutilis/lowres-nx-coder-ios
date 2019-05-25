@@ -268,7 +268,7 @@ class ExplorerViewController: UIViewController, UICollectionViewDelegateFlowLayo
     @objc func onAddProjectTapped(_ sender: Any) {
         ProjectManager.shared.addProject(originalName: "Unnamed Program", programData: nil, imageData: nil) { (error) in
             if let error = error {
-                self.showAlert(withTitle: "Could Not Add New Project", message: error.localizedDescription, block: nil)
+                self.showAlert(withTitle: "Could not Add New Project", message: error.localizedDescription, block: nil)
             }
         }
     }
@@ -283,13 +283,13 @@ class ExplorerViewController: UIViewController, UICollectionViewDelegateFlowLayo
         })
         alert.addAction(addAction)
 
-        let renameAction = UIAlertAction(title:"Rename This Folder", style: .default, handler: { [weak self] (action) in
+        let renameAction = UIAlertAction(title:"Rename this Folder", style: .default, handler: { [weak self] (action) in
             self?.onRenameFolderTapped()
         })
         renameAction.isEnabled = isNormalFolder
         alert.addAction(renameAction)
 
-        let deleteAction = UIAlertAction(title:"Delete This Folder", style: .destructive, handler: { [weak self] (action) in
+        let deleteAction = UIAlertAction(title:"Delete this Folder", style: .destructive, handler: { [weak self] (action) in
             self?.onDeleteFolderTapped()
         })
         deleteAction.isEnabled = isNormalFolder
@@ -363,7 +363,7 @@ class ExplorerViewController: UIViewController, UICollectionViewDelegateFlowLayo
         ProjectManager.shared.deleteProject(item: item) { (error) in
             if let error = error {
                 self.metadataQuery?.enableUpdates()
-                self.showAlert(withTitle: "Could Not Delete Program", message: error.localizedDescription, block: nil)
+                self.showAlert(withTitle: "Could not Delete Program", message: error.localizedDescription, block: nil)
             } else {
                 self.collectionView.performBatchUpdates({
                     if let index = self.items?.index(of: item) {
@@ -384,7 +384,7 @@ class ExplorerViewController: UIViewController, UICollectionViewDelegateFlowLayo
         ProjectManager.shared.renameProject(item: item, newName: newName) { (error) in
             if let error = error {
                 self.metadataQuery?.enableUpdates()
-                self.showAlert(withTitle: "Could Not Rename Program", message: error.localizedDescription, block: nil)
+                self.showAlert(withTitle: "Could not Rename Program", message: error.localizedDescription, block: nil)
             } else {
                 self.collectionView.performBatchUpdates({
                     if let index = self.items?.index(of: item) {

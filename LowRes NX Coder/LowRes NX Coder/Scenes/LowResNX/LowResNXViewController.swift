@@ -141,7 +141,7 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
                     if success, let sourceCode = document.sourceCode {
                         error = strongSelf.compileAndStartProgram(sourceCode: sourceCode)
                     } else {
-                        error = NSError(domain: "LowResNXCoder", code: 0, userInfo: [NSLocalizedDescriptionKey: "Could Not Open File"])
+                        error = NSError(domain: "LowResNXCoder", code: 0, userInfo: [NSLocalizedDescriptionKey: "Could not Open File"])
                     }
                     if let error = error {
                         strongSelf.showError(error)
@@ -534,7 +534,7 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
         }))
         
         if webSource != nil {
-            alert.addAction(UIAlertAction(title: "Save To My Programs", style: .default, handler: { [unowned self] (action) in
+            alert.addAction(UIAlertAction(title: "Save to My Programs", style: .default, handler: { [unowned self] (action) in
                 self.saveProgramFromWeb()
             }))
         }
@@ -587,11 +587,11 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
                         self.diskDocument = document
                         let cDiskSourceCode = (document.sourceCode ?? "").cString(using: .utf8)
                         data_import(diskDataManager, cDiskSourceCode, true)
-                        self.showAlert(withTitle: "Using “Disk.nx” As Virtual Disk", message: nil, block: {
+                        self.showAlert(withTitle: "Using “Disk.nx” as Virtual Disk", message: nil, block: {
                             core_diskLoaded(&self.coreWrapper!.core)
                         })
                     } else {
-                        self.showAlert(withTitle: "Could Not Access Virtual Disk", message: error?.localizedDescription, block: {
+                        self.showAlert(withTitle: "Could not Access Virtual Disk", message: error?.localizedDescription, block: {
                             self.presentingViewController?.dismiss(animated: true, completion: nil)
                         })
                     }
