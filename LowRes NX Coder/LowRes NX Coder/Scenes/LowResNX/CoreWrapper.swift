@@ -13,6 +13,8 @@ protocol CoreWrapperDelegate: class {
     func coreDiskDriveWillAccess(diskDataManager: UnsafeMutablePointer<DataManager>?) -> Bool
     func coreDiskDriveDidSave(diskDataManager: UnsafeMutablePointer<DataManager>?) -> Void
     func coreControlsDidChange(controlsInfo: ControlsInfo) -> Void
+    func persistentRamWillAccess(destination: UnsafeMutablePointer<UInt8>?, size: Int32) -> Void
+    func persistentRamDidChange(_ data: Data) -> Void
 }
 
 class CoreWrapper: NSObject {
@@ -33,6 +35,8 @@ class CoreWrapper: NSObject {
         coreDelegate.diskDriveWillAccess = diskDriveWillAccess
         coreDelegate.diskDriveDidSave = diskDriveDidSave
         coreDelegate.controlsDidChange = controlsDidChange
+        coreDelegate.persistentRamWillAccess = persistentRamWillAccess
+        coreDelegate.persistentRamDidChange = persistentRamDidChange
         core_setDelegate(&core, &coreDelegate)
     }
     
@@ -97,4 +101,17 @@ func diskDriveDidSave(context: UnsafeMutableRawPointer?, diskDataManager: Unsafe
 func controlsDidChange(context: UnsafeMutableRawPointer?, controlsInfo: ControlsInfo) -> Void {
     let wrapper = Unmanaged<CoreWrapper>.fromOpaque(context!).takeUnretainedValue()
     wrapper.delegate?.coreControlsDidChange(controlsInfo: controlsInfo)
+}
+
+func persistentRamWillAccess(context: UnsafeMutableRawPointer?, destination: UnsafeMutablePointer<UInt8>?, size: Int32) -> Void {
+    let wrapper = Unmanaged<CoreWrapper>.fromOpaque(context!).takeUnretainedValue()
+    wrapper.delegate?.persistentRamWillAccess(destination: destination, size: size)
+}
+
+func persistentRamDidChange(context: UnsafeMutableRawPointer?, data: UnsafeMutablePointer<UInt8>?, size: Int32) -> Void {
+    guard let data = data else { return }
+    
+    let wrapper = Unmanaged<CoreWrapper>.fromOpaque(context!).takeUnretainedValue()
+    let ramData = Data(bytes: data, count: Int(size))
+    wrapper.delegate?.persistentRamDidChange(ramData)
 }

@@ -218,6 +218,10 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
         
         diskDocument?.close(completionHandler: nil)
         diskDocument = nil
+        
+        if let coreWrapper = coreWrapper {
+            core_willSuspendProgram(&coreWrapper.core)
+        }
     }
     
     override var prefersStatusBarHidden: Bool {
@@ -638,6 +642,23 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
         }
     }
     
+    func persistentRamWillAccess(destination: UnsafeMutablePointer<UInt8>?, size: Int32) {
+        guard let document = document else { return }
+        guard let destination = destination else {
+            assertionFailure()
+            return
+        }
+        
+        if let data = ProjectManager.shared.loadPersistentRam(programUrl: document.fileURL) {
+            data.copyBytes(to: destination, count: min(data.count, Int(size)))
+        }
+    }
+    
+    func persistentRamDidChange(_ data: Data) {
+        guard let document = document else { return }
+        ProjectManager.shared.savePersistentRam(programUrl: document.fileURL, data: data)
+    }
+
     // MARK: - UIKeyInput
     
     var autocorrectionType: UITextAutocorrectionType = .no

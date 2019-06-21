@@ -24,6 +24,10 @@ class ProjectManager: NSObject {
         return FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
     }()
     
+    private(set) lazy var applicationSupportUrl: URL = {
+        return FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
+    }()
+    
     private(set) var ubiquitousContainerUrl: URL?
     
     var ubiquitousDocumentsUrl: URL? {
@@ -185,6 +189,8 @@ class ProjectManager: NSObject {
             var resultError: Error?
             var coordError: NSError?
             
+            self.deletePersistentRam(programUrl: item.fileUrl)
+            
             // program file
             print("deleteProject", item.fileUrl)
             fileCoordinator.coordinate(writingItemAt: item.fileUrl, options: .forDeleting, error: &coordError, byAccessor: { (url) in
@@ -285,6 +291,31 @@ class ProjectManager: NSObject {
                 print("saveProjectIcon: failed to create PNG data")
             }
         }
+    }
+    
+    func savePersistentRam(programUrl: URL, data: Data) {
+        let fileUrl = persistentRamUrl(programUrl: programUrl)
+        do {
+            try FileManager.default.createDirectory(at: applicationSupportUrl, withIntermediateDirectories: true, attributes: nil)
+            try data.write(to: fileUrl)
+        } catch {
+            print("savePersistentRam:", error.localizedDescription)
+        }
+    }
+    
+    func loadPersistentRam(programUrl: URL) -> Data? {
+        let fileUrl = persistentRamUrl(programUrl: programUrl)
+        return try? Data(contentsOf: fileUrl)
+    }
+    
+    func deletePersistentRam(programUrl: URL) {
+        let fileUrl = persistentRamUrl(programUrl: programUrl)
+        try? FileManager.default.removeItem(at: fileUrl)
+    }
+    
+    private func persistentRamUrl(programUrl: URL) -> URL {
+        let filename = programUrl.deletingPathExtension().appendingPathExtension("dat").lastPathComponent
+        return applicationSupportUrl.appendingPathComponent(filename)
     }
     
     func getDiskDocument(completion: @escaping (ProjectDocument?, Error?) -> Void) {
