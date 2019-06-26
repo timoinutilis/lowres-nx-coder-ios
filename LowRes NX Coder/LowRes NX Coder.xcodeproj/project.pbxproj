@@ -28,6 +28,7 @@
 		9227DC221FC8C17A00BC89FD /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9227DC211FC8C17A00BC89FD /* SplashViewController.swift */; };
 		922F0A2A1FCCC172004EF2D2 /* programs in Resources */ = {isa = PBXBuildFile; fileRef = 922F0A291FCCC172004EF2D2 /* programs */; };
 		922F0A2C1FCCC1FF004EF2D2 /* docs in Resources */ = {isa = PBXBuildFile; fileRef = 922F0A2B1FCCC1FF004EF2D2 /* docs */; };
+		9234247522C3FACC002431CD /* ClearRamActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9234247422C3FACC002431CD /* ClearRamActivity.swift */; };
 		923AFD691F77EB27002F6A5B /* AppStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 925CC6B41F7589BA0059C230 /* AppStyle.m */; };
 		923AFD721F77ED34002F6A5B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 926EB1D11F757DDD0048A6CF /* Main.storyboard */; };
 		923AFD7A1F77ED46002F6A5B /* TabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 926EB1F01F7582510048A6CF /* TabBarController.m */; };
@@ -113,6 +114,7 @@
 		9227DC211FC8C17A00BC89FD /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		922F0A291FCCC172004EF2D2 /* programs */ = {isa = PBXFileReference; lastKnownFileType = folder; name = programs; path = "LowRes NX Core/programs"; sourceTree = "<group>"; };
 		922F0A2B1FCCC1FF004EF2D2 /* docs */ = {isa = PBXFileReference; lastKnownFileType = folder; name = docs; path = "LowRes NX Core/docs"; sourceTree = "<group>"; };
+		9234247422C3FACC002431CD /* ClearRamActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClearRamActivity.swift; sourceTree = "<group>"; };
 		923C310F20587965003C89AC /* ToolsMenuConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolsMenuConfiguration.swift; sourceTree = "<group>"; };
 		92483F7C1F7C2A4300E6D476 /* LowRes NX Coder.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "LowRes NX Coder.entitlements"; sourceTree = "<group>"; };
 		924AB3F1205D986B00BCF977 /* IndexSideBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndexSideBar.swift; sourceTree = "<group>"; };
@@ -532,13 +534,14 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
-		92A7E146223B8E8600ED2487 /* Sharing */ = {
+		92A7E146223B8E8600ED2487 /* Activities */ = {
 			isa = PBXGroup;
 			children = (
 				92A7E147223B8EBC00ED2487 /* ShareActivity.swift */,
 				92A7E149223B91FD00ED2487 /* ShareViewController.swift */,
+				9234247422C3FACC002431CD /* ClearRamActivity.swift */,
 			);
-			path = Sharing;
+			path = Activities;
 			sourceTree = "<group>";
 		};
 		92D1A7611FBF6FDE0059450E /* datamanager */ = {
@@ -580,7 +583,7 @@
 				925CC6AF1F75899E0059C230 /* App */,
 				92A524862069771100EDE7AF /* Cells */,
 				925CC52D1F7587C40059C230 /* Views */,
-				92A7E146223B8E8600ED2487 /* Sharing */,
+				92A7E146223B8E8600ED2487 /* Activities */,
 				926EB1D01F757D5B0048A6CF /* Scenes */,
 				928402351F7448E000AC1466 /* LowResNX-Bridging-Header.h */,
 				92EA93BD1F744572007BEFB1 /* AppDelegate.swift */,
@@ -743,6 +746,7 @@
 				92ED996E1FA4E3540073559B /* startup_sequence.c in Sources */,
 				923AFD7D1F77ED52002F6A5B /* HelpContent.m in Sources */,
 				92D1A7641FBF6FDE0059450E /* data_manager.c in Sources */,
+				9234247522C3FACC002431CD /* ClearRamActivity.swift in Sources */,
 				928402301F7448B500AC1466 /* audio_chip.c in Sources */,
 				92A1C9322297E12C00364F80 /* CommunityViewController.swift in Sources */,
 				92A7E14B223B91FD00ED2487 /* ShareViewController.swift in Sources */,

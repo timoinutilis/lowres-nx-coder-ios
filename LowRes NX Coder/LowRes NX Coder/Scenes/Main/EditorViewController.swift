@@ -296,7 +296,7 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
                 } else {
                     let activityVC = UIActivityViewController(
                         activityItems: [self.document.fileURL],
-                        applicationActivities: [ShareActivity()]
+                        applicationActivities: [ShareActivity(), ClearRamActivity()]
                     )
                     activityVC.popoverPresentationController?.barButtonItem = sender as? UIBarButtonItem
                     self.present(activityVC, animated: true, completion: nil)
