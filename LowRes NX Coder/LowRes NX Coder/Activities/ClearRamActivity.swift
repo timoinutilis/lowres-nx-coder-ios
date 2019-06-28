@@ -23,7 +23,7 @@ class ClearRamActivity: UIActivity {
     }
     
     override var activityImage: UIImage? {
-        return UIImage(named: "sharecommunity")
+        return UIImage(named: "dummy33")
     }
     
     override func canPerform(withActivityItems activityItems: [Any]) -> Bool {
