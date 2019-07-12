@@ -12,7 +12,7 @@ class ToolsMenuConfiguration: NSObject {
     
     private let defaultPrograms = [
         "Char Designer 1.4.nx",
-        "BG Designer 1.4.nx",
+        "BG Designer 1.5.nx",
         "Sound Composer 1.2.nx"
     ]
     
