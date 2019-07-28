@@ -70,7 +70,9 @@ class ProjectManager: NSObject {
     //MARK: - Programs
     
     func importProgram(from url: URL, completion: @escaping ((Error?) -> Void)) {
-        let destUrl = ProjectManager.shared.localDocumentsUrl.appendingPathComponent(url.lastPathComponent)
+        let originalName = url.deletingPathExtension().lastPathComponent
+        let name = availableProgramName(original: originalName)
+        let destUrl = localDocumentsUrl.appendingPathComponent(name).appendingPathExtension("nx")
         
         DispatchQueue.global().async {
             let fileCoordinator = NSFileCoordinator()
