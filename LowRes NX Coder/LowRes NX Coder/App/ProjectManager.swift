@@ -45,23 +45,29 @@ class ProjectManager: NSObject {
     func setup(completion: @escaping (() -> Void)) {
         print("localDocumentsUrl:", localDocumentsUrl)
         DispatchQueue.global().async {
-            do {
-                try self.copyBundleProgramsIfNeeded()
-            } catch {
-                print("copyBundleProgramsIfNeeded:", error.localizedDescription)
-            }
+            self.copyBundleProgramsIfNeeded()
             
             if self.isCloudEnabled {
                 self.ubiquitousContainerUrl = FileManager.default.url(forUbiquityContainerIdentifier: nil)
-                do {
-                    try self.copyLocalProjectsToCloud()
-                } catch {
-                    print("copyLocalProjectsToCloud:", error.localizedDescription)
-                }
+                self.copyLocalProjectsToCloud()
             }
             
             DispatchQueue.main.async {
                 self.setupCloudIcons()
+                completion()
+            }
+        }
+    }
+    
+    func reinstallBundlePrograms(completion: @escaping (() -> Void)) {
+        UserDefaults.standard.set(nil, forKey: copiedBundleProgramsKey)
+        
+        DispatchQueue.global().async {
+            self.copyBundleProgramsIfNeeded()
+            if self.isCloudEnabled {
+                self.copyLocalProjectsToCloud()
+            }
+            DispatchQueue.main.async {
                 completion()
             }
         }
@@ -349,31 +355,31 @@ class ProjectManager: NSObject {
     
     //MARK: - Bundle Programs
     
-    private func copyBundleProgramsIfNeeded() throws {
-        let programsUrl = Bundle.main.bundleURL.appendingPathComponent("programs", isDirectory: true)
-        let urls = try FileManager.default.contentsOfDirectory(at: programsUrl, includingPropertiesForKeys: nil, options: [])
-        for url in urls {
-            let filename = url.lastPathComponent
-            if shouldCopyBundleProgram(filename: filename) {
-                let targetUrl = localDocumentsUrl.appendingPathComponent(filename)
-                if FileManager.default.fileExists(atPath: targetUrl.path) {
-                    didCopyBundleProgram(filename: filename)
-                } else {
-                    let fileCoordinator = NSFileCoordinator()
-                    var copyError: Error?
-                    fileCoordinator.coordinate(writingItemAt: targetUrl, options: .forReplacing, error: nil) { (targetUrl) in
-                        do {
-                            try FileManager.default.copyItem(at: url, to: targetUrl)
-                            didCopyBundleProgram(filename: filename)
-                        } catch {
-                            copyError = error
+    private func copyBundleProgramsIfNeeded() {
+        do {
+            let programsUrl = Bundle.main.bundleURL.appendingPathComponent("programs", isDirectory: true)
+            let urls = try FileManager.default.contentsOfDirectory(at: programsUrl, includingPropertiesForKeys: nil, options: [])
+            for url in urls {
+                let filename = url.lastPathComponent
+                if shouldCopyBundleProgram(filename: filename) {
+                    let targetUrl = localDocumentsUrl.appendingPathComponent(filename)
+                    if FileManager.default.fileExists(atPath: targetUrl.path) {
+                        didCopyBundleProgram(filename: filename)
+                    } else {
+                        let fileCoordinator = NSFileCoordinator()
+                        fileCoordinator.coordinate(writingItemAt: targetUrl, options: .forReplacing, error: nil) { (targetUrl) in
+                            do {
+                                try FileManager.default.copyItem(at: url, to: targetUrl)
+                                didCopyBundleProgram(filename: filename)
+                            } catch {
+                                print(error.localizedDescription)
+                            }
                         }
-                    }
-                    if let copyError = copyError {
-                        throw copyError
                     }
                 }
             }
+        } catch {
+            print(error.localizedDescription)
         }
     }
     
@@ -398,13 +404,21 @@ class ProjectManager: NSObject {
     
     //MARK: - Cloud
     
-    private func copyLocalProjectsToCloud() throws {
-        let urls = try FileManager.default.contentsOfDirectory(at: self.localDocumentsUrl, includingPropertiesForKeys: nil, options: [.skipsHiddenFiles])
-        for url in urls {
-            if !url.hasDirectoryPath {
-                let item = ExplorerItem(fileUrl: url)
-                try self.moveItemToCloud(item)
+    private func copyLocalProjectsToCloud() {
+        do {
+            let urls = try FileManager.default.contentsOfDirectory(at: self.localDocumentsUrl, includingPropertiesForKeys: nil, options: [.skipsHiddenFiles])
+            for url in urls {
+                if !url.hasDirectoryPath {
+                    let item = ExplorerItem(fileUrl: url)
+                    do {
+                        try self.moveItemToCloud(item)
+                    } catch {
+                        print(error.localizedDescription)
+                    }
+                }
             }
+        } catch {
+            print(error.localizedDescription)
         }
     }
     

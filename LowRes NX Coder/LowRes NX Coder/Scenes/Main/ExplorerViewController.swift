@@ -31,9 +31,9 @@ class ExplorerViewController: UIViewController, UICollectionViewDelegateFlowLayo
         view.backgroundColor = AppStyle.darkGrayColor()
         
         let addProjectItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(onAddProjectTapped))
-//        let actionItem = UIBarButtonItem(image: UIImage(named:"folder"), style: .plain, target: self, action: #selector(onActionTapped))
+        let actionItem = UIBarButtonItem(image: UIImage(named: "gear"), style: .plain, target: self, action: #selector(onActionTapped))
         
-//        navigationItem.rightBarButtonItems = [addProjectItem, actionItem]
+        navigationItem.leftBarButtonItem = actionItem
         navigationItem.rightBarButtonItem = addProjectItem
         
         collectionView.dataSource = self
@@ -273,27 +273,20 @@ class ExplorerViewController: UIViewController, UICollectionViewDelegateFlowLayo
         }
     }
     
-    func onActionTapped(_ sender: UIBarButtonItem) {
-        let alert = UIAlertController(title:nil, message:nil, preferredStyle: .actionSheet)
-
-        let isNormalFolder = true //(self.folder.folderType.integerValue == FolderTypeNormal);
-
-        let addAction = UIAlertAction(title: "Add Folder", style: .default, handler: { [weak self] (action) in
-            self?.onAddFolderTapped()
+    @objc func onActionTapped(_ sender: UIBarButtonItem) {
+        let alert = UIAlertController(title: "Options", message: nil, preferredStyle: .actionSheet)
+        
+        let addAction = UIAlertAction(title: "Reinstall Default Programs", style: .default, handler: { [weak self] (action) in
+            self?.onReinstallTapped()
         })
         alert.addAction(addAction)
-
-        let renameAction = UIAlertAction(title:"Rename this Folder", style: .default, handler: { [weak self] (action) in
-            self?.onRenameFolderTapped()
-        })
-        renameAction.isEnabled = isNormalFolder
-        alert.addAction(renameAction)
-
-        let deleteAction = UIAlertAction(title:"Delete this Folder", style: .destructive, handler: { [weak self] (action) in
-            self?.onDeleteFolderTapped()
-        })
-        deleteAction.isEnabled = isNormalFolder
-        alert.addAction(deleteAction)
+        
+        if let username = AppController.shared.username {
+            let logoutAction = UIAlertAction(title: "Log Out (\(username))", style: .default, handler: { [weak self] (action) in
+                self?.logout()
+            })
+            alert.addAction(logoutAction)
+        }
         
         let cancelAction = UIAlertAction(title:"Cancel", style: .cancel, handler: nil)
         alert.addAction(cancelAction)
@@ -302,52 +295,36 @@ class ExplorerViewController: UIViewController, UICollectionViewDelegateFlowLayo
         present(alert, animated: true, completion: nil)
     }
     
-    func onAddFolderTapped() {
-        //[[ModelManager sharedManager] createNewFolderInFolder:self.folder];
-        //[self showAddedProject];
+    func onReinstallTapped() {
+        let alert = UIAlertController(title: "Reinstall Default Programs?", message: "This may overwrite changes you made to them.", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Reinstall", style: .destructive, handler: { [weak self] (action) in
+            self?.reinstall()
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        present(alert, animated: true, completion: nil)
     }
     
-    func onRenameFolderTapped() {
-     /*  if (self.folder.isDefault.boolValue)
-        {
-        UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Example folders cannot be renamed." message:nil preferredStyle:UIAlertControllerStyleAlert];
-        [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil]];
-        [self presentViewController:alert animated:YES completion:nil];
+    func reinstall() {
+        BlockerView.show()
+        
+        ProjectManager.shared.reinstallBundlePrograms { [weak self] () in
+            BlockerView.dismiss()
+            
+            if !ProjectManager.shared.isCloudEnabled {
+                self?.loadLocalItems()
+            }
         }
-        else
-        {
-        ExplorerViewController __weak *weakSelf = self;
-        
-        UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Please enter new folder name!" message:nil preferredStyle:UIAlertControllerStyleAlert];
-        
-        [alert addTextFieldWithConfigurationHandler:^(UITextField *textField) {
-        textField.text = weakSelf.folder.name;
-        textField.clearButtonMode = UITextFieldViewModeAlways;
-        textField.autocapitalizationType = UITextAutocapitalizationTypeWords;
-        }];
-        
-        [alert addAction:[UIAlertAction actionWithTitle:@"Rename" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-        weakSelf.folder.name = ((UITextField *)alert.textFields[0]).text;
-        weakSelf.navigationItem.title = weakSelf.folder.name;
-        [[ModelManager sharedManager] saveContext];
-        }]];
-        
-        [alert addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
-        
-        [self presentViewController:alert animated:YES completion:nil];
-        }*/
     }
     
-    func onDeleteFolderTapped() {
-/*    if (self.folder.children.count > 0)
-    {
-    [self showAlertWithTitle:@"Cannot delete folders with content" message:nil block:nil];
-    }
-    else
-    {
-    [[ModelManager sharedManager] deleteProject:self.folder];
-    [self.navigationController popViewControllerAnimated:YES];
-    }*/
+    func logout() {
+        let urlString = ShareViewController.baseUrl.appendingPathComponent("logout.php").absoluteString + "?webmode=app";
+        let vc = WebViewController()
+        vc.url = URL(string: urlString)!
+        vc.title = "Log Out"
+        let nc = UINavigationController(rootViewController: vc)
+        present(nc, animated: true, completion: nil)
+        
+        AppController.shared.didLogOut()
     }
     
     func showEditor(fileUrl: URL) {
