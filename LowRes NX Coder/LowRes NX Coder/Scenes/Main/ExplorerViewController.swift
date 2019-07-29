@@ -374,6 +374,18 @@ class ExplorerViewController: UIViewController, UICollectionViewDelegateFlowLayo
         }
     }
     
+    func duplicateItem(_ item: ExplorerItem) {
+        metadataQuery?.disableUpdates()
+        
+        ProjectManager.shared.duplicateProject(item: item) { (error) in
+            self.metadataQuery?.enableUpdates()
+            
+            if let error = error {
+                self.showAlert(withTitle: "Could not Duplicate Program", message: error.localizedDescription, block: nil)
+            }
+        }
+    }
+    
     //MARK: - UICollectionViewDataSource
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -417,13 +429,14 @@ class ExplorerViewController: UIViewController, UICollectionViewDelegateFlowLayo
     func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
         UIMenuController.shared.menuItems = [
             UIMenuItem(title: "Rename...", action: #selector(ExplorerItemCell.renameItem)),
+            UIMenuItem(title: "Duplicate", action: #selector(ExplorerItemCell.duplicateItem)),
             UIMenuItem(title: "Delete...", action: #selector(ExplorerItemCell.deleteItem))
         ]
         return true
     }
     
     func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
-        if action == #selector(ExplorerItemCell.renameItem) || action == #selector(ExplorerItemCell.deleteItem) {
+        if action == #selector(ExplorerItemCell.renameItem) || action == #selector(ExplorerItemCell.deleteItem) || action == #selector(ExplorerItemCell.duplicateItem) {
             return true
         }
         return false
@@ -469,6 +482,10 @@ class ExplorerViewController: UIViewController, UICollectionViewDelegateFlowLayo
             pop.sourceRect = cell.bounds
             pop.permittedArrowDirections = [.down, .up]
         }
+    }
+    
+    func explorerItemCell(_ cell: ExplorerItemCell, didSelectDuplicate item: ExplorerItem) {
+        duplicateItem(item)
     }
     
     //MARK: - NSMetadataQueryDelegate

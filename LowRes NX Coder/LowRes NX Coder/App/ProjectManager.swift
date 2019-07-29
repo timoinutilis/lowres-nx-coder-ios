@@ -63,13 +63,15 @@ class ProjectManager: NSObject {
                     }
                 }
                 
-                self.setupCloudIcons()
                 self.moveLocalProjectsToCloud()
             }
             
             self.copyBundleProgramsIfNeeded(overwrite: false)
             
             OperationQueue.main.addOperation {
+                if self.isCloudEnabled {
+                    self.setupCloudIcons()
+                }
                 completion()
             }
         }
@@ -225,6 +227,42 @@ class ProjectManager: NSObject {
                 
                 OperationQueue.main.addOperation {
                     completion(nil)
+                }
+            } catch {
+                OperationQueue.main.addOperation {
+                    completion(error)
+                }
+            }
+        }
+    }
+    
+    func duplicateProject(item: ExplorerItem, completion: @escaping (Error?) -> Void) {
+        let newName = availableProgramName(original: "Copy of \(item.name)")
+        let programDestUrl = self.currentDocumentsUrl.appendingPathComponent(newName).appendingPathExtension("nx")
+        let imageDestUrl = self.currentDocumentsUrl.appendingPathComponent(newName).appendingPathExtension("png")
+        
+        let programReadIntent = NSFileAccessIntent.readingIntent(with: item.fileUrl, options: [])
+        let programWriteIntent = NSFileAccessIntent.writingIntent(with: programDestUrl, options: .forReplacing)
+        let imageReadIntent = NSFileAccessIntent.readingIntent(with: item.imageUrl, options: [])
+        let imageWriteIntent = NSFileAccessIntent.writingIntent(with: imageDestUrl, options: .forReplacing)
+        
+        NSFileCoordinator().coordinate(with: [programReadIntent, programWriteIntent, imageReadIntent, imageWriteIntent], queue: self.queue) { (error) in
+            guard error == nil else {
+                OperationQueue.main.addOperation { completion(error) }
+                return
+            }
+            
+            do {
+                // program file
+                try FileManager.default.copyItem(at: programReadIntent.url, to: programWriteIntent.url)
+                let item = ExplorerItem(fileUrl: programWriteIntent.url)
+                
+                // image file
+                try? FileManager.default.copyItem(at: imageReadIntent.url, to: imageWriteIntent.url)
+                
+                OperationQueue.main.addOperation {
+                    completion(nil)
+                    self.postNotification(name: .ProjectManagerDidAddProgram, for: item)
                 }
             } catch {
                 OperationQueue.main.addOperation {
