@@ -307,11 +307,11 @@ class ExplorerViewController: UIViewController, UICollectionViewDelegateFlowLayo
     func reinstall() {
         BlockerView.show()
         
-        ProjectManager.shared.reinstallBundlePrograms { [weak self] () in
+        ProjectManager.shared.reinstallBundlePrograms {
             BlockerView.dismiss()
             
             if !ProjectManager.shared.isCloudEnabled {
-                self?.loadLocalItems()
+                self.loadLocalItems()
             }
         }
     }

@@ -42,18 +42,34 @@ class ProjectManager: NSObject {
         }
     }
     
+    private let queue = OperationQueue()
+    
     func setup(completion: @escaping (() -> Void)) {
         print("localDocumentsUrl:", localDocumentsUrl)
-        DispatchQueue.global().async {
-            self.copyBundleProgramsIfNeeded()
-            
+        
+        queue.addOperation {
             if self.isCloudEnabled {
                 self.ubiquitousContainerUrl = FileManager.default.url(forUbiquityContainerIdentifier: nil)
-                self.copyLocalProjectsToCloud()
+                
+                // make sure Documents directory exists
+                if let ubiquitousDocumentsUrl = self.ubiquitousDocumentsUrl {
+                    do {
+                        if !FileManager.default.fileExists(atPath: ubiquitousDocumentsUrl.path) {
+                            print("create dir:", ubiquitousDocumentsUrl.path)
+                            try FileManager.default.createDirectory(at: ubiquitousDocumentsUrl, withIntermediateDirectories: true, attributes: nil)
+                        }
+                    } catch {
+                        print(error.localizedDescription)
+                    }
+                }
+                
+                self.setupCloudIcons()
+                self.moveLocalProjectsToCloud()
             }
             
-            DispatchQueue.main.async {
-                self.setupCloudIcons()
+            self.copyBundleProgramsIfNeeded(overwrite: false)
+            
+            OperationQueue.main.addOperation {
                 completion()
             }
         }
@@ -62,12 +78,9 @@ class ProjectManager: NSObject {
     func reinstallBundlePrograms(completion: @escaping (() -> Void)) {
         UserDefaults.standard.set(nil, forKey: copiedBundleProgramsKey)
         
-        DispatchQueue.global().async {
-            self.copyBundleProgramsIfNeeded()
-            if self.isCloudEnabled {
-                self.copyLocalProjectsToCloud()
-            }
-            DispatchQueue.main.async {
+        queue.addOperation {
+            self.copyBundleProgramsIfNeeded(overwrite: true)
+            OperationQueue.main.addOperation {
                 completion()
             }
         }
@@ -77,35 +90,29 @@ class ProjectManager: NSObject {
     
     func importProgram(from url: URL, completion: @escaping ((Error?) -> Void)) {
         let originalName = url.deletingPathExtension().lastPathComponent
-        let name = availableProgramName(original: originalName)
-        let destUrl = localDocumentsUrl.appendingPathComponent(name).appendingPathExtension("nx")
+        let name = self.availableProgramName(original: originalName)
+        let destUrl = self.currentDocumentsUrl.appendingPathComponent(name).appendingPathExtension("nx")
         
-        DispatchQueue.global().async {
-            let fileCoordinator = NSFileCoordinator()
-            var resultItem: ExplorerItem?
-            var resultError: Error?
-            fileCoordinator.coordinate(writingItemAt: url, options: .forReplacing, error: nil) { (url) in
-                do {
-                    try FileManager.default.moveItem(at: url, to: destUrl)
-                    let item = ExplorerItem(fileUrl: destUrl)
-                    if self.isCloudEnabled {
-                        do {
-                            try self.moveItemToCloud(item)
-                            resultItem = item
-                        } catch {
-                            resultError = error
-                        }
-                    } else {
-                        resultItem = item
-                    }
-                } catch {
-                    resultError = error
-                }
+        let readIntent = NSFileAccessIntent.readingIntent(with: url, options: [])
+        let writeIntent = NSFileAccessIntent.writingIntent(with: destUrl, options: .forReplacing)
+        
+        NSFileCoordinator().coordinate(with: [readIntent, writeIntent], queue: self.queue) { (error) in
+            guard error == nil else {
+                OperationQueue.main.addOperation { completion(error) }
+                return
             }
-            DispatchQueue.main.async {
-                completion(resultError)
-                if let item = resultItem {
+            
+            do {
+                try FileManager.default.copyItem(at: readIntent.url, to: writeIntent.url)
+                let item = ExplorerItem(fileUrl: writeIntent.url)
+                
+                OperationQueue.main.addOperation {
+                    completion(nil)
                     self.postNotification(name: .ProjectManagerDidAddProgram, for: item)
+                }
+            } catch {
+                OperationQueue.main.addOperation {
+                    completion(error)
                 }
             }
         }
@@ -113,51 +120,33 @@ class ProjectManager: NSObject {
     
     func addProject(originalName: String, programData: Data?, imageData: Data?, completion: @escaping ((Error?) -> Void)) {
         let safeName = originalName.replacingOccurrences(of: "/", with: "")
-        let name = availableProgramName(original: safeName)
-        let programUrl = localDocumentsUrl.appendingPathComponent(name).appendingPathExtension("nx")
-        DispatchQueue.global().async {
-            let fileCoordinator = NSFileCoordinator()
-            var resultItem: ExplorerItem?
-            var resultError: Error?
-            var coordError: NSError?
-            // program
-            fileCoordinator.coordinate(writingItemAt: programUrl, options: .forReplacing, error: &coordError) { (url) in
-                if FileManager.default.createFile(atPath: url.path, contents: programData, attributes: nil) {
-                    let item = ExplorerItem(fileUrl: url)
-                    if self.isCloudEnabled {
-                        do {
-                            try self.moveItemToCloud(item)
-                            resultItem = item
-                        } catch {
-                            resultError = error
-                        }
-                    } else {
-                        resultItem = item
-                    }
-                }
+        let name = self.availableProgramName(original: safeName)
+        let programUrl = self.currentDocumentsUrl.appendingPathComponent(name).appendingPathExtension("nx")
+        let imageUrl = self.currentDocumentsUrl.appendingPathComponent(name).appendingPathExtension("png")
+        
+        let programWriteIntent = NSFileAccessIntent.writingIntent(with: programUrl, options: .forReplacing)
+        let imageWriteIntent = NSFileAccessIntent.writingIntent(with: imageUrl, options: .forReplacing)
+        
+        NSFileCoordinator().coordinate(with: [programWriteIntent, imageWriteIntent], queue: self.queue) { (error) in
+            guard error == nil else {
+                OperationQueue.main.addOperation { completion(error) }
+                return
             }
-            // image
-            if let imageData = imageData, let resultItem = resultItem {
-                let imageUrl = resultItem.imageUrl
-                let fileCoordinator = NSFileCoordinator()
-                var coordError: NSError?
-                fileCoordinator.coordinate(writingItemAt: imageUrl, options: .forReplacing, error: &coordError) { (url) in
-                    do {
-                        try imageData.write(to: url)
-                    } catch {
-                        print("addProject icon:", error.localizedDescription)
-                    }
-                }
-                if let error = coordError {
-                    print("addProject icon:", error.localizedDescription)
+            
+            var resultItem: ExplorerItem?
+            
+            // program
+            if FileManager.default.createFile(atPath: programWriteIntent.url.path, contents: programData, attributes: nil) {
+                resultItem = ExplorerItem(fileUrl: programWriteIntent.url)
+                
+                // image
+                if let imageData = imageData {
+                    FileManager.default.createFile(atPath: imageWriteIntent.url.path, contents: imageData, attributes: nil)
                 }
             }
             
-            if resultItem == nil && coordError != nil {
-                resultError = coordError
-            }
-            DispatchQueue.main.async {
-                completion(resultError)
+            OperationQueue.main.addOperation {
+                completion(nil)
                 if let item = resultItem {
                     self.postNotification(name: .ProjectManagerDidAddProgram, for: item)
                 }
@@ -167,137 +156,93 @@ class ProjectManager: NSObject {
     
     private func availableProgramName(original: String) -> String {
         var name = original
-        var ok = false
         var count = 1
-        repeat {
-            ok = true
-            let localUrl = localDocumentsUrl.appendingPathComponent(name).appendingPathExtension("nx")
-            var existsInCloud = false
-            if let ubiquitousDocumentsUrl = ubiquitousDocumentsUrl {
-                let cloudUrl = ubiquitousDocumentsUrl.appendingPathComponent(name).appendingPathExtension("nx")
-                if FileManager.default.fileExists(atPath: cloudUrl.path) {
-                    existsInCloud = true
-                } else {
-                    existsInCloud = FileManager.default.isUbiquitousItem(at: cloudUrl)
-                }
-            }
-            if FileManager.default.fileExists(atPath: localUrl.path) || existsInCloud {
-                ok = false
-                count += 1
-                name = "\(original) (\(count))"
-            }
-        } while !ok
+        
+        var url = currentDocumentsUrl.appendingPathComponent(name).appendingPathExtension("nx")
+        
+        while (try? url.checkPromisedItemIsReachable()) ?? false {
+            count += 1
+            name = "\(original) (\(count))"
+            url = currentDocumentsUrl.appendingPathComponent(name).appendingPathExtension("nx")
+        }
+
         return name
     }
     
     func deleteProject(item: ExplorerItem, completion: @escaping (Error?) -> Void) {
-        DispatchQueue.global().async {
-            let fileCoordinator = NSFileCoordinator()
-            var success = false
-            var resultError: Error?
-            var coordError: NSError?
-            
-            self.deletePersistentRam(programUrl: item.fileUrl)
-            
-            // program file
-            print("deleteProject", item.fileUrl)
-            fileCoordinator.coordinate(writingItemAt: item.fileUrl, options: .forDeleting, error: &coordError, byAccessor: { (url) in
-                do {
-                    try FileManager.default.removeItem(at: url)
-                    success = true
-                } catch {
-                    resultError = error
-                }
-            })
-            
-            // image file
-            if success {
-                let imageUrl = item.imageUrl
-                if FileManager.default.fileExists(atPath: imageUrl.path) {
-                    fileCoordinator.coordinate(writingItemAt: imageUrl, options: .forDeleting, error: nil, byAccessor: { (url) in
-                        do {
-                            try FileManager.default.removeItem(at: url)
-                        } catch {
-                            print("delete image:", error)
-                        }
-                    })
-                }
+        self.deletePersistentRam(programUrl: item.fileUrl)
+        
+        let programWriteIntent = NSFileAccessIntent.writingIntent(with: item.fileUrl, options: .forDeleting)
+        let imageWriteIntent = NSFileAccessIntent.writingIntent(with: item.imageUrl, options: .forDeleting)
+        
+        NSFileCoordinator().coordinate(with: [programWriteIntent, imageWriteIntent], queue: self.queue) { (error) in
+            guard error == nil else {
+                OperationQueue.main.addOperation { completion(error) }
+                return
             }
             
-            if !success && coordError != nil {
-                resultError = coordError
-            }
-            DispatchQueue.main.async {
-                completion(resultError)
+            do {
+                // program file
+                try FileManager.default.removeItem(at: programWriteIntent.url)
+                
+                // image file
+                try? FileManager.default.removeItem(at: imageWriteIntent.url)
+                
+                OperationQueue.main.addOperation {
+                    completion(nil)
+                }
+            } catch {
+                OperationQueue.main.addOperation {
+                    completion(error)
+                }
             }
         }
     }
     
     func renameProject(item: ExplorerItem, newName: String, completion: @escaping (Error?) -> Void) {
         let safeName = newName.replacingOccurrences(of: "/", with: "")
-        let destUrl = item.fileUrl.deletingLastPathComponent().appendingPathComponent(safeName).appendingPathExtension("nx")
-        let srcImageUrl = item.imageUrl
+        let programDestUrl = item.fileUrl.deletingLastPathComponent().appendingPathComponent(safeName).appendingPathExtension("nx")
+        let imageDestUrl = item.fileUrl.deletingLastPathComponent().appendingPathComponent(safeName).appendingPathExtension("png")
         
-        DispatchQueue.global().async {
-            let fileCoordinator = NSFileCoordinator()
-            var success = false
-            var resultError: Error?
-            var coordError: NSError?
-            
-            // program file
-            print("renameProject", item.fileUrl)
-            fileCoordinator.coordinate(writingItemAt: item.fileUrl, options: .forMoving, writingItemAt: destUrl, options: .forReplacing, error: &coordError, byAccessor: { (sourceUrl, destUrl) in
-                do {
-                    try FileManager.default.moveItem(at: sourceUrl, to: destUrl)
-                    item.fileUrl = destUrl
-                    success = true
-                } catch {
-                    resultError = error
-                }
-            })
-            
-            // image file
-            if success {
-                if FileManager.default.fileExists(atPath: srcImageUrl.path) {
-                    let destImageUrl = item.imageUrl
-                    fileCoordinator.coordinate(writingItemAt: srcImageUrl, options: .forMoving, writingItemAt: destImageUrl, options: .forReplacing, error: nil, byAccessor: { (sourceUrl, destUrl) in
-                        do {
-                            try FileManager.default.moveItem(at: sourceUrl, to: destUrl)
-                        } catch {
-                            print("rename image:", error)
-                        }
-                    })
-                }
+        let programSrcWriteIntent = NSFileAccessIntent.writingIntent(with: item.fileUrl, options: .forMoving)
+        let programDestWriteIntent = NSFileAccessIntent.writingIntent(with: programDestUrl, options: .forReplacing)
+        let imageSrcWriteIntent = NSFileAccessIntent.writingIntent(with: item.imageUrl, options: .forMoving)
+        let imageDestWriteIntent = NSFileAccessIntent.writingIntent(with: imageDestUrl, options: .forReplacing)
+
+        NSFileCoordinator().coordinate(with: [programSrcWriteIntent, programDestWriteIntent, imageSrcWriteIntent, imageDestWriteIntent], queue: self.queue) { (error) in
+            guard error == nil else {
+                OperationQueue.main.addOperation { completion(error) }
+                return
             }
             
-            if !success && coordError != nil {
-                resultError = coordError
-            }
-            DispatchQueue.main.async {
-                completion(resultError)
+            do {
+                // program file
+                try FileManager.default.moveItem(at: programSrcWriteIntent.url, to: programDestWriteIntent.url)
+                item.fileUrl = programDestWriteIntent.url
+                
+                // image file
+                try? FileManager.default.moveItem(at: imageSrcWriteIntent.url, to: imageDestWriteIntent.url)
+                
+                OperationQueue.main.addOperation {
+                    completion(nil)
+                }
+            } catch {
+                OperationQueue.main.addOperation {
+                    completion(error)
+                }
             }
         }
     }
     
     func saveProjectIcon(programUrl: URL, image: UIImage) {
-        let iconUrl = programUrl.deletingPathExtension().appendingPathExtension("png")
-        DispatchQueue.global().async {
-            if let pngData = UIImagePNGRepresentation(image) {
-                let fileCoordinator = NSFileCoordinator()
-                var coordError: NSError?
-                fileCoordinator.coordinate(writingItemAt: iconUrl, options: .forReplacing, error: &coordError) { (url) in
-                    do {
-                        try pngData.write(to: url)
-                    } catch {
-                        print("saveProjectIcon:", error.localizedDescription)
-                    }
-                }
-                if let error = coordError {
-                    print("saveProjectIcon:", error.localizedDescription)
-                }
-            } else {
-                print("saveProjectIcon: failed to create PNG data")
-            }
+        guard let imageData = UIImagePNGRepresentation(image) else { return }
+    
+        let imageUrl = programUrl.deletingPathExtension().appendingPathExtension("png")
+        let writeIntent = NSFileAccessIntent.writingIntent(with: imageUrl, options: .forReplacing)
+        
+        NSFileCoordinator().coordinate(with: [writeIntent], queue: self.queue) { (error) in
+            guard error == nil else { return }
+            FileManager.default.createFile(atPath: writeIntent.url.path, contents: imageData, attributes: nil)
         }
     }
     
@@ -355,25 +300,36 @@ class ProjectManager: NSObject {
     
     //MARK: - Bundle Programs
     
-    private func copyBundleProgramsIfNeeded() {
+    private func copyBundleProgramsIfNeeded(overwrite: Bool) {
         do {
             let programsUrl = Bundle.main.bundleURL.appendingPathComponent("programs", isDirectory: true)
             let urls = try FileManager.default.contentsOfDirectory(at: programsUrl, includingPropertiesForKeys: nil, options: [])
+            
             for url in urls {
                 let filename = url.lastPathComponent
+                
                 if shouldCopyBundleProgram(filename: filename) {
-                    let targetUrl = localDocumentsUrl.appendingPathComponent(filename)
-                    if FileManager.default.fileExists(atPath: targetUrl.path) {
+                    let targetUrl = currentDocumentsUrl.appendingPathComponent(filename)
+                    
+                    if !overwrite && (try? targetUrl.checkPromisedItemIsReachable()) ?? false {
+                        print("bundle - already exists:", targetUrl.path)
                         didCopyBundleProgram(filename: filename)
                     } else {
-                        let fileCoordinator = NSFileCoordinator()
-                        fileCoordinator.coordinate(writingItemAt: targetUrl, options: .forReplacing, error: nil) { (targetUrl) in
+                        let tempUrl = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true).appendingPathComponent(UUID().uuidString)
+                        try FileManager.default.copyItem(at: url, to: tempUrl)
+                        
+                        var coordError: NSError?
+                        NSFileCoordinator().coordinate(writingItemAt: tempUrl, options: [], writingItemAt: targetUrl, options: .forReplacing, error: &coordError) { (fromUrl, toUrl) in
                             do {
-                                try FileManager.default.copyItem(at: url, to: targetUrl)
-                                didCopyBundleProgram(filename: filename)
+                                print("bundle - replace:", targetUrl.path)
+                                let _ = try FileManager.default.replaceItemAt(toUrl, withItemAt: fromUrl, backupItemName: nil, options: [])
+                                self.didCopyBundleProgram(filename: filename)
                             } catch {
                                 print(error.localizedDescription)
                             }
+                        }
+                        if let error = coordError {
+                            print(error.localizedDescription)
                         }
                     }
                 }
@@ -383,13 +339,7 @@ class ProjectManager: NSObject {
         }
     }
     
-    private var copiedBundleProgramsKey: String {
-        var key = "CopiedBundlePrograms"
-        if let token = FileManager.default.ubiquityIdentityToken  {
-            key += token.description
-        }
-        return key
-    }
+    private let copiedBundleProgramsKey = "CopiedBundlePrograms"
     
     private func shouldCopyBundleProgram(filename: String) -> Bool {
         let copiedPrograms: [String] = UserDefaults.standard.array(forKey: copiedBundleProgramsKey) as? [String] ?? []
@@ -404,35 +354,59 @@ class ProjectManager: NSObject {
     
     //MARK: - Cloud
     
-    private func copyLocalProjectsToCloud() {
+    private func moveLocalProjectsToCloud() {
+        guard let ubiquitousDocumentsUrl = self.ubiquitousDocumentsUrl else {
+            assertionFailure()
+            return
+        }
         do {
             let urls = try FileManager.default.contentsOfDirectory(at: self.localDocumentsUrl, includingPropertiesForKeys: nil, options: [.skipsHiddenFiles])
+            
             for url in urls {
-                if !url.hasDirectoryPath {
-                    let item = ExplorerItem(fileUrl: url)
-                    do {
-                        try self.moveItemToCloud(item)
-                    } catch {
+                if !url.hasDirectoryPath && url.pathExtension == "nx" {
+                    var coordError: NSError?
+                    
+                    let originalName = url.deletingPathExtension().lastPathComponent
+                    let name = availableProgramName(original: originalName)
+                    
+                    // program file
+                    let destUrl = ubiquitousDocumentsUrl.appendingPathComponent(name).appendingPathExtension("nx")
+                    
+                    NSFileCoordinator().coordinate(writingItemAt: url, options: [], writingItemAt: destUrl, options: .forReplacing, error: &coordError) { (fromUrl, toUrl) in
+                        do {
+                            print("local - move:", toUrl.path)
+                            try FileManager.default.moveItem(at: fromUrl, to: toUrl)
+                        } catch {
+                            print(error.localizedDescription)
+                        }
+                    }
+                    if let error = coordError {
                         print(error.localizedDescription)
+                    }
+                    
+                    // image file
+                    let imageUrl = url.deletingPathExtension().appendingPathExtension("png")
+
+                    if FileManager.default.fileExists(atPath: imageUrl.path) {
+                        let imageDestUrl = ubiquitousDocumentsUrl.appendingPathComponent(name).appendingPathExtension("png")
+                        
+                        NSFileCoordinator().coordinate(writingItemAt: imageUrl, options: [], writingItemAt: imageDestUrl, options: .forReplacing, error: &coordError) { (fromUrl, toUrl) in
+                            do {
+                                print("local - move:", toUrl.path)
+                                try FileManager.default.moveItem(at: fromUrl, to: toUrl)
+                            } catch {
+                                print(error.localizedDescription)
+                            }
+                        }
+                        if let error = coordError {
+                            print(error.localizedDescription)
+                        }
                     }
                 }
             }
         } catch {
             print(error.localizedDescription)
         }
-    }
-    
-    private func moveItemToCloud(_ item: ExplorerItem) throws {
-        guard let documentsUrl = ubiquitousDocumentsUrl else {
-            return
-        }
-        let sourceUrl = item.fileUrl
-        let fileName = sourceUrl.lastPathComponent
-        let destinationUrl = documentsUrl.appendingPathComponent(fileName)
-        if !FileManager.default.isUbiquitousItem(at: destinationUrl) {
-            try FileManager.default.setUbiquitous(true, itemAt: sourceUrl, destinationURL: destinationUrl)
-        }
-        item.fileUrl = destinationUrl
     }
     
     //MARK: - Cloud Icons
@@ -496,6 +470,20 @@ class ProjectManager: NSObject {
             }
         }
         query.enableUpdates()
+    }
+    
+    // MARK: - Test
+    
+    private func list(_ dirUrl: URL) {
+        do {
+            print(dirUrl.path)
+            let urls = try FileManager.default.contentsOfDirectory(at: dirUrl, includingPropertiesForKeys: nil, options: [.skipsHiddenFiles])
+            for url in urls {
+                print(url.lastPathComponent)
+            }
+        } catch {
+            print(error.localizedDescription)
+        }
     }
     
 }
