@@ -342,7 +342,9 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
         
         core_update(&coreWrapper.core, &coreWrapper.input)
         
-        nxView.render()
+        if core_shouldRender(&coreWrapper.core) {
+            nxView.render()
+        }
     }
     
     func configureGameControllers() {
