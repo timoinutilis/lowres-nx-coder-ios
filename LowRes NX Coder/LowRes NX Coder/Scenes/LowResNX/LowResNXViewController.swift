@@ -8,6 +8,7 @@
 
 import UIKit
 import GameController
+import ReplayKit
 
 // set to false for testing on Simulator
 let SUPPORTS_GAME_CONTROLLERS = true
@@ -23,7 +24,7 @@ struct WebSource {
     let imageUrl: URL?
 }
 
-class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate {
+class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate, RPPreviewViewControllerDelegate {
     
     let screenshotScaleFactor: CGFloat = 4.0
     
@@ -311,6 +312,34 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
         }
     }
     
+    func recordVideo() {
+        guard RPScreenRecorder.shared().isAvailable else {
+            showAlert(withTitle: "Video Recording Currently Not Available", message: nil, block: nil)
+            return
+        }
+        RPScreenRecorder.shared().startRecording(withMicrophoneEnabled: false) { (error) in
+            if let error = error {
+                DispatchQueue.main.async {
+                    self.showAlert(withTitle: "Cannot Record Video", message: error.localizedDescription, block: nil)
+                }
+            }
+        }
+    }
+    
+    func stopVideoRecording() {
+        RPScreenRecorder.shared().stopRecording { (vc, error) in
+            if let vc = vc {
+                vc.previewControllerDelegate = self
+                vc.modalPresentationStyle = .fullScreen
+                self.present(vc, animated: true, completion: nil)
+            } else {
+                self.showAlert(withTitle: "Could Not Record Video", message: error?.localizedDescription, block: {
+                    self.presentingViewController?.dismiss(animated: true, completion: nil)
+                })
+            }
+        }
+    }
+    
     func saveProgramFromWeb() {
         guard
             let webSource = webSource,
@@ -323,7 +352,7 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
         BlockerView.show()
         ProjectManager.shared.addProject(originalName: webSource.name, programData: programData, imageData: imageData) { (error) in
             BlockerView.dismiss()
-            self.presentingViewController?.dismiss(animated: true, completion: nil)
+            self.exit()
         }
     }
     
@@ -432,6 +461,14 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
         }
     }
     
+    func exit() {
+        if RPScreenRecorder.shared().isRecording {
+            stopVideoRecording()
+        } else {
+            presentingViewController?.dismiss(animated: true, completion: nil)
+        }
+    }
+    
     @objc func handleTap(sender: UITapGestureRecognizer) {
         if sender.state == .ended {
             becomeFirstResponder()
@@ -469,7 +506,7 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
         }
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action) in
-            self.presentingViewController?.dismiss(animated: true, completion: nil)
+            self.exit()
         }))
         present(alert, animated: true, completion: nil)
     }
@@ -505,12 +542,12 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
         if timeSinceStart >= 60 && controlsInfo.isTouchEnabled {
             let alert = UIAlertController(title: "Do you really want to exit this program?", message: nil, preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Exit", style: .default, handler: { [unowned self] (action) in
-                self.presentingViewController?.dismiss(animated: true, completion: nil)
+                self.exit()
             }))
             alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
             present(alert, animated: true, completion: nil)
         } else {
-            presentingViewController?.dismiss(animated: true, completion: nil)
+            exit()
         }
     }
     
@@ -538,6 +575,13 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
         alert.addAction(UIAlertAction(title: "Share Screenshot", style: .default, handler: { [unowned self] (action) in
             self.shareScreenshot()
         }))
+        
+        
+        if !RPScreenRecorder.shared().isRecording {
+            alert.addAction(UIAlertAction(title: "Record Video", style: .default, handler: { [unowned self] (action) in
+                self.recordVideo()
+            }))
+        }
         
         if webSource != nil {
             alert.addAction(UIAlertAction(title: "Save to My Programs", style: .default, handler: { [unowned self] (action) in
@@ -598,7 +642,7 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
                         })
                     } else {
                         self.showAlert(withTitle: "Could not Access Virtual Disk", message: error?.localizedDescription, block: {
-                            self.presentingViewController?.dismiss(animated: true, completion: nil)
+                            self.exit()
                         })
                     }
                 })
@@ -696,6 +740,16 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate 
     // this is from UITextInput, needed because of crash on iPhone 6 keyboard (left/right arrows)
     var selectedTextRange: UITextRange? {
         return nil
+    }
+    
+    // MARK: - RPPreviewViewControllerDelegate
+    
+    func previewControllerDidFinish(_ previewController: RPPreviewViewController) {
+        DispatchQueue.main.async {
+            self.dismiss(animated: true) {
+                self.presentingViewController?.dismiss(animated: true, completion: nil)
+            }
+        }
     }
     
 }
