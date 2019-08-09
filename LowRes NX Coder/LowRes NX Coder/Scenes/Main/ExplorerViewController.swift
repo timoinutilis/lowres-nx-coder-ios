@@ -161,15 +161,11 @@ class ExplorerViewController: UIViewController, UICollectionViewDelegateFlowLayo
         
         queryDidFinishGatheringObserver = NotificationCenter.default.addObserver(forName: NSNotification.Name.NSMetadataQueryDidFinishGathering, object: query, queue: nil, using: { [weak self] (notification) in
             self?.activityView.stopAnimating()
-            self?.cloudFileListReceived()
+            self?.updateCloudFileList()
         })
         
         queryDidUpdateObserver = NotificationCenter.default.addObserver(forName: NSNotification.Name.NSMetadataQueryDidUpdate, object: query, queue: nil, using: { [weak self] (notification) in
-            if let userInfo = notification.userInfo {
-                self?.updateFileList(addedItems: userInfo[NSMetadataQueryUpdateAddedItemsKey] as! [ExplorerItem],
-                                     changedItems: userInfo[NSMetadataQueryUpdateChangedItemsKey] as! [ExplorerItem],
-                                     removedItems: userInfo[NSMetadataQueryUpdateRemovedItemsKey] as! [ExplorerItem])
-            }
+            self?.updateCloudFileList()
         })
         query.start()
     }
@@ -186,7 +182,7 @@ class ExplorerViewController: UIViewController, UICollectionViewDelegateFlowLayo
         }
     }
     
-    private func cloudFileListReceived() {
+    private func updateCloudFileList() {
         guard let query = metadataQuery else {
             return
         }
@@ -202,50 +198,6 @@ class ExplorerViewController: UIViewController, UICollectionViewDelegateFlowLayo
         updateFooter()
         
         query.enableUpdates()
-    }
-    
-    private func updateFileList(addedItems: [ExplorerItem], changedItems: [ExplorerItem], removedItems: [ExplorerItem]) {
-        metadataQuery?.disableUpdates()
-        
-        var resultItems = items!
-        
-        var indexPathsToDelete = [IndexPath]()
-        var indexPathsToInsert = [IndexPath]()
-        var indexPathsToReload = [IndexPath]()
-        
-        for item in removedItems {
-            if let originalIndex = items!.index(of: item) {
-                indexPathsToDelete.append(IndexPath(item: originalIndex, section: 0))
-                if let resultIndex = resultItems.index(of: item) {
-                    resultItems.remove(at: resultIndex)
-                }
-            }
-        }
-        for item in changedItems {
-            if let index = resultItems.index(of: item) {
-                indexPathsToReload.append(IndexPath(item: index, section: 0))
-                item.updateFromMetadata()
-            }
-        }
-        for item in addedItems {
-            if !resultItems.contains(item) {
-                indexPathsToInsert.append(IndexPath(item: resultItems.count, section: 0))
-                resultItems.append(item)
-            }
-        }
-        if (!indexPathsToDelete.isEmpty || !indexPathsToInsert.isEmpty || !indexPathsToReload.isEmpty) {
-            items = resultItems
-            collectionView.performBatchUpdates({
-                collectionView.deleteItems(at: indexPathsToDelete)
-                collectionView.reloadItems(at: indexPathsToReload)
-                collectionView.insertItems(at: indexPathsToInsert)
-            }, completion: { (finished) in
-                self.metadataQuery?.enableUpdates()
-            })
-        } else {
-            metadataQuery?.enableUpdates()
-        }
-        updateFooter()
     }
     
     func showAddedItem() {
