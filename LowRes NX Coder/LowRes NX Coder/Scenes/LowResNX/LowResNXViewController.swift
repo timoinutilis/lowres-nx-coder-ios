@@ -22,6 +22,7 @@ struct WebSource {
     let name: String
     let programUrl: URL
     let imageUrl: URL?
+    let topicId: String?
 }
 
 class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate, RPPreviewViewControllerDelegate {
@@ -116,6 +117,9 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate,
             
             group.notify(queue: .main) {
                 if let sourceCode = sourceCode {
+                    if let topicId = webSource.topicId {
+                        self.countPlay(topicId: topicId)
+                    }
                     let error = self.compileAndStartProgram(sourceCode: sourceCode)
                     if let error = error {
                         self.showError(error)
@@ -354,6 +358,16 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate,
             BlockerView.dismiss()
             self.exit()
         }
+    }
+    
+    func countPlay(topicId: String) {
+        var urlRequest = URLRequest(url: URL(string: "\(ShareViewController.baseUrl)ajax/count_play.php")!)
+        urlRequest.httpMethod = "POST"
+        urlRequest.httpBody = "topic_id=\(topicId)".data(using: .utf8)
+        let task = URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in
+            print("count play \(topicId):", error ?? "ok")
+        }
+        task.resume()
     }
     
     @objc func update(displaylink: CADisplayLink) {

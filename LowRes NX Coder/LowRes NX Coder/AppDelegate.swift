@@ -57,6 +57,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 var name: String?
                 var program: URL?
                 var image: URL?
+                var topicId: String?
                 
                 for item in items {
                     if item.name == "name" {
@@ -65,10 +66,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                         program = URL(string: value)
                     } else if item.name == "image", let value = item.value {
                         image = URL(string: value)
+                    } else if item.name == "topic_id" {
+                        topicId = item.value
                     }
                 }
                 if let name = name, let program = program {
-                    let webSource = WebSource(name: name, programUrl: program, imageUrl: image)
+                    let webSource = WebSource(name: name, programUrl: program, imageUrl: image, topicId: topicId)
                     AppController.shared.runProgram(webSource)
                 }
             }
