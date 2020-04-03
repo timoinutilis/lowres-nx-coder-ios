@@ -10,8 +10,11 @@ import UIKit
 import GameController
 import ReplayKit
 
-// set to false for testing on Simulator
+#if targetEnvironment(simulator)
+let SUPPORTS_GAME_CONTROLLERS = false
+#else
 let SUPPORTS_GAME_CONTROLLERS = true
+#endif
 
 protocol LowResNXViewControllerDelegate: class {
     func nxSourceCodeForVirtualDisk() -> String
@@ -186,8 +189,8 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate,
         }
         self.displayLink = displayLink
         
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: .UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: .UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(controllerDidConnect), name: .GCControllerDidConnect, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(controllerDidDisconnect), name: .GCControllerDidDisconnect, object: nil)
     }
@@ -209,7 +212,7 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate,
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        displayLink?.add(to: .current, forMode: .defaultRunLoopMode)
+        displayLink?.add(to: .current, forMode: .default)
         checkShowError()
     }
     
@@ -244,7 +247,7 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate,
 //        return .lightContent
 //    }
     
-    override func preferredScreenEdgesDeferringSystemGestures() -> UIRectEdge {
+    override var preferredScreenEdgesDeferringSystemGestures: UIRectEdge {
         return .all
     }
     
@@ -526,7 +529,7 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate,
     }
     
     @objc func keyboardWillShow(_ notification: NSNotification) {
-        if let frameValue = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue {
+        if let frameValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
             let frame = frameValue.cgRectValue
             keyboardConstraint.constant = view.bounds.size.height - frame.origin.y
             UIView.animate(withDuration: 0.3, animations: { 

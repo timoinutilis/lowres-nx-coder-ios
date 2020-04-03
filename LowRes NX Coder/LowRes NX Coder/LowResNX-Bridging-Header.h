@@ -8,7 +8,7 @@
 
 #include "core.h"
 
-#import "TabBarController.h"
+#import "HelpSplitViewController.h"
 #import "HelpContent.h"
 #import "AppStyle.h"
 #import "NSString+Utils.h"

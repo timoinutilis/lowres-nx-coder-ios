@@ -38,7 +38,7 @@ class SplashViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         audioPlayer.start()
-        displayLink.add(to: .current, forMode: .defaultRunLoopMode)
+        displayLink.add(to: .current, forMode: .default)
     }
     
     override func viewWillDisappear(_ animated: Bool) {

@@ -68,7 +68,7 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
         
         document.delegate = self
         
-        documentStateChangedObserver = NotificationCenter.default.addObserver(forName: .UIDocumentStateChanged, object: document, queue: nil) { [weak self] (notification) in
+        documentStateChangedObserver = NotificationCenter.default.addObserver(forName: UIDocument.stateChangedNotification, object: document, queue: nil) { [weak self] (notification) in
             self?.documentStateChanged()
         }
         
@@ -83,9 +83,9 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
             fatalError("unexpected document state")
         }
         
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: .UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: .UIKeyboardWillHide, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(applicationWillResignActive), name: .UIApplicationWillResignActive, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(applicationWillResignActive), name: UIApplication.willResignActiveNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(projectManagerDidAddProgram), name: .ProjectManagerDidAddProgram, object: nil)
 
     }
@@ -138,12 +138,12 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
     }
     
     @objc func keyboardWillShow(_ notification: Notification) {
-        keyboardRect = (notification.userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
+        keyboardRect = (notification.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
         updateEditorInsets()
     }
     
     @objc func keyboardWillHide(_ notification: Notification) {
-        keyboardRect = (notification.userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
+        keyboardRect = (notification.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
         updateEditorInsets()
     }
     
@@ -165,17 +165,17 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
     
     @objc func applicationWillResignActive(_ notification: Notification) {
         let app = UIApplication.shared
-        var bgTask = UIBackgroundTaskInvalid
+        var bgTask = UIBackgroundTaskIdentifier.invalid
         
         bgTask = app.beginBackgroundTask {
             app.endBackgroundTask(bgTask)
-            bgTask = UIBackgroundTaskInvalid
+            bgTask = UIBackgroundTaskIdentifier.invalid
         }
         
         updateDocument()
         document.autosave(completionHandler: { (succeeded) in
             app.endBackgroundTask(bgTask)
-            bgTask = UIBackgroundTaskInvalid
+            bgTask = UIBackgroundTaskIdentifier.invalid
         })
     }
     
@@ -429,13 +429,13 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
 
         if results.count == 1 {
             let chapter = results.first!
-            AppController.shared.tabBarController.showHelp(forChapter: chapter.htmlChapter)
+            AppController.shared.tabBarController.showHelp(chapter: chapter.htmlChapter)
         
         } else if results.count > 1 {
             let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
             for chapter in results {
                 alert.addAction(UIAlertAction(title: chapter.title, style: .default, handler: { (action) in
-                    AppController.shared.tabBarController.showHelp(forChapter: chapter.htmlChapter)
+                    AppController.shared.tabBarController.showHelp(chapter: chapter.htmlChapter)
                 }))
             }
             alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))

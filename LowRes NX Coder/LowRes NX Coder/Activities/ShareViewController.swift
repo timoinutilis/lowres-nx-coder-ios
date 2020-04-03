@@ -39,7 +39,7 @@ class ShareViewController: UIViewController, WKNavigationDelegate {
         navigationItem.title = "Share with Community"
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel))
         
-        activityView = UIActivityIndicatorView(activityIndicatorStyle: .white)
+        activityView = UIActivityIndicatorView(style: .white)
         activityView.sizeToFit()
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: activityView)
         

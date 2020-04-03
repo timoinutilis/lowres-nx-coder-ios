@@ -23,6 +23,7 @@
 		920E1B561F7816FA00664382 /* TextLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 925CC54B1F75889F0059C230 /* TextLabel.m */; };
 		920FC8682204C25A004707E7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 920FC8672204C25A004707E7 /* LaunchScreen.storyboard */; };
 		921614301F7D70E2006AB2DE /* EditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9216142F1F7D70E2006AB2DE /* EditorViewController.swift */; };
+		9217BF3523DC963C00DA8DAF /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9217BF3423DC963C00DA8DAF /* TabBarController.swift */; };
 		9227DA902204302F0035615C /* Boot Intro.nx in Resources */ = {isa = PBXBuildFile; fileRef = 9227DA8F2204302F0035615C /* Boot Intro.nx */; };
 		9227DC1E1FC8BB0700BC89FD /* ProjectManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9227DC1D1FC8BB0700BC89FD /* ProjectManager.swift */; };
 		9227DC221FC8C17A00BC89FD /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9227DC211FC8C17A00BC89FD /* SplashViewController.swift */; };
@@ -31,7 +32,6 @@
 		9234247522C3FACC002431CD /* ClearRamActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9234247422C3FACC002431CD /* ClearRamActivity.swift */; };
 		923AFD691F77EB27002F6A5B /* AppStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 925CC6B41F7589BA0059C230 /* AppStyle.m */; };
 		923AFD721F77ED34002F6A5B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 926EB1D11F757DDD0048A6CF /* Main.storyboard */; };
-		923AFD7A1F77ED46002F6A5B /* TabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 926EB1F01F7582510048A6CF /* TabBarController.m */; };
 		923AFD7C1F77ED52002F6A5B /* Help.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 926EB1FC1F7582A70048A6CF /* Help.storyboard */; };
 		923AFD7D1F77ED52002F6A5B /* HelpContent.m in Sources */ = {isa = PBXBuildFile; fileRef = 926EB1F61F7582A50048A6CF /* HelpContent.m */; };
 		923AFD7E1F77ED52002F6A5B /* HelpMasterNavController.m in Sources */ = {isa = PBXBuildFile; fileRef = 926EB1FA1F7582A60048A6CF /* HelpMasterNavController.m */; };
@@ -109,6 +109,7 @@
 		920E1B1B1F78000800664382 /* ExplorerItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplorerItemCell.swift; sourceTree = "<group>"; };
 		920FC8672204C25A004707E7 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9216142F1F7D70E2006AB2DE /* EditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorViewController.swift; sourceTree = "<group>"; };
+		9217BF3423DC963C00DA8DAF /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		9227DA8F2204302F0035615C /* Boot Intro.nx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Boot Intro.nx"; sourceTree = "<group>"; };
 		9227DC1D1FC8BB0700BC89FD /* ProjectManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManager.swift; sourceTree = "<group>"; };
 		9227DC211FC8C17A00BC89FD /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
@@ -148,8 +149,6 @@
 		926EB1D11F757DDD0048A6CF /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		926EB1D81F757FAD0048A6CF /* UIViewController+LowResCoder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIViewController+LowResCoder.h"; sourceTree = "<group>"; };
 		926EB1DA1F757FAD0048A6CF /* UIViewController+LowResCoder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+LowResCoder.m"; sourceTree = "<group>"; };
-		926EB1E21F75823C0048A6CF /* TabBarController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TabBarController.h; sourceTree = "<group>"; };
-		926EB1F01F7582510048A6CF /* TabBarController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TabBarController.m; sourceTree = "<group>"; };
 		926EB1F21F7582A30048A6CF /* HelpMasterNavController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HelpMasterNavController.h; sourceTree = "<group>"; };
 		926EB1F31F7582A30048A6CF /* HelpTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HelpTableViewController.m; sourceTree = "<group>"; };
 		926EB1F41F7582A30048A6CF /* HelpContent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HelpContent.h; sourceTree = "<group>"; };
@@ -353,8 +352,7 @@
 			children = (
 				926EB1D11F757DDD0048A6CF /* Main.storyboard */,
 				9227DC211FC8C17A00BC89FD /* SplashViewController.swift */,
-				926EB1E21F75823C0048A6CF /* TabBarController.h */,
-				926EB1F01F7582510048A6CF /* TabBarController.m */,
+				9217BF3423DC963C00DA8DAF /* TabBarController.swift */,
 				920E1B191F77FF7A00664382 /* ExplorerViewController.swift */,
 				920E1B1B1F78000800664382 /* ExplorerItemCell.swift */,
 				9216142F1F7D70E2006AB2DE /* EditorViewController.swift */,
@@ -619,7 +617,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0830;
-				LastUpgradeCheck = 1010;
+				LastUpgradeCheck = 1130;
 				ORGANIZATIONNAME = "Inutilis Software";
 				TargetAttributes = {
 					92EA93B91F744572007BEFB1 = {
@@ -640,10 +638,11 @@
 			};
 			buildConfigurationList = 92EA93B51F744572007BEFB1 /* Build configuration list for PBXProject "LowRes NX Coder" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = 92EA93B11F744572007BEFB1;
 			productRefGroup = 92EA93BB1F744572007BEFB1 /* Products */;
@@ -758,8 +757,8 @@
 				9284021A1F7448B500AC1466 /* cmd_data.c in Sources */,
 				924AB3F2205D986C00BCF977 /* IndexSideBar.swift in Sources */,
 				9227DC221FC8C17A00BC89FD /* SplashViewController.swift in Sources */,
-				923AFD7A1F77ED46002F6A5B /* TabBarController.m in Sources */,
 				928402241F7448B500AC1466 /* data.c in Sources */,
+				9217BF3523DC963C00DA8DAF /* TabBarController.swift in Sources */,
 				9294F2E21FC4BA1100A90487 /* CoreWrapper.swift in Sources */,
 				920E1B4E1F7816FA00664382 /* EditorTextView.m in Sources */,
 			);
@@ -772,6 +771,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -831,6 +831,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -884,15 +885,17 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "LowRes NX Coder/LowRes NX Coder.entitlements";
+				CURRENT_PROJECT_VERSION = 50;
 				DEVELOPMENT_TEAM = BZ4VC623NH;
 				INFOPLIST_FILE = "$(SRCROOT)/LowRes NX Coder/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 1.10;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.inutilis.ios.LowRes-NX-Coder";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "LowRes NX Coder/LowResNX-Bridging-Header.h";
 				SWIFT_PRECOMPILE_BRIDGING_HEADER = YES;
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -901,15 +904,17 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "LowRes NX Coder/LowRes NX Coder.entitlements";
+				CURRENT_PROJECT_VERSION = 50;
 				DEVELOPMENT_TEAM = BZ4VC623NH;
 				INFOPLIST_FILE = "$(SRCROOT)/LowRes NX Coder/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 1.10;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.inutilis.ios.LowRes-NX-Coder";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "LowRes NX Coder/LowResNX-Bridging-Header.h";
 				SWIFT_PRECOMPILE_BRIDGING_HEADER = YES;
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};

@@ -14,7 +14,7 @@ class ShareActivity: UIActivity {
     
     private var viewController: UIViewController?
     
-    override var activityType: UIActivityType? {
+    override var activityType: UIActivity.ActivityType? {
         return ShareActivity.postToForum
     }
     

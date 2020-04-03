@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="eHk-P2-FSa">
-    <device id="retina5_5" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="eHk-P2-FSa">
+    <device id="retina5_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -13,13 +11,13 @@
         <!--Low ResNX View Controller-->
         <scene sceneID="C7U-AN-NoM">
             <objects>
-                <viewController modalTransitionStyle="crossDissolve" id="eHk-P2-FSa" customClass="LowResNXViewController" customModule="LowRes_NX_Coder" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="eHk-P2-FSa" customClass="LowResNXViewController" customModule="LowRes_NX_Coder" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="g0A-yH-wBi">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hDT-ts-Kz3">
-                                <rect key="frame" x="0.0" y="64" width="414" height="331.33333333333331"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="331.33333333333331"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Daq-lQ-abv" customClass="LowResNXView" customModule="LowRes_NX_Coder" customModuleProvider="target">
                                         <rect key="frame" x="127" y="101.66666666666666" width="160" height="128"/>
@@ -45,7 +43,7 @@
                                 </variation>
                             </view>
                             <button opaque="NO" alpha="0.25" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UGT-qu-6MS" userLabel="Exit Button">
-                                <rect key="frame" x="0.0" y="20" width="44" height="44"/>
+                                <rect key="frame" x="0.0" y="0.0" width="44" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="44" id="Dli-RP-K8z"/>
                                     <constraint firstAttribute="height" constant="44" id="I3q-op-ii6"/>
@@ -58,7 +56,7 @@
                                 </connections>
                             </button>
                             <view opaque="NO" alpha="0.5" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="img-mL-JD2" customClass="Dpad" customModule="LowRes_NX_Coder" customModuleProvider="target">
-                                <rect key="frame" x="16" y="411.33333333333331" width="88" height="88"/>
+                                <rect key="frame" x="16" y="391.33333333333331" width="88" height="88"/>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="88" placeholder="YES" id="Lfv-Zg-PPV"/>
@@ -66,7 +64,7 @@
                                 </constraints>
                             </view>
                             <view opaque="NO" alpha="0.5" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="n4U-S9-92L" customClass="Dpad" customModule="LowRes_NX_Coder" customModuleProvider="target">
-                                <rect key="frame" x="310" y="411.33333333333331" width="88" height="88"/>
+                                <rect key="frame" x="310" y="391.33333333333331" width="88" height="88"/>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="88" placeholder="YES" id="InA-Fw-Gdp"/>
@@ -74,12 +72,12 @@
                                 </constraints>
                             </view>
                             <button hidden="YES" opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3mq-qZ-9Xa" customClass="RoundHitBoxButton" customModule="LowRes_NX_Coder" customModuleProvider="target">
-                                <rect key="frame" x="354" y="411.33333333333331" width="44" height="44"/>
+                                <rect key="frame" x="354" y="391.33333333333331" width="44" height="44"/>
                                 <state key="normal" image="gamepad_b"/>
                                 <state key="highlighted" image="gamepad_b_sel"/>
                             </button>
                             <button hidden="YES" opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yqc-bc-XaK" customClass="RoundHitBoxButton" customModule="LowRes_NX_Coder" customModuleProvider="target">
-                                <rect key="frame" x="310" y="455.33333333333331" width="44" height="44"/>
+                                <rect key="frame" x="310" y="435.33333333333331" width="44" height="44"/>
                                 <state key="normal" image="gamepad_a"/>
                                 <state key="highlighted" image="gamepad_a_sel"/>
                             </button>
@@ -113,7 +111,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" alpha="0.25" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xvW-7I-abI">
-                                <rect key="frame" x="370" y="20" width="44" height="44"/>
+                                <rect key="frame" x="370" y="0.0" width="44" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="bhS-Rf-zr2"/>
                                     <constraint firstAttribute="width" constant="44" id="hgk-LK-paW"/>
@@ -171,9 +169,9 @@
                                 <exclude reference="kWx-62-mJE"/>
                                 <exclude reference="v8y-jA-T0v"/>
                                 <exclude reference="O8y-tE-JE4"/>
+                                <exclude reference="GFv-ca-Wa4"/>
                                 <exclude reference="URu-5A-swa"/>
                                 <exclude reference="Yxl-eA-0g4"/>
-                                <exclude reference="GFv-ca-Wa4"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
@@ -193,8 +191,8 @@
                                 <exclude reference="xSV-SH-UM0"/>
                                 <exclude reference="Att-yF-SkF"/>
                                 <include reference="O8y-tE-JE4"/>
-                                <include reference="Yxl-eA-0g4"/>
                                 <include reference="GFv-ca-Wa4"/>
+                                <include reference="Yxl-eA-0g4"/>
                             </mask>
                         </variation>
                     </view>

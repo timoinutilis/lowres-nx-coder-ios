@@ -92,8 +92,10 @@ class DonationViewController: UITableViewController, SKProductsRequestDelegate, 
         for product in response.products {
             products[product.productIdentifier] = product
         }
-        isLoading = false
-        tableView.reloadData()
+        DispatchQueue.main.async {
+            self.isLoading = false
+            self.tableView.reloadData()
+        }
     }
     
     // MARK: - SKPaymentTransactionObserver
@@ -131,6 +133,9 @@ class DonationViewController: UITableViewController, SKProductsRequestDelegate, 
                 
             case .deferred:
                 assertionFailure()
+                BlockerView.dismiss()
+                
+            @unknown default:
                 BlockerView.dismiss()
             }
         }

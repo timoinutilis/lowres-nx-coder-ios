@@ -90,14 +90,14 @@ class ExplorerViewController: UIViewController, UICollectionViewDelegateFlowLayo
         }
         
         willShowMenuObserver = NotificationCenter.default.addObserver(
-            forName: .UIMenuControllerWillShowMenu,
+            forName: UIMenuController.willShowMenuNotification,
             object: nil,
             queue: nil
         ) { [weak self] (notification) in
             self?.metadataQuery?.disableUpdates()
         }
         didHideMenuObserver = NotificationCenter.default.addObserver(
-            forName: .UIMenuControllerDidHideMenu,
+            forName: UIMenuController.didHideMenuNotification,
             object: nil,
             queue: nil
         ) { [weak self] (notification) in
@@ -212,7 +212,7 @@ class ExplorerViewController: UIViewController, UICollectionViewDelegateFlowLayo
     }
     
     private func updateFooter() {
-        if let footerView = collectionView.supplementaryView(forElementKind: UICollectionElementKindSectionFooter, at: IndexPath(item: 0, section: 0)) {
+        if let footerView = collectionView.supplementaryView(forElementKind: UICollectionView.elementKindSectionFooter, at: IndexPath(item: 0, section: 0)) {
             footerView.isHidden = items?.isEmpty ?? true
         }
     }
@@ -295,7 +295,7 @@ class ExplorerViewController: UIViewController, UICollectionViewDelegateFlowLayo
                 self.showAlert(withTitle: "Could not Delete Program", message: error.localizedDescription, block: nil)
             } else {
                 self.collectionView.performBatchUpdates({
-                    if let index = self.items?.index(of: item) {
+                    if let index = self.items?.firstIndex(of: item) {
                         self.items?.remove(at: index)
                         self.collectionView.deleteItems(at: [IndexPath(item: index, section: 0)])
                     }
@@ -316,7 +316,7 @@ class ExplorerViewController: UIViewController, UICollectionViewDelegateFlowLayo
                 self.showAlert(withTitle: "Could not Rename Program", message: error.localizedDescription, block: nil)
             } else {
                 self.collectionView.performBatchUpdates({
-                    if let index = self.items?.index(of: item) {
+                    if let index = self.items?.firstIndex(of: item) {
                         self.collectionView.reloadItems(at: [IndexPath(item: index, section: 0)])
                     }
                 }, completion: { (finished) in

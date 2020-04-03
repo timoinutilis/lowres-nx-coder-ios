@@ -273,7 +273,7 @@ class ProjectManager: NSObject {
     }
     
     func saveProjectIcon(programUrl: URL, image: UIImage) {
-        guard let imageData = UIImagePNGRepresentation(image) else { return }
+        guard let imageData = image.pngData() else { return }
     
         let imageUrl = programUrl.deletingPathExtension().appendingPathExtension("png")
         let writeIntent = NSFileAccessIntent.writingIntent(with: imageUrl, options: .forReplacing)

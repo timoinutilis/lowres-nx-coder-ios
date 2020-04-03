@@ -27,7 +27,7 @@ class LowResNXAudioPlayer: NSObject {
             
             let session = AVAudioSession.sharedInstance()
             do {
-                try session.setCategory(AVAudioSessionCategoryAmbient)
+                try session.setCategory(AVAudioSession.Category.ambient)
                 try session.setActive(true)
             } catch {
                 print("AVAudioSession", error.localizedDescription)

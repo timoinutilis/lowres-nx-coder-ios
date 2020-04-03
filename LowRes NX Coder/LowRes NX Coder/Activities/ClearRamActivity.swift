@@ -14,7 +14,7 @@ class ClearRamActivity: UIActivity {
     
     private var viewController: UIViewController?
     
-    override var activityType: UIActivityType? {
+    override var activityType: UIActivity.ActivityType? {
         return ClearRamActivity.clearRam
     }
     
