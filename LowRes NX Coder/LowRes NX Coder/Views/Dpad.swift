@@ -27,27 +27,61 @@ class Dpad: UIControl {
     var isDirLeft = false
     var isDirRight = false
     
-    private var imageView: UIImageView
+    var isBig = false {
+        didSet {
+            updateImage()
+            invalidateIntrinsicContentSize()
+            setNeedsLayout()
+        }
+    }
     
-    private var images: [UIImage] = [UIImage(named:"gamepad_dpad")!,
-                                     UIImage(named:"gamepad_dpad_up")!,
-                                     UIImage(named:"gamepad_dpad_up_right")!,
-                                     UIImage(named:"gamepad_dpad_right")!,
-                                     UIImage(named:"gamepad_dpad_down_right")!,
-                                     UIImage(named:"gamepad_dpad_down")!,
-                                     UIImage(named:"gamepad_dpad_down_left")!,
-                                     UIImage(named:"gamepad_dpad_left")!,
-                                     UIImage(named:"gamepad_dpad_up_left")!]
+    private let imageView: UIImageView
+    
+    private let images: [UIImage] = [
+        UIImage(named:"gamepad_dpad")!,
+        UIImage(named:"gamepad_dpad_up")!,
+        UIImage(named:"gamepad_dpad_up_right")!,
+        UIImage(named:"gamepad_dpad_right")!,
+        UIImage(named:"gamepad_dpad_down_right")!,
+        UIImage(named:"gamepad_dpad_down")!,
+        UIImage(named:"gamepad_dpad_down_left")!,
+        UIImage(named:"gamepad_dpad_left")!,
+        UIImage(named:"gamepad_dpad_up_left")!
+    ]
+    
+    private let bigImages: [UIImage] = [
+        UIImage(named:"big_gamepad_dpad")!,
+        UIImage(named:"big_gamepad_dpad_up")!,
+        UIImage(named:"big_gamepad_dpad_up_right")!,
+        UIImage(named:"big_gamepad_dpad_right")!,
+        UIImage(named:"big_gamepad_dpad_down_right")!,
+        UIImage(named:"big_gamepad_dpad_down")!,
+        UIImage(named:"big_gamepad_dpad_down_left")!,
+        UIImage(named:"big_gamepad_dpad_left")!,
+        UIImage(named:"big_gamepad_dpad_up_left")!
+    ]
     
     required init?(coder aDecoder: NSCoder) {
-        imageView = UIImageView(image: images[0])
+        imageView = UIImageView()
         super.init(coder: aDecoder)
+        
+        imageView.contentMode = .center
         addSubview(imageView)
         backgroundColor = UIColor.clear
+        updateImage()
     }
     
     override var intrinsicContentSize: CGSize {
-        return images.first!.size
+        if isBig {
+            return bigImages.first!.size
+        } else {
+            return images.first!.size
+        }
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        imageView.frame = bounds
     }
     
     override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
@@ -129,7 +163,11 @@ class Dpad: UIControl {
             gi = .right
         }
         
-        imageView.image = images[gi.rawValue]
+        if isBig {
+            imageView.image = bigImages[gi.rawValue]
+        } else {
+            imageView.image = images[gi.rawValue]
+        }
     }
     
 }

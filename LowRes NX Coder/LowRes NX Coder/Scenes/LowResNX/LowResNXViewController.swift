@@ -32,23 +32,16 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate,
     
     let screenshotScaleFactor: CGFloat = 4.0
     
-    @IBOutlet private weak var exitButton: UIButton!
+    @IBOutlet weak var exitButton: UIButton!
     @IBOutlet weak var menuButton: UIButton!
-    @IBOutlet private weak var nxView: LowResNXView!
-    @IBOutlet private weak var containerView: UIView!
-    @IBOutlet private weak var widthConstraint: NSLayoutConstraint!
-    @IBOutlet private weak var keyboardConstraint: NSLayoutConstraint!
-    @IBOutlet var gamepadConstraints: [NSLayoutConstraint]!
-    @IBOutlet weak var multiPlayerConstraint: NSLayoutConstraint!
+    @IBOutlet weak var nxView: LowResNXView!
     
     @IBOutlet weak var p1Dpad: Dpad!
-    @IBOutlet weak var p1ButtonA: UIButton!
-    @IBOutlet weak var p1ButtonB: UIButton!
-    @IBOutlet weak var p1ButtonA2: UIButton!
-    @IBOutlet weak var p1ButtonB2: UIButton!
+    @IBOutlet weak var p1ButtonA: ActionButton!
+    @IBOutlet weak var p1ButtonB: ActionButton!
     @IBOutlet weak var p2Dpad: Dpad!
-    @IBOutlet weak var p2ButtonA: UIButton!
-    @IBOutlet weak var p2ButtonB: UIButton!
+    @IBOutlet weak var p2ButtonA: ActionButton!
+    @IBOutlet weak var p2ButtonB: ActionButton!
     @IBOutlet weak var pauseButton: UIButton!
     
     weak var delegate: LowResNXViewControllerDelegate?
@@ -69,7 +62,6 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate,
     var isSafeScaleEnabled = false {
         didSet {
             configureGameControllers()
-            view.setNeedsLayout()
         }
     }
     
@@ -79,6 +71,8 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate,
     private var recognizer: UITapGestureRecognizer?
     private var startDate: Date!
     private var audioPlayer: LowResNXAudioPlayer!
+    private var numOnscreenGamepads = 0
+    private var keyboardTop: CGFloat?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -86,6 +80,11 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate,
         startDate = Date()
         
         isSafeScaleEnabled = AppController.shared.isSafeScaleEnabled
+        
+        p1ButtonA.action = .a
+        p1ButtonB.action = .b
+        p2ButtonA.action = .a
+        p2ButtonB.action = .b
         
         if let coreWrapper = coreWrapper {
             // program already compiled
@@ -198,18 +197,7 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate,
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
-    
-    override var traitCollection: UITraitCollection {
-        let size = view.bounds.size
-        var traits: [UITraitCollection]
-        if size.width > size.height {
-            traits = [UITraitCollection(horizontalSizeClass: .regular), UITraitCollection(verticalSizeClass: .compact)]
-        } else {
-            traits =  [UITraitCollection(horizontalSizeClass: .compact), UITraitCollection(verticalSizeClass: .regular)]
-        }
-        return UITraitCollection(traitsFrom: traits)
-    }
-    
+        
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         displayLink?.add(to: .current, forMode: .default)
@@ -254,8 +242,94 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate,
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        let screenWidth = containerView.bounds.size.width
-        let screenHeight = containerView.bounds.size.height
+        let top: CGFloat
+        let left: CGFloat
+        let right: CGFloat
+        let bottom: CGFloat
+        
+        if #available(iOS 11.0, *) {
+            top = view.safeAreaInsets.top
+            left = view.safeAreaInsets.left
+            right = view.bounds.width - view.safeAreaInsets.right
+            bottom = view.bounds.height - view.safeAreaInsets.bottom
+        } else {
+            top = 0
+            left = 0
+            right = view.bounds.width
+            bottom = view.bounds.height
+        }
+        
+        let width: CGFloat = right - left
+        let height: CGFloat = bottom - top
+        
+        exitButton.frame = CGRect(x: left, y: top, width: 44, height: 44)
+        menuButton.frame = CGRect(x: right - 44, y: top, width: 44, height: 44)
+        pauseButton.frame = CGRect(x: (left + right - 44) * 0.5, y: bottom - 44, width: 44, height: 44)
+        
+        var containerRect: CGRect
+        
+        let isBig = !(numOnscreenGamepads >= 2 && (view.bounds.height <= 320 || view.bounds.width <= 320))
+        p1Dpad.isBig = isBig
+        p2Dpad.isBig = isBig
+        p1ButtonA.isBig = isBig
+        p1ButtonB.isBig = isBig
+        p2ButtonA.isBig = isBig
+        p2ButtonB.isBig = isBig
+        
+        let padSize: CGFloat = isBig ? 132 : 88
+        let buttonSize: CGFloat = isBig ? 66 : 44
+        
+        if height > width {
+            // portrait
+            containerRect = CGRect(x: left, y: top + 44, width: width, height: width * 4.0 / 5.0)
+            
+            let buttonsTop = containerRect.maxY + 16
+            
+            p1Dpad.frame = CGRect(x: left + 16, y: buttonsTop, width: padSize, height: padSize)
+            
+            if numOnscreenGamepads == 1 {
+                p1ButtonA.frame = CGRect(x: right - 16 - 2 * buttonSize, y: buttonsTop + buttonSize, width: buttonSize, height: buttonSize)
+                p1ButtonB.frame = CGRect(x: right - 16 - buttonSize, y: buttonsTop, width: buttonSize, height: buttonSize)
+            } else if numOnscreenGamepads == 2 {
+                p2Dpad.frame = CGRect(x: right - 16 - padSize, y: buttonsTop, width: padSize, height: padSize)
+                p1ButtonA.frame = CGRect(x: left + 16 + buttonSize, y: bottom - 16 - buttonSize, width: buttonSize, height: buttonSize)
+                p1ButtonB.frame = CGRect(x: left + 16, y: bottom - 16 - 2 * buttonSize, width: buttonSize, height: buttonSize)
+                p2ButtonA.frame = CGRect(x: right - 16 - 2 * buttonSize, y: bottom - 16 - buttonSize, width: buttonSize, height: buttonSize)
+                p2ButtonB.frame = CGRect(x: right - 16 - buttonSize, y: bottom - 16 - 2 * buttonSize, width: buttonSize, height: buttonSize)
+            }
+        } else {
+            // landscape
+            if isSafeScaleEnabled {
+                let safeMargin = 16 + padSize
+                containerRect = CGRect(x: left + safeMargin, y: top, width: width - 2 * safeMargin, height: height)
+            } else {
+                containerRect = CGRect(x: left, y: top, width: width, height: height)
+            }
+            
+            if let keyboardTop = keyboardTop, containerRect.maxY > keyboardTop {
+                containerRect.size.height = keyboardTop - containerRect.minY
+            }
+            
+            let buttonAY = bottom - 16 - buttonSize
+            let buttonBY = bottom - 16 - 2 * buttonSize
+            
+            if numOnscreenGamepads == 1 {
+                p1Dpad.frame = CGRect(x: left + 16, y: bottom - 16 - padSize, width: padSize, height: padSize)
+                p1ButtonA.frame = CGRect(x: right - 16 - 2 * buttonSize, y: buttonAY, width: buttonSize, height: buttonSize)
+                p1ButtonB.frame = CGRect(x: right - 16 - buttonSize, y: buttonBY, width: buttonSize, height: buttonSize)
+            } else if numOnscreenGamepads == 2 {
+                let dpadY = bottom - 16 - padSize - 32 - 2 * buttonSize
+                p1Dpad.frame = CGRect(x: left + 16, y: dpadY, width: padSize, height: padSize)
+                p2Dpad.frame = CGRect(x: right - 16 - padSize, y: dpadY, width: padSize, height: padSize)
+                p1ButtonA.frame = CGRect(x: left + 16 + buttonSize, y: buttonAY, width: buttonSize, height: buttonSize)
+                p1ButtonB.frame = CGRect(x: left + 16, y: buttonBY, width: buttonSize, height: buttonSize)
+                p2ButtonA.frame = CGRect(x: right - 16 - 2 * buttonSize, y: buttonAY, width: buttonSize, height: buttonSize)
+                p2ButtonB.frame = CGRect(x: right - 16 - buttonSize, y: buttonBY, width: buttonSize, height: buttonSize)
+            }
+        }
+        
+        let screenWidth = containerRect.size.width
+        let screenHeight = containerRect.size.height
         var maxWidthFactor: CGFloat
         var maxHeightFactor: CGFloat
         
@@ -270,7 +344,10 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate,
             maxHeightFactor = screenHeight / CGFloat(SCREEN_HEIGHT)
         }
         
-        widthConstraint.constant = (maxWidthFactor < maxHeightFactor) ? maxWidthFactor * CGFloat(SCREEN_WIDTH) : maxHeightFactor * CGFloat(SCREEN_WIDTH)
+        let nxWidth = (maxWidthFactor < maxHeightFactor) ? maxWidthFactor * CGFloat(SCREEN_WIDTH) : maxHeightFactor * CGFloat(SCREEN_WIDTH)
+        
+        nxView.bounds = CGRect(x: 0, y: 0, width: nxWidth, height: nxWidth * 4.0 / 5.0)
+        nxView.center = CGPoint(x: containerRect.midX, y: containerRect.midY)
     }
     
     func compileAndStartProgram(sourceCode: String) -> LowResNXError? {
@@ -410,22 +487,17 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate,
             }
         }
         
-        let numOnscreenGamepads = max(0, numPlayers - numGameControllers)
+        numOnscreenGamepads = max(0, numPlayers - numGameControllers)
         
         p1Dpad.isHidden = numOnscreenGamepads < 1
-        p1ButtonA.isHidden = numOnscreenGamepads != 1
-        p1ButtonB.isHidden = numOnscreenGamepads != 1
-        p1ButtonA2.isHidden = numOnscreenGamepads < 2
-        p1ButtonB2.isHidden = numOnscreenGamepads < 2
+        p1ButtonA.isHidden = numOnscreenGamepads < 1
+        p1ButtonB.isHidden = numOnscreenGamepads < 1
         p2Dpad.isHidden = numOnscreenGamepads < 2
         p2ButtonA.isHidden = numOnscreenGamepads < 2
         p2ButtonB.isHidden = numOnscreenGamepads < 2
         pauseButton.isHidden = numOnscreenGamepads == 0
         
-        for constraint in gamepadConstraints {
-            constraint.priority = UILayoutPriority(rawValue: (numOnscreenGamepads > 0 && isSafeScaleEnabled) ? 999 : 1)
-        }
-        multiPlayerConstraint.priority = UILayoutPriority(rawValue: numOnscreenGamepads > 1 ? 999 : 1)
+        view.setNeedsLayout()
     }
     
     func updateGameControllers() {
@@ -466,8 +538,8 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate,
         if numOnscreenGamepads >= 1 {
             core_setInputGamepad(&coreWrapper.input, Int32(numGameControllers),
                                  p1Dpad.isDirUp, p1Dpad.isDirDown, p1Dpad.isDirLeft, p1Dpad.isDirRight,
-                                 p1ButtonA.isHighlighted || p1ButtonA2.isHighlighted,
-                                 p1ButtonB.isHighlighted || p1ButtonB2.isHighlighted)
+                                 p1ButtonA.isHighlighted,
+                                 p1ButtonB.isHighlighted)
         }
         
         if numOnscreenGamepads >= 2 {
@@ -531,7 +603,8 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate,
     @objc func keyboardWillShow(_ notification: NSNotification) {
         if let frameValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
             let frame = frameValue.cgRectValue
-            keyboardConstraint.constant = view.bounds.size.height - frame.origin.y
+            keyboardTop = frame.origin.y
+            view.setNeedsLayout()
             UIView.animate(withDuration: 0.3, animations: { 
                 self.view.layoutIfNeeded()
             })
@@ -539,7 +612,8 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate,
     }
 
     @objc func keyboardWillHide(_ notification: NSNotification) {
-        keyboardConstraint.constant = 0
+        keyboardTop = nil
+        view.setNeedsLayout()
         UIView.animate(withDuration: 0.3, animations: {
             self.view.layoutIfNeeded()
         })
@@ -758,6 +832,8 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate,
     var selectedTextRange: UITextRange? {
         return nil
     }
+    
+    var keyboardType: UIKeyboardType = .asciiCapable
     
     // MARK: - RPPreviewViewControllerDelegate
     
