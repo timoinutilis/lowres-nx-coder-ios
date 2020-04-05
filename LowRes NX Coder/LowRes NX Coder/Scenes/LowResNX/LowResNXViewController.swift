@@ -304,7 +304,7 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate,
             }
         } else {
             // landscape
-            if isSafeScaleEnabled {
+            if isSafeScaleEnabled && numOnscreenGamepads >= 1 {
                 let safeMargin = 16 + padSize
                 containerRect = CGRect(x: left + safeMargin, y: top, width: width - 2 * safeMargin, height: height)
             } else {
@@ -350,9 +350,14 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate,
         }
         
         let nxWidth = (maxWidthFactor < maxHeightFactor) ? maxWidthFactor * CGFloat(SCREEN_WIDTH) : maxHeightFactor * CGFloat(SCREEN_WIDTH)
+        let nxHeight = nxWidth * 4.0 / 5.0
         
-        nxView.bounds = CGRect(x: 0, y: 0, width: nxWidth, height: nxWidth * 4.0 / 5.0)
-        nxView.center = CGPoint(x: containerRect.midX, y: containerRect.midY)
+        nxView.frame = CGRect(
+            x: floor(containerRect.origin.x + (containerRect.size.width - nxWidth) * 0.5),
+            y: floor(containerRect.origin.y + (containerRect.size.height - nxHeight) * 0.5),
+            width: nxWidth,
+            height: nxHeight
+        )
     }
     
     func compileAndStartProgram(sourceCode: String) -> LowResNXError? {
