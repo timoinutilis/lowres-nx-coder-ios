@@ -8,7 +8,7 @@
 
 import UIKit
 
-class EditorViewController: UIViewController, UITextViewDelegate, EditorTextViewDelegate, SearchToolbarDelegate, ProjectDocumentDelegate, LowResNXViewControllerDelegate {
+class EditorViewController: UIViewController, UITextViewDelegate, EditorTextViewDelegate, SearchToolbarDelegate, ProjectDocumentDelegate, LowResNXViewControllerDelegate, LowResNXViewControllerToolDelegate {
     
     @IBOutlet weak var sourceCodeTextView: EditorTextView!
     @IBOutlet weak var searchToolbar: SearchToolbar!
@@ -22,6 +22,7 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
     var spacesToInsert: String?
     var shouldUpdateSideBar = false
     var didAddProject = false
+    var isDebugEnabled = false
     
     private var documentStateChangedObserver: Any?
     var document: ProjectDocument!
@@ -312,7 +313,7 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
         let storyboard = UIStoryboard(name: "LowResNX", bundle: nil)
         let vc = storyboard.instantiateInitialViewController() as! LowResNXViewController
         vc.document = ProjectDocument(fileURL: url)
-        vc.delegate = self
+        vc.toolDelegate = self
         present(vc, animated: true, completion: nil)
     }
     
@@ -344,6 +345,8 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
             let vc = storyboard.instantiateInitialViewController() as! LowResNXViewController
             vc.document = document
             vc.coreWrapper = coreWrapper
+            vc.isDebugEnabled = isDebugEnabled
+            vc.delegate = self
             present(vc, animated: true, completion: nil)
             
             AppController.shared.numRunProgramsThisVersion += 1
@@ -517,7 +520,7 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
         return false
     }
     
-    //MARK: - LowResNXViewControllerDelegate
+    //MARK: - LowResNXViewControllerToolDelegate
     
     func nxSourceCodeForVirtualDisk() -> String {
         return document.sourceCode ?? ""
@@ -529,6 +532,12 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
             document.updateChangeCount(.done)
             projectDocumentContentDidUpdate(document)
         }
+    }
+    
+    //MARK: - LowResNXViewControllerDelegate
+    
+    func didChangeDebugMode(enabled: Bool) {
+        isDebugEnabled = enabled
     }
     
 }

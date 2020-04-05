@@ -17,6 +17,10 @@ let SUPPORTS_GAME_CONTROLLERS = true
 #endif
 
 protocol LowResNXViewControllerDelegate: class {
+    func didChangeDebugMode(enabled: Bool)
+}
+
+protocol LowResNXViewControllerToolDelegate: class {
     func nxSourceCodeForVirtualDisk() -> String
     func nxDidSaveVirtualDisk(sourceCode: String)
 }
@@ -45,6 +49,7 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate,
     @IBOutlet weak var pauseButton: UIButton!
     
     weak var delegate: LowResNXViewControllerDelegate?
+    weak var toolDelegate: LowResNXViewControllerToolDelegate?
     var webSource: WebSource?
     var document: ProjectDocument?
     var diskDocument: ProjectDocument?
@@ -683,10 +688,12 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate,
         if isDebugEnabled {
             alert.addAction(UIAlertAction(title: "Disable Debug Mode", style: .default, handler: { [unowned self] (action) in
                 self.isDebugEnabled = false
+                self.delegate?.didChangeDebugMode(enabled: false)
             }))
         } else {
             alert.addAction(UIAlertAction(title: "Enable Debug Mode", style: .default, handler: { [unowned self] (action) in
                 self.isDebugEnabled = true
+                self.delegate?.didChangeDebugMode(enabled: true)
             }))
         }
         
@@ -712,7 +719,7 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate,
     }
     
     func coreDiskDriveWillAccess(diskDataManager: UnsafeMutablePointer<DataManager>?) -> Bool {
-        if let delegate = delegate {
+        if let delegate = toolDelegate {
             // tool editing current program
             let diskSourceCode = delegate.nxSourceCodeForVirtualDisk()
             let cDiskSourceCode = diskSourceCode.cString(using: .utf8)
@@ -746,7 +753,7 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate,
     func coreDiskDriveDidSave(diskDataManager: UnsafeMutablePointer<DataManager>?) {
         let output = data_export(diskDataManager)
         if let output = output, let diskSourceCode = String(cString: output, encoding: .utf8) {
-            if let delegate = delegate {
+            if let delegate = toolDelegate {
                 // tool editing current program
                 delegate.nxDidSaveVirtualDisk(sourceCode: diskSourceCode)
             } else {
