@@ -14,6 +14,7 @@ import WebKit
     
     private static let hasDontatedKey = "hasDontated"
     private static let isSafeScaleEnabledKey = "isSafeScaleEnabled"
+    private static let forcesSmallGamepadKey = "forcesSmallGamepad"
     private static let numRunProgramsThisVersionKey = "numRunProgramsThisVersion"
     private static let lastVersionKey = "lastVersion"
     private static let lastVersionPromptedForReviewKey = "lastVersionPromptedForReview"
@@ -45,6 +46,15 @@ import WebKit
         }
         set {
             UserDefaults.standard.set(newValue, forKey: AppController.isSafeScaleEnabledKey)
+        }
+    }
+    
+    var forcesSmallGamepad: Bool {
+        get {
+            return UserDefaults.standard.bool(forKey: AppController.forcesSmallGamepadKey)
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: AppController.forcesSmallGamepadKey)
         }
     }
     

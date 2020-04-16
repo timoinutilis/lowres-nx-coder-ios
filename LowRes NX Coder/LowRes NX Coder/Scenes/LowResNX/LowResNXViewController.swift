@@ -71,6 +71,12 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate,
         }
     }
     
+    var forcesSmallGamepad = false {
+        didSet {
+            view.setNeedsLayout()
+        }
+    }
+    
     private var controlsInfo: ControlsInfo = ControlsInfo()
     private var displayLink: CADisplayLink?
     private var errorToShow: Error?
@@ -86,6 +92,7 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate,
         startDate = Date()
         
         isSafeScaleEnabled = AppController.shared.isSafeScaleEnabled
+        forcesSmallGamepad = AppController.shared.forcesSmallGamepad
         
         p1ButtonA.action = .a
         p1ButtonB.action = .b
@@ -274,7 +281,7 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate,
         
         var containerRect: CGRect
         
-        let isBig = !(numOnscreenGamepads >= 2 && (view.bounds.height <= 320 || view.bounds.width <= 320))
+        let isBig = forcesSmallGamepad ? false : !(numOnscreenGamepads >= 2 && (view.bounds.height <= 320 || view.bounds.width <= 320))
         p1Dpad.isBig = isBig
         p2Dpad.isBig = isBig
         p1ButtonA.isBig = isBig
@@ -677,6 +684,20 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate,
             }))
         }
         
+        if numOnscreenGamepads > 0 {
+            if forcesSmallGamepad {
+                alert.addAction(UIAlertAction(title: "Show Big Gamepad", style: .default, handler: { [unowned self] (action) in
+                    self.forcesSmallGamepad = false
+                    AppController.shared.forcesSmallGamepad = false
+                }))
+            } else {
+                alert.addAction(UIAlertAction(title: "Show Small Gamepad", style: .default, handler: { [unowned self] (action) in
+                    self.forcesSmallGamepad = true
+                    AppController.shared.forcesSmallGamepad = true
+                }))
+            }
+        }
+
         if document != nil {
             alert.addAction(UIAlertAction(title: "Capture Program Icon", style: .default, handler: { [unowned self] (action) in
                 self.captureProgramIcon()
