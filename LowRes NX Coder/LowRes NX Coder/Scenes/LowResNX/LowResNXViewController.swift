@@ -18,6 +18,7 @@ let SUPPORTS_GAME_CONTROLLERS = true
 
 protocol LowResNXViewControllerDelegate: class {
     func didChangeDebugMode(enabled: Bool)
+    func didEndWithError(_ error: LowResNXError)
 }
 
 protocol LowResNXViewControllerToolDelegate: class {
@@ -595,19 +596,28 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate,
         guard let error = errorToShow else { return }
         errorToShow = nil
         
-        var title: String?
-        var message: String?
         if let nxError = error as? LowResNXError {
-            title = nxError.message
-            message = nxError.line
+            // NX Error
+            let alert = UIAlertController(title: nxError.message, message: nxError.line, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { (action) in
+                self.exit()
+            }))
+            if delegate != nil {
+                alert.addAction(UIAlertAction(title: "Go to Error", style: .default, handler: { (action) in
+                    self.delegate?.didEndWithError(nxError)
+                    self.exit()
+                }))
+            }
+            present(alert, animated: true, completion: nil)
+            
         } else {
-            title = error.localizedDescription
+            // System Error
+            let alert = UIAlertController(title: error.localizedDescription, message: nil, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action) in
+                self.exit()
+            }))
+            present(alert, animated: true, completion: nil)
         }
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action) in
-            self.exit()
-        }))
-        present(alert, animated: true, completion: nil)
     }
     
     @objc func keyboardWillShow(_ notification: NSNotification) {

@@ -23,6 +23,7 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
     var shouldUpdateSideBar = false
     var didAddProject = false
     var isDebugEnabled = false
+    var runtimeError: LowResNXError?
     
     private var documentStateChangedObserver: Any?
     var document: ProjectDocument!
@@ -127,9 +128,12 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
         if didAddProject {
             navigationController?.popViewController(animated: true)
             didAddProject = false
+        } else if let error = runtimeError {
+            goToError(error)
         } else if didRunProgramAlready && AppController.shared.numRunProgramsThisVersion >= 20 {
             AppController.shared.requestAppStoreReview()
         }
+        runtimeError = nil
     }
     
     private func setBarButtonsEnabled(_ enabled: Bool) {
@@ -332,9 +336,7 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
             let alert = UIAlertController(title: error.message, message: error.line, preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
             alert.addAction(UIAlertAction(title: "Go to Error", style: .default, handler: { [weak self] (action) in
-                let range = NSMakeRange(Int(error.coreError.sourcePosition), 0)
-                self?.sourceCodeTextView.selectedRange = range
-                self?.sourceCodeTextView.becomeFirstResponder()
+                self?.goToError(error)
             }))
             present(alert, animated: true, completion: nil)
             
@@ -352,6 +354,12 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
             AppController.shared.numRunProgramsThisVersion += 1
             didRunProgramAlready = true
         }
+    }
+    
+    func goToError(_ error: LowResNXError) {
+        let range = NSMakeRange(Int(error.coreError.sourcePosition), 0)
+        sourceCodeTextView.selectedRange = range
+        sourceCodeTextView.becomeFirstResponder()
     }
     
     //MARK: - ProjectDocumentDelegate
@@ -538,6 +546,10 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
     
     func didChangeDebugMode(enabled: Bool) {
         isDebugEnabled = enabled
+    }
+    
+    func didEndWithError(_ error: LowResNXError) {
+        runtimeError = error
     }
     
 }
