@@ -7,6 +7,7 @@
 //
 
 #include "core.h"
+#include "core_stats.h"
 
 #import "HelpSplitViewController.h"
 #import "HelpContent.h"

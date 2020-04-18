@@ -91,6 +91,8 @@
 		92A7E148223B8EBC00ED2487 /* ShareActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A7E147223B8EBC00ED2487 /* ShareActivity.swift */; };
 		92A7E14B223B91FD00ED2487 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A7E149223B91FD00ED2487 /* ShareViewController.swift */; };
 		92A7E14E223BCD0F00ED2487 /* URLRequest+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A7E14D223BCD0F00ED2487 /* URLRequest+Utils.swift */; };
+		92BB14BE244B09E500611F01 /* core_stats.c in Sources */ = {isa = PBXBuildFile; fileRef = 92BB14BD244B09E500611F01 /* core_stats.c */; };
+		92BB14C1244B0FC700611F01 /* CoreStatsWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92BB14C0244B0FC700611F01 /* CoreStatsWrapper.swift */; };
 		92D1A7641FBF6FDE0059450E /* data_manager.c in Sources */ = {isa = PBXBuildFile; fileRef = 92D1A7621FBF6FDE0059450E /* data_manager.c */; };
 		92DA4C99202CECE000129302 /* Dpad.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DA4C98202CECE000129302 /* Dpad.swift */; };
 		92EA93BE1F744572007BEFB1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92EA93BD1F744572007BEFB1 /* AppDelegate.swift */; };
@@ -245,6 +247,9 @@
 		92A7E147223B8EBC00ED2487 /* ShareActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareActivity.swift; sourceTree = "<group>"; };
 		92A7E149223B91FD00ED2487 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
 		92A7E14D223BCD0F00ED2487 /* URLRequest+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLRequest+Utils.swift"; sourceTree = "<group>"; };
+		92BB14BC244B09E500611F01 /* core_stats.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = core_stats.h; sourceTree = "<group>"; };
+		92BB14BD244B09E500611F01 /* core_stats.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = core_stats.c; sourceTree = "<group>"; };
+		92BB14C0244B0FC700611F01 /* CoreStatsWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreStatsWrapper.swift; sourceTree = "<group>"; };
 		92D1A7621FBF6FDE0059450E /* data_manager.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = data_manager.c; sourceTree = "<group>"; };
 		92D1A7631FBF6FDE0059450E /* data_manager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = data_manager.h; sourceTree = "<group>"; };
 		92DA4C98202CECE000129302 /* Dpad.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dpad.swift; sourceTree = "<group>"; };
@@ -392,6 +397,8 @@
 				928401D41F7448B500AC1466 /* core.h */,
 				928401D51F7448B500AC1466 /* core_delegate.h */,
 				92ED996F1FA4E3770073559B /* core_delegate.c */,
+				92BB14BC244B09E500611F01 /* core_stats.h */,
+				92BB14BD244B09E500611F01 /* core_stats.c */,
 				92D1A7611FBF6FDE0059450E /* datamanager */,
 				928401D01F7448B500AC1466 /* accessories */,
 				928401D61F7448B500AC1466 /* interpreter */,
@@ -521,7 +528,6 @@
 				9294F2DF1FC4B9A600A90487 /* LowResNXViewController.swift */,
 				92FAB24C1FC07D1B002E45FB /* LowResNXView.swift */,
 				9289C40B2128A46E009BE093 /* LowResNXAudioPlayer.swift */,
-				9294F2E11FC4BA1100A90487 /* CoreWrapper.swift */,
 			);
 			path = LowResNX;
 			sourceTree = "<group>";
@@ -543,6 +549,15 @@
 				9234247422C3FACC002431CD /* ClearRamActivity.swift */,
 			);
 			path = Activities;
+			sourceTree = "<group>";
+		};
+		92BB14BF244B0F8800611F01 /* Wrappers */ = {
+			isa = PBXGroup;
+			children = (
+				9294F2E11FC4BA1100A90487 /* CoreWrapper.swift */,
+				92BB14C0244B0FC700611F01 /* CoreStatsWrapper.swift */,
+			);
+			path = Wrappers;
 			sourceTree = "<group>";
 		};
 		92D1A7611FBF6FDE0059450E /* datamanager */ = {
@@ -581,6 +596,7 @@
 				92EA93C41F744573007BEFB1 /* Assets.xcassets */,
 				9227DA8F2204302F0035615C /* Boot Intro.nx */,
 				925CC6931F75896F0059C230 /* Extensions */,
+				92BB14BF244B0F8800611F01 /* Wrappers */,
 				925CC6AF1F75899E0059C230 /* App */,
 				92A524862069771100EDE7AF /* Cells */,
 				925CC52D1F7587C40059C230 /* Views */,
@@ -733,6 +749,7 @@
 				920E1B561F7816FA00664382 /* TextLabel.m in Sources */,
 				928402251F7448B500AC1466 /* error.c in Sources */,
 				928402231F7448B500AC1466 /* cmd_variables.c in Sources */,
+				92BB14C1244B0FC700611F01 /* CoreStatsWrapper.swift in Sources */,
 				92ED996B1FA4E3480073559B /* string_utils.c in Sources */,
 				92DA4C99202CECE000129302 /* Dpad.swift in Sources */,
 				928402191F7448B500AC1466 /* cmd_control.c in Sources */,
@@ -751,6 +768,7 @@
 				9234247522C3FACC002431CD /* ClearRamActivity.swift in Sources */,
 				928402301F7448B500AC1466 /* audio_chip.c in Sources */,
 				92A1C9322297E12C00364F80 /* CommunityViewController.swift in Sources */,
+				92BB14BE244B09E500611F01 /* core_stats.c in Sources */,
 				92A7E14B223B91FD00ED2487 /* ShareViewController.swift in Sources */,
 				928402331F7448B500AC1466 /* overlay.c in Sources */,
 				923AFD691F77EB27002F6A5B /* AppStyle.m in Sources */,

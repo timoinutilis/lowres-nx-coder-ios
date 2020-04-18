@@ -16,6 +16,8 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
     @IBOutlet weak var searchToolbarConstraint: NSLayoutConstraint!
     @IBOutlet weak var indexSideBarConstraint: NSLayoutConstraint!
     @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
+    @IBOutlet weak var tokensLabel: UILabel!
+    @IBOutlet weak var romLabel: UILabel!
     
     var didAppearAlready = false
     var didRunProgramAlready = false
@@ -28,6 +30,8 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
     private var documentStateChangedObserver: Any?
     var document: ProjectDocument!
     var keyboardRect = CGRect()
+    
+    let statsWrapper = CoreStatsWrapper()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -122,6 +126,8 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
+        updateStats()
         indexSideBar.update()
         sourceCodeTextView.flashScrollIndicators()
         
@@ -150,6 +156,7 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
     @objc func keyboardWillHide(_ notification: Notification) {
         keyboardRect = (notification.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
         updateEditorInsets()
+        updateStats()
     }
     
     func updateEditorInsets() {
@@ -213,6 +220,23 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
             })
         } else if state.contains(.savingError) {
             showAlert(withTitle: "Saving Error", message: "Solution not yet implemented.", block: nil)
+        }
+    }
+    
+    func updateStats() {
+        guard let text = sourceCodeTextView.text else { return }
+        
+        DispatchQueue.global().async {
+            let error = self.statsWrapper.update(sourceCode: text)
+            DispatchQueue.main.async {
+                if error != nil {
+                    self.tokensLabel.text = "Tokens: ?"
+                    self.romLabel.text = "ROM: ?"
+                } else {
+                    self.tokensLabel.text = "Tokens: \(self.statsWrapper.stats.numTokens)/\(MAX_TOKENS)"
+                    self.romLabel.text = "ROM: \(self.statsWrapper.stats.romSize / 1024)/\(32) kB"
+                }
+            }
         }
     }
     
@@ -366,6 +390,7 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
     
     func projectDocumentContentDidUpdate(_ projectDocument: ProjectDocument) {
         sourceCodeTextView.text = projectDocument.sourceCode ?? ""
+        updateStats()
     }
     
     //MARK: - UITextViewDelegate
