@@ -127,7 +127,9 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        updateStats()
+        if document.documentState == .normal {
+            updateStats()
+        }
         indexSideBar.update()
         sourceCodeTextView.flashScrollIndicators()
         
@@ -390,6 +392,7 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
     
     func projectDocumentContentDidUpdate(_ projectDocument: ProjectDocument) {
         sourceCodeTextView.text = projectDocument.sourceCode ?? ""
+        indexSideBar.update()
         updateStats()
     }
     
