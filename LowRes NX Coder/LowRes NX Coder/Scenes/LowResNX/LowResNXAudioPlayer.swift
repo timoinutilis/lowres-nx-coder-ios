@@ -55,7 +55,7 @@ class LowResNXAudioPlayer: NSObject {
                 AudioQueueAllocateBuffer(queue, 1470 * dataFormat.mBytesPerFrame, &buffer)
                 if let buffer = buffer {
                     let capacity = buffer.pointee.mAudioDataBytesCapacity
-                    audio_renderAudio(&coreWrapper.core, buffer.pointee.mAudioData.assumingMemoryBound(to: Int16.self), Int32(buffer.pointee.mAudioDataBytesCapacity / 2), Int32(AVAudioSession.sharedInstance().sampleRate))
+                    audio_renderAudio(&coreWrapper.core, buffer.pointee.mAudioData.assumingMemoryBound(to: Int16.self), Int32(buffer.pointee.mAudioDataBytesCapacity / 2), Int32(AVAudioSession.sharedInstance().sampleRate), 0)
                     buffer.pointee.mAudioDataByteSize = capacity
                     AudioQueueEnqueueBuffer(queue, buffer, 0, nil)
                 }
@@ -84,7 +84,7 @@ class LowResNXAudioPlayer: NSObject {
 
 func audioQueueCallback(_ userData: UnsafeMutableRawPointer?, _ audioQueue: AudioQueueRef, _ buffer: AudioQueueBufferRef) {
     if let coreWrapper = userData?.assumingMemoryBound(to: CoreWrapper.self).pointee {
-        audio_renderAudio(&coreWrapper.core, buffer.pointee.mAudioData.assumingMemoryBound(to: Int16.self), Int32(buffer.pointee.mAudioDataBytesCapacity / 2), Int32(AVAudioSession.sharedInstance().sampleRate))
+        audio_renderAudio(&coreWrapper.core, buffer.pointee.mAudioData.assumingMemoryBound(to: Int16.self), Int32(buffer.pointee.mAudioDataBytesCapacity / 2), Int32(AVAudioSession.sharedInstance().sampleRate), 0)
     }
     AudioQueueEnqueueBuffer(audioQueue, buffer, 0, nil)
 }
