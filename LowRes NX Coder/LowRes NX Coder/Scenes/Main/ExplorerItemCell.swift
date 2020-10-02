@@ -45,24 +45,23 @@ class ExplorerItemCell: UICollectionViewCell {
         
         nameLabel.shadowColor = UIColor.black
         nameLabel.shadowOffset = CGSize(width: 0, height: 2)
+        
+        backgroundColor = AppStyle.darkGrayColor()
     }
     
     @objc func renameItem(_ sender: Any?) {
-        print("tapped rename", item!.fileUrl)
         if let delegate = delegate {
             delegate.explorerItemCell(self, didSelectRename: item!)
         }
     }
     
     @objc func deleteItem(_ sender: Any?) {
-        print("tapped delete", item!.fileUrl)
         if let delegate = delegate {
             delegate.explorerItemCell(self, didSelectDelete: item!)
         }
     }
     
     @objc func duplicateItem(_ sender: Any?) {
-        print("tapped duplicate", item!.fileUrl)
         if let delegate = delegate {
             delegate.explorerItemCell(self, didSelectDuplicate: item!)
         }

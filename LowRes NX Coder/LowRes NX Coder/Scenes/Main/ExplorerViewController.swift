@@ -378,6 +378,24 @@ class ExplorerViewController: UIViewController, UICollectionViewDelegateFlowLayo
         return CGSize(width: floor(width / numItemsPerLine), height: cellSize.height)
     }
     
+    @available(iOS 13.0, *)
+    func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+        guard let item = items?[indexPath.item], let cell = collectionView.cellForItem(at: indexPath) as? ExplorerItemCell else { return nil }
+        
+        return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { actions -> UIMenu? in
+            let renameAction = UIAction(title: "Rename...") { [weak self] (action) in
+                self?.explorerItemCell(cell, didSelectRename: item)
+            }
+            let duplicateAction = UIAction(title: "Duplicate") { [weak self] (action) in
+                self?.explorerItemCell(cell, didSelectDuplicate: item)
+            }
+            let deleteAction = UIAction(title: "Delete...", attributes: .destructive) { [weak self] (action) in
+                self?.explorerItemCell(cell, didSelectDelete: item)
+            }
+            return UIMenu(title: "", children: [renameAction, duplicateAction, deleteAction])
+        }
+    }
+    
     func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
         UIMenuController.shared.menuItems = [
             UIMenuItem(title: "Rename...", action: #selector(ExplorerItemCell.renameItem)),
