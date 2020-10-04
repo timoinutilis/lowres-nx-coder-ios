@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="oli-IW-NHE">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="oli-IW-NHE">
     <device id="retina4_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -40,11 +40,13 @@
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Find Text" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0qF-dj-Piz">
                                         <rect key="frame" x="8" y="8" width="80" height="34"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" autocorrectionType="no" spellCheckingType="no" keyboardType="alphabet" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Replace With" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Tue-Eq-eaG">
                                         <rect key="frame" x="171" y="8" width="80" height="34"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" autocorrectionType="no" spellCheckingType="no" keyboardType="alphabet" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
                                     </textField>
@@ -133,6 +135,7 @@
                                 </constraints>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="Ls4-77-m9J"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="kZb-hA-hPw" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="61N-WR-8zy"/>
@@ -154,7 +157,6 @@
                             <constraint firstItem="Li9-mY-tbX" firstAttribute="trailing" secondItem="SjB-QF-tvR" secondAttribute="trailing" id="scr-bY-g6G"/>
                             <constraint firstAttribute="trailing" secondItem="Ivc-4I-P3i" secondAttribute="trailing" id="yQy-uo-0e6"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="Ls4-77-m9J"/>
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="(Program Name)" id="pmw-uN-wb5"/>
@@ -239,7 +241,7 @@ However it is a lot of work to create an app like this. If you like it, please c
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="4es-OC-37y" customClass="TextLabel">
-                                            <rect key="frame" x="16" y="12" width="33.5" height="20.5"/>
+                                            <rect key="frame" x="16" y="12" width="33" height="20.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
@@ -285,12 +287,12 @@ However it is a lot of work to create an app like this. If you like it, please c
                                         <rect key="frame" x="117" y="0.0" width="66" height="60"/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" text="Meet other users, play their games, discuss and get help on the website." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C2q-Hc-bu4" customClass="TextLabel">
-                                        <rect key="frame" x="10.5" y="76" width="279" height="41"/>
+                                        <rect key="frame" x="11.5" y="76" width="277" height="41"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gzX-7R-OA9">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gzX-7R-OA9">
                                         <rect key="frame" x="101.5" y="133" width="97" height="30"/>
                                         <color key="tintColor" red="0.0" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <state key="normal" title="Open in Safari"/>
@@ -304,12 +306,12 @@ However it is a lot of work to create an app like this. If you like it, please c
                                 </constraints>
                             </stackView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="St1-A2-XCa"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="W5I-aS-W3p" firstAttribute="centerY" secondItem="x62-KY-rlb" secondAttribute="centerY" id="lak-Bn-n9j"/>
                             <constraint firstItem="W5I-aS-W3p" firstAttribute="centerX" secondItem="x62-KY-rlb" secondAttribute="centerX" id="rgb-2Q-Lb3"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="St1-A2-XCa"/>
                     </view>
                     <navigationItem key="navigationItem" title="Community" id="KKt-Yb-ROi"/>
                 </viewController>
@@ -355,6 +357,7 @@ However it is a lot of work to create an app like this. If you like it, please c
                                 </constraints>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="uja-Vo-WJC"/>
                         <color key="backgroundColor" red="0.058823529411764705" green="0.68627450980392157" blue="0.68627450980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="m0F-F9-RSi" firstAttribute="centerX" secondItem="8pd-8W-KfW" secondAttribute="centerX" id="Pfk-0O-ABd"/>
@@ -362,7 +365,6 @@ However it is a lot of work to create an app like this. If you like it, please c
                             <constraint firstItem="m0F-F9-RSi" firstAttribute="centerY" secondItem="8pd-8W-KfW" secondAttribute="centerY" id="bAv-aj-wrC"/>
                             <constraint firstItem="gxY-ZO-GGP" firstAttribute="centerY" secondItem="8pd-8W-KfW" secondAttribute="centerY" id="k1b-RY-53R"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="uja-Vo-WJC"/>
                     </view>
                     <connections>
                         <outlet property="nxView" destination="m0F-F9-RSi" id="D46-Cz-Flf"/>
@@ -628,6 +630,7 @@ Inutilis Software, 2017-2020</string>
                                 <color key="color" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </activityIndicatorView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="jSf-LH-K3l"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="4B5-Tz-hRA" firstAttribute="centerY" secondItem="EsH-iL-o4a" secondAttribute="centerY" id="0L0-gA-5Z7"/>
@@ -637,7 +640,6 @@ Inutilis Software, 2017-2020</string>
                             <constraint firstItem="jSf-LH-K3l" firstAttribute="trailing" secondItem="mgK-pS-p2l" secondAttribute="trailing" id="Xkz-Hc-gwP"/>
                             <constraint firstAttribute="bottom" secondItem="mgK-pS-p2l" secondAttribute="bottom" id="skS-Md-d4t"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="jSf-LH-K3l"/>
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="My Programs" id="qaN-Hc-taS"/>
