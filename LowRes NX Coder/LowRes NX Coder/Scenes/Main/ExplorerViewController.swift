@@ -383,13 +383,13 @@ class ExplorerViewController: UIViewController, UICollectionViewDelegateFlowLayo
         guard let item = items?[indexPath.item], let cell = collectionView.cellForItem(at: indexPath) as? ExplorerItemCell else { return nil }
         
         return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { actions -> UIMenu? in
-            let renameAction = UIAction(title: "Rename...") { [weak self] (action) in
+            let renameAction = UIAction(title: "Rename...", image: UIImage(systemName: "pencil")) { [weak self] (action) in
                 self?.explorerItemCell(cell, didSelectRename: item)
             }
-            let duplicateAction = UIAction(title: "Duplicate") { [weak self] (action) in
+            let duplicateAction = UIAction(title: "Duplicate", image: UIImage(systemName: "plus.square.on.square")) { [weak self] (action) in
                 self?.explorerItemCell(cell, didSelectDuplicate: item)
             }
-            let deleteAction = UIAction(title: "Delete...", attributes: .destructive) { [weak self] (action) in
+            let deleteAction = UIAction(title: "Delete...", image: UIImage(systemName: "minus.circle"), attributes: .destructive) { [weak self] (action) in
                 self?.explorerItemCell(cell, didSelectDelete: item)
             }
             return UIMenu(title: "", children: [renameAction, duplicateAction, deleteAction])

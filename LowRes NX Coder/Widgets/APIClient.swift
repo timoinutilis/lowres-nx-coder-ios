@@ -20,8 +20,8 @@ class APIClient: NSObject {
     func fetchProgramOfTheDay(completion: @escaping (Result<ProgramModel, Error>) -> Void) {
         let date = ISO8601DateFormatter.string(from: Date(), timeZone: TimeZone.current, formatOptions: .withFullDate)
         let url = URL(string: "ajax/program_of_the_day.php?date=\(date)", relativeTo: APIClient.baseUrl)!
-        print(url.absoluteString)
-        let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+        let request = URLRequest(url: url, cachePolicy: .returnCacheDataElseLoad)
+        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
             guard error == nil else {
                 completion(.failure(error!))
                 return
