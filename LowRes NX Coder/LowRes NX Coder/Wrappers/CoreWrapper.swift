@@ -49,7 +49,7 @@ class CoreWrapper: NSObject {
     func compileProgram(sourceCode: String) -> LowResNXError? {
         self.sourceCode = sourceCode
         let cString = sourceCode.cString(using: .utf8)
-        let error = core_compileProgram(&core, cString)
+        let error = core_compileProgram(&core, cString, true)
         if error.code != ErrorNone {
             return LowResNXError(error: error, sourceCode: sourceCode)
         }

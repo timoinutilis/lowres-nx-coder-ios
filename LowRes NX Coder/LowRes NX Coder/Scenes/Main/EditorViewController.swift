@@ -20,6 +20,8 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
     @IBOutlet weak var romLabel: UILabel!
     
     var didAppearAlready = false
+    var didOpen = false
+    var wasInConflictBefore = false
     var didRunProgramAlready = false
     var spacesToInsert: String?
     var shouldUpdateSideBar = false
@@ -84,6 +86,8 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
             document.open(completionHandler: { (success) in
                 self.activityIndicatorView.stopAnimating()
                 self.setBarButtonsEnabled(true)
+                self.didOpen = true
+                self.documentStateChanged()
             })
         } else {
             fatalError("unexpected document state")
@@ -215,33 +219,68 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
             sourceCodeTextView.isEditable = true
         }
         
-        if state.contains(.inConflict) {
-            requestFileVersions()
-        } else if state.contains(.savingError) {
-            showAlert(withTitle: "Saving Error", message: "Solution not yet implemented.", block: nil)
+        if (didOpen) {
+            if state.contains(.inConflict) {
+                if !wasInConflictBefore {
+                    requestFileVersions()
+                }
+            } else if state.contains(.savingError) {
+                showAlert(withTitle: "Saving Error", message: "Solution not yet implemented.", block: nil)
+            }
+            wasInConflictBefore = state.contains(.inConflict)
         }
     }
     
     func requestFileVersions() {
-        let alert = UIAlertController(title: "There is a conflict between different file versions. Which one should be used?", message: nil, preferredStyle: .actionSheet)
-        alert.addAction(UIAlertAction(title: "This local file", style: .default, handler: { (action) in
-            //TODO
-        }))
-        if let versions = NSFileVersion.otherVersionsOfItem(at: document.fileURL) {
-            for version in versions {
-                var title = version.localizedNameOfSavingComputer ?? "?"
-                if let date = version.modificationDate {
-                    title += "- \(date)"
-                }
-                alert.addAction(UIAlertAction(title: title, style: .default, handler: { (action) in
-                    //TODO
-                }))
-            }
+        guard let versions = NSFileVersion.otherVersionsOfItem(at: document.fileURL) else {
+            assertionFailure()
+            return
         }
+
+        let alert = UIAlertController(title: "There is a conflict between different file versions. Which one should be used?", message: nil, preferredStyle: .actionSheet)
+        
+        var title = "Local file"
+        if let date = document.fileModificationDate {
+            title += " (\(DateFormatter.localizedString(from: date, dateStyle: .short, timeStyle: .short)))"
+        }
+        alert.addAction(UIAlertAction(title: title, style: .default, handler: { [weak self] (action) in
+            self?.resolveConflict(nil)
+        }))
+        
+        for version in versions {
+            var title = version.localizedNameOfSavingComputer ?? "?"
+            if let date = version.modificationDate {
+                title += " (\(DateFormatter.localizedString(from: date, dateStyle: .short, timeStyle: .short)))"
+            }
+            alert.addAction(UIAlertAction(title: title, style: .default, handler: { [weak self] (action) in
+                self?.resolveConflict(version)
+            }))
+        }
+        
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action) in
             self.navigationController?.popViewController(animated: true)
         }))
+        
         present(alert, animated: true, completion: nil)
+    }
+    
+    func resolveConflict(_ selectedVersion: NSFileVersion?) {
+        do {
+            if let selectedVersion = selectedVersion {
+                let _ = try selectedVersion.replaceItem(at: document.fileURL, options: [])
+                document.revert(toContentsOf: document.fileURL, completionHandler: nil)
+            }
+            try NSFileVersion.removeOtherVersionsOfItem(at: self.document.fileURL)
+            if let conflictedVersions = NSFileVersion.unresolvedConflictVersionsOfItem(at: document.fileURL) {
+                for version in conflictedVersions {
+                    version.isResolved = true
+                }
+            }
+        } catch {
+            showAlert(withTitle: "Conflict Resolving Error", message: error.localizedDescription) {
+                self.navigationController?.popViewController(animated: true)
+            }
+        }
     }
     
     func updateStats() {

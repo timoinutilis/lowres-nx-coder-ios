@@ -98,7 +98,7 @@
     else if (   action == @selector(indentRight:)
              || action == @selector(indentLeft:) )
     {
-        return YES;
+        return self.isEditable;
     }
     else if (   action == @selector(copy:)
              || action == @selector(paste:)
@@ -187,6 +187,7 @@
 
 - (void)insertCheckedText:(NSString *)text
 {
+    if (!self.isEditable) return;
     if (!self.delegate || [self.delegate textView:self shouldChangeTextInRange:self.selectedRange replacementText:text])
     {
         [self insertText:text];
