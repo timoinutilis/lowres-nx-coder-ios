@@ -12,6 +12,7 @@ protocol CoreWrapperDelegate: class {
     func coreInterpreterDidFail(coreError: CoreError) -> Void
     func coreDiskDriveWillAccess(diskDataManager: UnsafeMutablePointer<DataManager>?) -> Bool
     func coreDiskDriveDidSave(diskDataManager: UnsafeMutablePointer<DataManager>?) -> Void
+    func coreDiskDriveIsFull(diskDataManager: UnsafeMutablePointer<DataManager>?) -> Void
     func coreControlsDidChange(controlsInfo: ControlsInfo) -> Void
     func persistentRamWillAccess(destination: UnsafeMutablePointer<UInt8>?, size: Int32) -> Void
     func persistentRamDidChange(_ data: Data) -> Void
@@ -34,6 +35,7 @@ class CoreWrapper: NSObject {
         coreDelegate.interpreterDidFail = interpreterDidFail
         coreDelegate.diskDriveWillAccess = diskDriveWillAccess
         coreDelegate.diskDriveDidSave = diskDriveDidSave
+        coreDelegate.diskDriveIsFull = diskDriveIsFull
         coreDelegate.controlsDidChange = controlsDidChange
         coreDelegate.persistentRamWillAccess = persistentRamWillAccess
         coreDelegate.persistentRamDidChange = persistentRamDidChange
@@ -96,6 +98,11 @@ func diskDriveWillAccess(context: UnsafeMutableRawPointer?, diskDataManager: Uns
 func diskDriveDidSave(context: UnsafeMutableRawPointer?, diskDataManager: UnsafeMutablePointer<DataManager>?) -> Void {
     let wrapper = Unmanaged<CoreWrapper>.fromOpaque(context!).takeUnretainedValue()
     wrapper.delegate?.coreDiskDriveDidSave(diskDataManager: diskDataManager)
+}
+
+func diskDriveIsFull(context: UnsafeMutableRawPointer?, diskDataManager: UnsafeMutablePointer<DataManager>?) -> Void {
+    let wrapper = Unmanaged<CoreWrapper>.fromOpaque(context!).takeUnretainedValue()
+    wrapper.delegate?.coreDiskDriveIsFull(diskDataManager: diskDataManager)
 }
 
 func controlsDidChange(context: UnsafeMutableRawPointer?, controlsInfo: ControlsInfo) -> Void {

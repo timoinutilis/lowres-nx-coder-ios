@@ -216,13 +216,32 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
         }
         
         if state.contains(.inConflict) {
-            removeDocumentStateChangedObserver()
-            showAlert(withTitle: "iCloud Conflict", message: "Solution not yet implemented.", block: {
-                self.navigationController?.popViewController(animated: true)
-            })
+            requestFileVersions()
         } else if state.contains(.savingError) {
             showAlert(withTitle: "Saving Error", message: "Solution not yet implemented.", block: nil)
         }
+    }
+    
+    func requestFileVersions() {
+        let alert = UIAlertController(title: "There is a conflict between different file versions. Which one should be used?", message: nil, preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "This local file", style: .default, handler: { (action) in
+            //TODO
+        }))
+        if let versions = NSFileVersion.otherVersionsOfItem(at: document.fileURL) {
+            for version in versions {
+                var title = version.localizedNameOfSavingComputer ?? "?"
+                if let date = version.modificationDate {
+                    title += "- \(date)"
+                }
+                alert.addAction(UIAlertAction(title: title, style: .default, handler: { (action) in
+                    //TODO
+                }))
+            }
+        }
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action) in
+            self.navigationController?.popViewController(animated: true)
+        }))
+        present(alert, animated: true, completion: nil)
     }
     
     func updateStats() {

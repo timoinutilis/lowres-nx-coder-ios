@@ -805,6 +805,10 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate,
         free(output)
     }
     
+    func coreDiskDriveIsFull(diskDataManager: UnsafeMutablePointer<DataManager>?) {
+        showAlert(withTitle: "Not Enough Space on Virtual Disk", message: nil) {}
+    }
+    
     func coreControlsDidChange(controlsInfo: ControlsInfo) {
         DispatchQueue.main.async {
             self.controlsInfo = controlsInfo
