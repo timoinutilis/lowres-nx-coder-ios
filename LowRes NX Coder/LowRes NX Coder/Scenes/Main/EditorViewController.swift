@@ -93,6 +93,11 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
             fatalError("unexpected document state")
         }
         
+        addKeyCommand(UIKeyCommand(input: "r", modifierFlags: .command, action: #selector(onRunTapped(_:)), discoverabilityTitle: "Run Program"))
+        addKeyCommand(UIKeyCommand(input: "f", modifierFlags: .command, action: #selector(onSearchTapped(_:)), discoverabilityTitle: "Find"))
+        addKeyCommand(UIKeyCommand(input: UIKeyCommand.inputUpArrow, modifierFlags: [.command, .alternate], action: #selector(onSubPrev), discoverabilityTitle: "Previous SUB"))
+        addKeyCommand(UIKeyCommand(input: UIKeyCommand.inputDownArrow, modifierFlags: [.command, .alternate], action: #selector(onSubNext), discoverabilityTitle: "Next SUB"))
+
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(applicationWillResignActive), name: UIApplication.willResignActiveNotification, object: nil)
@@ -300,11 +305,11 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
         }
     }
     
-    @objc func onRunTapped(_ sender: Any) {
+    @objc func onRunTapped(_ sender: Any?) {
         runProject()
     }
     
-    @objc func onSearchTapped(_ sender: Any) {
+    @objc func onSearchTapped(_ sender: Any?) {
         view.layoutIfNeeded()
         let wasVisible = (searchToolbarConstraint.constant == 0.0)
         if wasVisible {
@@ -444,6 +449,14 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
         let range = NSMakeRange(Int(error.coreError.sourcePosition), 0)
         sourceCodeTextView.selectedRange = range
         sourceCodeTextView.becomeFirstResponder()
+    }
+    
+    @objc func onSubNext() {
+        searchToolbar(searchToolbar, didSearch: "SUB ", backwards: false)
+    }
+    
+    @objc func onSubPrev() {
+        searchToolbar(searchToolbar, didSearch: "SUB ", backwards: true)
     }
     
     //MARK: - ProjectDocumentDelegate

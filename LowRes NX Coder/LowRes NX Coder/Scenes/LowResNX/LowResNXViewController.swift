@@ -89,6 +89,8 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate,
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        addKeyCommand(UIKeyCommand(input: UIKeyCommand.inputEscape, modifierFlags: [], action: #selector(onExitTapped(_:)), discoverabilityTitle: "Exit Program"))
+        
         startDate = Date()
         
         isSafeScaleEnabled = AppController.shared.isSafeScaleEnabled

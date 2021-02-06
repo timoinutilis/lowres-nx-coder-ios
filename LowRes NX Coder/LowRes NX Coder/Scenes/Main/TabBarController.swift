@@ -38,6 +38,11 @@ class TabBarController: UITabBarController {
         
         self.viewControllers = [explorerVC, helpVC, aboutVC, communityVC]
         
+        addKeyCommand(UIKeyCommand(input: "1", modifierFlags: .command, action: #selector(onTab1), discoverabilityTitle: "Show My Programs"))
+        addKeyCommand(UIKeyCommand(input: "2", modifierFlags: .command, action: #selector(onTab2), discoverabilityTitle: "Show Help"))
+        addKeyCommand(UIKeyCommand(input: "3", modifierFlags: .command, action: #selector(onTab3), discoverabilityTitle: "Show About"))
+        addKeyCommand(UIKeyCommand(input: "4", modifierFlags: .command, action: #selector(onTab4), discoverabilityTitle: "Show Community"))
+        
         NotificationCenter.default.addObserver(self, selector: #selector(didAddProgram), name: NSNotification.Name(rawValue: "ProjectManagerDidAddProgram"), object: nil)
     }
     
@@ -86,6 +91,22 @@ class TabBarController: UITabBarController {
         if self.selectedIndex != 0 {
             self.selectedIndex = 0;
         }
+    }
+    
+    @objc func onTab1() {
+        selectedIndex = 0
+    }
+    
+    @objc func onTab2() {
+        selectedIndex = 1
+    }
+    
+    @objc func onTab3() {
+        selectedIndex = 2
+    }
+    
+    @objc func onTab4() {
+        selectedIndex = 3
     }
     
 }
