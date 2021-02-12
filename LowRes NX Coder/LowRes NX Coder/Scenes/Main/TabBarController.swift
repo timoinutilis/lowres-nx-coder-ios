@@ -37,18 +37,25 @@ class TabBarController: UITabBarController {
         communityVC.tabBarItem = item(title: "Community", imageName: "community")
         
         self.viewControllers = [explorerVC, helpVC, aboutVC, communityVC]
-        
-        addKeyCommand(UIKeyCommand(input: "1", modifierFlags: .command, action: #selector(onTab1), discoverabilityTitle: "Show My Programs"))
-        addKeyCommand(UIKeyCommand(input: "2", modifierFlags: .command, action: #selector(onTab2), discoverabilityTitle: "Show Help"))
-        addKeyCommand(UIKeyCommand(input: "3", modifierFlags: .command, action: #selector(onTab3), discoverabilityTitle: "Show About"))
-        addKeyCommand(UIKeyCommand(input: "4", modifierFlags: .command, action: #selector(onTab4), discoverabilityTitle: "Show Community"))
-        
+                
         NotificationCenter.default.addObserver(self, selector: #selector(didAddProgram), name: NSNotification.Name(rawValue: "ProjectManagerDidAddProgram"), object: nil)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         AppController.shared.checkShowProgram()
+    }
+    
+    override var keyCommands: [UIKeyCommand]? {
+        if presentedViewController != nil {
+            return nil
+        }
+        return [
+            UIKeyCommand(input: "1", modifierFlags: .command, action: #selector(onTab1), discoverabilityTitle: "Show My Programs"),
+            UIKeyCommand(input: "2", modifierFlags: .command, action: #selector(onTab2), discoverabilityTitle: "Show Help"),
+            UIKeyCommand(input: "3", modifierFlags: .command, action: #selector(onTab3), discoverabilityTitle: "Show About"),
+            UIKeyCommand(input: "4", modifierFlags: .command, action: #selector(onTab4), discoverabilityTitle: "Show Community")
+        ]
     }
     
     func item(title: String, imageName: String) -> UITabBarItem {

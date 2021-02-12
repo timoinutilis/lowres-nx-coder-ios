@@ -19,6 +19,7 @@ let SUPPORTS_GAME_CONTROLLERS = true
 protocol LowResNXViewControllerDelegate: class {
     func didChangeDebugMode(enabled: Bool)
     func didEndWithError(_ error: LowResNXError)
+    func didEndWithKeyCommand()
 }
 
 protocol LowResNXViewControllerToolDelegate: class {
@@ -85,11 +86,15 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate,
     private var audioPlayer: LowResNXAudioPlayer!
     private var numOnscreenGamepads = 0
     private var keyboardTop: CGFloat?
-    
+    private var keyboardGamepad = CoreInputGamepad()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        addKeyCommand(UIKeyCommand(input: UIKeyCommand.inputEscape, modifierFlags: [], action: #selector(onExitTapped(_:)), discoverabilityTitle: "Exit Program"))
+        addKeyCommand(UIKeyCommand(input: "e", modifierFlags: .command, action: #selector(onExitTapped), discoverabilityTitle: "Exit Program"))
+        addKeyCommand(UIKeyCommand(input: "d", modifierFlags: .command, action: #selector(toggleDebugMode), discoverabilityTitle: "Debug Mode"))
+        addKeyCommand(UIKeyCommand(input: "s", modifierFlags: .command, action: #selector(shareScreenshot), discoverabilityTitle: "Share Screenshot"))
+        addKeyCommand(UIKeyCommand(input: "i", modifierFlags: .command, action: #selector(captureProgramIcon), discoverabilityTitle: "Capture Icon"))
         
         startDate = Date()
         
@@ -384,7 +389,17 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate,
         return error
     }
     
-    func captureProgramIcon() {
+    @objc func toggleDebugMode() {
+        if isDebugEnabled {
+            isDebugEnabled = false
+            delegate?.didChangeDebugMode(enabled: false)
+        } else {
+            isDebugEnabled = true
+            delegate?.didChangeDebugMode(enabled: true)
+        }
+    }
+    
+    @objc func captureProgramIcon() {
         guard let document = document else {
             assertionFailure()
             return
@@ -395,7 +410,7 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate,
         }
     }
     
-    func shareScreenshot() {
+    @objc func shareScreenshot() {
         if let cgImage = nxView.layer.contents as! CGImage? {
             let uiImage = UIImage(cgImage: cgImage)
             
@@ -557,9 +572,12 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate,
         
         if numOnscreenGamepads >= 1 {
             core_setInputGamepad(&coreWrapper.input, Int32(numGameControllers),
-                                 p1Dpad.isDirUp, p1Dpad.isDirDown, p1Dpad.isDirLeft, p1Dpad.isDirRight,
-                                 p1ButtonA.isHighlighted,
-                                 p1ButtonB.isHighlighted)
+                                 p1Dpad.isDirUp || keyboardGamepad.up,
+                                 p1Dpad.isDirDown || keyboardGamepad.down,
+                                 p1Dpad.isDirLeft || keyboardGamepad.left,
+                                 p1Dpad.isDirRight || keyboardGamepad.right,
+                                 p1ButtonA.isHighlighted || keyboardGamepad.buttonA,
+                                 p1ButtonB.isHighlighted || keyboardGamepad.buttonB)
         }
         
         if numOnscreenGamepads >= 2 {
@@ -594,6 +612,84 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate,
     
     override var canBecomeFirstResponder: Bool {
         return controlsInfo.keyboardMode == KeyboardModeOn
+    }
+    
+    override func pressesBegan(_ presses: Set<UIPress>, with event: UIPressesEvent?) {
+        var handled = false
+        for press in presses {
+            if let key = press.key {
+                
+                // key codes
+                switch key.keyCode {
+                case .keyboardLeftArrow:
+                    keyboardGamepad.left = true
+                    handled = true
+                case .keyboardRightArrow:
+                    keyboardGamepad.right = true
+                    handled = true
+                case .keyboardUpArrow:
+                    keyboardGamepad.up = true
+                    handled = true
+                case .keyboardDownArrow:
+                    keyboardGamepad.down = true
+                    handled = true
+                case .keyboardZ, .keyboardN:
+                    keyboardGamepad.buttonA = true
+                    handled = true
+                case .keyboardX, .keyboardM:
+                    keyboardGamepad.buttonB = true
+                    handled = true
+                default:
+                    break
+                }
+                
+                // key strings
+                switch key.charactersIgnoringModifiers {
+                case "p", "\r":
+                    coreWrapper?.input.pause = true
+                case UIKeyCommand.inputEscape:
+                    onExitTapped(UIKeyCommand())
+                default:
+                    break
+                }
+            }
+        }
+        if !handled {
+            super.pressesBegan(presses, with: event)
+        }
+    }
+        
+    override func pressesEnded(_ presses: Set<UIPress>, with event: UIPressesEvent?) {
+        var handled = false
+        for press in presses {
+            if let key = press.key {
+                switch key.keyCode {
+                case .keyboardLeftArrow:
+                    keyboardGamepad.left = false
+                    handled = true
+                case .keyboardRightArrow:
+                    keyboardGamepad.right = false
+                    handled = true
+                case .keyboardUpArrow:
+                    keyboardGamepad.up = false
+                    handled = true
+                case .keyboardDownArrow:
+                    keyboardGamepad.down = false
+                    handled = true
+                case .keyboardZ, .keyboardN:
+                    keyboardGamepad.buttonA = false
+                    handled = true
+                case .keyboardX, .keyboardM:
+                    keyboardGamepad.buttonB = false
+                    handled = true
+                default:
+                    break
+                }
+            }
+        }
+        if !handled {
+            super.pressesEnded(presses, with: event)
+        }
     }
     
     private func showError(_ error: Error) {
@@ -656,7 +752,11 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate,
         configureGameControllers()
     }
     
-    @IBAction func onExitTapped(_ sender: Any) {
+    @IBAction func onExitTapped(_ sender: Any?) {
+        if sender is UIKeyCommand {
+            delegate?.didEndWithKeyCommand()
+        }
+        
         let timeSinceStart = Date().timeIntervalSince(startDate)
         
         if timeSinceStart >= 60 && controlsInfo.isTouchEnabled {

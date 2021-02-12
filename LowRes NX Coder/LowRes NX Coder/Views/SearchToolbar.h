@@ -13,6 +13,7 @@
 @interface SearchToolbar : UIView
 
 @property (weak) id<SearchToolbarDelegate> searchDelegate;
+- (void)activate;
 
 @end
 

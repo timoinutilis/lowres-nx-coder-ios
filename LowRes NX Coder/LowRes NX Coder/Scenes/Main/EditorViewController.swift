@@ -28,6 +28,8 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
     var didAddProject = false
     var isDebugEnabled = false
     var runtimeError: LowResNXError?
+    var wasEditingActive = false
+    var shouldActivateEditing = false
     
     private var documentStateChangedObserver: Any?
     var document: ProjectDocument!
@@ -147,9 +149,12 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
             didAddProject = false
         } else if let error = runtimeError {
             goToError(error)
+        } else if shouldActivateEditing {
+            sourceCodeTextView.becomeFirstResponder()
         } else if didRunProgramAlready && AppController.shared.numRunProgramsThisVersion >= 20 {
             AppController.shared.requestAppStoreReview()
         }
+        shouldActivateEditing = false
         runtimeError = nil
     }
     
@@ -326,6 +331,9 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
             if wasVisible && self.searchToolbarConstraint.constant != 0.0 {
                 self.searchToolbar.isHidden = true
             }
+            if sender is UIKeyCommand && finished && self.searchToolbarConstraint.constant == 0.0 {
+                self.searchToolbar.activate()
+            }
         }
     }
     
@@ -411,6 +419,8 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
     }
     
     func runProject() {
+        wasEditingActive = sourceCodeTextView.isFirstResponder
+        
         updateDocument()
         
         guard let sourceCode = document.sourceCode else {
@@ -649,6 +659,12 @@ class EditorViewController: UIViewController, UITextViewDelegate, EditorTextView
     
     func didEndWithError(_ error: LowResNXError) {
         runtimeError = error
+    }
+    
+    func didEndWithKeyCommand() {
+        if wasEditingActive {
+            shouldActivateEditing = true
+        }
     }
     
 }

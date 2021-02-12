@@ -73,6 +73,11 @@
     }
 }
 
+- (void)activate
+{
+    [self.findTextField becomeFirstResponder];
+}
+
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
     self.activeTextField = textField;
