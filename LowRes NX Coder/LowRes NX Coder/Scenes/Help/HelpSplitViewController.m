@@ -7,7 +7,7 @@
 //
 
 #import "HelpSplitViewController.h"
-#import "HelpTextViewController.h"
+#import "LowRes_NX_Coder-Swift.h"
 
 @interface HelpSplitViewController () <UISplitViewControllerDelegate>
 

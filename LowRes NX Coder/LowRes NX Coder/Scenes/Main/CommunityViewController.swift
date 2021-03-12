@@ -16,7 +16,7 @@ class CommunityViewController: UIViewController {
     
     @IBAction func openAction(_ sender: Any) {
         let url = URL(string: "https://lowresnx.inutilis.com/programs.php")!
-        UIApplication.shared.openURL(url)
+        UIApplication.shared.open(url, options: [:], completionHandler: nil)
     }
     
 }

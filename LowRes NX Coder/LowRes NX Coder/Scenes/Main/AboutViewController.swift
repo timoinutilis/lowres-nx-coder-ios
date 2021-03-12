@@ -82,7 +82,7 @@ class AboutViewController: UITableViewController, MFMailComposeViewControllerDel
             present(mailViewController, animated: true, completion: nil)
         } else {
             let url = URL(string: "mailto:support@inutilis.com")!
-            UIApplication.shared.openURL(url)
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
         }
     }
         
@@ -123,7 +123,7 @@ class AboutViewController: UITableViewController, MFMailComposeViewControllerDel
             performSegue(withIdentifier: "Donate", sender: self)
             
         case .web(let url):
-            UIApplication.shared.openURL(url)
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
             tableView.deselectRow(at: indexPath, animated: true)
             
         case .contact:

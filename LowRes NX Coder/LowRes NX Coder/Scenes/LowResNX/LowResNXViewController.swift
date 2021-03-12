@@ -436,7 +436,7 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate,
             showAlert(withTitle: "Video Recording Currently Not Available", message: nil, block: nil)
             return
         }
-        RPScreenRecorder.shared().startRecording(withMicrophoneEnabled: false) { (error) in
+        RPScreenRecorder.shared().startRecording() { (error) in
             if let error = error {
                 DispatchQueue.main.async {
                     self.showAlert(withTitle: "Cannot Record Video", message: error.localizedDescription, block: nil)
@@ -541,7 +541,7 @@ class LowResNXViewController: UIViewController, UIKeyInput, CoreWrapperDelegate,
         }
         
         for gameController in GCController.controllers() {
-            if let gamepad = gameController.gamepad, gameController.playerIndex != .indexUnset {
+            if let gamepad = gameController.extendedGamepad, gameController.playerIndex != .indexUnset {
                 var up = gamepad.dpad.up.isPressed
                 var down = gamepad.dpad.down.isPressed
                 var left = gamepad.dpad.left.isPressed

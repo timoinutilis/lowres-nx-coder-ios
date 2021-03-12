@@ -27,7 +27,7 @@ import WebKit
     
     @objc let helpContent: HelpContent
     @objc let bootTime: CFAbsoluteTime
-    let webProcessPool = WKProcessPool()
+    private(set) lazy var webProcessPool = WKProcessPool()
     
     private var webSource: WebSource?
     

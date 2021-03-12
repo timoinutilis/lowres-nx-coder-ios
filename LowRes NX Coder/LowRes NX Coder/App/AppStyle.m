@@ -43,7 +43,6 @@
     
     // Backgrounds
     [BackgroundView appearance].backgroundColor = [AppStyle darkGrayColor];
-    [UIWebView appearance].backgroundColor = [UIColor whiteColor];
     [UITableView appearance].backgroundColor = [AppStyle darkGrayColor];
     [UITableViewCell appearance].backgroundColor = [AppStyle darkGrayColor];
     [UICollectionView appearance].backgroundColor = [AppStyle darkGrayColor];

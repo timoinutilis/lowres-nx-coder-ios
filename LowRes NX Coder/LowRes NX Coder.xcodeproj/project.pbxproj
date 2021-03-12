@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		92066F3525FB989F00AF0971 /* HelpTextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92066F3425FB989F00AF0971 /* HelpTextViewController.swift */; };
+		92066F5125FBAD6500AF0971 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92066F5025FBAD6500AF0971 /* WebKit.framework */; };
 		9208A7D1202120AF00D1EFF7 /* cmd_subs.c in Sources */ = {isa = PBXBuildFile; fileRef = 9208A7CF202120AE00D1EFF7 /* cmd_subs.c */; };
 		920E1B1A1F77FF7A00664382 /* ExplorerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 920E1B191F77FF7A00664382 /* ExplorerViewController.swift */; };
 		920E1B1C1F78000800664382 /* ExplorerItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 920E1B1B1F78000800664382 /* ExplorerItemCell.swift */; };
@@ -42,7 +44,6 @@
 		923AFD7E1F77ED52002F6A5B /* HelpMasterNavController.m in Sources */ = {isa = PBXBuildFile; fileRef = 926EB1FA1F7582A60048A6CF /* HelpMasterNavController.m */; };
 		923AFD7F1F77ED52002F6A5B /* HelpSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 926EB1F71F7582A50048A6CF /* HelpSplitViewController.m */; };
 		923AFD801F77ED52002F6A5B /* HelpTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 926EB1F31F7582A30048A6CF /* HelpTableViewController.m */; };
-		923AFD811F77ED52002F6A5B /* HelpTextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 926EB1F51F7582A40048A6CF /* HelpTextViewController.m */; };
 		923C311020587965003C89AC /* ToolsMenuConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 923C310F20587965003C89AC /* ToolsMenuConfiguration.swift */; };
 		924AB3F2205D986C00BCF977 /* IndexSideBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 924AB3F1205D986B00BCF977 /* IndexSideBar.swift */; };
 		925CC6B81F758A120059C230 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 925CC6B71F758A120059C230 /* StoreKit.framework */; };
@@ -138,6 +139,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		92066F3425FB989F00AF0971 /* HelpTextViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpTextViewController.swift; sourceTree = "<group>"; };
+		92066F5025FBAD6500AF0971 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		9208A7CF202120AE00D1EFF7 /* cmd_subs.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cmd_subs.c; sourceTree = "<group>"; };
 		9208A7D0202120AF00D1EFF7 /* cmd_subs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cmd_subs.h; sourceTree = "<group>"; };
 		920E1B191F77FF7A00664382 /* ExplorerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplorerViewController.swift; sourceTree = "<group>"; };
@@ -193,11 +196,9 @@
 		926EB1F21F7582A30048A6CF /* HelpMasterNavController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HelpMasterNavController.h; sourceTree = "<group>"; };
 		926EB1F31F7582A30048A6CF /* HelpTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HelpTableViewController.m; sourceTree = "<group>"; };
 		926EB1F41F7582A30048A6CF /* HelpContent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HelpContent.h; sourceTree = "<group>"; };
-		926EB1F51F7582A40048A6CF /* HelpTextViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HelpTextViewController.m; sourceTree = "<group>"; };
 		926EB1F61F7582A50048A6CF /* HelpContent.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HelpContent.m; sourceTree = "<group>"; };
 		926EB1F71F7582A50048A6CF /* HelpSplitViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HelpSplitViewController.m; sourceTree = "<group>"; };
 		926EB1F81F7582A50048A6CF /* HelpSplitViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HelpSplitViewController.h; sourceTree = "<group>"; };
-		926EB1F91F7582A60048A6CF /* HelpTextViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HelpTextViewController.h; sourceTree = "<group>"; };
 		926EB1FA1F7582A60048A6CF /* HelpMasterNavController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HelpMasterNavController.m; sourceTree = "<group>"; };
 		926EB1FB1F7582A60048A6CF /* HelpTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HelpTableViewController.h; sourceTree = "<group>"; };
 		926EB1FC1F7582A70048A6CF /* Help.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Help.storyboard; sourceTree = "<group>"; };
@@ -324,6 +325,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				92066F5125FBAD6500AF0971 /* WebKit.framework in Frameworks */,
 				925CC6B81F758A120059C230 /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -399,6 +401,7 @@
 		925CC6B61F758A120059C230 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				92066F5025FBAD6500AF0971 /* WebKit.framework */,
 				925CC6B91F758A360059C230 /* ReplayKit.framework */,
 				925CC6B71F758A120059C230 /* StoreKit.framework */,
 				922798922527251F004F6E1A /* WidgetKit.framework */,
@@ -449,8 +452,7 @@
 				926EB1F71F7582A50048A6CF /* HelpSplitViewController.m */,
 				926EB1FB1F7582A60048A6CF /* HelpTableViewController.h */,
 				926EB1F31F7582A30048A6CF /* HelpTableViewController.m */,
-				926EB1F91F7582A60048A6CF /* HelpTextViewController.h */,
-				926EB1F51F7582A40048A6CF /* HelpTextViewController.m */,
+				92066F3425FB989F00AF0971 /* HelpTextViewController.swift */,
 			);
 			path = Help;
 			sourceTree = "<group>";
@@ -722,7 +724,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1200;
-				LastUpgradeCheck = 1130;
+				LastUpgradeCheck = 1240;
 				ORGANIZATIONNAME = "Inutilis Software";
 				TargetAttributes = {
 					922798902527251F004F6E1A = {
@@ -808,7 +810,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				923AFD811F77ED52002F6A5B /* HelpTextViewController.m in Sources */,
 				920E1B371F78024E00664382 /* GORLabel.m in Sources */,
 				928402271F7448B500AC1466 /* interpreter_utils.c in Sources */,
 				9284021F1F7448B500AC1466 /* cmd_screen.c in Sources */,
@@ -854,6 +855,7 @@
 				92A7E14E223BCD0F00ED2487 /* URLRequest+Utils.swift in Sources */,
 				926075512216ECEC0017E04B /* DonationViewController.swift in Sources */,
 				9284021D1F7448B500AC1466 /* cmd_maths.c in Sources */,
+				92066F3525FB989F00AF0971 /* HelpTextViewController.swift in Sources */,
 				9208A7D1202120AF00D1EFF7 /* cmd_subs.c in Sources */,
 				920E1B321F78024500664382 /* NSString+Utils.m in Sources */,
 				926EB1DC1F757FAD0048A6CF /* UIViewController+LowResCoder.m in Sources */,
@@ -1013,7 +1015,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -1067,7 +1069,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";

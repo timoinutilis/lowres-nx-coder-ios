@@ -7,7 +7,6 @@
 //
 
 #import "HelpTableViewController.h"
-#import "HelpTextViewController.h"
 #import "HelpContent.h"
 #import "HelpSplitViewController.h"
 #import "LowRes_NX_Coder-Swift.h"
